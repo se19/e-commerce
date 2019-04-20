@@ -950,3 +950,75 @@ a {
 
 .height-auto {
   height: auto !important; }
+
+
+/* bill detail */
+.order_d_inner .details_item h4 {
+  padding-bottom: 12px;
+  color: #222222;
+  padding-left: 18px;
+}
+
+
+.order_d_inner .details_item .list {
+  padding-left: 18px;
+}
+
+@media (min-width: 767px) {
+  .order_d_inner .details_item .list {
+    margin-bottom: 30px;
+  }
+}
+
+.order_d_inner .details_item .list li {
+  margin-bottom: 8px;
+}
+
+.order_d_inner .details_item .list li:last-child {
+  margin-bottom: 0px;
+}
+
+.order_d_inner .details_item .list li a {
+
+}
+
+.order_d_inner .details_item .list li a span {
+  width: 150px;
+  display: inline-block;
+  color: #8c92a0;
+}
+
+
+.order_details_table {
+  background: #e5ecee;
+  padding: 30px;
+  margin-top: 75px;
+  color: #8c92a0;
+}
+
+@media (min-width: 767px) {
+  .order_details_table {
+    margin-top: 45px;
+  }
+}
+
+.order_details_table h2 {
+  color: #ee4266;
+  font-size: 18px;
+  padding-bottom: 15px;
+}
+
+.order_details_table .table tbody tr td h5 {
+  margin-bottom: 0px;
+  color: #8c92a0;
+}
+
+.order_details_table .table tbody tr td h4 {
+  font-size: 18px;
+  margin-bottom: 0px;
+  color: #ee4266;
+}
+
+.order_details_table .table tbody tr:last-child td p {
+  color: #ee4266;
+}

@@ -22,4 +22,12 @@ router.get('/shop', function(req, res, next) {
   res.render('shop', {});
 });
 
+router.get('/bill-detail', function(req, res, next) {
+  res.render('bill-detail', {});
+});
+
+router.get('/history-pay', function(req, res, next) {
+  res.render('history-pay', {});
+});
+
 module.exports = router;
