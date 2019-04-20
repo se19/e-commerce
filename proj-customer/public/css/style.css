@@ -1172,3 +1172,12 @@ a {
   }
 
 }
+
+/*login-register*/
+.card-login {
+  max-width: 30rem;
+}
+
+.card-register {
+  max-width: 40rem;
+}
