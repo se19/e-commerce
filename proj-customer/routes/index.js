@@ -42,4 +42,8 @@ router.get('/forgot', function(req, res, next) {
   res.render('forgot', {});
 });
 
+router.get('/update-info', function(req, res, next) {
+  res.render('update-info', {});
+});
+
 module.exports = router;

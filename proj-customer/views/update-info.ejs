@@ -1,0 +1,60 @@
+<%- include("header")-%>
+<div class="container">
+  <div class="view-account">
+    <section class="module">
+      <div class="module-inner">
+        <div class="side-bar">
+          <nav class="side-menu">
+            <ul class="nav">
+              <li class="active"><a href="#"><span class="fa fa-user"></span> Thông tin </a></li>
+              <li><a href="#"><span class="fa fa-credit-card"></span> Hóa đơn</a></li>
+            </ul>
+          </nav>
+        </div>
+        <div class="content-panel">
+          <form class="form-horizontal">
+            <fieldset class="fieldset">
+              <h3 class="fieldset-title">Thông tin cá nhân</h3>
+              <div class="form-group">
+                <label class="col-md-2 col-sm-3 col-xs-12 control-label">Họ và tên</label>
+                <div class="col-md-10 col-sm-9 col-xs-12">
+                  <input type="text" class="form-control" value="Nguyen Duy Thao">
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-md-2 col-sm-3 col-xs-12 control-label">Địa chỉ</label>
+                <div class="col-md-10 col-sm-9 col-xs-12">
+                  <input type="text" class="form-control" value="227 Nguyễn Văn Cừ, phường 4, quận 5">
+                </div>
+              </div>
+            </fieldset>
+
+            <fieldset class="fieldset mt-5">
+              <h3 class="fieldset-title">Thông tin liên lạc</h3>
+              <div class="form-group">
+                <label class="col-md-2  col-sm-3 col-xs-12 control-label">Email</label>
+                <div class="col-md-10 col-sm-9 col-xs-12">
+                  <input type="email" class="form-control" value="email@email.com">
+
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-md-2  col-sm-3 col-xs-12 control-label">Số điện thoại</label>
+                <div class="col-md-10 col-sm-9 col-xs-12">
+                  <input type="text" class="form-control" value="0123456789">
+                </div>
+              </div>
+            </fieldset>
+            <hr>
+            <div class="form-group">
+              <div class="col-md-10 col-sm-9 col-xs-12 col-md-push-2 col-sm-push-3 col-xs-push-0">
+                <input class="btn btn-primary" type="submit" value="Cập nhật">
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </section>
+  </div>
+</div>
+<%- include("footer") -%>
