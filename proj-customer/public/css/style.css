@@ -1022,3 +1022,153 @@ a {
 .order_details_table .table tbody tr:last-child td p {
   color: #ee4266;
 }
+
+
+/* update info */
+.view-account {
+  background: #FFFFFF;
+  margin-top: 20px;
+}
+
+.view-account .side-bar {
+  padding-top: 50px;
+  /*padding-bottom: 30px*/
+}
+
+.view-account .side-bar .side-menu {
+  text-align: center
+}
+
+.view-account .side-bar .side-menu .nav {
+  display: inline-block;
+  margin: 0 auto
+}
+
+.view-account .side-bar .side-menu .nav>li {
+  font-size: 14px;
+  margin-bottom: 0;
+  border-bottom: none;
+  display: inline-block;
+  float: left;
+  margin-right: 15px;
+  margin-bottom: 15px
+}
+
+.view-account .side-bar .side-menu .nav>li:last-child {
+  margin-right: 0
+}
+
+.view-account .side-bar .side-menu .nav>li>a {
+  display: inline-block;
+  color: #9499a3;
+  padding: 5px;
+  border-bottom: 2px solid transparent
+}
+
+.view-account .side-bar .side-menu .nav>li>a:hover {
+  color: #616670;
+  background: none
+}
+
+.view-account .side-bar .side-menu .nav>li.active a {
+  color: #ee4266;
+  border-bottom: 2px solid #ee4266;
+  background: none;
+  border-right: none
+}
+
+.view-account .content-panel {
+  padding: 10px
+}
+
+.view-account .content-panel .title {
+  margin-bottom: 15px;
+  margin-top: 0;
+  font-size: 18px
+}
+
+.view-account .content-panel .fieldset-title {
+  padding-bottom: 15px;
+  border-bottom: 1px solid #eaeaf1;
+  margin-bottom: 30px;
+  color: #616670;
+  font-size: 16px
+}
+
+@media (max-width:767px) {
+  .view-account .content-panel .title {
+    text-align: center
+  }
+
+  .view-account .content-panel .content-header-wrapper .actions {
+    position: static;
+    margin-bottom: 30px
+  }
+
+  .view-account .content-panel {
+    padding: 0
+  }
+}
+
+@media (min-width:768px) {
+  .view-account .side-bar .user-info {
+    padding: 0;
+    padding-bottom: 15px
+  }
+
+}
+
+@media (min-width:992px) {
+  .view-account .content-panel {
+    min-height: 800px;
+    border-left: 1px solid #f3f3f7;
+    margin-left: 200px
+  }
+
+  .view-account .side-bar {
+    position: absolute;
+    width: 200px;
+    min-height: 600px
+  }
+
+  .view-account .side-bar .user-info {
+    margin-bottom: 0;
+    border-bottom: none;
+    padding: 30px
+  }
+
+  .view-account .side-bar .side-menu {
+    text-align: left
+  }
+
+  .view-account .side-bar .side-menu .nav {
+    display: block
+  }
+
+  .view-account .side-bar .side-menu .nav>li {
+    display: block;
+    float: none;
+    font-size: 14px;
+    border-bottom: 1px solid #f3f3f7;
+    margin-right: 0;
+    margin-bottom: 0
+  }
+
+  .view-account .side-bar .side-menu .nav>li>a {
+    display: block;
+    color: #9499a3;
+    padding: 10px 15px;
+    padding-left: 30px
+  }
+
+  .view-account .side-bar .side-menu .nav>li>a:hover {
+    background: #f9f9fb
+  }
+
+  .view-account .side-bar .side-menu .nav>li.active a {
+    background: #f9f9fb;
+    border-right: 4px solid #ee4266;
+    border-bottom: none
+  }
+
+}
