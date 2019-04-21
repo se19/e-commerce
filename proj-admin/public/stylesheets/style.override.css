@@ -1,0 +1,22 @@
+.form-control {
+    height: auto;
+}
+
+.dataTables_length>label,
+.dataTables_filter>label {
+    display: inline-flex;
+    line-height: 30px;
+}
+
+.dataTables_length>label>*,
+.dataTables_filter>label>* {
+    margin: 0 5px;
+}
+
+#dataTable_filter {
+    float: right;
+}
+
+#dataTable_filter input {
+    margin-right: 0;
+}
