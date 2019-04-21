@@ -1181,3 +1181,224 @@ a {
 .card-register {
   max-width: 40rem;
 }
+
+
+/*-- Rating --*/
+/*-- Rating --*/
+.product_description_area {
+  padding-bottom: 120px;
+  margin-top: 60px;
+}
+
+.product_description_area .nav.nav-tabs li a.active {
+  background: #ee4266;
+  color: #fff;
+  border-color: #ee4266;
+}
+
+.product_description_area .tab-content {
+  border-left: 1px solid #eee;
+  border-right: 1px solid #eee;
+  border-bottom: 1px solid #eee;
+  padding: 30px;
+}
+
+.product_description_area .tab-content .total_rate .box_total {
+  background: #f9f9ff;
+  text-align: center;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+.product_description_area .tab-content .total_rate .box_total h4 {
+  color: #ee4266;
+  font-size: 48px;
+  font-weight: bold;
+}
+
+.product_description_area .tab-content .total_rate .box_total h5 {
+  color: #222222;
+  margin-bottom: 0px;
+  font-size: 24px;
+}
+
+.product_description_area .tab-content .total_rate .box_total h6 {
+  color: #222222;
+  margin-bottom: 0px;
+  font-size: 14px;
+  color: #777777;
+  font-weight: normal;
+}
+
+.product_description_area .tab-content .total_rate .rating_list {
+  margin-bottom: 30px;
+}
+
+.product_description_area .tab-content .total_rate .rating_list ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+.product_description_area .tab-content .total_rate .rating_list h3 {
+  font-size: 18px;
+  color: #222222;
+  font-family: "Roboto", sans-serif;
+  font-weight: 500;
+  margin-bottom: 10px;
+}
+
+.product_description_area .tab-content .total_rate .rating_list .list li a {
+  font-size: 14px;
+  color: #777777;
+}
+
+.product_description_area .tab-content .total_rate .rating_list .list li a i {
+  color: #ee4266;
+}
+
+.product_description_area .tab-content .total_rate .rating_list .list li:nth-child a i:last-child {
+  color: #eeeeee;
+}
+
+.product_description_area .tab-content .table {
+  margin-bottom: 0px;
+}
+
+.product_description_area .tab-content .table tbody tr td {
+  padding-left: 65px;
+  padding-right: 65px;
+  padding-top: 14px;
+  padding-bottom: 14px;
+}
+
+.product_description_area .tab-content .table tbody tr td h5 {
+  font-size: 14px;
+  font-family: "Roboto", sans-serif;
+  font-weight: normal;
+  color: #777777;
+  margin-bottom: 0px;
+  white-space: nowrap;
+}
+
+.product_description_area .tab-content .table tbody tr:first-child td {
+  border-top: 0px;
+}
+
+.review_item {
+  margin-bottom: 15px;
+}
+
+.review_item:last-child {
+  margin-bottom: 0px;
+}
+
+.review_item .media {
+  position: relative;
+}
+
+.review_item .media .d-flex {
+  padding-right: 15px;
+}
+
+.review_item .media .media-body {
+  vertical-align: middle;
+  align-self: center;
+}
+
+.review_item .media .media-body h4 {
+  margin-bottom: 0px;
+  font-size: 14px;
+  color: #222222;
+  font-family: "Roboto", sans-serif;
+  margin-bottom: 8px;
+}
+
+.review_item .media .media-body i {
+  color: #ee4266;
+}
+
+.review_item p {
+  padding-top: 10px;
+  margin-bottom: 0px;
+}
+
+.review_item.reply {
+  padding-left: 28px;
+}
+
+.review_box h4 {
+  font-size: 24px;
+  color: #222222;
+  margin-bottom: 20px;
+}
+
+.review_box p {
+  margin-bottom: 0px;
+  display: inline-block;
+}
+
+.review_box .list {
+  display: inline-block;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.review_box .list li {
+  display: inline-block;
+}
+
+.review_box .list li a {
+  display: inline-block;
+  color: #ee4266;
+}
+
+.review_box .contact_form {
+  margin-top: 15px;
+}
+
+.product-rating {
+  display: inline-block;
+  margin-right: 15px;
+  margin-bottom: 20px;
+}
+
+.product-rating i {
+  color: #ee4266;
+}
+
+
+.reviews-pagination {
+  text-align: center;
+}
+
+.reviews-pagination li {
+  display: inline-block;
+  width: 35px;
+  height: 35px;
+  line-height: 35px;
+  text-align: center;
+  background-color: #FFF;
+  border: 1px solid #E4E7ED;
+  -webkit-transition: 0.2s all;
+  transition: 0.2s all;
+}
+
+.reviews-pagination li:hover {
+  background-color: #E4E7ED;
+  color: #ee4266;
+}
+
+.reviews-pagination li.active {
+  background-color: #ee4266;
+  border-color: #ee4266;
+  color: #FFF;
+  cursor: default;
+}
+
+.reviews-pagination li a {
+  display: block;
+}
+
+/*-- Rating end --*/
+/*-- Rating end --*/
