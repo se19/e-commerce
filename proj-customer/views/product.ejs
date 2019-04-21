@@ -10,15 +10,38 @@
 <div class="site-section">
   <div class="container">
     <div class="row">
-      <div class="col-md-8">
-        <div class="item-entry">
-          <a href="#" class="product-item md-height bg-gray d-block">
+      <div class="col-md-7">
+        <!-- <div class="item-entry">
+          <a href="#" class="product-item md-height d-block">
             <img src="images/prod_2.png" alt="Image" class="img-fluid">
+          </a>
+        </div> -->
+        <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+          <div class="carousel-inner">
+            <div class="carousel-item active">
+              <img class="product-item" src="images/prod_1.png" alt="First slide">
+            </div>
+            <div class="carousel-item">
+              <img class="product-item" src="images/prod_2.png" alt="Second slide">
+            </div>
+            <div class="carousel-item">
+              <img class="product-item" src="images/prod_1.png" alt="Third slide">
+            </div>
+          </div>
+          <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+          </a>
+          <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
           </a>
         </div>
       </div>
+      <div class="col-md-1">
+      </div>
       <div class="col-md-4">
-        <h2 class="text-black">Gray Shoe</h2>
+        <h2 class="text-black">Túi xanh</h2>
         <div>
           <div class="product-rating">
             <i class="fas fa-star"></i>
@@ -27,21 +50,23 @@
             <i class="fas fa-star"></i>
             <i class="far fa-star"></i>
           </div>
-          <a class="review-link" href="#">10 Review(s) | Add your review</a>
+          <a class="review-link" href="#">10 Nhận xét</a>
         </div>
+        <!-- <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur, vitae, explicabo? Incidunt facere, natus soluta dolores iusto! Molestiae expedita veritatis nesciunt doloremque sint asperiores fuga voluptas, distinctio, aperiam, ratione dolore.</p>
+        <p class="mb-4">Ex numquam veritatis debitis minima quo error quam eos dolorum quidem perferendis. Quos repellat dignissimos minus, eveniet nam voluptatibus molestias omnis reiciendis perspiciatis illum hic magni iste, velit aperiam quis.</p> -->
         <p><strong class="text-primary h4">$50.00</strong></p>
         <div class="mb-1 d-flex">
           <label for="option-sm" class="d-flex mr-3 mb-3">
-            <span class="d-inline-block mr-2" style="top:-2px; position: relative;"><input type="radio" id="option-sm" name="shop-sizes"></span> <span class="d-inline-block text-black">S</span>
+            <span class="d-inline-block mr-2" style="top:-2px; position: relative;"><input type="radio" id="option-sm" name="shop-sizes"></span> <span class="d-inline-block text-black">Nhỏ</span>
           </label>
           <label for="option-md" class="d-flex mr-3 mb-3">
-            <span class="d-inline-block mr-2" style="top:-2px; position: relative;"><input type="radio" id="option-md" name="shop-sizes"></span> <span class="d-inline-block text-black">N</span>
+            <span class="d-inline-block mr-2" style="top:-2px; position: relative;"><input type="radio" id="option-md" name="shop-sizes"></span> <span class="d-inline-block text-black">Vừa</span>
           </label>
           <label for="option-lg" class="d-flex mr-3 mb-3">
-            <span class="d-inline-block mr-2" style="top:-2px; position: relative;"><input type="radio" id="option-lg" name="shop-sizes"></span> <span class="d-inline-block text-black">L</span>
+            <span class="d-inline-block mr-2" style="top:-2px; position: relative;"><input type="radio" id="option-lg" name="shop-sizes"></span> <span class="d-inline-block text-black">Lớn</span>
           </label>
           <label for="option-xl" class="d-flex mr-3 mb-3">
-            <span class="d-inline-block mr-2" style="top:-2px; position: relative;"><input type="radio" id="option-xl" name="shop-sizes"></span> <span class="d-inline-block text-black">XL</span>
+            <span class="d-inline-block mr-2" style="top:-2px; position: relative;"><input type="radio" id="option-xl" name="shop-sizes"></span> <span class="d-inline-block text-black">Rất lớn</span>
           </label>
         </div>
         <div class="mb-5">
@@ -60,19 +85,18 @@
     </div>
   </div>
 </div>
-
 <!--================Product Description Area =================-->
 <section class="product_description_area">
   <div class="container">
     <ul class="nav nav-tabs" id="myTab" role="tablist">
       <li class="nav-item">
-        <a class="nav-link" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Description</a>
+        <a class="nav-link" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Mô tả</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Specification</a>
+        <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Thông tin chi tiết</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link active" id="review-tab" data-toggle="tab" href="#review" role="tab" aria-controls="review" aria-selected="false">Reviews</a>
+        <a class="nav-link active" id="review-tab" data-toggle="tab" href="#review" role="tab" aria-controls="review" aria-selected="false">Nhận xét</a>
       </li>
     </ul>
     <div class="tab-content" id="myTabContent">
@@ -170,14 +194,14 @@
             <div class="row total_rate">
               <div class="col-6">
                 <div class="box_total">
-                  <h5>Overall</h5>
+                  <h5>Đánh giá trung bình</h5>
                   <h4>4.0</h4>
-                  <h6>(03 Reviews)</h6>
+                  <h6>(03 Nhận xét)</h6>
                 </div>
               </div>
               <div class="col-6">
                 <div class="rating_list">
-                  <h3>Based on 3 Reviews</h3>
+                  <!-- <h3>Based on 3 Reviews</h3> -->
                   <ul class="list">
                     <li>
                       <a href="#">5 Star
@@ -277,8 +301,8 @@
           </div>
           <div class="col-lg-6">
             <div class="review_box">
-              <h4>Add a Review</h4>
-              <p>Your Rating:</p>
+              <h4>Viết nhận xét</h4>
+              <p>Đánh giá của bạn:</p>
               <ul class="list">
                 <li>
                   <a href="#">
@@ -309,27 +333,27 @@
               <form class="row contact_form" action="contact_process.php" method="post" id="contactForm" novalidate="novalidate">
                 <div class="col-md-12">
                   <div class="form-group">
-                    <input type="text" class="form-control" id="name" name="name" placeholder="Your Full name">
+                    <input type="text" class="form-control" id="name" name="name" placeholder="Tên">
                   </div>
                 </div>
                 <div class="col-md-12">
                   <div class="form-group">
-                    <input type="email" class="form-control" id="email" name="email" placeholder="Email Address">
+                    <input type="email" class="form-control" id="email" name="email" placeholder="Email">
                   </div>
                 </div>
                 <div class="col-md-12">
                   <div class="form-group">
-                    <input type="text" class="form-control" id="number" name="number" placeholder="Phone Number">
+                    <input type="text" class="form-control" id="number" name="number" placeholder="Số điện thoại">
                   </div>
                 </div>
                 <div class="col-md-12">
                   <div class="form-group">
-                    <textarea class="form-control" name="message" id="message" rows="1" placeholder="Review"></textarea>
+                    <textarea class="form-control" name="message" id="message" rows="1" placeholder="Nhận xét"></textarea>
                   </div>
                 </div>
                 <div class="col-md-12 text-right">
                   <!-- <button type="submit" value="submit" class="btn submit_btn"></button> -->
-                  <p><a href="cart.html" class="buy-now btn btn-sm height-auto px-4 py-3 btn-primary">Submit Now</a></p>
+                  <p><a href="cart.html" class="buy-now btn btn-sm height-auto px-4 py-3 btn-primary">Gửi</a></p>
                 </div>
               </form>
             </div>
