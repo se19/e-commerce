@@ -8,9 +8,6 @@ router
       title: 'Express'
     });
   })
-  .get('/products', (req, res, next) => {
-    res.render('products');
-  })
   .get('/groups', (req, res, next) => {
     res.render('groups');
   })
