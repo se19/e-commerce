@@ -5,7 +5,7 @@ var router = express.Router();
 router
   .get('/', (req, res, next) => {
     res.render('index', {
-      title: 'Express'
+      title: 'Admin'
     });
   })
   .get('/groups', (req, res, next) => {
