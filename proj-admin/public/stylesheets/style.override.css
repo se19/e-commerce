@@ -20,3 +20,12 @@
 #dataTable_filter input {
     margin-right: 0;
 }
+
+
+.bootstrap-select>.dropdown-toggle {
+    line-height: 15px;
+}
+
+#products-table_wrapper {
+    padding: 0;
+}

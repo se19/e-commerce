@@ -1,0 +1,202 @@
+<link href="/stylesheets/admin-cast/bootstrap-select.min.css" rel="stylesheet" />
+<!-- PLUGINS STYLES-->
+<link href="/stylesheets/admin-cast/bootstrap-tagsinput.css" rel="stylesheet" />
+<!-- THEME STYLES-->
+<link href="/stylesheets/admin-cast/main.min.css" rel="stylesheet" />
+
+
+<div class="page-content fade-in-up">
+    <div class="ibox">
+        <div class="ibox-body">
+            <h5 class="font-strong mb-5">THÊM HÀNG HÓA</h5>
+            <div class="row">
+                <div class="col-lg-4">
+                    <div>
+                        <img src="/images/products/27.jpg" alt="image">
+                    </div>
+                    <div class="flexbox-b mt-4">
+                        <div class="mr-2">
+                            <img src="/images/products/28.jpg" alt="image">
+                        </div>
+                        <div class="mr-2">
+                            <img src="/images/products/29.jpg" alt="image">
+                        </div>
+                        <div class="mr-2">
+                            <img src="/images/products/30.jpg" alt="image">
+                        </div>
+                        <div class="file-input-plus file-input"><i class="fa fa-plus"></i>
+                            <input type="file">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-8">
+                    <form action="javascript:;">
+                        <div class="form-group mb-4">
+                            <label>Tên hàng hóa</label>
+                            <input class="form-control form-control-solid" type="text" placeholder="Nhập tên hàng hóa">
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6 form-group mb-4">
+                                <label>Danh mục</label>
+                                <div>
+                                    <div class="btn-group bootstrap-select show-tick form-control"><button type="button"
+                                            class="btn dropdown-toggle bs-placeholder btn-solid" data-toggle="dropdown"
+                                            role="button" title="Vui lòng chọn"><span
+                                                class="filter-option pull-left">Vui lòng chọn</span>&nbsp;<span
+                                                class="bs-caret"><span class="caret"></span></span></button>
+                                        <div class="dropdown-menu open" role="combobox">
+                                            <ul class="dropdown-menu inner" role="listbox" aria-expanded="false">
+                                                <li class="dropdown-header " data-optgroup="1"><span
+                                                        class="text">Electronics</span></li>
+                                                <li data-original-index="1" data-optgroup="1"><a tabindex="0"
+                                                        class="opt  " data-tokens="null" role="option"
+                                                        aria-disabled="false" aria-selected="false"><span
+                                                            class="text">TV &amp; Video</span><span
+                                                            class="glyphicon glyphicon-ok check-mark"></span></a></li>
+                                                <li data-original-index="2" data-optgroup="1"><a tabindex="0"
+                                                        class="opt  " data-tokens="null" role="option"
+                                                        aria-disabled="false" aria-selected="false"><span
+                                                            class="text">Cameras &amp; Photo</span><span
+                                                            class="glyphicon glyphicon-ok check-mark"></span></a></li>
+                                                <li data-original-index="3" data-optgroup="1"><a tabindex="0"
+                                                        class="opt  " data-tokens="null" role="option"
+                                                        aria-disabled="false" aria-selected="false"><span
+                                                            class="text">Computers &amp; Tablets</span><span
+                                                            class="glyphicon glyphicon-ok check-mark"></span></a></li>
+                                                <li class="divider" data-optgroup="2div"></li>
+                                                <li class="dropdown-header " data-optgroup="2"><span
+                                                        class="text">Fashion</span></li>
+                                                <li data-original-index="4" data-optgroup="2"><a tabindex="0"
+                                                        class="opt  " data-tokens="null" role="option"
+                                                        aria-disabled="false" aria-selected="false"><span
+                                                            class="text">Health &amp; Beauty</span><span
+                                                            class="glyphicon glyphicon-ok check-mark"></span></a></li>
+                                                <li data-original-index="5" data-optgroup="2"><a tabindex="0"
+                                                        class="opt  " data-tokens="null" role="option"
+                                                        aria-disabled="false" aria-selected="false"><span
+                                                            class="text">Shoes</span><span
+                                                            class="glyphicon glyphicon-ok check-mark"></span></a></li>
+                                                <li data-original-index="6" data-optgroup="2"><a tabindex="0"
+                                                        class="opt  " data-tokens="null" role="option"
+                                                        aria-disabled="false" aria-selected="false"><span
+                                                            class="text">Handbags &amp; Purses</span><span
+                                                            class="glyphicon glyphicon-ok check-mark"></span></a></li>
+                                                <li data-original-index="7" data-optgroup="2"><a tabindex="0"
+                                                        class="opt  " data-tokens="null" role="option"
+                                                        aria-disabled="false" aria-selected="false"><span
+                                                            class="text">Jewelry and Watches</span><span
+                                                            class="glyphicon glyphicon-ok check-mark"></span></a></li>
+                                            </ul>
+                                        </div>
+                                        <select class="selectpicker show-tick form-control" title="Please select"
+                                            data-style="btn-solid" tabindex="-98">
+                                            <option class="bs-title-option" value="">Please select</option>
+                                            <optgroup label="Electronics">
+                                                <option>TV &amp; Video</option>
+                                                <option>Cameras &amp; Photo</option>
+                                                <option>Computers &amp; Tablets</option>
+                                            </optgroup>
+                                            <optgroup label="Fashion">
+                                                <option>Health &amp; Beauty</option>
+                                                <option>Shoes</option>
+                                                <option>Handbags &amp; Purses</option>
+                                                <option>Jewelry and Watches</option>
+                                            </optgroup>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6 form-group mb-4">
+                                <label>Mã hàng hóa</label>
+                                <input class="form-control form-control-solid" type="text" placeholder="Mã hàng hóa">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-4 form-group mb-4">
+                                <label>Giá</label>
+                                <input class="form-control form-control-solid" type="number" placeholder="Giá">
+                            </div>
+                            <div class="col-sm-4 form-group mb-4">
+                                <label>Currency </label>
+                                <div>
+                                    <div class="btn-group bootstrap-select show-tick form-control"><button type="button"
+                                            class="btn dropdown-toggle bs-placeholder btn-solid" data-toggle="dropdown"
+                                            role="button" title="Please select"><span
+                                                class="filter-option pull-left">Please select</span>&nbsp;<span
+                                                class="bs-caret"><span class="caret"></span></span></button>
+                                        <div class="dropdown-menu open" role="combobox">
+                                            <ul class="dropdown-menu inner" role="listbox" aria-expanded="false">
+                                                <li data-original-index="1"><a tabindex="0" class="" data-tokens="null"
+                                                        role="option" aria-disabled="false" aria-selected="false"><span
+                                                            class="text">USD</span><span
+                                                            class="glyphicon glyphicon-ok check-mark"></span></a></li>
+                                                <li data-original-index="2"><a tabindex="0" class="" data-tokens="null"
+                                                        role="option" aria-disabled="false" aria-selected="false"><span
+                                                            class="text">Euro</span><span
+                                                            class="glyphicon glyphicon-ok check-mark"></span></a></li>
+                                                <li data-original-index="3"><a tabindex="0" class="" data-tokens="null"
+                                                        role="option" aria-disabled="false" aria-selected="false"><span
+                                                            class="text">Rouble</span><span
+                                                            class="glyphicon glyphicon-ok check-mark"></span></a></li>
+                                                <li data-original-index="4"><a tabindex="0" class="" data-tokens="null"
+                                                        role="option" aria-disabled="false" aria-selected="false"><span
+                                                            class="text">Pound</span><span
+                                                            class="glyphicon glyphicon-ok check-mark"></span></a></li>
+                                            </ul>
+                                        </div><select class="selectpicker show-tick form-control" title="Vui lòng chọn"
+                                            data-style="btn-solid" tabindex="-98">
+                                            <option class="bs-title-option" value="">Vui lòng chọn</option>
+                                            <option>USD</option>
+                                            <option>Euro</option>
+                                            <option>Rouble</option>
+                                            <option>Pound</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-4 form-group mb-4">
+                                <label>Số lượng còn</label>
+                                <input class="form-control form-control-solid" type="text" placeholder="Số lượng còn">
+                            </div>
+                        </div>
+                        <div class="form-group mb-4">
+                            <label>Thẻ</label>
+                            <div class="bootstrap-tagsinput form-control-solid"><input type="text" placeholder="Thẻ">
+                            </div><input class="tagsinput form-control form-control-solid" type="text" placeholder="Thẻ"
+                                value="Fashion,Dress,Broadway,Autumn collection,Shop" style="display: none;">
+                        </div>
+                        <div class="form-group mb-4">
+                            <label>Mô tả</label>
+                            <textarea class="form-control form-control-solid" rows="4" placeholder="Mô tả"></textarea>
+                        </div>
+                        <div class="form-group mb-4">
+                            <label class="ui-switch switch-icon mr-3 mb-0">
+                                <input type="checkbox" checked="">
+                                <span></span>
+                            </label>Khả dụng</div>
+                        <div class="text-right">
+                            <button class="btn btn-primary btn-air mr-2">Lưu</button>
+                            <button class="btn btn-secondary">Hủy bỏ</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- <script src="/javascripts/admin-cast/bootstrap-select.min.js"></script> -->
+<!-- PAGE LEVEL PLUGINS-->
+<script src="/javascripts/admin-cast/bootstrap-tagsinput.min.js"></script>
+<!-- CORE SCRIPTS-->
+<script src="/javascripts/admin-cast/app.min.js"></script>
+<!-- PAGE LEVEL SCRIPTS-->
+<script>
+    $(function () {
+        $('.tagsinput').tagsinput({
+            tagClass: 'label label-primary'
+        });
+        $('.tagsinput.form-control-solid').siblings('.bootstrap-tagsinput').addClass('form-control-solid');
+    });
+</script>

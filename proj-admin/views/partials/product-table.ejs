@@ -1,0 +1,219 @@
+<link href="/stylesheets/admin-cast/datatables.min.css" rel="stylesheet" />
+<link href="/stylesheets/admin-cast/bootstrap-select.min.css" rel="stylesheet" />
+<link href="/stylesheets/admin-cast/main.min.css" rel="stylesheet" />
+<script type="text/javascript" src="/javascripts/admin-cast/bootstrap-select.min.js"></script>
+
+
+<div class="page-content fade-in-up">
+    <div class="ibox">
+        <div class="ibox-body">
+            <h5 class="font-strong mb-4">Danh mục hàng hóa</h5>
+            <div class="flexbox mb-4">
+                <div class="flexbox">
+                    <label class="mb-0 mr-2">Loại:</label>
+                    <div class="btn-group bootstrap-select show-tick form-control" style="width: 150px;">
+                        <div class="dropdown-menu open" role="combobox"
+                            style="max-height: 342px; overflow: hidden; min-height: 1px; position: absolute; transform: translate3d(0px, 37px, 0px); top: 0px; left: 0px; will-change: transform;"
+                            x-placement="bottom-start">
+                            <ul class="dropdown-menu inner" role="listbox" aria-expanded="false"
+                                style="max-height: 342px; overflow-y: auto; min-height: 1px;">
+                                <li data-original-index="1"><a tabindex="0" class="" data-tokens="null" role="option"
+                                        aria-disabled="false" aria-selected="false"><span class="text">Tất
+                                            cả</span><span class="fa fa-check check-mark"></span></a></li>
+                                <li class="divider" data-optgroup="1div"></li>
+                                <li class="dropdown-header " data-optgroup="1"><span class="text">Đồ điện tử</span>
+                                </li>
+                                <li data-original-index="2" data-optgroup="1" class="selected"><a tabindex="0"
+                                        class="opt  " data-tokens="null" role="option" aria-disabled="false"
+                                        aria-selected="true"><span class="text">TV &amp; Video</span><span
+                                            class="fa fa-check check-mark"></span></a></li>
+                                <li data-original-index="3" data-optgroup="1"><a tabindex="0" class="opt  "
+                                        data-tokens="null" role="option" aria-disabled="false"
+                                        aria-selected="false"><span class="text">Cameras &amp; Photo</span><span
+                                            class="fa fa-check check-mark"></span></a></li>
+                                <li data-original-index="4" data-optgroup="1"><a tabindex="0" class="opt  "
+                                        data-tokens="null" role="option" aria-disabled="false"
+                                        aria-selected="false"><span class="text">Máy tính &amp; Tablets</span><span
+                                            class="fa fa-check check-mark"></span></a></li>
+                                <li class="divider" data-optgroup="2div"></li>
+                                <li class="dropdown-header " data-optgroup="2"><span class="text">Thời trang</span></li>
+                                <li data-original-index="5" data-optgroup="2"><a tabindex="0" class="opt  "
+                                        data-tokens="null" role="option" aria-disabled="false"
+                                        aria-selected="false"><span class="text">Sức khỏe &amp; Sắc đẹp</span><span
+                                            class="fa fa-check check-mark"></span></a></li>
+                                <li data-original-index="6" data-optgroup="2"><a tabindex="0" class="opt  "
+                                        data-tokens="null" role="option" aria-disabled="false"
+                                        aria-selected="false"><span class="text">Giày</span><span
+                                            class="fa fa-check check-mark"></span></a></li>
+                                <li data-original-index="7" data-optgroup="2"><a tabindex="0" class="opt  "
+                                        data-tokens="null" role="option" aria-disabled="false"
+                                        aria-selected="false"><span class="text">Túi xách</span><span
+                                            class="fa fa-check check-mark"></span></a></li>
+                                <li data-original-index="8" data-optgroup="2"><a tabindex="0" class="opt  "
+                                        data-tokens="null" role="option" aria-disabled="false"
+                                        aria-selected="false"><span class="text">Đồng hồ</span><span
+                                            class="fa fa-check check-mark"></span></a></li>
+                            </ul>
+                        </div>
+                        <select class="selectpicker show-tick form-control" id="type-filter" title="Please select"
+                            data-style="btn-solid" data-width="150px" tabindex="-98">
+                            <option class="bs-title-option" value="">Chọn danh mục</option>
+                            <option value="">Tất cả</option>
+                            <optgroup label="Điện tử">
+                                <option>TV &amp; Video</option>
+                                <option>Máy ảnh &amp; Photo</option>
+                                <option>Máy tính &amp; Tablets</option>
+                            </optgroup>
+                            <optgroup label="Thời trang">
+                                <option>Sức khỏe &amp; Làm đẹp</option>
+                                <option>Giày</option>
+                                <option>Túi xách</option>
+                                <option>Vòng đeo tay</option>
+                            </optgroup>
+                        </select>
+                    </div>
+                </div>
+                <div class="flexbox">
+                    <div class="input-group-icon input-group-icon-left mr-3">
+                        <span class="input-icon input-icon-right font-16"><i class="fa fa-search"></i></span>
+                        <input class="form-control form-control-rounded form-control-solid" id="key-search" type="text"
+                            placeholder="Tìm kiếm ...">
+                    </div>
+                    <a class="btn btn-rounded btn-primary btn-air" href="/products/add">Thêm hàng hóa</a>
+                </div>
+            </div>
+            <div class="table-responsive row m-0">
+                <div id="products-table_wrapper" class="dataTables_wrapper container-fluid dt-bootstrap4 no-footer">
+                    <table class="table table-bordered table-hover dataTable no-footer dtr-inline" id="products-table"
+                        role="grid" aria-describedby="products-table_info" style="width: 1268px;">
+                        <thead class="thead-default thead-lg">
+                            <tr role="row">
+                                <th class="sorting" tabindex="0" aria-controls="products-table" rowspan="1" colspan="1"
+                                    style="width: 27.5px;" aria-label="ID: activate to sort column ascending">Mã số</th>
+                                <th class="sorting" tabindex="0" aria-controls="products-table" rowspan="1" colspan="1"
+                                    style="width: 389.5px;" aria-label="Product: activate to sort column ascending">
+                                    Tên sản phẩm</th>
+                                <th class="sorting_desc" tabindex="0" aria-controls="products-table" rowspan="1"
+                                    colspan="1" style="width: 160.5px;"
+                                    aria-label="Category: activate to sort column ascending" aria-sort="descending">
+                                    Danh mục</th>
+                                <th class="sorting" tabindex="0" aria-controls="products-table" rowspan="1" colspan="1"
+                                    style="width: 55.5px;" aria-label="Price: activate to sort column ascending">Giá
+                                </th>
+                                <th class="sorting" tabindex="0" aria-controls="products-table" rowspan="1" colspan="1"
+                                    style="width: 46.5px;" aria-label="SKU: activate to sort column ascending">Mã hàng
+                                </th>
+                                <th class="sorting" tabindex="0" aria-controls="products-table" rowspan="1" colspan="1"
+                                    style="width: 90.5px;" aria-label="Quantity: activate to sort column ascending">
+                                    Số lượng</th>
+                                <th class="sorting" tabindex="0" aria-controls="products-table" rowspan="1" colspan="1"
+                                    style="width: 82.5px;" aria-label="Actions: activate to sort column ascending">
+                                    Chỉnh sửa</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+
+                            <tr role="row" class="odd">
+                                <td tabindex="0" class="">1</td>
+                                <td>
+                                    <img class="mr-3" src="images/products/13.jpg" alt="image" width="60">Samsung
+                                    UE32M5503AUX</td>
+                                <td class="sorting_1">TV &amp; Video</td>
+                                <td>$425</td>
+                                <td>F0522</td>
+                                <td>
+                                    <span class="badge badge-danger badge-pill">Hết hàng</span>
+                                </td>
+                                <td>
+                                    <a class="text-light mr-3 font-16" href="/"><i class="fa fa-pencil-alt"></i></a>
+                                    <a class="text-light font-16" href="/"><i class="fa fa-trash"></i></a>
+                                </td>
+                            </tr>
+                            <tr role="row" class="even">
+                                <td class="" tabindex="0">11</td>
+                                <td>
+                                    <img class="mr-3" src="images/products/10.jpg" alt="image" width="60">Sony
+                                    KD-43XE8096BR2</td>
+                                <td class="sorting_1">TV &amp; Video</td>
+                                <td>$1080</td>
+                                <td>C3258</td>
+                                <td>78</td>
+                                <td>
+                                    <a class="text-light mr-3 font-16" href="/"><i class="fa fa-pencil-alt"></i></a>
+                                    <a class="text-light font-16" href="/"><i class="fa fa-trash"></i></a>
+                                </td>
+                            </tr>
+                            <tr role="row" class="odd">
+                                <td class="" tabindex="0">16</td>
+                                <td>
+                                    <img class="mr-3" src="images/products/11.jpg" alt="image" width="60">Sony
+                                    KD-55XE8577SR2</td>
+                                <td class="sorting_1">TV &amp; Video</td>
+                                <td>$1706</td>
+                                <td>A3656</td>
+                                <td>
+                                    <span class="badge badge-warning badge-pill">Sắp hết hàng</span>
+                                </td>
+                                <td>
+                                    <a class="text-light mr-3 font-16" href="/"><i class="fa fa-pencil-alt"></i></a>
+                                    <a class="text-light font-16" href="/"><i class="fa fa-trash"></i></a>
+                                </td>
+                            </tr>
+                            <tr role="row" class="even">
+                                <td class="" tabindex="0">22</td>
+                                <td>
+                                    <img class="mr-3" src="images/products/12.jpg" alt="image" width="60">Sony
+                                    KD-43XE7096</td>
+                                <td class="sorting_1">TV &amp; Video</td>
+                                <td>$870</td>
+                                <td>T4578</td>
+                                <td>75</td>
+                                <td>
+                                    <a class="text-light mr-3 font-16" href="/"><i class="fa fa-pencil-alt"></i></a>
+                                    <a class="text-light font-16" href="/"><i class="fa fa-trash"></i></a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <!-- <div class="dataTables_info" id="products-table_info" role="status" aria-live="polite">Showing 1 to
+                        4 of 4 entries (filtered from 23 total entries)</div>
+                    <div class="dataTables_paginate paging_simple_numbers" id="products-table_paginate">
+                        <ul class="pagination">
+                            <li class="paginate_button page-item previous disabled" id="products-table_previous"><a
+                                    href="#" aria-controls="products-table" data-dt-idx="0" tabindex="0"
+                                    class="page-link">Previous</a></li>
+                            <li class="paginate_button page-item active"><a href="#" aria-controls="products-table"
+                                    data-dt-idx="1" tabindex="0" class="page-link">1</a></li>
+                            <li class="paginate_button page-item next disabled" id="products-table_next"><a href="#"
+                                    aria-controls="products-table" data-dt-idx="2" tabindex="0"
+                                    class="page-link">Next</a></li>
+                        </ul>
+                    </div> -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- End of Page Wrapper -->
+<script type="text/javascript" src="/javascripts/admin-cast/datatables.min.js"></script>
+<script type="text/javascript" src="/javascripts/admin-cast/app.min.js"></script>
+<script>
+    $(function () {
+        $('#products-table').DataTable({
+            pageLength: 10,
+            fixedHeader: true,
+            responsive: true,
+            "sDom": 'rtip',
+        });
+        var table = $('#products-table').DataTable();
+        $('#key-search').on('keyup', function () {
+            table.search(this.value).draw();
+        });
+        $('#type-filter').on('change', function () {
+            table.column(2).search($(this).val()).draw();
+        });
+    });
+</script>
