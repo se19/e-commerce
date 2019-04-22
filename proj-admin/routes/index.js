@@ -1,13 +1,17 @@
-var express = require('express');
-var router = express.Router();
+const express = require('express');
+const router = express.Router();
 
-/* GET home page. */
+const products = require('./products');
+const orders = require('./orders');
+
 router
   .get('/', (req, res, next) => {
     res.render('index', {
       title: 'Admin'
     });
   })
+  .use('/products', products)
+  .use('/orders', orders)
   .get('/groups', (req, res, next) => {
     res.render('groups');
   })
