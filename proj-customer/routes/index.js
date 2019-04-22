@@ -46,4 +46,8 @@ router.get('/update-info', function(req, res, next) {
   res.render('update-info', {});
 });
 
+router.get('/thankyou', function(req, res, next) {
+  res.render('thankyou', {});
+});
+
 module.exports = router;
