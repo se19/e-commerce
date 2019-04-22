@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <% include ../partials/head %>
+    <title>Đơn hàng</title>
+</head>
+
+<body>
+    <!-- Page Wrapper -->
+    <div id="wrapper">
+
+        <!-- Include sidebar partial -->
+        <% include ../partials/sidebar %>
+
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+
+            <!-- Main Content -->
+            <div id="content">
+
+                <!-- Include topbar partial -->
+                <% include ../partials/topbar %>
+
+                <!-- Page Content -->
+                <div class="page-content fade-in-up pl-4 pr-4">
+                    <div class="d-flex align-items-center mb-5">
+                        <span class="mr-4 static-badge badge-pink"><i class="fa fa-shopping-cart"></i></span>
+                        <div>
+                            <h5 class="font-strong">Đơn hàng #1253</h5>
+                            <div class="text-light">Emma Johnson, 17.05.2018, Đang vận chuyển</div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xl-7">
+                            <div class="ibox">
+                                <div class="ibox-body">
+                                    <h5 class="font-strong mb-5">Danh sách hàng mua</h5>
+                                    <table class="table table-bordered table-hover">
+                                        <thead class="thead-default thead-lg">
+                                            <tr>
+                                                <th>Mã số</th>
+                                                <th>Tên hàng hóa</th>
+                                                <th>Đơn giá</th>
+                                                <th>Số lượng</th>
+                                                <th>Thành tiền</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>3</td>
+                                                <td>
+                                                    <img class="mr-3" src="/images/products/10.jpg" alt="image"
+                                                        width="60" />Evaflor "Whisky"</td>
+                                                <td>$12</td>
+                                                <td>3</td>
+                                                <td>$36</td>
+                                            </tr>
+                                            <tr>
+                                                <td>4</td>
+                                                <td>
+                                                    <img class="mr-3" src="/images/products/11.jpg" alt="image"
+                                                        width="60" />Evaflor "Whisky Silver"</td>
+                                                <td>$12</td>
+                                                <td>4</td>
+                                                <td>$48</td>
+                                            </tr>
+                                            <tr>
+                                                <td>10</td>
+                                                <td>
+                                                    <img class="mr-3" src="/images/products/11.jpg" alt="image"
+                                                        width="60" />Women's bag Cromia "Luxor"</td>
+                                                <td>$430</td>
+                                                <td>1</td>
+                                                <td>$430</td>
+                                            </tr>
+                                            <tr>
+                                                <td>6</td>
+                                                <td>
+                                                    <img class="mr-3" src="/images/products/11.jpg" alt="image"
+                                                        width="60" />Women's wrist watch "Moschino"</td>
+                                                <td>$335</td>
+                                                <td>1</td>
+                                                <td>$335</td>
+                                            </tr>
+                                            <tr>
+                                                <td>13</td>
+                                                <td>
+                                                    <img class="mr-3" src="/images/products/11.jpg" alt="image"
+                                                        width="60" />Women's bag Cromia "Starlight"</td>
+                                                <td>$416</td>
+                                                <td>1</td>
+                                                <td>$416</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    <div class="d-flex justify-content-end">
+                                        <div class="text-right" style="width:300px;">
+                                            <div class="row mb-2">
+                                                <div class="col-6">Tổng tiền</div>
+                                                <div class="col-6">$1265</div>
+                                            </div>
+                                            <div class="row mb-2">
+                                                <div class="col-6">Giảm giá 5%:</div>
+                                                <div class="col-6">-$63.25</div>
+                                            </div>
+                                            <div class="row font-strong font-20">
+                                                <div class="col-6">Tổng thanh toán:</div>
+                                                <div class="col-6">
+                                                    <div class="h3 font-strong">$1201.71</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-5">
+                            <div class="ibox">
+                                <div class="ibox-body">
+                                    <h5 class="font-strong mb-4">Chi tiết đơn hàng</h5>
+                                    <div class="row align-items-center mb-3">
+                                        <div class="col-4 text-light">Tổng thanh toán</div>
+                                        <div class="col-8 h3 font-strong text-pink mb-0">$1201.71</div>
+                                    </div>
+                                    <div class="row align-items-center mb-3">
+                                        <div class="col-4 text-light">Ngày dặt hàng</div>
+                                        <div class="col-8">17.05.2018</div>
+                                    </div>
+                                    <div class="row align-items-center mb-3">
+                                        <div class="col-4 text-light">Ngày giao hàng</div>
+                                        <div class="col-8">17.05.2018</div>
+                                    </div>
+                                    <div class="row align-items-center mb-3">
+                                        <div class="col-4 text-light">Trạng thái</div>
+                                        <div class="col-8">
+                                            <span class="badge badge-success badge-pill">Đang vận chuyển</span>
+                                        </div>
+                                    </div>
+                                    <div class="row align-items-center">
+                                        <div class="col-4 text-light">Thanh toán</div>
+                                        <div class="col-8">
+                                            <img src="/images/logos/visa.png" alt="image" width="55" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="ibox">
+                                <div class="ibox-body">
+                                    <h5 class="font-strong mb-4">Thông tin khách hàng</h5>
+                                    <div class="row align-items-center mb-3">
+                                        <div class="col-4 text-light">Họ tên</div>
+                                        <div class="col-8">Emma Johnson</div>
+                                    </div>
+                                    <div class="row align-items-center mb-3">
+                                        <div class="col-4 text-light">Địa chỉ</div>
+                                        <div class="col-8">San Francisco, CA 94103 Market Street</div>
+                                    </div>
+                                    <div class="row align-items-center mb-3">
+                                        <div class="col-4 text-light">Email</div>
+                                        <div class="col-8">example@gmail.com</div>
+                                    </div>
+                                    <div class="row align-items-center">
+                                        <div class="col-4 text-light">Số điện thoại</div>
+                                        <div class="col-8">+380681478544</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- End Page Content -->
+
+            </div>
+            <!-- End Main Content -->
+
+            <!-- Footer -->
+            <!-- Include footer partial -->
+            <% include ../partials/footer %>
+            <!-- End Footer -->
+
+        </div>
+        <!-- End Content Wrapper -->
+
+
+    </div>
+    <!-- End of Page Wrapper -->
+
+    <link href="/stylesheets/admin-cast/datatables.min.css" rel="stylesheet" />
+    <link href="/stylesheets/admin-cast/main.min.css" rel="stylesheet" />
+    <script type="text/javascript" src="/javascripts/admin-cast/datatables.min.js"></script>
+    <script type="text/javascript" src="/javascripts/admin-cast/app.min.js"></script>
+</body>
+
+</html>
