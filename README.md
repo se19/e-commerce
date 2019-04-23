@@ -1,7 +1,7 @@
 # e-commerce
 * Demo:    
 
-    [https://webshop-admin.herokuapp.com/stalls](https://webshop-admin.herokuapp.com/stalls)
+    [https://webshop-admin.herokuapp.com/stalls](https://webshop-admin.herokuapp.com/)
             
     [https://webshop-client.herokuapp.com/](https://webshop-client.herokuapp.com/)
 * Dev environment: 
