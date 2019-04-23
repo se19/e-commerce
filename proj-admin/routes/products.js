@@ -9,5 +9,8 @@ router
   .get('/add', (req, res, next) => {
     res.render('add-product');
   })
+  .get('/info', (req, res, next) => {
+    res.render('add-product');
+  })
 
 module.exports = router;
