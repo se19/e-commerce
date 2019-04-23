@@ -8,8 +8,8 @@
     <div class="ibox">
         <div class="ibox-body">
             <h5 class="font-strong mb-4">DANH SÁCH ĐƠN HÀNG</h5>
-            <div class="flexbox mb-4">
-                <div class="flexbox">
+            <div class="flexbox row">
+                <div class="flexbox col-12 col-lg-auto mb-4">
                     <label class="mb-0 mr-2">Loại:</label>
                     <select class="selectpicker show-tick form-control" id="type-filter" title="Vui lòng chọn"
                         data-style="btn-solid" data-width="150px">
@@ -20,10 +20,13 @@
                         <option>Đã hủy</option>
                     </select>
                 </div>
-                <div class="input-group-icon input-group-icon-left mr-3">
-                    <span class="input-icon input-icon-right font-16"><i class="fa fa-search"></i></span>
-                    <input class="form-control form-control-rounded form-control-solid" id="key-search" type="text"
-                        placeholder="Tìm kiếm ...">
+                <div class="flexbox col-12 col-lg-auto row">
+                    <div class="input-group-icon input-group-icon-left mb-4 col-12 col-md-6 col-lg-auto">
+                        <span class="input-icon input-icon-right font-16"><i class="fa fa-search"></i></span>
+                        <input class="form-control form-control-rounded form-control-solid" id="key-search" type="text"
+                            placeholder="Tìm kiếm ...">
+                    </div>
+                    <a class="btn btn-rounded btn-primary btn-air mb-4 col-12 col-md-6 col-lg-auto" href="/accounts/add">Thêm đơn hàng</a>
                 </div>
             </div>
             <div class="table-responsive row">
