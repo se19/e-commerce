@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <% include ../partials/head %>
+    <title>Top cửa hàng</title>
+    <link href="/stylesheets/admin-cast/datatables.min.css" rel="stylesheet" />
+    <link href="/stylesheets/admin-cast/bootstrap-select.min.css" rel="stylesheet" />
+    <link href="/stylesheets/admin-cast/main.min.css" rel="stylesheet" />
+    <script type="text/javascript" src="/javascripts/admin-cast/bootstrap-select.min.js"></script>
+
+</head>
+
+<body>
+    <!-- Page Wrapper -->
+    <div id="wrapper">
+
+        <!-- Include sidebar partial -->
+        <% include ../partials/sidebar %>
+
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+
+            <!-- Main Content -->
+            <div id="content">
+
+                <!-- Include topbar partial -->
+                <% include ../partials/topbar %>
+
+                <!-- Page Content -->
+                <div class="container-fluid">
+
+                    <div class="page-content fade-in-up">
+                        <div class="ibox">
+                            <div class="ibox-body">
+                                <h5 class="font-strong mb-3">Top 10 gian hàng</h5>
+
+                                <div class="row">
+                                    <div class="col-md-6 m-auto">
+                                        <div class="ibox">
+                                            <div class="ibox-body">
+                                                <div id="flot_pie_chart" style="height:280px;"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="table-responsive row">
+                                    <table class="table table-bordered table-hover" id="accounts-table">
+                                        <thead class="thead-default thead-lg">
+                                            <tr>
+                                                <th>#</th>
+                                                <th>Mã gian hàng</th>
+                                                <th>Tên gian hàng</th>
+                                                <th>Doanh số</th>
+                                                <th class="no-sort">Chi tiết</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>1</td>
+                                                <td>#1254</td>
+                                                <td>#Gian hàng 4</td>
+                                                <td>100.000.000 vnđ</td>
+                                                <td></td>
+                                            </tr>
+                                            <tr>
+                                                <td>2</td>
+                                                <td>#1254</td>
+                                                <td>#Gian hàng 4</td>
+                                                <td>100.000.000 vnđ</td>
+                                                <td></td>
+                                            </tr>
+                                            <tr>
+                                                <td>3</td>
+                                                <td>#1254</td>
+                                                <td>#Gian hàng 4</td>
+                                                <td>100.000.000 vnđ</td>
+                                                <td></td>
+                                            </tr>
+                                            <tr>
+                                                <td>4</td>
+                                                <td>#1254</td>
+                                                <td>#Gian hàng 4</td>
+                                                <td>100.000.000 vnđ</td>
+                                                <td></td>
+                                            </tr>
+                                            <tr>
+                                                <td>5</td>
+                                                <td>#1254</td>
+                                                <td>#Gian hàng 4</td>
+                                                <td>100.000.000 vnđ</td>
+                                                <td></td>
+                                            </tr>
+                                            <tr>
+                                                <td>6</td>
+                                                <td>#1254</td>
+                                                <td>#Gian hàng 4</td>
+                                                <td>100.000.000 vnđ</td>
+                                                <td></td>
+                                            </tr>
+                                            <tr>
+                                                <td>7</td>
+                                                <td>#1254</td>
+                                                <td>#Gian hàng 4</td>
+                                                <td>100.000.000 vnđ</td>
+                                                <td></td>
+                                            </tr>
+                                            <tr>
+                                                <td>8</td>
+                                                <td>#1254</td>
+                                                <td>#Gian hàng 4</td>
+                                                <td>100.000.000 vnđ</td>
+                                                <td></td>
+                                            </tr>
+                                            <tr>
+                                                <td>9</td>
+                                                <td>#1254</td>
+                                                <td>#Gian hàng 4</td>
+                                                <td>100.000.000 vnđ</td>
+                                                <td></td>
+                                            </tr>
+                                            <tr>
+                                                <td>10</td>
+                                                <td>#1254</td>
+                                                <td>#Gian hàng 4</td>
+                                                <td>100.000.000 vnđ</td>
+                                                <td></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- END PAGE CONTENT-->
+
+
+                </div>
+                <!-- End Page Content -->
+
+            </div>
+            <!-- End Main Content -->
+
+            <!-- Footer -->
+            <!-- Include footer partial -->
+            <% include ../partials/footer %>
+            <!-- End Footer -->
+
+        </div>
+        <!-- End Content Wrapper -->
+
+
+    </div>
+    <!-- End of Page Wrapper -->
+
+    <!-- Include bottom partial -->
+    <% include ../partials/bottom %>
+
+    <script type="text/javascript" src="/javascripts/admin-cast/datatables.min.js"></script>
+    <script type="text/javascript" src="/javascripts/admin-cast/app.min.js"></script>
+    <script type="text/javascript" src="/javascripts/admin-cast/jquery.flot.js"></script>
+    <script type="text/javascript" src="/javascripts/admin-cast/jquery.flot.tooltip.min.js">
+    </script>
+    <script type="text/javascript" src="/javascripts/admin-cast/jquery.flot.pie.js">
+    </script>
+    <script>
+        $(function () {
+            $('#accounts-table').DataTable({
+                pageLength: 10,
+                fixedHeader: true,
+                responsive: true,
+                "sDom": 'rtip',
+                columnDefs: [{
+                    targets: 'no-sort',
+                    orderable: false
+                }]
+            });
+
+            var table = $('#accounts-table').DataTable();
+            $('#key-search').on('keyup', function () {
+                table.search(this.value).draw();
+            });
+            $('#type-filter').on('change', function () {
+                table.column(4).search($(this).val()).draw();
+            });
+        });
+
+        // Flot Pie Chart
+        $(function () {
+            var data = [{
+                label: "Gian hàng 1",
+                data: 33,
+                color: "#bdc3c7",
+            }, {
+                label: "Gian hàng 2",
+                data: 15,
+                color: "#43AEA8",
+            }, {
+                label: "Gian hàng 3",
+                data: 12,
+                color: "#ccc",
+            }, {
+                label: "Gian hàng 4",
+                data: 20,
+                color: "#ddd",
+            }, {
+                label: "Gian hàng 5",
+                data: 20,
+                color: "#eaeaea",
+            }];
+
+            var plotObj = $.plot($("#flot_pie_chart"), data, {
+                series: {
+                    pie: {
+                        show: true
+                    }
+                },
+                grid: {
+                    hoverable: true
+                },
+                tooltip: true,
+                tooltipOpts: {
+                    content: "%p.0%, %s", // show percentages, rounding to 2 decimal places
+                    shifts: {
+                        x: 360,
+                        y: 180
+                    },
+                    defaultTheme: false
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>

@@ -4,13 +4,10 @@ var router = express.Router();
 /* GET users listing. */
 router
   .get('/', (req, res, next) => {
-    res.render('products');
-  })
-  .get('/add', (req, res, next) => {
-    res.render('product-info');
+    res.render('accounts');
   })
   .get('/info', (req, res, next) => {
-    res.render('product-info');
+    res.render('account-info');
   })
 
 module.exports = router;

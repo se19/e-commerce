@@ -1,8 +1,11 @@
 const express = require('express');
 const router = express.Router();
 
+const stalls = require('./stalls');
 const products = require('./products');
 const orders = require('./orders');
+const accounts = require('./accounts');
+const bestSales = require('./best-sales');
 
 router
   .get('/', (req, res, next) => {
@@ -10,22 +13,17 @@ router
       title: 'Admin'
     });
   })
+  .use('/stalls', stalls)
   .use('/products', products)
   .use('/orders', orders)
+  .use('/accounts', accounts)
+  .use('/best-sales', bestSales)
+
   .get('/groups', (req, res, next) => {
     res.render('groups');
   })
-  .get('/orders', (req, res, next) => {
-    res.render('orders');
-  })
-  .get('/accounts', (req, res, next) => {
-    res.render('accounts');
-  })
   .get('/statistics', (req, res, next) => {
     res.render('statistics');
-  })
-  .get('/best-sales', (req, res, next) => {
-    res.render('best-sales');
   })
   .get('/login', (req, res, next) => {
     res.render('login');

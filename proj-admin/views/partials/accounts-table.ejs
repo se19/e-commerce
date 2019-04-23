@@ -8,8 +8,8 @@
     <div class="ibox">
         <div class="ibox-body">
             <h5 class="font-strong mb-4">DANH SÁCH TÀI KHOẢN</h5>
-            <div class="flexbox mb-4">
-                <div class="flexbox">
+            <div class="flexbox row">
+                <div class="flexbox col-12 col-lg-auto mb-4">
                     <label class="mb-0 mr-2">Loại:</label>
                     <select class="selectpicker show-tick form-control" id="type-filter" title="Vui lòng chọn"
                         data-style="btn-solid" data-width="150px">
@@ -19,14 +19,17 @@
                         <option>Đã khóa</option>
                     </select>
                 </div>
-                <div class="input-group-icon input-group-icon-left mr-3">
-                    <span class="input-icon input-icon-right font-16"><i class="fa fa-search"></i></span>
-                    <input class="form-control form-control-rounded form-control-solid" id="key-search" type="text"
-                        placeholder="Tìm kiếm ...">
+                <div class="flexbox col-12 col-lg-auto row">
+                    <div class="input-group-icon input-group-icon-left mb-4 col-12 col-md-6 col-lg-auto">
+                        <span class="input-icon input-icon-right font-16"><i class="fa fa-search"></i></span>
+                        <input class="form-control form-control-rounded form-control-solid" id="key-search" type="text"
+                            placeholder="Tìm kiếm ...">
+                    </div>
+                    <a class="btn btn-rounded btn-primary btn-air mb-4 col-12 col-md-6 col-lg-auto" href="/accounts/add">Thêm tài khoản</a>
                 </div>
             </div>
             <div class="table-responsive row">
-                <table class="table table-bordered table-hover" id="orders-table">
+                <table class="table table-bordered table-hover" id="accounts-table">
                     <thead class="thead-default thead-lg">
                         <tr>
                             <th>#</th>
@@ -41,7 +44,7 @@
                         <tr>
                             <td>1</td>
                             <td>
-                                <a href="/orders/info">#1254</a>
+                                <a href="/accounts/info">#1254</a>
                             </td>
                             <td>Becky Brooks</td>
                             <td>
@@ -49,13 +52,14 @@
                             </td>
                             <td>17.05.2018</td>
                             <td>
-                                <a class="text-muted font-16" href="/"><i class="fa fa-trash"></i></a>
+                                <a class="text-light mr-3 font-16" href="/accounts/info"><i class="fa fa-pencil-alt"></i></a>
+                                <a class="text-muted font-16" href="/"><i class="fa fa-user-lock"></i></a>
                             </td>
                         </tr>
                         <tr>
                             <td>2</td>
                             <td>
-                                <a href="/orders/info">#1253</a>
+                                <a href="/accounts/info">#1253</a>
                             </td>
                             <td>Emma Johnson</td>
                             <td>
@@ -63,13 +67,14 @@
                             </td>
                             <td>17.05.2018</td>
                             <td>
-                                <a class="text-muted font-16" href="/"><i class="fa fa-trash"></i></a>
+                                <a class="text-light mr-3 font-16" href="/accounts/info"><i class="fa fa-pencil-alt"></i></a>
+                                <a class="text-muted font-16" href="/"><i class="fa fa-user-lock"></i></a>
                             </td>
                         </tr>
                         <tr>
                             <td>3</td>
                             <td>
-                                <a href="/orders/info">#1252</a>
+                                <a href="/accounts/info">#1252</a>
                             </td>
                             <td>Noah Williams</td>
                             <td>
@@ -77,13 +82,14 @@
                             </td>
                             <td>16.05.2018</td>
                             <td>
-                                <a class="text-muted font-16" href="/"><i class="fa fa-trash"></i></a>
+                                <a class="text-light mr-3 font-16" href="/accounts/info"><i class="fa fa-pencil-alt"></i></a>
+                                <a class="text-muted font-16" href="/"><i class="fa fa-user-lock"></i></a>
                             </td>
                         </tr>
                         <tr>
                             <td>4</td>
                             <td>
-                                <a href="/orders/info">#1251</a>
+                                <a href="/accounts/info">#1251</a>
                             </td>
                             <td>Sophia Jones</td>
                             <td>
@@ -91,13 +97,14 @@
                             </td>
                             <td>15.05.2018</td>
                             <td>
-                                <a class="text-muted font-16" href="/"><i class="fa fa-trash"></i></a>
+                                <a class="text-light mr-3 font-16" href="/accounts/info"><i class="fa fa-pencil-alt"></i></a>
+                                <a class="text-muted font-16" href="/"><i class="fa fa-user-lock"></i></a>
                             </td>
                         </tr>
                         <tr>
                             <td>5</td>
                             <td>
-                                <a href="/orders/info">#1250</a>
+                                <a href="/accounts/info">#1250</a>
                             </td>
                             <td>Jacob Brown</td>
                             <td>
@@ -105,13 +112,14 @@
                             </td>
                             <td>12.05.2018</td>
                             <td>
-                                <a class="text-muted font-16" href="/"><i class="fa fa-trash"></i></a>
+                                <a class="text-light mr-3 font-16" href="/accounts/info"><i class="fa fa-pencil-alt"></i></a>
+                                <a class="text-muted font-16" href="/"><i class="fa fa-user-lock"></i></a>
                             </td>
                         </tr>
                         <tr>
                             <td>6</td>
                             <td>
-                                <a href="/orders/info">#1249</a>
+                                <a href="/accounts/info">#1249</a>
                             </td>
                             <td>James Davis</td>
                             <td>
@@ -119,13 +127,14 @@
                             </td>
                             <td>12.05.2018</td>
                             <td>
-                                <a class="text-muted font-16" href="/"><i class="fa fa-trash"></i></a>
+                                <a class="text-light mr-3 font-16" href="/accounts/info"><i class="fa fa-pencil-alt"></i></a>
+                                <a class="text-muted font-16" href="/"><i class="fa fa-user-lock"></i></a>
                             </td>
                         </tr>
                         <tr>
                             <td>7</td>
                             <td>
-                                <a href="/orders/info">#1248</a>
+                                <a href="/accounts/info">#1248</a>
                             </td>
                             <td>Ava Wilson</td>
                             <td>
@@ -133,13 +142,14 @@
                             </td>
                             <td>11.05.2018</td>
                             <td>
-                                <a class="text-muted font-16" href="/"><i class="fa fa-trash"></i></a>
+                                <a class="text-light mr-3 font-16" href="/accounts/info"><i class="fa fa-pencil-alt"></i></a>
+                                <a class="text-muted font-16" href="/"><i class="fa fa-user-lock"></i></a>
                             </td>
                         </tr>
                         <tr>
                             <td>8</td>
                             <td>
-                                <a href="/orders/info">#1247</a>
+                                <a href="/accounts/info">#1247</a>
                             </td>
                             <td>Ethan Taylor</td>
                             <td>
@@ -147,13 +157,14 @@
                             </td>
                             <td>10.05.2018</td>
                             <td>
-                                <a class="text-muted font-16" href="/"><i class="fa fa-trash"></i></a>
+                                <a class="text-light mr-3 font-16" href="/accounts/info"><i class="fa fa-pencil-alt"></i></a>
+                                <a class="text-muted font-16" href="/"><i class="fa fa-user-lock"></i></a>
                             </td>
                         </tr>
                         <tr>
                             <td>9</td>
                             <td>
-                                <a href="/orders/info">#1246</a>
+                                <a href="/accounts/info">#1246</a>
                             </td>
                             <td>Emily Thomas</td>
                             <td>
@@ -161,13 +172,14 @@
                             </td>
                             <td>10.05.2018</td>
                             <td>
-                                <a class="text-muted font-16" href="/"><i class="fa fa-trash"></i></a>
+                                <a class="text-light mr-3 font-16" href="/accounts/info"><i class="fa fa-pencil-alt"></i></a>
+                                <a class="text-muted font-16" href="/"><i class="fa fa-user-lock"></i></a>
                             </td>
                         </tr>
                         <tr>
                             <td>10</td>
                             <td>
-                                <a href="/orders/info">#1245</a>
+                                <a href="/accounts/info">#1245</a>
                             </td>
                             <td>Noah Moore</td>
                             <td>
@@ -175,13 +187,14 @@
                             </td>
                             <td>09.05.2018</td>
                             <td>
-                                <a class="text-muted font-16" href="/"><i class="fa fa-trash"></i></a>
+                                <a class="text-light mr-3 font-16" href="/accounts/info"><i class="fa fa-pencil-alt"></i></a>
+                                <a class="text-muted font-16" href="/"><i class="fa fa-user-lock"></i></a>
                             </td>
                         </tr>
                         <tr>
                             <td>11</td>
                             <td>
-                                <a href="/orders/info">#1244</a>
+                                <a href="/accounts/info">#1244</a>
                             </td>
                             <td>Mia Anderson</td>
                             <td>
@@ -189,13 +202,14 @@
                             </td>
                             <td>08.05.2018</td>
                             <td>
-                                <a class="text-muted font-16" href="/"><i class="fa fa-trash"></i></a>
+                                <a class="text-light mr-3 font-16" href="/accounts/info"><i class="fa fa-pencil-alt"></i></a>
+                                <a class="text-muted font-16" href="/"><i class="fa fa-user-lock"></i></a>
                             </td>
                         </tr>
                         <tr>
                             <td>12</td>
                             <td>
-                                <a href="/orders/info">#1243</a>
+                                <a href="/accounts/info">#1243</a>
                             </td>
                             <td>Amelia Harris</td>
                             <td>
@@ -203,13 +217,14 @@
                             </td>
                             <td>08.05.2018</td>
                             <td>
-                                <a class="text-muted font-16" href="/"><i class="fa fa-trash"></i></a>
+                                <a class="text-light mr-3 font-16" href="/accounts/info"><i class="fa fa-pencil-alt"></i></a>
+                                <a class="text-muted font-16" href="/"><i class="fa fa-user-lock"></i></a>
                             </td>
                         </tr>
                         <tr>
                             <td>13</td>
                             <td>
-                                <a href="/orders/info">#1242</a>
+                                <a href="/accounts/info">#1242</a>
                             </td>
                             <td>Sofia Jackson</td>
                             <td>
@@ -217,7 +232,8 @@
                             </td>
                             <td>07.05.2018</td>
                             <td>
-                                <a class="text-muted font-16" href="/"><i class="fa fa-trash"></i></a>
+                                <a class="text-light mr-3 font-16" href="/accounts/info"><i class="fa fa-pencil-alt"></i></a>
+                                <a class="text-muted font-16" href="/"><i class="fa fa-user-lock"></i></a>
                             </td>
                         </tr>
                     </tbody>
@@ -235,7 +251,7 @@
 
 <script>
     $(function () {
-        $('#orders-table').DataTable({
+        $('#accounts-table').DataTable({
             pageLength: 10,
             fixedHeader: true,
             responsive: true,
@@ -246,7 +262,7 @@
             }]
         });
 
-        var table = $('#orders-table').DataTable();
+        var table = $('#accounts-table').DataTable();
         $('#key-search').on('keyup', function () {
             table.search(this.value).draw();
         });
