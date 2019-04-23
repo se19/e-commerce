@@ -165,7 +165,7 @@ $(function(){
     // Visitors Screens Chart
 
     var doughnutData = {
-        labels: ["Desktop","Mobile","Tablet" ],
+        labels: ["Đồ điện tử","Thời trang","Thực phẩm" ],
         datasets: [{
             data: [50,20,30],
             backgroundColor: ["#5c6bc0","#18c5a9","#ff4081"],
