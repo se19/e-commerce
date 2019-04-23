@@ -4,6 +4,8 @@
 <head>
   <% include ../partials/head %>
   <title><%= title %></title>
+
+  <link href="/stylesheets/admin-cast/main.min.css" rel="stylesheet" type="text/css">
 </head>
 
 <body>
@@ -24,216 +26,398 @@
         <!-- Page Content -->
         <div class="container-fluid">
 
-          <!-- Page Heading -->
-          <div class="d-sm-flex align-items-center justify-content-between mb-4">
-            <h1 class="h3 mb-0 text-gray-800">Bảng điều khiển</h1>
-            <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
-                class="fas fa-download fa-sm text-white-50"></i> Tải báo cáo chi tiết</a>
-          </div>
-
-          <!-- Content Row -->
-
-          <div class="row">
-
-            <!-- Area Chart -->
-            <div class="col-xl-8 col-lg-7">
-              <div class="card shadow mb-4">
-                <!-- Card Header - Dropdown -->
-                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                  <h6 class="m-0 font-weight-bold text-primary">Mức độ tăng trưởng</h6>
-                  <div class="dropdown no-arrow">
-                    <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown"
-                      aria-haspopup="true" aria-expanded="false">
-                      <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                    </a>
-                    <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
-                      aria-labelledby="dropdownMenuLink">
-                      <div class="dropdown-header">Dropdown Header:</div>
-                      <a class="dropdown-item" href="#">Action</a>
-                      <a class="dropdown-item" href="#">Another action</a>
-                      <div class="dropdown-divider"></div>
-                      <a class="dropdown-item" href="#">Something else here</a>
+          <div class="page-content fade-in-up">
+            <div class="row mb-4">
+              <div class="col-lg-4 col-md-6">
+                <div class="card mb-4">
+                  <div class="card-body flexbox-b">
+                    <div class="easypie mr-4" data-percent="73" data-bar-color="#18C5A9" data-size="80"
+                      data-line-width="8">
+                      <span class="easypie-data text-success" style="font-size:32px;"><i class="la la-users"></i></span>
+                    </div>
+                    <div>
+                      <h3 class="font-strong text-success">18</h3>
+                      <div class="text-muted">GIAN HÀNG</div>
                     </div>
                   </div>
                 </div>
-                <!-- Card Body -->
-                <div class="card-body">
-                  <div class="chart-area">
-                    <canvas id="myAreaChart"></canvas>
+              </div>
+              <div class="col-lg-4 col-md-6">
+                <div class="card mb-4">
+                  <div class="card-body flexbox-b">
+                    <div class="easypie mr-4" data-percent="42" data-bar-color="#5c6bc0" data-size="80"
+                      data-line-width="8">
+                      <span class="easypie-data font-26 text-primary"><i class="ti-world"></i></span>
+                    </div>
+                    <div>
+                      <h3 class="font-strong text-primary">644</h3>
+                      <div class="text-muted">KHÁCH HÀNG</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-4 col-md-6">
+                <div class="card mb-4">
+                  <div class="card-body flexbox-b">
+                    <div class="easypie mr-4" data-percent="70" data-bar-color="#ff4081" data-size="80"
+                      data-line-width="8">
+                      <span class="easypie-data text-pink" style="font-size:32px;"><i class="la la-tags"></i></span>
+                    </div>
+                    <div>
+                      <h3 class="font-strong text-pink">210</h3>
+                      <div class="text-muted">ĐƠN ĐẶT HÀNG</div>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
-
-            <!-- Pie Chart -->
-            <div class="col-xl-4 col-lg-5">
-              <div class="card shadow mb-4">
-                <!-- Card Header - Dropdown -->
-                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                  <h6 class="m-0 font-weight-bold text-primary">Doanh thu</h6>
-                  <div class="dropdown no-arrow">
-                    <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown"
-                      aria-haspopup="true" aria-expanded="false">
-                      <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                    </a>
-                    <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
-                      aria-labelledby="dropdownMenuLink">
-                      <div class="dropdown-header">Dropdown Header:</div>
-                      <a class="dropdown-item" href="#">Action</a>
-                      <a class="dropdown-item" href="#">Another action</a>
-                      <div class="dropdown-divider"></div>
-                      <a class="dropdown-item" href="#">Something else here</a>
+            <div class="row">
+              <div class="col-xl-8">
+                <div class="ibox">
+                  <div class="ibox-body">
+                    <div class="d-flex justify-content-between mb-4">
+                      <div>
+                        <h3 class="m-0">
+                          <a href="/statistics">DOANH SỐ</a>
+                        </h3>
+                      </div>
+                      <ul class="nav nav-pills nav-pills-rounded nav-pills-air" id="chart_tabs">
+                        <li class="nav-item ml-1">
+                          <a class="nav-link active" data-toggle="tab" data-id="1" href="javascript:;">Trong Tuần</a>
+                        </li>
+                        <li class="nav-item ml-1">
+                          <a class="nav-link" data-toggle="tab" data-id="2" href="javascript:;">Trong Tháng</a>
+                        </li>
+                        <li class="nav-item ml-1">
+                          <a class="nav-link" data-toggle="tab" data-id="3" href="javascript:;">Trong Năm</a>
+                        </li>
+                      </ul>
+                    </div>
+                    <div>
+                      <canvas id="visitors_chart" style="height:260px;"></canvas>
                     </div>
                   </div>
                 </div>
-                <!-- Card Body -->
-                <div class="card-body">
-                  <div class="chart-pie pt-4 pb-2">
-                    <canvas id="myPieChart"></canvas>
+              </div>
+              <div class="col-lg-4">
+                <div class="ibox ibox-fullheight">
+                  <div class="ibox-head">
+                    <div class="ibox-title">
+                      <a href="/orders">ĐƠN HÀNG</a>
+                    </div>
                   </div>
-                  <div class="mt-4 text-center small">
-                    <span class="mr-2">
-                      <i class="fas fa-circle text-primary"></i> Direct
-                    </span>
-                    <span class="mr-2">
-                      <i class="fas fa-circle text-success"></i> Social
-                    </span>
-                    <span class="mr-2">
-                      <i class="fas fa-circle text-info"></i> Referral
-                    </span>
+                  <div class="ibox-body">
+                    <div class="mb-5">
+                      <div class="flexbox-b mb-2">
+                        <span class="badge-point badge-success mr-2"></span>
+                        <a href="/orders">Đã giao hàng</a>
+                        <span class="h4 mb-0 ml-4">257</span>
+                      </div>
+                      <div class="flexbox-b mb-2">
+                        <span class="badge-point badge-primary mr-2"></span>
+                        <a href="/orders">Đang vận chuyển</a>
+                        <span class="h4 mb-0 ml-4">225</span>
+                      </div>
+                      <div class="flexbox-b mb-2">
+                        <span class="badge-point badge-pink mr-2"></span>
+                        <a href="/orders">Đang chờ</a>
+                        <span class="h4 mb-0 ml-4">17</span>
+                      </div>
+                    </div>
+                    <div class="ibox-fullwidth-block">
+                      <canvas id="age_chart" style="height:260px;"></canvas>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
-
-          <!-- Content Row -->
-          <div class="row">
-
-            <!-- Content Column -->
-            <div class="col-lg-6 mb-4">
-
-              <!-- Project Card Example -->
-              <div class="card shadow mb-4">
-                <div class="card-header py-3">
-                  <h6 class="m-0 font-weight-bold text-primary">Bán chạy</h6>
+            <div class="row">
+              <div class="col-xl-8">
+                <div class="row">
+                  <div class="col-lg-6">
+                    <div class="ibox ibox-fullheight">
+                      <div class="ibox-head">
+                        <div class="ibox-title">
+                          <a href="/groups">DANH MỤC HÀNG HÓA</a>
+                        </div>
+                      </div>
+                      <div class="ibox-body">
+                        <div>
+                          <canvas id="screens_chart" style="height:260px;"></canvas>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-lg-6">
+                    <div class="ibox ibox-fullheight">
+                      <div class="ibox-head">
+                        <div class="ibox-title">
+                          <a href="/products">TOP HÀNG HÓA</a>
+                        </div>
+                      </div>
+                      <div class="ibox-body">
+                        <ul class="list-group list-group-divider list-group-full">
+                          <li class="list-group-item flexbox">
+                            <span class="flexbox"><i class="la la-chrome mr-3 font-40"></i>Tivi SKU232844</span>
+                            <span class="badge badge-success badge-pill">34.7%</span>
+                          </li>
+                          <li class="list-group-item flexbox">
+                            <span class="flexbox"><i class="la la-firefox mr-3 font-40"></i>Tivi SKU232844</span>
+                            <span class="badge badge-primary badge-pill">34.7%</span>
+                          </li>
+                          <li class="list-group-item flexbox">
+                            <span class="flexbox"><i class="la la-opera mr-3 font-40"></i>Tivi SKU232844</span>
+                            <span class="badge badge-pink badge-pill">34.7%</span>
+                          </li>
+                          <li class="list-group-item flexbox">
+                            <span class="flexbox"><i class="la la-internet-explorer mr-3 font-40"></i>Tivi SKU232844
+                            </span>
+                            <span class="badge badge-info badge-pill">34.7%</span>
+                          </li>
+                          <li class="list-group-item flexbox">
+                            <span class="flexbox"><i class="la la-safari mr-3 font-40"></i>Tivi SKU232844</span>
+                            <span class="badge badge-warning badge-pill">34.7%</span>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
                 </div>
-                <div class="card-body">
-                  <h4 class="small font-weight-bold">Server Migration <span class="float-right">20%</span></h4>
-                  <div class="progress mb-4">
-                    <div class="progress-bar bg-danger" role="progressbar" style="width: 20%" aria-valuenow="20"
-                      aria-valuemin="0" aria-valuemax="100"></div>
-                  </div>
-                  <h4 class="small font-weight-bold">Sales Tracking <span class="float-right">40%</span></h4>
-                  <div class="progress mb-4">
-                    <div class="progress-bar bg-warning" role="progressbar" style="width: 40%" aria-valuenow="40"
-                      aria-valuemin="0" aria-valuemax="100"></div>
-                  </div>
-                  <h4 class="small font-weight-bold">Customer Database <span class="float-right">60%</span></h4>
-                  <div class="progress mb-4">
-                    <div class="progress-bar" role="progressbar" style="width: 60%" aria-valuenow="60" aria-valuemin="0"
-                      aria-valuemax="100"></div>
-                  </div>
-                  <h4 class="small font-weight-bold">Payout Details <span class="float-right">80%</span></h4>
-                  <div class="progress mb-4">
-                    <div class="progress-bar bg-info" role="progressbar" style="width: 80%" aria-valuenow="80"
-                      aria-valuemin="0" aria-valuemax="100"></div>
-                  </div>
-                  <h4 class="small font-weight-bold">Account Setup <span class="float-right">Complete!</span></h4>
-                  <div class="progress">
-                    <div class="progress-bar bg-success" role="progressbar" style="width: 100%" aria-valuenow="100"
-                      aria-valuemin="0" aria-valuemax="100"></div>
+                <div class="ibox">
+                  <div class="ibox-body">
+                    <div class="flexbox mb-5">
+                      <div class="flexbox">
+                        <span class="mr-4"
+                          style="width:60px;height:60px;background-color:#e7e9f6;color:#5c6bc0;display:inline-flex;align-items:center;justify-content:center;font-size:35px;"><i
+                            class="ti-files"></i></span>
+                        <div>
+                          <h5 class="font-strong">
+                            <a href="/stalls">TOP 5 GIAN HÀNG</a>
+                          </h5>
+                          <div class="text-light">Top 5 gian hàng đạt doanh só cao nhất</div>
+                        </div>
+                      </div>
+                      <ul class="nav nav-pills nav-pills-rounded nav-pills-air">
+                        <li class="nav-item ml-1">
+                          <a class="nav-link active" href="#tab_1" data-toggle="tab">Tuần</a>
+                        </li>
+                        <li class="nav-item ml-1">
+                          <a class="nav-link" href="#tab_2" data-toggle="tab">Tháng</a>
+                        </li>
+                        <li class="nav-item ml-1">
+                          <a class="nav-link" href="#tab_3" data-toggle="tab">Năm</a>
+                        </li>
+                      </ul>
+                    </div>
+                    <div class="tab-content">
+                      <div class="tab-pane fade show active" id="tab_1">
+                        <div class="flexbox">
+                          <div class="text-center">
+                            <div class="mb-3">Gian hàng 2</div>
+                            <div class="easypie" data-percent="44" data-bar-color="#5c6bc0" data-size="80"
+                              data-line-width="8">
+                              <span class="easypie-data h3 font-strong">44<sup>%</sup></span>
+                            </div>
+                          </div>
+                          <div class="text-center">
+                            <div class="mb-3">Gian hàng 1</div>
+                            <div class="easypie" data-percent="28" data-bar-color="#18c5a9" data-size="80"
+                              data-line-width="8">
+                              <span class="easypie-data h3 font-strong">28<sup>%</sup></span>
+                            </div>
+                          </div>
+                          <div class="text-center">
+                            <div class="mb-3">Gian hàng 3</div>
+                            <div class="easypie" data-percent="9" data-bar-color="#5c6bc0" data-size="80"
+                              data-line-width="8">
+                              <span class="easypie-data h3 font-strong">9<sup>%</sup></span>
+                            </div>
+                          </div>
+                          <div class="text-center">
+                            <div class="mb-3">Gian hàng 4</div>
+                            <div class="easypie" data-percent="13" data-bar-color="#ff4081" data-size="80"
+                              data-line-width="8">
+                              <span class="easypie-data h3 font-strong">13<sup>%</sup></span>
+                            </div>
+                          </div>
+                          <div class="text-center">
+                            <div class="mb-3">Gian hàng 5</div>
+                            <div class="easypie" data-percent="6" data-bar-color="#5c6bc0" data-size="80"
+                              data-line-width="8">
+                              <span class="easypie-data h3 font-strong">6<sup>%</sup></span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="tab-pane fade" id="tab_2">
+                        <div class="flexbox">
+                          <div class="text-center">
+                            <div class="mb-3">Gian hàng 5</div>
+                            <div class="easypie" data-percent="33" data-bar-color="#5c6bc0" data-size="80"
+                              data-line-width="8">
+                              <span class="easypie-data h3 font-strong">33<sup>%</sup></span>
+                            </div>
+                          </div>
+                          <div class="text-center">
+                            <div class="mb-3">Gian hàng 1</div>
+                            <div class="easypie" data-percent="42" data-bar-color="#18c5a9" data-size="80"
+                              data-line-width="8">
+                              <span class="easypie-data h3 font-strong">42<sup>%</sup></span>
+                            </div>
+                          </div>
+                          <div class="text-center">
+                            <div class="mb-3">Gian hàng 2</div>
+                            <div class="easypie" data-percent="8" data-bar-color="#5c6bc0" data-size="80"
+                              data-line-width="8">
+                              <span class="easypie-data h3 font-strong">8<sup>%</sup></span>
+                            </div>
+                          </div>
+                          <div class="text-center">
+                            <div class="mb-3">Gian hàng 3</div>
+                            <div class="easypie" data-percent="11" data-bar-color="#ff4081" data-size="80"
+                              data-line-width="8">
+                              <span class="easypie-data h3 font-strong">11<sup>%</sup></span>
+                            </div>
+                          </div>
+                          <div class="text-center">
+                            <div class="mb-3">Gian hàng 4</div>
+                            <div class="easypie" data-percent="6" data-bar-color="#5c6bc0" data-size="80"
+                              data-line-width="8">
+                              <span class="easypie-data h3 font-strong">6<sup>%</sup></span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="tab-pane fade" id="tab_3">
+                        <div class="flexbox">
+                          <div class="text-center">
+                            <div class="mb-3">Gian hàng 5</div>
+                            <div class="easypie" data-percent="41" data-bar-color="#5c6bc0" data-size="80"
+                              data-line-width="8">
+                              <span class="easypie-data h3 font-strong">41<sup>%</sup></span>
+                            </div>
+                          </div>
+                          <div class="text-center">
+                            <div class="mb-3">Gian hàng 4</div>
+                            <div class="easypie" data-percent="32" data-bar-color="#18c5a9" data-size="80"
+                              data-line-width="8">
+                              <span class="easypie-data h3 font-strong">32<sup>%</sup></span>
+                            </div>
+                          </div>
+                          <div class="text-center">
+                            <div class="mb-3">Gian hàng 3</div>
+                            <div class="easypie" data-percent="10" data-bar-color="#5c6bc0" data-size="80"
+                              data-line-width="8">
+                              <span class="easypie-data h3 font-strong">10<sup>%</sup></span>
+                            </div>
+                          </div>
+                          <div class="text-center">
+                            <div class="mb-3">Gian hàng 2</div>
+                            <div class="easypie" data-percent="12" data-bar-color="#ff4081" data-size="80"
+                              data-line-width="8">
+                              <span class="easypie-data h3 font-strong">12<sup>%</sup></span>
+                            </div>
+                          </div>
+                          <div class="text-center">
+                            <div class="mb-3">Gian hàng 1</div>
+                            <div class="easypie" data-percent="5" data-bar-color="#5c6bc0" data-size="80"
+                              data-line-width="8">
+                              <span class="easypie-data h3 font-strong">5<sup>%</sup></span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
-
-              <!-- Color System -->
-              <div class="row">
-                <div class="col-lg-6 mb-4">
-                  <div class="card bg-primary text-white shadow">
-                    <div class="card-body">
-                      Primary
-                      <div class="text-white-50 small">#4e73df</div>
+              <div class="col-lg-4">
+                <div class="ibox ibox-fullheight">
+                  <div class="ibox-head">
+                    <div class="ibox-title">
+                      <a href="/accounts">KHÁCH HÀNG MỚI</a>
+                    </div>
+                    <div class="ibox-tools">
+                      <a class="dropdown-toggle" data-toggle="dropdown"><i class="ti-user"></i></a>
+                      <div class="dropdown-menu dropdown-menu-right">
+                        <a class="dropdown-item"><i class="ti-pencil mr-2"></i>Create</a>
+                        <a class="dropdown-item"><i class="ti-pencil-alt mr-2"></i>Edit</a>
+                        <a class="dropdown-item"><i class="ti-close mr-2"></i>Remove</a>
+                      </div>
                     </div>
                   </div>
-                </div>
-                <div class="col-lg-6 mb-4">
-                  <div class="card bg-success text-white shadow">
-                    <div class="card-body">
-                      Success
-                      <div class="text-white-50 small">#1cc88a</div>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-lg-6 mb-4">
-                  <div class="card bg-info text-white shadow">
-                    <div class="card-body">
-                      Info
-                      <div class="text-white-50 small">#36b9cc</div>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-lg-6 mb-4">
-                  <div class="card bg-warning text-white shadow">
-                    <div class="card-body">
-                      Warning
-                      <div class="text-white-50 small">#f6c23e</div>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-lg-6 mb-4">
-                  <div class="card bg-danger text-white shadow">
-                    <div class="card-body">
-                      Danger
-                      <div class="text-white-50 small">#e74a3b</div>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-lg-6 mb-4">
-                  <div class="card bg-secondary text-white shadow">
-                    <div class="card-body">
-                      Secondary
-                      <div class="text-white-50 small">#858796</div>
-                    </div>
+                  <div class="ibox-body">
+                    <ul class="media-list media-list-divider mr-2 scroller" data-height="580px">
+                      <li class="media align-items-center">
+                        <a class="media-img" href="javascript:;">
+                          <img class="img-circle" src="/images/products/27.jpg" alt="image" width="54" />
+                        </a>
+                        <div class="media-body d-flex align-items-center">
+                          <div class="flex-1">
+                            <div class="media-heading">Lynn Weaver</div><small class="text-muted">Lorem Ipsum is simply
+                              dummy</small>
+                          </div>
+                        </div>
+                      </li>
+                      <li class="media align-items-center">
+                        <a class="media-img" href="javascript:;">
+                          <img class="img-circle" src="/images/products/27.jpg" alt="image" width="54" />
+                        </a>
+                        <div class="media-body d-flex align-items-center">
+                          <div class="flex-1">
+                            <div class="media-heading">Connor Perez</div><small class="text-muted">Lorem Ipsum is simply
+                              dummy</small>
+                          </div>
+                        </div>
+                      </li>
+                      <li class="media align-items-center">
+                        <a class="media-img" href="javascript:;">
+                          <img class="img-circle" src="/images/products/27.jpg" alt="image" width="54" />
+                        </a>
+                        <div class="media-body d-flex align-items-center">
+                          <div class="flex-1">
+                            <div class="media-heading">Tyrone Carroll</div><small class="text-muted">Lorem Ipsum is
+                              simply dummy</small>
+                          </div>
+                        </div>
+                      </li>
+                      <li class="media align-items-center">
+                        <a class="media-img" href="javascript:;">
+                          <img class="img-circle" src="/images/products/27.jpg" alt="image" width="54" />
+                        </a>
+                        <div class="media-body d-flex align-items-center">
+                          <div class="flex-1">
+                            <div class="media-heading">Stella Obrien</div><small class="text-muted">Lorem Ipsum is
+                              simply dummy</small>
+                          </div>
+                        </div>
+                      </li>
+                      <li class="media align-items-center">
+                        <a class="media-img" href="javascript:;">
+                          <img class="img-circle" src="/images/products/27.jpg" alt="image" width="54" />
+                        </a>
+                        <div class="media-body d-flex align-items-center">
+                          <div class="flex-1">
+                            <div class="media-heading">Becky Brooks</div><small class="text-muted">Lorem Ipsum is simply
+                              dummy</small>
+                          </div>
+                        </div>
+                      </li>
+                      <li class="media align-items-center">
+                        <a class="media-img" href="javascript:;">
+                          <img class="img-circle" src="/images/products/27.jpg" alt="image" width="54" />
+                        </a>
+                        <div class="media-body d-flex align-items-center">
+                          <div class="flex-1">
+                            <div class="media-heading">Bob Gonzalez</div><small class="text-muted">Lorem Ipsum is simply
+                              dummy</small>
+                          </div>
+                        </div>
+                      </li>
+                    </ul>
                   </div>
                 </div>
               </div>
-
-            </div>
-
-            <div class="col-lg-6 mb-4">
-
-              <!-- Illustrations -->
-              <div class="card shadow mb-4">
-                <div class="card-header py-3">
-                  <h6 class="m-0 font-weight-bold text-primary">Illustrations</h6>
-                </div>
-                <div class="card-body">
-                  <div class="text-center">
-                    <img class="img-fluid px-3 px-sm-4 mt-3 mb-4" style="width: 25rem;"
-                      src="img/undraw_posting_photo.svg" alt="">
-                  </div>
-                  <p>Add some quality, svg illustrations to your project courtesy of <a target="_blank" rel="nofollow"
-                      href="https://undraw.co/">unDraw</a>, a constantly updated collection of beautiful svg images that
-                    you can use completely free and without attribution!</p>
-                  <a target="_blank" rel="nofollow" href="https://undraw.co/">Browse Illustrations on unDraw &rarr;</a>
-                </div>
-              </div>
-
-              <!-- Approach -->
-              <div class="card shadow mb-4">
-                <div class="card-header py-3">
-                  <h6 class="m-0 font-weight-bold text-primary">Development Approach</h6>
-                </div>
-                <div class="card-body">
-                  <p>SB Admin 2 makes extensive use of Bootstrap 4 utility classes in order to reduce CSS bloat and poor
-                    page performance. Custom CSS classes are used to create custom components and custom utility
-                    classes.</p>
-                  <p class="mb-0">Before working with this theme, you should become familiar with the Bootstrap
-                    framework, especially the utility classes.</p>
-                </div>
-              </div>
-
             </div>
           </div>
 
@@ -261,10 +445,14 @@
 
   <!-- Page level plugins -->
   <script src="/vendor/chart.js/Chart.min.js"></script>
+  <script src="/javascripts/admin-cast/jquery-jvectormap-world-mill-en.js" type="text/javascript">
+  </script>
+  <script src="/javascripts/admin-cast/jquery-jvectormap-2.0.3.min.js" type="text/javascript">
+  </script>
+  <script src="/javascripts/admin-cast/jquery.easypiechart.min.js" type="text/javascript">
+  </script>
+  <script src="/javascripts/admin-cast/dashboard_visitors.js" type="text/javascript"></script>
 
-  <!-- Page level custom scripts -->
-  <script src="/javascripts/demo/chart-area-demo.js"></script>
-  <script src="/javascripts/demo/chart-pie-demo.js"></script>
 </body>
 
 </html>
