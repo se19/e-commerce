@@ -147,7 +147,7 @@
         <div id="collapseOptions" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <!-- <h6 class="collapse-header">Login Screens:</h6> -->
-                <a class="collapse-item">Liên hệ hỗ trợ</a>
+                <a class="collapse-item" data-toggle="modal" data-target="#contactModal">Liên hệ hỗ trợ</a>
                 <!-- <a class="collapse-item" href="register.html">Register</a> -->
                 <div class="collapse-divider"></div>
                 <a class="collapse-item" href="/login">Đăng xuất</a>
@@ -168,3 +168,25 @@
 
 </ul>
 <!-- End of Sidebar -->
+
+<!-- Contact Modal -->
+<div class="modal fade" id="contactModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="contactModalLabel">Hỗ trợ nhanh</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>Email hỗ trợ: </p>
+                <p>Số điện thoại hỗ trợ: </p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+            </div>
+        </div>
+    </div>
+</div>
