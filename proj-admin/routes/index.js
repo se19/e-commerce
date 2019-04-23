@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
+const stalls = require('./stalls');
 const products = require('./products');
 const orders = require('./orders');
 const accounts = require('./accounts');
@@ -11,6 +12,7 @@ router
       title: 'Admin'
     });
   })
+  .use('/stalls', stalls)
   .use('/products', products)
   .use('/orders', orders)
   .use('/accounts', accounts)

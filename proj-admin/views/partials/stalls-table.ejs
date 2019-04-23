@@ -1,0 +1,108 @@
+<script type="text/javascript" src="/javascripts/admin-cast/bootstrap-select.min.js"></script>
+<link href="/stylesheets/admin-cast/datatables.min.css" rel="stylesheet" />
+<link href="/stylesheets/admin-cast/bootstrap-select.min.css" rel="stylesheet" />
+<link href="/stylesheets/admin-cast/main.min.css" rel="stylesheet" />
+
+<!-- START PAGE CONTENT-->
+<div class="page-content fade-in-up pl-4 pr-4">
+    <div class="ibox">
+        <div class="ibox-body">
+            <div class="flexbox mb-4">
+                <div class="flexbox">
+                    <h5 class="font-strong mb-4">DANH SÁCH GIAN HÀNG</h5>
+                </div>
+                <div class="input-group-icon input-group-icon-left mr-3">
+                    <span class="input-icon input-icon-right font-16"><i class="fa fa-search"></i></span>
+                    <input class="form-control form-control-rounded form-control-solid" id="key-search" type="text"
+                        placeholder="Tìm kiếm ...">
+                </div>
+            </div>
+            <div class="table-responsive row">
+                <table class="table table-bordered table-hover" id="orders-table">
+                    <thead class="thead-default thead-lg">
+                        <tr>
+                            <th>#</th>
+                            <th>Mã gian hàng</th>
+                            <th>Tên gian hàng</th>
+                            <th class="no-sort"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>
+                                <a href="/stalls/info">#1254</a>
+                            </td>
+                            <td>
+                                <img class="mr-3" src="images/products/10.jpg" alt="image" width="60">
+                                Gian hàng 1
+                            </td>
+                            <td>
+                                <a class="text-light mr-3 font-16" href="/stalls/info"><i
+                                        class="fa fa-pencil-alt"></i></a>
+                                <a class="text-muted font-16" href="/"><i class="fa fa-trash"></i></a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>
+                                <a href="/stalls/info">#1253</a>
+                            </td>
+                            <td>
+                                <img class="mr-3" src="images/products/10.jpg" alt="image" width="60">
+                                Gian hàng 2
+                            </td>
+                            <td>
+                                <a class="text-light mr-3 font-16" href="/stalls/info"><i
+                                        class="fa fa-pencil-alt"></i></a>
+                                <a class="text-muted font-16" href="/"><i class="fa fa-trash"></i></a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>3</td>
+                            <td>
+                                <a href="/stalls/info">#1252</a>
+                            </td>
+                            <td>
+                                <img class="mr-3" src="images/products/11.jpg" alt="image" width="60">Gian hàng 3
+                            </td>
+                            <td>
+                                <a class="text-light mr-3 font-16" href="/stalls/info"><i
+                                        class="fa fa-pencil-alt"></i></a>
+                                <a class="text-muted font-16" href="/"><i class="fa fa-trash"></i></a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- END PAGE CONTENT-->
+
+
+<script type="text/javascript" src="/javascripts/admin-cast/datatables.min.js"></script>
+<script type="text/javascript" src="/javascripts/admin-cast/app.min.js"></script>
+
+<script>
+    $(function () {
+        $('#orders-table').DataTable({
+            pageLength: 10,
+            fixedHeader: true,
+            responsive: true,
+            "sDom": 'rtip',
+            columnDefs: [{
+                targets: 'no-sort',
+                orderable: false
+            }]
+        });
+
+        var table = $('#orders-table').DataTable();
+        $('#key-search').on('keyup', function () {
+            table.search(this.value).draw();
+        });
+        $('#type-filter').on('change', function () {
+            table.column(4).search($(this).val()).draw();
+        });
+    });
+</script>
