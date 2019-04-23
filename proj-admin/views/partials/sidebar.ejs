@@ -52,12 +52,12 @@
 
     <!-- Nav Item - Utilities Collapse Menu -->
     <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
-            aria-expanded="true" aria-controls="collapseUtilities">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseOrders"
+            aria-expanded="true" aria-controls="collapseOrders">
             <i class="fas fa fa-truck"></i>
             <span>Đơn đặt hàng</span>
         </a>
-        <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
+        <div id="collapseOrders" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">Tình trạng:</h6>
                 <a class="collapse-item" href="/orders">Đã giao</a>
@@ -93,9 +93,19 @@
 
     <!-- Nav Item - Statistics -->
     <li class="nav-item">
-        <a class="nav-link" href="/statistics">
-            <i class="fas fa-fw fa-chart-area"></i>
-            <span>Thống kê doanh số</span></a>
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseStatistics"
+            aria-expanded="true" aria-controls="collapseStatistics">
+            <i class="fas fa fa-truck"></i>
+            <span>Thống kê doanh số</span>
+        </a>
+        <div id="collapseStatistics" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <a class="collapse-item" href="/statistics">Theo ngày</a>
+                <a class="collapse-item" href="/statistics">Theo tuần</a>
+                <a class="collapse-item" href="/statistics">Theo tháng</a>
+                <a class="collapse-item" href="/statistics">Theo năm</a>
+            </div>
+        </div>
     </li>
 
     <!-- Nav Item - Best-sales -->
@@ -120,6 +130,9 @@
         <div id="collapseOptions" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <!-- <h6 class="collapse-header">Login Screens:</h6> -->
+                <a class="collapse-item">Liên hệ hỗ trợ</a>
+                <!-- <a class="collapse-item" href="register.html">Register</a> -->
+                <div class="collapse-divider"></div>
                 <a class="collapse-item" href="/login">Đăng xuất</a>
                 <!-- <a class="collapse-item" href="register.html">Register</a> -->
                 <div class="collapse-divider"></div>
