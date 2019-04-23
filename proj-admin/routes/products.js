@@ -7,10 +7,10 @@ router
     res.render('products');
   })
   .get('/add', (req, res, next) => {
-    res.render('add-product');
+    res.render('product-info');
   })
   .get('/info', (req, res, next) => {
-    res.render('add-product');
+    res.render('product-info');
   })
 
 module.exports = router;
