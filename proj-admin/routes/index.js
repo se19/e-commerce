@@ -3,6 +3,7 @@ const router = express.Router();
 
 const products = require('./products');
 const orders = require('./orders');
+const accounts = require('./accounts');
 
 router
   .get('/', (req, res, next) => {
@@ -12,14 +13,9 @@ router
   })
   .use('/products', products)
   .use('/orders', orders)
+  .use('/accounts', accounts)
   .get('/groups', (req, res, next) => {
     res.render('groups');
-  })
-  .get('/orders', (req, res, next) => {
-    res.render('orders');
-  })
-  .get('/accounts', (req, res, next) => {
-    res.render('accounts');
   })
   .get('/statistics', (req, res, next) => {
     res.render('statistics');
