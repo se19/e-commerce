@@ -102,12 +102,13 @@
     <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseStatistics"
             aria-expanded="true" aria-controls="collapseStatistics">
-            <i class="fas fa fa-truck"></i>
+            <i class="fas fa fa-chart-bar"></i>
             <span>Thống kê doanh số</span>
         </a>
         <div id="collapseStatistics" class="collapse" aria-labelledby="headingUtilities"
             data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
+                <h6 class="collapse-header">Thời gian:</h6>
                 <a class="collapse-item" href="/statistics">Theo ngày</a>
                 <a class="collapse-item" href="/statistics">Theo tuần</a>
                 <a class="collapse-item" href="/statistics">Theo tháng</a>
@@ -118,9 +119,17 @@
 
     <!-- Nav Item - Best-sales -->
     <li class="nav-item">
-        <a class="nav-link" href="/best-sales">
-            <i class="fas fa-fw fa-table"></i>
-            <span>Hàng bán chạy nhất</span></a>
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseBestSales"
+            aria-expanded="true" aria-controls="collapseBestSales">
+            <i class="fas fa fa-chart-line"></i>
+            <span>Top dẫn đầu</span>
+        </a>
+        <div id="collapseBestSales" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <a class="collapse-item" href="/best-sales/top-products">Hàng hóa bán chạy</a>
+                <a class="collapse-item" href="/best-sales/top-stalls">Top gian hàng</a>
+            </div>
+        </div>
     </li>
 
     <!-- Heading -->
