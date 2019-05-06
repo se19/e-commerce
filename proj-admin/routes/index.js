@@ -9,7 +9,7 @@ const bestSales = require('./best-sales');
 
 router
   .get('/', (req, res, next) => {
-    res.render('index', {
+    res.render('pages/index', {
       title: 'Admin'
     });
   })
@@ -19,13 +19,13 @@ router
   .use('/accounts', accounts)
   .use('/best-sales', bestSales)
 
-  .get('/groups', (req, res, next) => {
-    res.render('groups');
+  .get('/product-groups', (req, res, next) => {
+    res.render('product-group-view/product-group-list');
   })
   .get('/statistics', (req, res, next) => {
-    res.render('statistics');
+    res.render('statistics-view/statistics');
   })
-  .get('/login', (req, res, next) => {
+  .get('/login-view/login', (req, res, next) => {
     res.render('login');
   });
 

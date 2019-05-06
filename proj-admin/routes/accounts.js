@@ -1,13 +1,13 @@
 var express = require('express');
 var router = express.Router();
 
-/* GET users listing. */
+const account_controller = require('../app/controllers/account-controller');
+
 router
-  .get('/', (req, res, next) => {
-    res.render('accounts');
-  })
-  .get('/info', (req, res, next) => {
-    res.render('account-info');
-  })
+  .get('/', account_controller.list_account)
+  .post('/add', account_controller.create_account)
+  .put('/add', account_controller.update_account)
+  .get('/info', account_controller.get_account)
+  .delete('/info', account_controller.delete_account)
 
 module.exports = router;
