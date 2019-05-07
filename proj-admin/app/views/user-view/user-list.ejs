@@ -2,8 +2,14 @@
 <html>
 
 <head>
-    <% include ../partials/head %>
-    <title>Page not found!</title>
+    <% include ../common/partials/head %>
+    <title>Accounts</title>
+    <!-- Page level plugins -->
+    <script src="vendor/datatables/jquery.dataTables.min.js"></script>
+    <script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
+
+    <!-- Page level custom scripts -->
+    <script src="javascripts/demo/datatables-demo.js"></script>
 </head>
 
 <body>
@@ -11,7 +17,7 @@
     <div id="wrapper">
 
         <!-- Include sidebar partial -->
-        <% include ../partials/sidebar %>
+        <% include ../common/partials/sidebar %>
 
         <!-- Content Wrapper -->
         <div id="content-wrapper" class="d-flex flex-column">
@@ -20,26 +26,22 @@
             <div id="content">
 
                 <!-- Include topbar partial -->
-                <% include ../partials/topbar %>
+                <% include ../common/partials/topbar %>
+
 
                 <!-- Page Content -->
                 <div class="container-fluid">
-                    <!-- 404 Error Text -->
-                    <div class="text-center">
-                        <div class="error mx-auto" data-text="404">404</div>
-                        <p class="lead text-gray-800 mb-5">Page Not Found</p>
-                        <p class="text-gray-500 mb-0">It looks like you found a glitch in the matrix...</p>
-                        <a href="/">&larr; Back to Dashboard</a>
-                    </div>
+                    <% include ../common/partials/accounts-table %>
                 </div>
                 <!-- End Page Content -->
+
 
             </div>
             <!-- End Main Content -->
 
             <!-- Footer -->
             <!-- Include footer partial -->
-            <% include ../partials/footer %>
+            <% include ../common/partials/footer %>
             <!-- End Footer -->
 
         </div>
@@ -50,7 +52,8 @@
     <!-- End of Page Wrapper -->
 
     <!-- Include bottom partial -->
-    <% include ../partials/bottom %>
+    <% include ../common/partials/bottom %>
+
 </body>
 
 </html>

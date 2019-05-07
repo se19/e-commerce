@@ -1,5 +1,7 @@
 const list_stall = (req, res, next) => {
-    res.render('stall-view/stall-list');
+    res.render('stall-view/stall-list', {
+        title: 'Admin'
+    });
 }
 
 const get_stall = (req, res, next) => {

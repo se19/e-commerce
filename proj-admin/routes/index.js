@@ -1,22 +1,19 @@
 const express = require('express');
 const router = express.Router();
 
+const home = require('./home');
 const stalls = require('./stalls');
 const products = require('./products');
 const orders = require('./orders');
-const accounts = require('./accounts');
+const users = require('./users');
 const bestSales = require('./best-sales');
 
 router
-  .get('/', (req, res, next) => {
-    res.render('pages/index', {
-      title: 'Admin'
-    });
-  })
+  .use('/', home)
   .use('/stalls', stalls)
   .use('/products', products)
   .use('/orders', orders)
-  .use('/accounts', accounts)
+  .use('/users', users)
   .use('/best-sales', bestSales)
 
   .get('/product-groups', (req, res, next) => {
