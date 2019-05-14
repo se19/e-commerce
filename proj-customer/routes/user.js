@@ -5,7 +5,7 @@ const user_controller = require('../controllers/user-controller');
 
 router
   .get('/', function (req, res, next) {
-    res.redirect('/update-info');
+    res.redirect('/user/update-info');
   })
   .get('/update-info', user_controller.getInfo)
   .post('/update-info', user_controller.updateInfo)

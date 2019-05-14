@@ -25,7 +25,9 @@ router
   .use('/forgot', forgotPwRoutes)
 
   .get('/thankyou', function (req, res, next) {
-    res.render('common/thankyou', {});
+    res.render('common/thankyou', {
+      pageTitle: "Đặt hành thành công"
+    });
   })
 
 module.exports = router;

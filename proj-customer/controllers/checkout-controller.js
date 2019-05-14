@@ -1,6 +1,8 @@
 //Lấy thông tin đơn hàng hiện tại để checkout
 const initializationCheckout = (req, res, next) => {
-    res.render('order-view/checkout', {});
+    res.render('checkout-view/checkout', {
+        pageTitle: "Thanh toán"
+    });
 }
 
 //Cập nhật giỏ hàng

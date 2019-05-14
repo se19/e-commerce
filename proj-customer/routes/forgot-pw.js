@@ -4,9 +4,7 @@ var router = express.Router();
 const auth_controller = require('../controllers/auth-controller');
 
 router
-    .get('/', function (req, res, next) {
-        res.render('auth/forgot', {});
-    })
-    .post('/', auth_controller.forgorPw)
+    .get('/', auth_controller.forgorPw)
+    .post('/', auth_controller.submitForgorPw)
 
 module.exports = router;
