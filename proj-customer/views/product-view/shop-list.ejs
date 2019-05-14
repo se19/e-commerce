@@ -2,11 +2,11 @@
 <div class="custom-border-bottom py-3">
   <div class="container">
     <div class="row">
-      <div class="col-md-12 mb-0"><a href="/">Trang chủ</a> <span class="mx-2 mb-0">/</span> <strong class="text-black">Cửa hàng</strong></div>
+      <div class="col-md-12 mb-0"><a href="/">Trang chủ</a> <span class="mx-2 mb-0">/</span> <strong
+          class="text-black">Cửa hàng</strong></div>
     </div>
   </div>
 </div>
-
 
 <div class="site-section">
   <div class="container">
@@ -15,10 +15,14 @@
         <div class="border p-4 rounded mb-4">
           <h3 class="mb-3 h6 text-uppercase text-black d-block">Loại sản phẩm</h3>
           <ul class="list-unstyled mb-0">
-            <li class="mb-1"><a href="#" class="d-flex"><span>Laptop Gaming</span> <span class="text-black ml-auto">(10)</span></a></li>
-            <li class="mb-1"><a href="#" class="d-flex"><span>Laptop văn phòng</span> <span class="text-black ml-auto">(15)</span></a></li>
-            <li class="mb-1"><a href="#" class="d-flex"><span>Laptop doanh nhân</span> <span class="text-black ml-auto">(12)</span></a></li>
-            <li class="mb-1"><a href="#" class="d-flex"><span>Laptop ultrabook</span> <span class="text-black ml-auto">(12)</span></a></li>
+            <li class="mb-1"><a href="#" class="d-flex"><span>Laptop Gaming</span> <span
+                  class="text-black ml-auto">(10)</span></a></li>
+            <li class="mb-1"><a href="#" class="d-flex"><span>Laptop văn phòng</span> <span
+                  class="text-black ml-auto">(15)</span></a></li>
+            <li class="mb-1"><a href="#" class="d-flex"><span>Laptop doanh nhân</span> <span
+                  class="text-black ml-auto">(12)</span></a></li>
+            <li class="mb-1"><a href="#" class="d-flex"><span>Laptop ultrabook</span> <span
+                  class="text-black ml-auto">(12)</span></a></li>
           </ul>
         </div>
 
@@ -28,19 +32,6 @@
             <div id="slider-range" class="border-primary"></div>
             <input type="text" name="text" id="amount" class="form-control border-0 pl-0 bg-white" disabled="" />
           </div>
-
-          <!-- <div class="mb-4">
-            <h3 class="mb-3 h6 text-uppercase text-black d-block">Kích thước</h3>
-            <label for="s_sm" class="d-flex">
-              <input type="checkbox" id="s_sm" class="mr-2 mt-1"> <span class="text-black">Nhỏ (2,319)</span>
-            </label>
-            <label for="s_md" class="d-flex">
-              <input type="checkbox" id="s_md" class="mr-2 mt-1"> <span class="text-black">Vừa (1,282)</span>
-            </label>
-            <label for="s_lg" class="d-flex">
-              <input type="checkbox" id="s_lg" class="mr-2 mt-1"> <span class="text-black">Lớn (1,392)</span>
-            </label>
-          </div> -->
 
           <div class="mb-4">
             <h3 class="mb-3 h6 text-uppercase text-black d-block">Thương hiệu</h3>
@@ -57,7 +48,6 @@
               <input type="checkbox" id="s_b4" class="mr-2 mt-1"> <span class="text-black">MACBOOK (11)</span>
             </label>
           </div>
-
         </div>
       </div>
 
@@ -69,7 +59,8 @@
             </div>
             <div class="d-flex">
               <div class="dropdown mr-1 ml-md-auto">
-                <button type="button" class="btn btn-white btn-sm dropdown-toggle px-4" id="dropdownMenuOffset" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <button type="button" class="btn btn-white btn-sm dropdown-toggle px-4" id="dropdownMenuOffset"
+                  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                   Chọn
                 </button>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuOffset">
@@ -78,7 +69,8 @@
                 </div>
               </div>
               <div class="btn-group">
-                <button type="button" class="btn btn-white btn-sm dropdown-toggle px-4" id="dropdownMenuReference" data-toggle="dropdown">Sắp xếp</button>
+                <button type="button" class="btn btn-white btn-sm dropdown-toggle px-4" id="dropdownMenuReference"
+                  data-toggle="dropdown">Sắp xếp</button>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuReference">
                   <a class="dropdown-item" href="#">Tên tăng dần</a>
                   <a class="dropdown-item" href="#">Tên giảm dần</a>
@@ -91,112 +83,20 @@
           </div>
         </div>
         <div class="row mb-5">
-
+          <% for (let product of prods) { %>
           <div class="col-lg-6 col-md-6 item-entry mb-4">
-            <a href="/product" class="product-item md-height bg-gray d-block">
-              <img src="imgs/11/main.jpg" alt="Image" class="img-fluid">
+            <a href="/product/<%= product.productId %>" class="product-item md-height bg-gray d-block">
+              <img src="imgs/<%= product.productId %>/main.jpg" alt="Image" class="img-fluid">
             </a>
-            <h2 class="item-title"><a href="/product">Laptop 1</a></h2>
-            <strong class="item-price">$20.00</strong>
-          </div>
-          <div class="col-lg-6 col-md-6 item-entry mb-4">
-            <a href="/product" class="product-item md-height bg-gray d-block">
-              <img src="imgs/2/main.jpg" alt="Image" class="img-fluid">
-            </a>
-            <h2 class="item-title"><a href="/product">Laptop 2</a></h2>
-            <strong class="item-price"><del>$46.00</del> $28.00</strong>
-          </div>
-
-          <div class="col-lg-6 col-md-6 item-entry mb-4">
-            <a href="/product" class="product-item md-height bg-gray d-block">
-              <img src="imgs/3/main.jpg" alt="Image" class="img-fluid">
-            </a>
-            <h2 class="item-title"><a href="/product">Laptop 1</a></h2>
-            <strong class="item-price"><del>$46.00</del> $28.00</strong>
-
+            <h2 class="item-title"><a href="/product/<%= product.productId %>">Laptop <%= product.title %></a></h2>
+            <strong class="item-price"><del>$46.00</del> <%= product.price %></strong>
             <div class="star-rating">
+              <!-- <% for(let i=0; i< = product.rating.average; i++) { %>
               <span class="icon-star2 text-warning"></span>
-              <span class="icon-star2 text-warning"></span>
-              <span class="icon-star2 text-warning"></span>
-              <span class="icon-star2 text-warning"></span>
-              <span class="icon-star2 text-warning"></span>
-            </div>
-
-          </div>
-          <div class="col-lg-6 col-md-6 item-entry mb-4">
-            <a href="/product" class="product-item md-height bg-gray d-block">
-              <img src="imgs/4/main.jpg" alt="Image" class="img-fluid">
-            </a>
-            <h2 class="item-title"><a href="/product">Laptop 1</a></h2>
-            <strong class="item-price"><del>$46.00</del> $28.00</strong>
-            <div class="star-rating">
-              <span class="icon-star2 text-warning"></span>
-              <span class="icon-star2 text-warning"></span>
-              <span class="icon-star2 text-warning"></span>
-              <span class="icon-star2 text-warning"></span>
-              <span class="icon-star2 text-warning"></span>
+              <% } %> -->
             </div>
           </div>
-
-          <div class="col-lg-6 col-md-6 item-entry mb-4">
-            <a href="/product" class="product-item md-height bg-gray d-block">
-              <img src="imgs/5/main.jpg" alt="Image" class="img-fluid">
-            </a>
-            <h2 class="item-title"><a href="/product">Laptop 1</a></h2>
-            <strong class="item-price"><del>$46.00</del> $28.00</strong>
-          </div>
-          <div class="col-lg-6 col-md-6 item-entry mb-4">
-            <a href="/product" class="product-item md-height bg-gray d-block">
-              <img src="imgs/6/main.jpg" alt="Image" class="img-fluid">
-            </a>
-            <h2 class="item-title"><a href="/product">Laptop 1</a></h2>
-            <strong class="item-price">$58.00</strong>
-          </div>
-          <div class="col-lg-6 col-md-6 item-entry mb-4">
-            <a href="/product" class="product-item md-height bg-gray d-block">
-              <img src="imgs/7/main.jpg" alt="Image" class="img-fluid">
-            </a>
-            <h2 class="item-title"><a href="/product">Laptop 1</a></h2>
-            <strong class="item-price">$20.00</strong>
-          </div>
-          <div class="col-lg-6 col-md-6 item-entry mb-4">
-            <a href="/product" class="product-item md-height bg-gray d-block">
-              <img src="imgs/8/main.jpg" alt="Image" class="img-fluid">
-            </a>
-            <h2 class="item-title"><a href="/product">Laptop 1</a></h2>
-            <strong class="item-price"><del>$46.00</del> $28.00</strong>
-          </div>
-
-          <div class="col-lg-6 col-md-6 item-entry mb-4">
-            <a href="/product" class="product-item md-height bg-gray d-block">
-              <img src="imgs/9/main.jpg" alt="Image" class="img-fluid">
-            </a>
-            <h2 class="item-title"><a href="/product">Laptop 1</a></h2>
-            <strong class="item-price"><del>$46.00</del> $28.00</strong>
-
-            <div class="star-rating">
-              <span class="icon-star2 text-warning"></span>
-              <span class="icon-star2 text-warning"></span>
-              <span class="icon-star2 text-warning"></span>
-              <span class="icon-star2 text-warning"></span>
-              <span class="icon-star2 text-warning"></span>
-            </div>
-
-          </div>
-          <div class="col-lg-6 col-md-6 item-entry mb-4">
-            <a href="/product" class="product-item md-height bg-gray d-block">
-              <img src="imgs/10/main.jpg" alt="Image" class="img-fluid">
-            </a>
-            <h2 class="item-title"><a href="/product">Laptop 1</a></h2>
-            <strong class="item-price"><del>$46.00</del> $28.00</strong>
-            <div class="star-rating">
-              <span class="icon-star2 text-warning"></span>
-              <span class="icon-star2 text-warning"></span>
-              <span class="icon-star2 text-warning"></span>
-              <span class="icon-star2 text-warning"></span>
-              <span class="icon-star2 text-warning"></span>
-            </div>
-          </div>
+          <% } %>
         </div>
         <div class="row">
           <div class="col-md-12 text-center">

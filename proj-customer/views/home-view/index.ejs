@@ -1,4 +1,4 @@
-<%- include("../common/containers/header")-%>
+<%- include("../common/containers/header") -%>
 <div class="site-blocks-cover" data-aos="fade">
   <div class="container">
     <div class="row">
@@ -16,43 +16,18 @@
   </div>
 </div>
 
-<!-- <div class="site-section">
-  <div class="container">
-    <div class="title-section mb-5">
-      <h2 class="text-uppercase"><span class="d-block">Discover</span> The Collections</h2>
-    </div>
-    <div class="row align-items-stretch">
-      <div class="col-lg-8">
-        <div class="product-item sm-height full-height bg-gray">
-          <a href="#" class="product-category">Macbook <span>25 items</span></a>
-          <img src="images/model_4.png" alt="Image" class="img-fluid">
-        </div>
-      </div>
-      <div class="col-lg-4">
-        <div class="product-item sm-height bg-gray mb-4">
-          <a href="#" class="product-category">Dell <span>25 items</span></a>
-          <img src="images/model_5.png" alt="Image" class="img-fluid">
-        </div>
-
-        <div class="product-item sm-height bg-gray">
-          <a href="#" class="product-category">ASUS<span>25 items</span></a>
-          <img src="images/model_6.png" alt="Image" class="img-fluid">
-        </div>
-      </div>
-    </div>
-  </div>
-</div> -->
-
 <div class="site-section site-section-sm site-blocks-1 border-0" data-aos="fade">
   <div class="container">
     <div class="row">
+
       <div class="col-md-6 col-lg-4 d-lg-flex mb-4 mb-lg-0 pl-4" data-aos="fade-up" data-aos-delay="">
         <div class="icon mr-4 align-self-start">
           <span class="icon-truck"></span>
         </div>
         <div class="text">
           <h2 class="text-uppercase">Miễn phí vận chuyển</h2>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus at iaculis quam. Integer accumsan tincidunt fringilla.</p>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus at iaculis quam. Integer accumsan
+            tincidunt fringilla.</p>
         </div>
       </div>
       <div class="col-md-6 col-lg-4 d-lg-flex mb-4 mb-lg-0 pl-4" data-aos="fade-up" data-aos-delay="100">
@@ -61,7 +36,8 @@
         </div>
         <div class="text">
           <h2 class="text-uppercase">Miễn phí trả hàng</h2>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus at iaculis quam. Integer accumsan tincidunt fringilla.</p>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus at iaculis quam. Integer accumsan
+            tincidunt fringilla.</p>
         </div>
       </div>
       <div class="col-md-6 col-lg-4 d-lg-flex mb-4 mb-lg-0 pl-4" data-aos="fade-up" data-aos-delay="200">
@@ -70,13 +46,13 @@
         </div>
         <div class="text">
           <h2 class="text-uppercase">Tư vấn khách hàng</h2>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus at iaculis quam. Integer accumsan tincidunt fringilla.</p>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus at iaculis quam. Integer accumsan
+            tincidunt fringilla.</p>
         </div>
       </div>
     </div>
   </div>
 </div>
-
 
 <div class="site-section">
   <div class="container">
@@ -86,84 +62,20 @@
       </div>
     </div>
     <div class="row">
+      <% for (let product of hotProds) { %>
       <div class="col-lg-4 col-md-6 item-entry mb-4">
-        <a href="/product" class="product-item md-height bg-gray d-block">
-          <img src="imgs/30/main.jpg" alt="Image" class="img-fluid">
+        <a href="/product/<%= product.productId %>" class="product-item md-height bg-gray d-block">
+          <img src="imgs/<%= product.productId %>/main.jpg" alt="Image" class="img-fluid">
         </a>
-        <h2 class="item-title"><a href="/product">Laptop 1</a></h2>
-        <strong class="item-price">$20.00</strong>
-      </div>
-      <div class="col-lg-4 col-md-6 item-entry mb-4">
-        <a href="/product" class="product-item md-height bg-gray d-block">
-          <img src="imgs/2/main.jpg" alt="Image" class="img-fluid">
-        </a>
-        <h2 class="item-title"><a href="/product">Laptop 2</a></h2>
-        <strong class="item-price"><del>$46.00</del> $28.00</strong>
-      </div>
-
-      <div class="col-lg-4 col-md-6 item-entry mb-4">
-        <a href="/product" class="product-item md-height bg-gray d-block">
-          <img src="imgs/3/main.jpg" alt="Image" class="img-fluid">
-        </a>
-        <h2 class="item-title"><a href="/product">Laptop 3</a></h2>
-        <strong class="item-price"><del>$46.00</del> $28.00</strong>
+        <h2 class="item-title"><a href="/product/<%= product.productId %>">Laptop <%= product.title %> </a></h2>
+        <strong class="item-price"><del>$46.00</del> <%= product.price %> </strong>
         <div class="star-rating">
+          <!-- <% for(let i=0; i< product.rating.average ; i++) { %> -->
           <span class="icon-star2 text-warning"></span>
-          <span class="icon-star2 text-warning"></span>
-          <span class="icon-star2 text-warning"></span>
-          <span class="icon-star2 text-warning"></span>
-          <span class="icon-star2 text-warning"></span>
+          <!-- <% } %> -->
         </div>
       </div>
-      <div class="col-lg-4 col-md-6 item-entry mb-4">
-        <a href="/product" class="product-item md-height bg-gray d-block">
-          <img src="imgs/4/main.jpg" alt="Image" class="img-fluid">
-        </a>
-        <h2 class="item-title"><a href="/product">Laptop 4</a></h2>
-        <strong class="item-price"><del>$46.00</del> $28.00</strong>
-        <div class="star-rating">
-          <span class="icon-star2 text-warning"></span>
-          <span class="icon-star2 text-warning"></span>
-          <span class="icon-star2 text-warning"></span>
-          <span class="icon-star2 text-warning"></span>
-          <span class="icon-star2 text-warning"></span>
-        </div>
-      </div>
-      <div class="col-lg-4 col-md-6 item-entry mb-4">
-        <a href="/product" class="product-item md-height bg-gray d-block">
-          <img src="imgs/5/main.jpg" alt="Image" class="img-fluid">
-        </a>
-        <h2 class="item-title"><a href="/product">Laptop 5</a></h2>
-        <strong class="item-price"><del>$46.00</del> $28.00</strong>
-      </div>
-      <div class="col-lg-4 col-md-6 item-entry mb-4">
-        <a href="/product" class="product-item md-height bg-gray d-block">
-          <img src="imgs/6/main.jpg" alt="Image" class="img-fluid">
-        </a>
-        <h2 class="item-title"><a href="/product">Laptop 6</a></h2>
-        <strong class="item-price">$58.00</strong>
-      </div>
-      <div class="col-lg-4 col-md-6 item-entry mb-4">
-        <a href="/product" class="product-item md-height bg-gray d-block">
-          <img src="imgs/7/main.jpg" alt="Image" class="img-fluid">
-        </a>
-        <h2 class="item-title"><a href="/product">Laptop 7</a></h2>
-        <strong class="item-price">$58.00</strong>
-      </div>
-      <div class="col-lg-4 col-md-6 item-entry mb-4">
-        <a href="/product" class="product-item md-height bg-gray d-block">
-          <img src="imgs/8/main.jpg" alt="Image" class="img-fluid">
-        </a>
-        <h2 class="item-title"><a href="/product">Laptop 8</a></h2>
-        <strong class="item-price">$58.00</strong>
-      </div>
-      <div class="col-lg-4 col-md-6 item-entry mb-4">
-        <a href="/product" class="product-item md-height bg-gray d-block">
-          <img src="imgs/9/main.jpg" alt="Image" class="img-fluid">
-        </a>
-        <h2 class="item-title"><a href="/product">Laptop 9</a></h2>
-        <strong class="item-price">$58.00</strong>
-      </div>
+      <% } %>
     </div>
   </div>
 </div>
@@ -178,90 +90,22 @@
     <div class="row">
       <div class="col-md-12 block-3">
         <div class="nonloop-block-3 owl-carousel">
+          <% for(let product of newProds) { %>
           <div class="item">
             <div class="item-entry">
-              <a href="/product" class="product-item md-height bg-gray d-block">
-                <img src="imgs/10/main.jpg" alt="Image" class="img-fluid">
+              <a href="/product/<%= product.productId %>" class="product-item md-height bg-gray d-block">
+                <img src="imgs/<%= product.productId %>/main.jpg" alt="Image" class="img-fluid">
               </a>
-              <h2 class="item-title"><a href="/product">Laptop 5</a></h2>
-              <strong class="item-price"><del>$46.00</del> $28.00</strong>
+              <h2 class="item-title"><a href="/product<%= product.productId %>">Laptop <%= product.title %></a></h2>
+              <strong class="item-price"><del>$46.00</del> <%= product.price %></strong>
               <div class="star-rating">
+                <!-- <% for(let i=0; i< product.rating.average; i++) { %> -->
                 <span class="icon-star2 text-warning"></span>
-                <span class="icon-star2 text-warning"></span>
-                <span class="icon-star2 text-warning"></span>
-                <span class="icon-star2 text-warning"></span>
-                <span class="icon-star2 text-warning"></span>
+                <!-- <% } %> -->
               </div>
             </div>
           </div>
-          <div class="item">
-            <div class="item-entry">
-              <a href="/product" class="product-item md-height bg-gray d-block">
-                <img src="imgs/11/main.jpg" alt="Image" class="img-fluid">
-              </a>
-              <h2 class="item-title"><a href="/product">Laptop 4</a></h2>
-              <strong class="item-price"><del>$46.00</del> $28.00</strong>
-
-              <div class="star-rating">
-                <span class="icon-star2 text-warning"></span>
-                <span class="icon-star2 text-warning"></span>
-                <span class="icon-star2 text-warning"></span>
-                <span class="icon-star2 text-warning"></span>
-                <span class="icon-star2 text-warning"></span>
-              </div>
-            </div>
-          </div>
-          <div class="item">
-            <div class="item-entry">
-              <a href="/product" class="product-item md-height bg-gray d-block">
-                <img src="imgs/13/main.jpg" alt="Image" class="img-fluid">
-              </a>
-              <h2 class="item-title"><a href="/product">Laptop 1</a></h2>
-              <strong class="item-price"><del>$46.00</del> $28.00</strong>
-
-              <div class="star-rating">
-                <span class="icon-star2 text-warning"></span>
-                <span class="icon-star2 text-warning"></span>
-                <span class="icon-star2 text-warning"></span>
-                <span class="icon-star2 text-warning"></span>
-                <span class="icon-star2 text-warning"></span>
-              </div>
-
-            </div>
-          </div>
-          <div class="item">
-            <div class="item-entry">
-              <a href="/product" class="product-item md-height bg-gray d-block">
-                <img src="imgs/14/main.jpg" alt="Image" class="img-fluid">
-              </a>
-              <h2 class="item-title"><a href="/product">Laptop 2</a></h2>
-              <strong class="item-price"><del>$46.00</del> $28.00</strong>
-              <div class="star-rating">
-                <span class="icon-star2 text-warning"></span>
-                <span class="icon-star2 text-warning"></span>
-                <span class="icon-star2 text-warning"></span>
-                <span class="icon-star2 text-warning"></span>
-                <span class="icon-star2 text-warning"></span>
-              </div>
-            </div>
-          </div>
-          <div class="item">
-            <div class="item-entry">
-              <a href="/product" class="product-item md-height bg-gray d-block">
-                <img src="imgs/16/main.jpg" alt="Image" class="img-fluid">
-              </a>
-              <h2 class="item-title"><a href="/product">Laptop 3</a></h2>
-              <strong class="item-price">$58.00</strong>
-              <div class="star-rating">
-                <span class="icon-star2 text-warning"></span>
-                <span class="icon-star2 text-warning"></span>
-                <span class="icon-star2 text-warning"></span>
-                <span class="icon-star2 text-warning"></span>
-                <span class="icon-star2 text-warning"></span>
-              </div>
-            </div>
-          </div>
-
+          <% } %>
         </div>
       </div>
     </div>
