@@ -9,7 +9,7 @@ const initialization = async (req, res, next) => {
     await getNewItems();
 
     await res.render('home-view/index', {
-        pageTitle: 'Shop',
+        pageTitle: 'Trang chủ',
         path: '/',
         hotProds: hotProds,
         newProds: newProds

@@ -37,20 +37,18 @@
       <div class="col-md-1">
       </div>
       <div class="col-md-4">
-        <h2 class="text-black">Laptop <%= product.title %></h2>
+        <h2 class="text-black">Laptop <%= product._doc.title %></h2>
         <div>
           <div class="product-rating">
-            <% let i; %>
-            <% for(i=0; i< product.rating.average; i++) { %>
             <i class="fas fa-star"></i>
-            <% } %>
-            <% for(; i<5; i++) { %>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
             <i class="far fa-star"></i>
-            <% } %>
           </div>
-          <a class="review-link" href="#comment">(Xem <%= product.rating.comment.length %> Nhận xét)</a>
+          <a class="review-link" href="#comment">(Xem 10 Nhận xét)</a>
         </div>
-        <p><strong class="text-primary h4"><%= product.price %></strong></p>
+        <p><strong class="text-primary h4"><%= product._doc.price %></strong></p>
         <div class="mb-5">
           <div class="input-group mb-3" style="max-width: 120px;">
             <div class="input-group-prepend">
@@ -92,8 +90,8 @@
               <div class="col-6">
                 <div class="box_total">
                   <h5>Đánh giá trung bình</h5>
-                  <h4><%= product.rating.average %></h4>
-                  <h6>(<%= product.rating.comment.length %> Nhận xét)</h6>
+                  <h4>4.0</h4>
+                  <h6>(5 Nhận xét)</h6>
                 </div>
               </div>
               <div class="col-6">
@@ -148,17 +146,15 @@
               <div class="review_item">
                 <div class="media">
                   <div class="media-body">
-                    <h4><%= product.rating.comment.reviewer %></h4>
-                    <% let i; %>
-                    <%= for(i=0; i< <%= product.rating.average %>; i++) { %>
+                    <h4>Owen</h4>
                     <i class="fas fa-star"></i>
-                    <%= } %>
-                    <%= for(; i<5; i++) { %>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
                     <i class="far fa-star"></i>
-                    <%= } %>
                   </div>
                 </div>
-                <p><%= product.rating.comment.info %></p>
+                <p>Hahahahahahahahaaaaaaaaaaaaaaa</p>
               </div>
             </div>
             <ul class="reviews-pagination">

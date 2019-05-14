@@ -67,12 +67,13 @@
         <a href="/product/<%= product._doc.productId %>" class="product-item md-height bg-gray d-block">
           <img src="imgs/<%= product._doc.productId %>/main.jpg" alt="Image" class="img-fluid">
         </a>
-        <h2 class="item-title"><a href="/product/<%= product._doc.productId %>">Laptop <%= product._doc.title %> </a></h2>
+        <h2 class="item-title"><a href="/product/<%= product._doc.productId %>">Laptop <%= product._doc.title %> </a>
+        </h2>
         <strong class="item-price"><del>$46.00</del> <%= product._doc.price %> </strong>
         <div class="star-rating">
-          <%# for(let i=0; i< product._doc.rating.average ; i++) { %>
+          <!-- <%# for(let i=0; i< product._doc.rating.average ; i++) { %>
           <span class="icon-star2 text-warning"></span>
-          <%# }  %>
+          <%# }  %> -->
         </div>
       </div>
       <% } %>
@@ -96,12 +97,13 @@
               <a href="/product/<%= product._doc.productId %>" class="product-item md-height bg-gray d-block">
                 <img src="imgs/<%= product._doc.productId %>/main.jpg" alt="Image" class="img-fluid">
               </a>
-              <h2 class="item-title"><a href="/product<%= product._doc.productId %>">Laptop <%= product._doc.title %></a></h2>
+              <h2 class="item-title"><a href="/product<%= product._doc.productId %>">Laptop
+                  <%= product._doc.title %></a></h2>
               <strong class="item-price"><del>$46.00</del> <%= product._doc.price %></strong>
               <div class="star-rating">
-                <%# for(let i=0; i< product._doc.rating.average; i++) { %>
+                <!-- <%# for(let i=0; i< product._doc.rating.average; i++) { %>
                 <span class="icon-star2 text-warning"></span>
-                <%# } %>
+                <%# } %> -->
               </div>
             </div>
           </div>

@@ -9,7 +9,7 @@ const connect = (conn_str) => {
             useNewUrlParser: true
         })
         .then(result => {
-            console.log(result);
+            // console.log(result);
         })
         .catch(err => {
             console.log(err);
