@@ -64,10 +64,10 @@
     <div class="row">
       <% for (let product of hotProds) { %>
       <div class="col-lg-4 col-md-6 item-entry mb-4">
-        <a href="/product/<%= product._doc.productId %>" class="product-item md-height bg-gray d-block">
+        <a href="/shop/<%= product._doc.productId %>" class="product-item md-height bg-gray d-block">
           <img src="imgs/<%= product._doc.productId %>/main.jpg" alt="Image" class="img-fluid">
         </a>
-        <h2 class="item-title"><a href="/product/<%= product._doc.productId %>">Laptop <%= product._doc.title %> </a>
+        <h2 class="item-title"><a href="/shop/<%= product._doc.productId %>">Laptop <%= product._doc.title %> </a>
         </h2>
         <strong class="item-price"><del>$46.00</del> <%= product._doc.price %> </strong>
         <div class="star-rating">
@@ -94,10 +94,10 @@
           <% for(let product of newProds) { %>
           <div class="item">
             <div class="item-entry">
-              <a href="/product/<%= product._doc.productId %>" class="product-item md-height bg-gray d-block">
+              <a href="/shop/<%= product._doc.productId %>" class="product-item md-height bg-gray d-block">
                 <img src="imgs/<%= product._doc.productId %>/main.jpg" alt="Image" class="img-fluid">
               </a>
-              <h2 class="item-title"><a href="/product<%= product._doc.productId %>">Laptop
+              <h2 class="item-title"><a href="/shop<%= product._doc.productId %>">Laptop
                   <%= product._doc.title %></a></h2>
               <strong class="item-price"><del>$46.00</del> <%= product._doc.price %></strong>
               <div class="star-rating">
