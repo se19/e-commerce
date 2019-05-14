@@ -5,7 +5,7 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
 var indexRouter = require('./routes/index');
-const mongoose = require('mongoose');
+
 var app = express();
 
 // view engine setup
@@ -21,15 +21,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
-mongoose.connect('mongodb+srv://admin:123@cluster0-llp1b.mongodb.net/shop?retryWrites=true', {
-    useNewUrlParser: true
-  })
-  .then(reusult => {
-    console.log(reusult);
-  })
-  .catch(err => {
-    console.log(err);
-  });
+
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
@@ -46,7 +38,5 @@ app.use(function (err, req, res, next) {
   res.status(err.status || 500);
   res.render('common/error');
 });
-
-
 
 module.exports = app;

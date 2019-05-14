@@ -1,44 +1,41 @@
 const Product = require('../models/product');
 
+let hotProds = [];
+let newProds = [];
+
 //Khởi tạo dữ liệu cho trang chủ
-const initialization = (req, res, next) => {
-    res.render('home-view/index', {
+const initialization = async (req, res, next) => {
+    await getHotItems();
+    await getNewItems();
+
+    await res.render('home-view/index', {
         pageTitle: 'Shop',
-        path: '/'
+        path: '/',
+        hotProds: hotProds,
+        newProds: newProds
     });
-    getHotItems(req, res, next);
-    getNewItems(req, res, next);
 }
 
 //Get danh sách sản phẩm bán chạy
-const getHotItems = (req, res, next) => {
+const getHotItems = () => {
     Product.find()
-        .then(products => {
-            console.log(products);
-            res.render('home-view/index', {
-                hotProds: products,
-            });
-        })
-        .catch(err => {
-            console.log(err);
+        .exec(function (err, products) {
+            if (err) throw err;
+            hotProds = products;
+            // console.log(products);
         });
 }
 
 //Get danh sách sản phẩm mới
-const getNewItems = (req, res, next) => {
+const getNewItems = () => {
     Product.find()
-        .then(products => {
-            res.render('home-view/index', {
-                newProds: products,
-            });
-        })
-        .catch(err => {
-            console.log(err);
+        .exec(function (err, products) {
+            if (err) throw err;
+            newProds = products;
+            // console.log(products);
         });
 }
 
 module.exports = {
-    getHotItems,
-    getNewItems,
     initialization
 }

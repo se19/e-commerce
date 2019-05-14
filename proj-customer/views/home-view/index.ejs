@@ -64,15 +64,15 @@
     <div class="row">
       <% for (let product of hotProds) { %>
       <div class="col-lg-4 col-md-6 item-entry mb-4">
-        <a href="/product/<%= product.productId %>" class="product-item md-height bg-gray d-block">
-          <img src="imgs/<%= product.productId %>/main.jpg" alt="Image" class="img-fluid">
+        <a href="/product/<%= product._doc.productId %>" class="product-item md-height bg-gray d-block">
+          <img src="imgs/<%= product._doc.productId %>/main.jpg" alt="Image" class="img-fluid">
         </a>
-        <h2 class="item-title"><a href="/product/<%= product.productId %>">Laptop <%= product.title %> </a></h2>
-        <strong class="item-price"><del>$46.00</del> <%= product.price %> </strong>
+        <h2 class="item-title"><a href="/product/<%= product._doc.productId %>">Laptop <%= product._doc.title %> </a></h2>
+        <strong class="item-price"><del>$46.00</del> <%= product._doc.price %> </strong>
         <div class="star-rating">
-          <!-- <% for(let i=0; i< product.rating.average ; i++) { %> -->
+          <%# for(let i=0; i< product._doc.rating.average ; i++) { %>
           <span class="icon-star2 text-warning"></span>
-          <!-- <% } %> -->
+          <%# }  %>
         </div>
       </div>
       <% } %>
@@ -93,15 +93,15 @@
           <% for(let product of newProds) { %>
           <div class="item">
             <div class="item-entry">
-              <a href="/product/<%= product.productId %>" class="product-item md-height bg-gray d-block">
-                <img src="imgs/<%= product.productId %>/main.jpg" alt="Image" class="img-fluid">
+              <a href="/product/<%= product._doc.productId %>" class="product-item md-height bg-gray d-block">
+                <img src="imgs/<%= product._doc.productId %>/main.jpg" alt="Image" class="img-fluid">
               </a>
-              <h2 class="item-title"><a href="/product<%= product.productId %>">Laptop <%= product.title %></a></h2>
-              <strong class="item-price"><del>$46.00</del> <%= product.price %></strong>
+              <h2 class="item-title"><a href="/product<%= product._doc.productId %>">Laptop <%= product._doc.title %></a></h2>
+              <strong class="item-price"><del>$46.00</del> <%= product._doc.price %></strong>
               <div class="star-rating">
-                <!-- <% for(let i=0; i< product.rating.average; i++) { %> -->
+                <%# for(let i=0; i< product._doc.rating.average; i++) { %>
                 <span class="icon-star2 text-warning"></span>
-                <!-- <% } %> -->
+                <%# } %>
               </div>
             </div>
           </div>
