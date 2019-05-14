@@ -41,12 +41,12 @@
         <div>
           <div class="product-rating">
             <% let i; %>
-            <%= for(i=0; i< <%= product.rating.average %>; i++) { %>
+            <% for(i=0; i< product.rating.average; i++) { %>
             <i class="fas fa-star"></i>
-            <%= } %>
-            <%= for(; i<5; i++) { %>
+            <% } %>
+            <% for(; i<5; i++) { %>
             <i class="far fa-star"></i>
-            <%= } %>
+            <% } %>
           </div>
           <a class="review-link" href="#comment">(Xem <%= product.rating.comment.length %> Nhận xét)</a>
         </div>
