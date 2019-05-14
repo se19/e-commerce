@@ -17,7 +17,9 @@ const listProduct = (req, res, next) => {
 //Get thông tin sản phẩm
 const getDetail = (req, res, next) => {
     const prodId = req.params.productId;
-    Product.findOne({productId: prodId})
+    Product.findOne({
+            productId: prodId
+        })
         .then(product => {
             //console.log(product);
             res.render('product-view/product', {

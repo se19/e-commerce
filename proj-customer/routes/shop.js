@@ -7,5 +7,5 @@ router
   // /shop => Get
   .get('/', product_controller.listProduct)
   // /shop/product => Get
-  .get('/product/:productId', product_controller.getDetail)
+  .get('/:productId', product_controller.getDetail)
 module.exports = router;
