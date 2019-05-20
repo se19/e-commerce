@@ -43,14 +43,12 @@ const productSchema = new Schema({
     default: 0,
     required: true
   },
-  rating: {
-    reviews: [{
-      reviewId: {
-        type: Schema.Types.ObjectId,
-        ref: 'Rate',
-      },
-    }]
-  },
+  reviews: [{
+    reviewId: {
+      type: Schema.Types.ObjectId,
+      ref: 'Rate',
+    },
+  }],
   average: {
     type: Number,
     default: 0,
