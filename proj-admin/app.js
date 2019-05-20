@@ -6,6 +6,9 @@ var logger = require('morgan');
 
 var indexRouter = require('./routes/index');
 
+const bodyParser = require('body-parser');
+const multer = require('multer');
+
 var app = express();
 
 // view engine setup
@@ -21,6 +24,37 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
+app.use(bodyParser.urlencoded({
+  extended: false
+}));
+
+const fileStorage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, 'public/images');
+  },
+  filename: (req, file, cb) => {
+    cb(null, file.originalname);
+  }
+});
+
+const fileFilter = (req, file, cb) => {
+  if (
+    file.mimetype === 'image/png' ||
+    file.mimetype === 'image/jpg' ||
+    file.mimetype === 'image/jpeg'
+  ) {
+    cb(null, true);
+  } else {
+    cb(null, false);
+  }
+};
+
+app.use(
+  multer({
+    storage: fileStorage,
+    fileFilter: fileFilter
+  }).single('image')
+);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

@@ -24,7 +24,7 @@
 
                 <!-- Page Content -->
                 <div class="container-fluid">
-                    <% include ../common/partials/product-info-form %>
+                    <%- include('../common/partials/product-info-form.ejs', {editing: editing}) %>
                     <% include ../common/partials/comment-list %>
                 </div>
                 <!-- End Page Content -->
