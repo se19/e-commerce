@@ -3,13 +3,16 @@ const Brand = require('../models/brand');
 const Category = require('../models/category');
 
 // create product
-const get_add_product = (req, res, next) => {
+const get_add_product = async (req, res, next) => {
+    let brands = await Brand.find();
+    let categories = await Category.find();
     res.render('product-view/product-info', {
         editing: false,
-        product: {}
+        product: {},
+        brands: brands,
+        categories: categories
     });
 }
-
 const post_add_product = async (req, res, next) => {
     const productId = req.body.productId;
     const title = req.body.title;
@@ -72,11 +75,13 @@ const get_list_product = (req, res, next) => {
 }
 
 // update product 
-const get_edit_product = (req, res, next) => {
+const get_edit_product = async (req, res, next) => {
     const editMode = req.query.edit;
     if (!editMode) {
         return res.redirect('/products');
     }
+    let brands = await Brand.find();
+    let categories = await Category.find();
     const prodId = req.params.productId;
     Product.findOne({
             productId: prodId
@@ -89,7 +94,9 @@ const get_edit_product = (req, res, next) => {
             }
             res.render('product-view/product-info', {
                 editing: editMode,
-                product: product
+                product: product,
+                brands: brands,
+                categories: categories
             });
         })
         .catch(err => console.log(err));

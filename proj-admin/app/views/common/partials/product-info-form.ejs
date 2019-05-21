@@ -12,7 +12,7 @@
             <div class="row">
                 <div class="col-lg-4">
                     <div>
-                        <img src="<% if (editing) { %><%= product.imageUrl %><% } %>">
+                        <img src="/<% if (editing) { %><%= product.imageUrl %><% } %>">
                     </div>
                     <div class="flexbox-b mt-4">
                         <!-- <div class="mr-2">
@@ -136,45 +136,16 @@
                             <div class="col-sm-6 form-group mb-4">
                                 <label>Thương hiệu</label>
                                 <input class="form-control form-control-solid" type="text" name="brand"
-                                value="<% if (editing) { %><%= product.brandId.title %><% } %>">
+                                    value="<% if (editing) { %><%= product.brandId.title %><% } %>">
                             </div>
                             <div class="col-sm-6 form-group mb-4">
                                 <label>Loại</label>
                                 <input class="form-control form-control-solid" type="text" name="category"
-                                value="<% if (editing) { %><%= product.categoryId.title %><% } %>">
+                                    value="<% if (editing) { %><%= product.categoryId.title %><% } %>">
                             </div>
-                            <!-- <div class="col-sm-6 form-group mb-4">
-                                <label>Loại sản phẩm </label>
-                                <div>
-                                    <div class="btn-group bootstrap-select show-tick form-control"><button type="button"
-                                            class="btn dropdown-toggle bs-placeholder btn-solid" data-toggle="dropdown"
-                                            role="button" title="Vui lòng chọn"><span
-                                                class="filter-option pull-left">Vui lòng chọn</span>&nbsp;<span
-                                                class="bs-caret"><span class="caret"></span></span></button>
-                                        <div class="dropdown-menu open" role="combobox">
-                                            <ul class="dropdown-menu inner" role="listbox" aria-expanded="false">
-                                                <li data-original-index="1"><a tabindex="0" class="" data-tokens="null"
-                                                        role="option" aria-disabled="false" aria-selected="false"><span
-                                                            class="text">Gian hàng 1</span><span
-                                                            class="glyphicon glyphicon-ok check-mark"></span></a></li>
-                                                <li data-original-index="2"><a tabindex="0" class="" data-tokens="null"
-                                                        role="option" aria-disabled="false" aria-selected="false"><span
-                                                            class="text">Gian hàng 2</span><span
-                                                            class="glyphicon glyphicon-ok check-mark"></span></a></li>
-                                                <li data-original-index="3"><a tabindex="0" class="" data-tokens="null"
-                                                        role="option" aria-disabled="false" aria-selected="false"><span
-                                                            class="text">Gian hàng 3</span><span
-                                                            class="glyphicon glyphicon-ok check-mark"></span></a></li>
-                                                <li data-original-index="4"><a tabindex="0" class="" data-tokens="null"
-                                                        role="option" aria-disabled="false" aria-selected="false"><span
-                                                            class="text">Gian hàng 4</span><span
-                                                            class="glyphicon glyphicon-ok check-mark"></span></a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div> -->
-                            <!-- <div class="col-sm-6 form-group mb-4">
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6 form-group mb-4">
                                 <label>Thương hiệu </label>
                                 <div>
                                     <div class="btn-group bootstrap-select show-tick form-control">
@@ -185,13 +156,15 @@
                                                     class="caret"></span></span></button>
                                         <div class="dropdown-menu open" role="combobox">
                                             <ul class="dropdown-menu inner" role="listbox" aria-expanded="false">
-                                                <li data-original-index="1"><a tabindex="0" class="" data-tokens="null"
-                                                        role="option" aria-disabled="false" aria-selected="false"><span
-                                                            class="text">Gian hàng
-                                                            1</span><span
+                                                <% for (let i = 0; i < brands.length; i++) { %>
+                                                <li data-original-index="<% i %>"><a tabindex="0" class="active"
+                                                        data-tokens="null" role="option" aria-disabled="false"
+                                                        aria-selected="false"><span class="text">
+                                                            <%= brands[i].title %></span><span
                                                             class="glyphicon glyphicon-ok check-mark"></span></a>
                                                 </li>
-                                                <li data-original-index="2"><a tabindex="0" class="" data-tokens="null"
+                                                <% } %>
+                                                <!-- <li data-original-index="2"><a tabindex="0" class="" data-tokens="null"
                                                         role="option" aria-disabled="false" aria-selected="false"><span
                                                             class="text">Gian hàng
                                                             2</span><span
@@ -208,13 +181,55 @@
                                                             class="text">Gian hàng
                                                             4</span><span
                                                             class="glyphicon glyphicon-ok check-mark"></span></a>
-                                                </li>
+                                                </li> -->
                                             </ul>
                                         </div>
                                     </div>
                                 </div>
-                            </div> -->
+                            </div>
+                            <div class="col-sm-6 form-group mb-4">
+                                <label>Loại sản phẩm </label>
+                                <div>
+                                    <div class="btn-group bootstrap-select show-tick form-control"><button type="button"
+                                            class="btn dropdown-toggle bs-placeholder btn-solid" data-toggle="dropdown"
+                                            role="button" title="Vui lòng chọn"><span
+                                                class="filter-option pull-left">Vui
+                                                lòng chọn</span>&nbsp;<span class="bs-caret"><span
+                                                    class="caret"></span></span></button>
+                                        <div class="dropdown-menu open" role="combobox">
+                                            <ul class="dropdown-menu inner" role="listbox" aria-expanded="false">
+                                                <% for (let i = 0; i < categories.length; i++) { %>
+                                                <li data-original-index="<% i %>"><a tabindex="0" class="active"
+                                                        data-tokens="null" role="option" aria-disabled="false"
+                                                        aria-selected="false"><span class="text">
+                                                            <%= categories[i].title %></span><span
+                                                            class="glyphicon glyphicon-ok check-mark"></span></a></li>
+                                                <% } %>
+                                                <!-- <li data-original-index="2"><a tabindex="0" class="" data-tokens="null"
+                                                        role="option" aria-disabled="false" aria-selected="false"><span
+                                                            class="text">Gian hàng
+                                                            2</span><span
+                                                            class="glyphicon glyphicon-ok check-mark"></span></a>
+                                                </li>
+                                                <li data-original-index="3"><a tabindex="0" class="" data-tokens="null"
+                                                        role="option" aria-disabled="false" aria-selected="false"><span
+                                                            class="text">Gian hàng
+                                                            3</span><span
+                                                            class="glyphicon glyphicon-ok check-mark"></span></a>
+                                                </li>
+                                                <li data-original-index="4"><a tabindex="0" class="" data-tokens="null"
+                                                        role="option" aria-disabled="false" aria-selected="false"><span
+                                                            class="text">Gian hàng
+                                                            4</span><span
+                                                            class="glyphicon glyphicon-ok check-mark"></span></a>
+                                                </li> -->
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
+
                         <!-- <div class="form-group mb-4">
                             <label>Thẻ</label>
                             <div class="bootstrap-tagsinput form-control-solid"><input type="text" placeholder="Thẻ">
@@ -223,8 +238,8 @@
                         </div> -->
                         <div class="form-group mb-4">
                             <label>Mô tả</label>
-                            <textarea class="form-control form-control-solid" rows="4" name="description"
-                            >"<% if (editing) { %><%= product.description %><% } %>"</textarea>
+                            <textarea class="form-control form-control-solid" rows="4"
+                                name="description"><% if (editing) { %><%= product.description %><% } %></textarea>
                         </div>
                         <div class="form-group mb-4">
                             <input type="file" name="image" accept="image/*">
