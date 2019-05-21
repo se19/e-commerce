@@ -5,7 +5,8 @@ const Category = require('../models/category');
 // create product
 const get_add_product = (req, res, next) => {
     res.render('product-view/product-info', {
-        editing: false
+        editing: false,
+        product: {}
     });
 }
 
@@ -72,20 +73,21 @@ const get_list_product = (req, res, next) => {
 
 // update product 
 const get_edit_product = (req, res, next) => {
-    res.render('product-view/product-info');
     const editMode = req.query.edit;
     if (!editMode) {
         return res.redirect('/products');
     }
-    const prodId = req.params.pId;
-    Product.findById(prodId)
+    const prodId = req.params.productId;
+    Product.findOne({
+            productId: prodId
+        })
+        .populate('brandId')
+        .populate('categoryId')
         .then(product => {
             if (!product) {
                 return res.redirect('/products');
             }
-            res.render('products/edit', {
-                pageTitle: 'Edit Product',
-                path: '/admin/edit-product',
+            res.render('product-view/product-info', {
                 editing: editMode,
                 product: product
             });
