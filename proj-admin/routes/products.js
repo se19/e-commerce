@@ -13,5 +13,5 @@ router
   .get('/edit/:productId', product_controller.get_edit_product)
   .post('/edit', product_controller.post_edit_product)
   // delete
-  .post('/delete', product_controller.post_edit_product)
+  .post('/delete', product_controller.post_delete_product)
 module.exports = router;

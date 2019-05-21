@@ -95,13 +95,50 @@ const get_edit_product = (req, res, next) => {
         .catch(err => console.log(err));
 }
 
-const post_edit_product = (req, res, next) => {
-    res.render('product-view/product-info');
+const post_edit_product = async (req, res, next) => {
+    const productId = req.body.productId;
+    const updateTitle = req.body.title;
+    const updatePrice = req.body.price;
+    const updateDescription = req.body.description;
+    const image = req.file;
+    const updatenumberInventory = req.body.numberInventory;
+    let updateBrandId = await Brand.findOne({
+        title: req.body.brand
+    });
+    let updateCategoryId = await Category.findOne({
+        title: req.body.category
+    });
+    Product.findOne({
+            productId: productId
+        })
+        .then(product => {
+            product.title = updateTitle;
+            product.price = updatePrice;
+            product.description = updateDescription;
+            if (image) {
+                product.imageUrl = image.path;
+            }
+            product.numberInventory = updatenumberInventory;
+            product.brandId = updateBrandId;
+            product.categoryId = updateCategoryId;
+            return product.save();
+        })
+        .then(result => {
+            console.log('UPDATED PRODUCT!');
+            res.redirect('/products');
+        })
+        .catch(err => console.log(err));
 }
 
 // delete product
 const post_delete_product = (req, res, next) => {
-    res.render('product-view/product-info');
+    const prodId = req.body.pId;
+    Product.findByIdAndRemove(prodId)
+        .then(() => {
+            console.log('DESTROYED PRODUCT');
+            res.redirect('/products');
+        })
+        .catch(err => console.log(err));
 }
 
 
