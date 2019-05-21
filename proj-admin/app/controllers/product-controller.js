@@ -2,7 +2,7 @@ const Product = require('../models/product');
 const Brand = require('../models/brand');
 const Category = require('../models/category');
 
-// create
+// create product
 const get_add_product = (req, res, next) => {
     res.render('product-view/product-info', {
         editing: false
@@ -16,10 +16,7 @@ const post_add_product = async (req, res, next) => {
     const description = req.body.description;
     const image = req.file;
     const importDate = new Date().getDate();
-    //let brandId = req.body.brand;
-    //let categoryId = req.body.category;
     const numberInventory = req.body.numberInventory;
-
     let brandId = await Brand.findOne({
         title: req.body.brand
     });
@@ -30,7 +27,6 @@ const post_add_product = async (req, res, next) => {
     if (!image) {
         console.log('Errrrrrrrrrrror');
     }
-
     let imageUrl = image.path;
     imageUrl = imageUrl.slice(7);
 
@@ -47,7 +43,6 @@ const post_add_product = async (req, res, next) => {
         numberPurchased: 0,
         average: 0,
     });
-    //console.log(product);
     product
         .save()
         .then(result => {
@@ -60,21 +55,49 @@ const post_add_product = async (req, res, next) => {
         });
 }
 
-// read
+// read list product 
 const get_list_product = (req, res, next) => {
-    res.render('product-view/product-list');
+    Product.find()
+        .populate('brandId')
+        .populate('categoryId')
+        //.execPopulate()
+        .then(products => {
+            console.log(products);
+            res.render('product-view/product-list', {
+                prods: products
+            });
+        })
+        .catch(err => console.log(err));
 }
 
-// update
+// update product 
 const get_edit_product = (req, res, next) => {
     res.render('product-view/product-info');
+    const editMode = req.query.edit;
+    if (!editMode) {
+        return res.redirect('/products');
+    }
+    const prodId = req.params.pId;
+    Product.findById(prodId)
+        .then(product => {
+            if (!product) {
+                return res.redirect('/products');
+            }
+            res.render('products/edit', {
+                pageTitle: 'Edit Product',
+                path: '/admin/edit-product',
+                editing: editMode,
+                product: product
+            });
+        })
+        .catch(err => console.log(err));
 }
 
 const post_edit_product = (req, res, next) => {
     res.render('product-view/product-info');
 }
 
-// delete
+// delete product
 const post_delete_product = (req, res, next) => {
     res.render('product-view/product-info');
 }
