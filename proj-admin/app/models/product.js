@@ -20,6 +20,10 @@ const productSchema = new Schema({
     type: String,
     required: true
   },
+  imageUrl: {
+    type: String,
+    required: true
+  },
   importDate: {
     type: Date,
     required: true
@@ -40,7 +44,6 @@ const productSchema = new Schema({
   },
   numberPurchased: {
     type: Number,
-    default: 0,
     required: true
   },
   reviews: [{
@@ -51,7 +54,6 @@ const productSchema = new Schema({
   }],
   average: {
     type: Number,
-    default: 0,
     require: true
   }
 });

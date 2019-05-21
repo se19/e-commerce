@@ -1,3 +1,5 @@
+const Product = require('../models/product');
+
 // create
 const get_add_product = (req, res, next) => {
     res.render('product-view/product-info', {
@@ -9,12 +11,13 @@ const post_add_product = (req, res, next) => {
     const productId = req.body.productId;
     const title = req.body.title;
     const price = req.body.price;
-    const numberInventory = req.body.numberInventory;
+    const description = req.body.description;
     const image = req.file;
     const importDate = new Date().getDate();
-    const description = req.body.description;
     let brandId = req.body.brand;
     let categoryId = req.body.category;
+    const numberInventory = req.body.numberInventory;
+
     // let brandId = await Brand.findOne({
     //     title: req.body.brandTitle
     // });
@@ -25,32 +28,34 @@ const post_add_product = (req, res, next) => {
     if (!image) {
         console.log('Errrrrrrrrrrror');
     }
-    // path = public/images/untitled.png
+
     let imageUrl = image.path;
     imageUrl = imageUrl.slice(7);
-    //console.log(imageUrl);
 
     const product = new Product({
         productId: productId,
         title: title,
         price: price,
-        numberInventory: numberInventory,
+        description: description,
+        imageUrl: imageUrl,
         importDate: importDate,
         brandId: brandId,
         categoryId: categoryId,
-        imageUrl: imageUrl,
-        description: description
+        numberInventory: numberInventory,
+        numberPurchased: 0,
+        average: 0,
     });
     console.log(product);
-        // .save()
-        // .then(result => {
-        //     console.log(result);
-        //     console.log('Created Product');
-        //     res.redirect('/products');
-        // })
-        // .catch(err => {
-        //     console.log(err);
-        // });
+
+    // .save()
+    // .then(result => {
+    //     console.log(result);
+    //     console.log('Created Product');
+    //     res.redirect('/products');
+    // })
+    // .catch(err => {
+    //     console.log(err);
+    // });
 }
 
 // read
