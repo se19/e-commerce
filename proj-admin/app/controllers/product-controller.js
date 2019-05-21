@@ -1,4 +1,6 @@
 const Product = require('../models/product');
+const Brand = require('../models/brand');
+const Category = require('../models/category');
 
 // create
 const get_add_product = (req, res, next) => {
@@ -7,23 +9,23 @@ const get_add_product = (req, res, next) => {
     });
 }
 
-const post_add_product = (req, res, next) => {
+const post_add_product = async (req, res, next) => {
     const productId = req.body.productId;
     const title = req.body.title;
     const price = req.body.price;
     const description = req.body.description;
     const image = req.file;
     const importDate = new Date().getDate();
-    let brandId = req.body.brand;
-    let categoryId = req.body.category;
+    //let brandId = req.body.brand;
+    //let categoryId = req.body.category;
     const numberInventory = req.body.numberInventory;
 
-    // let brandId = await Brand.findOne({
-    //     title: req.body.brandTitle
-    // });
-    // let categoryId = await Category.findOne({
-    //     title: req.body.categoryTitle
-    // });
+    let brandId = await Brand.findOne({
+        title: req.body.brand
+    });
+    let categoryId = await Category.findOne({
+        title: req.body.category
+    });
 
     if (!image) {
         console.log('Errrrrrrrrrrror');
@@ -45,17 +47,17 @@ const post_add_product = (req, res, next) => {
         numberPurchased: 0,
         average: 0,
     });
-    console.log(product);
-
-    // .save()
-    // .then(result => {
-    //     console.log(result);
-    //     console.log('Created Product');
-    //     res.redirect('/products');
-    // })
-    // .catch(err => {
-    //     console.log(err);
-    // });
+    //console.log(product);
+    product
+        .save()
+        .then(result => {
+            console.log(result);
+            console.log('Created Product');
+            res.redirect('/products');
+        })
+        .catch(err => {
+            console.log(err);
+        });
 }
 
 // read
