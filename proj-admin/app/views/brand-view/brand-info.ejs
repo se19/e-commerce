@@ -3,13 +3,7 @@
 
 <head>
     <% include ../common/partials/head %>
-    <title>Gian hàng</title>
-    <!-- Page level plugins -->
-    <script src="/vendor/datatables/jquery.dataTables.min.js"></script>
-    <script src="/vendor/datatables/dataTables.bootstrap4.min.js"></script>
-
-    <!-- Page level custom scripts -->
-    <script src="/javascripts/demo/datatables-demo.js"></script>
+    <title><%= pageTitle %></title>
 </head>
 
 <body>
@@ -28,13 +22,11 @@
                 <!-- Include topbar partial -->
                 <% include ../common/partials/topbar %>
 
-
                 <!-- Page Content -->
                 <div class="container-fluid">
-                    <% include ../common/partials/stalls-table %>
+                    <%- include('../common/partials/brand-info-form', {brand: brand}) %>
                 </div>
                 <!-- End Page Content -->
-
 
             </div>
             <!-- End Main Content -->

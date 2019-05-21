@@ -1,0 +1,112 @@
+<link href="/stylesheets/admin-cast/bootstrap-select.min.css" rel="stylesheet" />
+<!-- PLUGINS STYLES-->
+<link href="/stylesheets/admin-cast/bootstrap-tagsinput.css" rel="stylesheet" />
+<!-- THEME STYLES-->
+<link href="/stylesheets/admin-cast/main.min.css" rel="stylesheet" />
+
+<% let editing = (brand.id != null); 
+const defaultImg = "images/default/no-image.png";%>
+
+<div class="page-content fade-in-up">
+    <div class="ibox">
+        <div class="ibox-body">
+            <h5 class="font-strong mb-5">THÔNG TIN NHÃN HÀNG</h5>
+            <div class="row">
+                <div class="col-lg-4">
+                    <div>
+                        <img id="img-upload"
+                            src="/<% if (brand.imageUrl == null || brand.imageUrl == '') { %><%= defaultImg %><% } else { %><%= brand.imageUrl %><% } %>">
+                    </div>
+                    <div class="flexbox-b mt-4">
+                        <!-- <div class="mr-2">
+                            <img src="/images/products/28.jpg" alt="image">
+                        </div>
+                        <div class="mr-2">
+                            <img src="/images/products/29.jpg" alt="image">
+                        </div>
+                        <div class="mr-2">
+                            <img src="/images/products/30.jpg" alt="image">
+                        </div> -->
+                        <!-- <div class="file-input-plus file-input mt-5"><i class="fa fa-plus"></i>
+                            <input type="file">
+                        </div> -->
+                    </div>
+                </div>
+                <div class="col-lg-8">
+                    <form action="/brands/<% if(editing){ %><%= brand.id %><%-'/edit'%><% } else { %>add<% } %>"
+                        method="POST" enctype="multipart/form-data">
+                        <div class="row">
+                            <div class="col-sm-9 form-group mb-4">
+                                <label>Tên loại</label>
+                                <input class="form-control form-control-solid" type="text" value="<%= brand.title %>"
+                                    name="title">
+                            </div>
+                        </div>
+
+                        <div class="form-group mb-4">
+                            <label>Mô tả</label>
+                            <textarea class="form-control form-control-solid" rows="4"
+                                name="description"><% if (editing) { %><%= brand.description %><% } %></textarea>
+                        </div>
+
+                        <div class="form-group mb-4">
+                            <input id="img-input" type="file" name="image" accept="image/*">
+                        </div>
+                        
+                        <div class="form-group mb-4">
+                            <label class="ui-switch switch-icon mr-3 mb-0">
+                                <input type="checkbox" value="false" name="available">
+                                <span></span>
+                            </label>Khả dụng
+                        </div>
+
+                        <div hidden>
+                            <input class="form-control form-control-solid" type="text" value="<%= brand.id %>"
+                                name="brandId" hidden>
+                        </div>
+
+                        <div class="text-right">
+                            <button class="btn btn-primary btn-air mr-2" type="submit"><% if (editing) { %>Cập
+                                nhật<% } else { %>Thêm mới<% } %></button>
+                            <button class="btn btn-secondary">Hủy bỏ</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- <script src="/javascripts/admin-cast/bootstrap-select.min.js"></script> -->
+<!-- PAGE LEVEL PLUGINS-->
+<script src="/javascripts/admin-cast/bootstrap-tagsinput.min.js"></script>
+<!-- CORE SCRIPTS-->
+<script src="/javascripts/admin-cast/app.min.js"></script>
+<!-- PAGE LEVEL SCRIPTS-->
+<script>
+    $(function () {
+        $('.tagsinput').tagsinput({
+            tagClass: 'label label-primary'
+        });
+        $('.tagsinput.form-control-solid').siblings('.bootstrap-tagsinput').addClass('form-control-solid');
+
+        // $(".category-item").click(function () { //use a class, since your ID gets mangled
+        //     $(this).addClass("checked"); //add the class to the clicked element
+        //     alert('ok');
+        // });
+
+        //Handle image on changed
+        $("#img-input").change(function ($event) {
+            let file = $event.target.files[0];
+            if ($event.target.files && file) {
+                var reader = new FileReader();
+                reader.readAsDataURL(file);
+                reader.onloadend = function (e) {
+                    // console.log( e.target.result);
+                    $('#img-upload').attr('src', e.target.result);
+                };
+            }
+        });
+    });
+</script>

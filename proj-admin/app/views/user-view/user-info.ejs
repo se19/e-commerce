@@ -3,7 +3,7 @@
 
 <head>
     <% include ../common/partials/head %>
-    <title>Thêm mới</title>
+    <title><%= pageTitle %></title>
 </head>
 
 <body>
@@ -23,7 +23,7 @@
 
                 <!-- Page Content -->
                 <div class="container-fluid">
-                    <% include ../common/partials/account-info-form %>
+                    <%- include('../common/partials/user-info-form', {user}) %>
                     <% include ../common/partials/orders-table %>
                 </div>
                 <!-- End Page Content -->

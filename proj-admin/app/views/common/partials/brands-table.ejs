@@ -1,0 +1,94 @@
+<script type="text/javascript" src="/javascripts/admin-cast/bootstrap-select.min.js"></script>
+<link href="/stylesheets/admin-cast/datatables.min.css" rel="stylesheet" />
+<link href="/stylesheets/admin-cast/bootstrap-select.min.css" rel="stylesheet" />
+<link href="/stylesheets/admin-cast/main.min.css" rel="stylesheet" />
+
+<!-- START PAGE CONTENT-->
+<div class="page-content fade-in-up pl-4 pr-4">
+    <div class="ibox">
+        <div class="ibox-body">
+            <div class="flexbox row">
+                <div class="flexbox col-12 col-md-auto mb-4">
+                    <h5 class="font-strong mb-4">DANH SÁCH NHÃN HÀNG</h5>
+                </div>
+                <div class="flexbox col-12 col-lg-auto row">
+                    <div class="input-group-icon input-group-icon-left mb-4 col-12 col-md-6 col-lg-auto">
+                        <span class="input-icon input-icon-right font-16"><i class="fa fa-search"></i></span>
+                        <input class="form-control form-control-rounded form-control-solid" id="key-search" type="text"
+                            placeholder="Tìm kiếm ...">
+                    </div>
+                    <a class="btn btn-rounded btn-primary btn-air mb-4 col-12 col-md-6 col-lg-auto"
+                        href="/brands/add">Thêm nhãn hàng</a>
+                </div>
+            </div>
+            <div class="table-responsive row">
+                <table class="table table-bordered tablef-hover" id="orders-table">
+                    <thead class="thead-default thead-lg">
+                        <tr>
+                            <th>#</th>
+                            <th>Mã nhãn hàng</th>
+                            <th>Tên nhãn hàng</th>
+                            <th class="no-sort"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% if (brands.length > 0) { %>
+                        <% for (let brand of brands) { %>
+                        <tr>
+                            <td></td>
+                            <td>
+                                <a><%= brand.id %></a>
+                            </td>
+                            <td>
+                                <a href="/brands/<%= brand.id %>">
+                                    <%= brand.title %>
+                                </a></td>
+                            <td>
+                                <a class="text-light mr-3 font-16" href="/brands/<%= brand.id %>"><i
+                                        class="fa fa-pencil-alt"></i></a>
+                                <form action="/brands/<%= brand.id %><%- '/delete' %>" method="POST">
+                                    <input type="hidden" value="<%= brand.id %>" name="brandId">
+                                    <button type="submit">
+                                        <i class="fa fa-trash"></i>
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+                        <% } %>
+                        <% } else { %>
+                        <!-- <h1>No Brands Found!</h1> -->
+                        <% } %>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- END PAGE CONTENT-->
+
+
+<script type="text/javascript" src="/javascripts/admin-cast/datatables.min.js"></script>
+<script type="text/javascript" src="/javascripts/admin-cast/app.min.js"></script>
+
+<script>
+    $(function () {
+        $('#orders-table').DataTable({
+            pageLength: 10,
+            fixedHeader: true,
+            responsive: true,
+            "sDom": 'rtip',
+            columnDefs: [{
+                targets: 'no-sort',
+                orderable: false
+            }]
+        });
+
+        var table = $('#orders-table').DataTable();
+        $('#key-search').on('keyup', function () {
+            table.search(this.value).draw();
+        });
+        $('#type-filter').on('change', function () {
+            table.column(4).search($(this).val()).draw();
+        });
+    });
+</script>

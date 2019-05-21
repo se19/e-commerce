@@ -102,23 +102,23 @@ $(function() {
 // Flot Pie Chart
 $(function() {
     var data = [{
-        label: "Gian hàng 1",
+        label: "Nhãn hàng 1",
         data: 33,
         color: "#bdc3c7",
     }, {
-        label: "Gian hàng 2",
+        label: "Nhãn hàng 2",
         data: 15,
         color: "#43AEA8",
     }, {
-        label: "Gian hàng 3",
+        label: "Nhãn hàng 3",
         data: 12,
         color: "#ccc",
     }, {
-        label: "Gian hàng 4",
+        label: "Nhãn hàng 4",
         data: 20,
         color: "#ddd",
     }, {
-        label: "Gian hàng 5",
+        label: "Nhãn hàng 5",
         data: 20,
         color: "#eaeaea",
     }];

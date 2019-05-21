@@ -3,7 +3,7 @@
 
 <head>
     <% include ../common/partials/head %>
-    <title>Product groups</title>
+    <title><%= pageTitle %></title>
     <!-- Page level plugins -->
     <script src="/vendor/datatables/jquery.dataTables.min.js"></script>
     <script src="/vendor/datatables/dataTables.bootstrap4.min.js"></script>
@@ -30,7 +30,9 @@
 
 
                 <!-- Page Content -->
-                <% include ../common/partials/product-group-table %>
+                <div class="container-fluid">
+                    <% include ../common/partials/brands-table %>
+                </div>
                 <!-- End Page Content -->
 
 

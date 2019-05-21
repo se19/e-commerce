@@ -29,3 +29,8 @@
 #products-table_wrapper {
     padding: 0;
 }
+
+/* select box */
+.dropdown-menu .category-item.checked a .check-mark {
+    display: block;
+}

@@ -4,6 +4,12 @@
 <head>
     <% include ../common/partials/head %>
     <title><%= pageTitle %></title>
+    <!-- Page level plugins -->
+    <script src="/vendor/datatables/jquery.dataTables.min.js"></script>
+    <script src="/vendor/datatables/dataTables.bootstrap4.min.js"></script>
+
+    <!-- Page level custom scripts -->
+    <script src="/javascripts/demo/datatables-demo.js"></script>
 </head>
 
 <body>
@@ -24,7 +30,7 @@
 
 
                 <!-- Page Content -->
-                <% include ../common/partials/product-table %>
+                <% include ../common/partials/category-table %>
                 <!-- End Page Content -->
 
 
@@ -39,7 +45,9 @@
         </div>
         <!-- End Content Wrapper -->
 
+
     </div>
+    <!-- End of Page Wrapper -->
 
     <!-- Include bottom partial -->
     <% include ../common/partials/bottom %>

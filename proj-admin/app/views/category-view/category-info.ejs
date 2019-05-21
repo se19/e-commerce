@@ -3,7 +3,7 @@
 
 <head>
     <% include ../common/partials/head %>
-    <title>Gian hàng</title>
+    <title><%= pageTitle %></title>
 </head>
 
 <body>
@@ -24,8 +24,7 @@
 
                 <!-- Page Content -->
                 <div class="container-fluid">
-                    <% include ../common/partials/stall-info-form %>
-                    <% include ../common/partials/product-table %>
+                    <%- include('../common/partials/category-info-form', {category}) %>
                 </div>
                 <!-- End Page Content -->
 

@@ -18,11 +18,11 @@
                             placeholder="Tìm kiếm ...">
                     </div>
                     <a class="btn btn-rounded btn-primary btn-air mb-4 col-12 col-md-6 col-lg-auto"
-                        href="/accounts/add">Thêm loại hàng hóa</a>
+                        href="/categories/add">Thêm loại hàng hóa</a>
                 </div>
             </div>
             <div class="table-responsive row">
-                <table class="table table-bordered table-hover" id="orders-table">
+                <table class="table table-bordered tablef-hover" id="orders-table">
                     <thead class="thead-default thead-lg">
                         <tr>
                             <th>#</th>
@@ -32,42 +32,32 @@
                         </tr>
                     </thead>
                     <tbody>
+                        <% if (categories.length > 0) { %>
+                        <% for (let category of categories) { %>
                         <tr>
-                            <td>1</td>
+                            <td></td>
                             <td>
-                                <a>#1254</a>
+                                <a><%= category.id %></a>
                             </td>
-                            <td>Sách</td>
                             <td>
-                                <a class="text-light mr-3 font-16" href="/products/info"><i
+                                <a href="/categories/<%= category.id %>">
+                                    <%= category.title %>
+                                </a></td>
+                            <td>
+                                <a class="text-light mr-3 font-16" href="/categories/<%= category.id %>"><i
                                         class="fa fa-pencil-alt"></i></a>
-                                <a class="text-muted font-16" href="/"><i class="fa fa-trash"></i></a>
+                                <form action="/categories/<%= category.id %><%- '/delete' %>" method="POST">
+                                    <input type="hidden" value="<%= category.id %>" name="categoryId">
+                                    <button type="submit">
+                                        <i class="fa fa-trash"></i>
+                                    </button>
+                                </form>
                             </td>
                         </tr>
-                        <tr>
-                            <td>2</td>
-                            <td>
-                                <a>#1253</a>
-                            </td>
-                            <td>Áo quần</td>
-                            <td>
-                                <a class="text-light mr-3 font-16" href="/products/info"><i
-                                        class="fa fa-pencil-alt"></i></a>
-                                <a class="text-muted font-16" href="/"><i class="fa fa-trash"></i></a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>3</td>
-                            <td>
-                                <a>#1252</a>
-                            </td>
-                            <td>Đồ điện tử</td>
-                            <td>
-                                <a class="text-light mr-3 font-16" href="/products/info"><i
-                                        class="fa fa-pencil-alt"></i></a>
-                                <a class="text-muted font-16" href="/"><i class="fa fa-trash"></i></a>
-                            </td>
-                        </tr>
+                        <% } %>
+                        <% } else { %>
+                        <!-- <h1>No Categories Found!</h1> -->
+                        <% } %>
                     </tbody>
                 </table>
             </div>

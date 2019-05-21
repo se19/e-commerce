@@ -14,6 +14,7 @@ const {
 } = require('../config/dbs');
 
 var server;
+var port;
 
 initdb().then(() => {
 
@@ -21,7 +22,7 @@ initdb().then(() => {
    * Get port from environment and store in Express.
    */
 
-  const port = normalizePort(process.env.PORT || '3100');
+  port = normalizePort(process.env.PORT || '3100');
   app.set('port', port);
 
   /**
@@ -45,7 +46,7 @@ initdb().then(() => {
  * Normalize a port into a number, string, or false.
  */
 function normalizePort(val) {
-  const port = parseInt(val, 10);
+  port = parseInt(val, 10);
 
   if (isNaN(port)) {
     // named pipe
@@ -64,8 +65,8 @@ function normalizePort(val) {
  * Event listener for HTTP server "listening" event.
  */
 const onListening = () => {
-  const addr = server.address();
-  const bind = typeof addr === 'string' ?
+  var addr = server.address();
+  var bind = typeof addr === 'string' ?
     'pipe ' + addr :
     'port ' + addr.port;
   debug('Listening on ' + bind);

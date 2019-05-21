@@ -4,16 +4,16 @@ const intialization = (req, res, next) => {
         title: 'Admin'
     });
 
-    getAmountStalls(req, res, next);
+    getAmountBrands(req, res, next);
     getAmountUsers(req, res, next);
     getAmountOrders(req, res, next);
     getTopCatalogs(req, res, next);
     getTopProducts(req, res, next);
-    getTopStalls(req, res, next);
+    getTopBrands(req, res, next);
     getNewUsers(req, res, next);
 }
 
-const getAmountStalls = (req, res, next) => {
+const getAmountBrands = (req, res, next) => {
 
 }
 
@@ -33,7 +33,7 @@ const getTopProducts = (req, res, next) => {
 
 }
 
-const getTopStalls = (req, res, next) => {
+const getTopBrands = (req, res, next) => {
 
 }
 

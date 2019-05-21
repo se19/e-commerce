@@ -6,7 +6,9 @@ const Category = require('../models/category');
 const get_add_product = async (req, res, next) => {
     let brands = await Brand.find();
     let categories = await Category.find();
+
     res.render('product-view/product-info', {
+        pageTitle: "Thêm hàng hóa",
         editing: false,
         product: {},
         brands: brands,
@@ -14,40 +16,28 @@ const get_add_product = async (req, res, next) => {
     });
 }
 const post_add_product = async (req, res, next) => {
-    const productId = req.body.productId;
-    const title = req.body.title;
-    const price = req.body.price;
-    const description = req.body.description;
-    const image = req.file;
-    const importDate = new Date().getDate();
-    const numberInventory = req.body.numberInventory;
-    let brandId = await Brand.findOne({
-        title: req.body.brand
-    });
-    let categoryId = await Category.findOne({
-        title: req.body.category
-    });
+    let newProduct = new Product();
+    newProduct.productId = req.body.productId;
+    newProduct.title = req.body.title;
+    newProduct.price = req.body.price;
+    newProduct.description = req.body.description;
+    newProduct.importDate = new Date().getDate();
+    newProduct.numberInventory = req.body.numberInventory;
+    newProduct.brandId = req.body.brandId;
+    newProduct.categoryId = req.body.categoryId;
+    newProduct.numberPurchased = 0;
+    newProduct.average = 0;
+
+    let image = req.file;
 
     if (!image) {
         console.log('Errrrrrrrrrrror');
+    } else {
+        newProduct.imageUrl = image.path;
+        newProduct.imageUrl = newProduct.imageUrl.slice(7);
     }
-    let imageUrl = image.path;
-    imageUrl = imageUrl.slice(7);
 
-    const product = new Product({
-        productId: productId,
-        title: title,
-        price: price,
-        description: description,
-        imageUrl: imageUrl,
-        importDate: importDate,
-        brandId: brandId,
-        categoryId: categoryId,
-        numberInventory: numberInventory,
-        numberPurchased: 0,
-        average: 0,
-    });
-    product
+    newProduct
         .save()
         .then(result => {
             console.log(result);
@@ -68,6 +58,7 @@ const get_list_product = (req, res, next) => {
         .then(products => {
             console.log(products);
             res.render('product-view/product-list', {
+                pageTitle: "Danh sách hàng hóa",
                 prods: products
             });
         })
@@ -93,6 +84,7 @@ const get_edit_product = async (req, res, next) => {
                 return res.redirect('/products');
             }
             res.render('product-view/product-info', {
+                pageTitle: product.title,
                 editing: editMode,
                 product: product,
                 brands: brands,
@@ -124,6 +116,7 @@ const post_edit_product = async (req, res, next) => {
             product.description = updateDescription;
             if (image) {
                 product.imageUrl = image.path;
+                product.imageUrl = product.imageUrl.slice(7);
             }
             product.numberInventory = updatenumberInventory;
             product.brandId = updateBrandId;
