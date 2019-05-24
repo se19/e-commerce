@@ -63,9 +63,9 @@
                                 <label>Thương hiệu </label>
                                 <div>
                                     <div class="select-box">
-                                        <select class="custom-select" id="inputGroupBrands" value="<%= product.brandId %>"
-                                            name="brandId">
-                                            <option selected>Vui lòng chọn...</option>
+                                        <select class="custom-select" id="inputGroupBrands"
+                                            value="<%= product.brandId %>" name="brandId" aria-placeholder="">
+                                            <option value="">Vui lòng chọn...</option>
                                             <% for (let i = 0; i < brands.length; i++) { %>
                                             <option value="<%= brands[i].id %>"><%= brands[i].title %></option>
                                             <% } %>
@@ -79,7 +79,7 @@
                                     <div class="select-box">
                                         <select class="custom-select" id="inputGroupCategories"
                                             value="<%= product.categoryId %>" name="categoryId">
-                                            <option selected>Vui lòng chọn...</option>
+                                            <option value="">Vui lòng chọn...</option>
                                             <% for (let i = 0; i < categories.length; i++) { %>
                                             <option value="<%= categories[i].id %>">
                                                 <%= categories[i].title %></option>
@@ -123,6 +123,17 @@
 <script src="/javascripts/admin-cast/app.min.js"></script>
 <!-- PAGE LEVEL SCRIPTS-->
 <script>
+    //On init select box
+    $(document).ready(function () {
+        let brand = <%- JSON.stringify(product.brandId) %> ;
+        let brandId = brand._id;
+        $("#inputGroupBrands").val(brandId);
+
+        let category = <%- JSON.stringify(product.categoryId) %> ;
+        let categoryId = category._id;
+        $("#inputGroupCategories").val(categoryId);
+    });
+
     $(function () {
         $('.tagsinput').tagsinput({
             tagClass: 'label label-primary'
@@ -133,7 +144,6 @@
         //     $(this).addClass("checked"); //add the class to the clicked element
         //     alert('ok');
         // });
-
 
         //Handle image on changed
         $("#img-input").change(function ($event) {
@@ -147,5 +157,6 @@
                 };
             }
         });
+
     });
 </script>

@@ -102,10 +102,10 @@ const post_edit_product = async (req, res, next) => {
     const image = req.file;
     const updatenumberInventory = req.body.numberInventory;
     let updateBrandId = await Brand.findOne({
-        title: req.body.brand
+        _id: req.body.brandId
     });
     let updateCategoryId = await Category.findOne({
-        title: req.body.category
+        _id: req.body.categoryId
     });
     Product.findOne({
             productId: productId
