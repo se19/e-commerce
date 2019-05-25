@@ -38,24 +38,24 @@
                             <div class="col-sm-3 form-group mb-4">
                                 <label>Mã hàng hóa</label>
                                 <input class="form-control form-control-solid" type="text" name="productId"
-                                    value="<% if (editing) { %><%= product.productId %><% } %>">
+                                    value="<% if (editing) { %><%= product.productId %><% } %>" required>
                             </div>
                             <div class="col-sm-9 form-group mb-4">
                                 <label>Tên hàng hóa</label>
                                 <input class="form-control form-control-solid" type="text" name="title"
-                                    value="<% if (editing) { %><%= product.title %><% } %>">
+                                    value="<% if (editing) { %><%= product.title %><% } %>" required>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-sm-6 form-group mb-4">
                                 <label>Giá</label>
                                 <input class="form-control form-control-solid" type="number" name="price"
-                                    value="<% if (editing) { %><%= product.price %><% } %>">
+                                    value="<% if (editing) { %><%= product.price %><% } %>" required>
                             </div>
                             <div class="col-sm-6 form-group mb-4">
                                 <label>Số lượng</label>
                                 <input class="form-control form-control-solid" type="number" name="numberInventory"
-                                    value="<% if (editing) { %><%= product.numberInventory %><% } %>">
+                                    value="<% if (editing) { %><%= product.numberInventory %><% } %>" required>
                             </div>
                         </div>
                         <div class="row">
@@ -64,7 +64,7 @@
                                 <div>
                                     <div class="select-box">
                                         <select class="custom-select" id="inputGroupBrands"
-                                            value="<%= product.brandId %>" name="brandId" aria-placeholder="">
+                                            value="<%= product.brandId %>" name="brandId" aria-placeholder="" required>
                                             <option value="">Vui lòng chọn...</option>
                                             <% for (let i = 0; i < brands.length; i++) { %>
                                             <option value="<%= brands[i].id %>"><%= brands[i].title %></option>
@@ -78,7 +78,7 @@
                                 <div>
                                     <div class="select-box">
                                         <select class="custom-select" id="inputGroupCategories"
-                                            value="<%= product.categoryId %>" name="categoryId">
+                                            value="<%= product.categoryId %>" name="categoryId" required>
                                             <option value="">Vui lòng chọn...</option>
                                             <% for (let i = 0; i < categories.length; i++) { %>
                                             <option value="<%= categories[i].id %>">
@@ -96,7 +96,10 @@
                                 name="description"><% if (editing) { %><%= product.description %><% } %></textarea>
                         </div>
                         <div class="form-group mb-4">
-                            <input id="img-input" type="file" name="image" accept="image/*">
+                            <label>Hình ảnh</label>
+                            <div>
+                                <input id="img-input" type="file" name="image" accept="image/*" required>
+                            </div>
                         </div>
                         <div class="form-group mb-4">
                             <label class="ui-switch switch-icon mr-3 mb-0">
@@ -125,11 +128,11 @@
 <script>
     //On init select box
     $(document).ready(function () {
-        let brand = <%- JSON.stringify(product.brandId) %> ;
+        let brand = < % -JSON.stringify(product.brandId) % > ;
         let brandId = brand._id;
         $("#inputGroupBrands").val(brandId);
 
-        let category = <%- JSON.stringify(product.categoryId) %> ;
+        let category = < % -JSON.stringify(product.categoryId) % > ;
         let categoryId = category._id;
         $("#inputGroupCategories").val(categoryId);
     });

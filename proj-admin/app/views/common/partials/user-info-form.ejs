@@ -39,24 +39,24 @@ const defaultImg = "images/default/no-image.png";%>
                             <div class="col-sm-6 form-group mb-4">
                                 <label>Họ tên</label>
                                 <input class="form-control form-control-solid" type="text" value="<%= user.name %>"
-                                    name="name">
+                                    name="name" required>
                             </div>
                             <div class="col-sm-6 form-group mb-4">
                                 <label>Tên người dùng</label>
                                 <input class="form-control form-control-solid" type="text" value="<%= user.username %>"
-                                    name="username">
+                                    name="username" required>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-sm-6 form-group mb-4">
                                 <label>Email</label>
-                                <input class="form-control form-control-solid" type="text" value="<%= user.email %>"
-                                    name="email">
+                                <input class="form-control form-control-solid" type="email" value="<%= user.email %>"
+                                    name="email" title="Email không hợp lệ" required>
                             </div>
                             <div class="col-sm-6 form-group mb-4">
                                 <label>Số điện thoại</label>
                                 <input class="form-control form-control-solid" type="text" value="<%= user.phone %>"
-                                    name="phone">
+                                    name="phone" required>
                             </div>
                         </div>
 
@@ -75,7 +75,10 @@ const defaultImg = "images/default/no-image.png";%>
                         </div>
 
                         <div class="form-group mb-4">
-                            <input id="img-input" type="file" name="image" accept="image/*">
+                            <label>Hình ảnh</label>
+                            <div>
+                                <input id="img-input" type="file" name="image" accept="image/*" required>
+                            </div>
                         </div>
 
                         <div class="form-group mb-4">
