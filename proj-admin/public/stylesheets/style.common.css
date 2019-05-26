@@ -7,3 +7,7 @@ body {
 a {
   color: #00B7FF;
 }
+
+body>#wrapper>#content-wrapper>#content {
+  min-height: 100vh;
+}

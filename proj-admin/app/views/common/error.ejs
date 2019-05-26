@@ -3,7 +3,7 @@
 
 <head>
     <% include ../common/partials/head %>
-    <title>Page not found!</title>
+    <title><%= pageTitle %></title>
 </head>
 
 <body>
@@ -11,7 +11,9 @@
     <div id="wrapper">
 
         <!-- Include sidebar partial -->
+        <% if(isLogin){ %>
         <% include ../common/partials/sidebar %>
+        <% } %>
 
         <!-- Content Wrapper -->
         <div id="content-wrapper" class="d-flex flex-column">
@@ -20,16 +22,18 @@
             <div id="content">
 
                 <!-- Include topbar partial -->
+                <% if(isLogin){ %>
                 <% include ../common/partials/topbar %>
+                <% } %>
 
                 <!-- Page Content -->
                 <div class="container-fluid">
                     <!-- 404 Error Text -->
                     <div class="text-center">
                         <div class="error mx-auto" data-text="404">404</div>
-                        <p class="lead text-gray-800 mb-5">Page Not Found</p>
-                        <p class="text-gray-500 mb-0">It looks like you found a glitch in the matrix...</p>
-                        <a href="/">&larr; Back to Dashboard</a>
+                        <p class="lead text-gray-800 mb-5">Không tìm thấy trang</p>
+                        <p class="text-gray-500 mb-0">Có lỗi xảy ra đối với trang bạn muốn truy cập...</p>
+                        <a href="/">&larr; Quay trở lại trang chủ</a>
                     </div>
                 </div>
                 <!-- End Page Content -->

@@ -39,7 +39,7 @@ const forgot_pw = (req, res, next) => {
 
 const logout = (req, res, next) => {
     req.logout();
-    res.render('auth-view/login', {});
+    res.redirect('/login');
 };
 
 module.exports = {

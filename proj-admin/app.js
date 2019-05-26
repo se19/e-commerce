@@ -11,7 +11,10 @@ const session = require('express-session');
 const multer = require('multer');
 const flash = require('connect-flash');
 
+//import router config
 const indexRouter = require('./routes/index');
+
+//import passport config
 const passportConfig = require('./config/passport');
 
 var app = express();
@@ -81,7 +84,11 @@ app.use(function (err, req, res, next) {
 
   // render the error page
   res.status(err.status || 500);
-  res.render('common/error');
+  let isLogin = req.isAuthenticated();
+  res.render('common/error', {
+    pageTitle: "Không tìm thấy trang!",
+    isLogin
+  });
 });
 
 module.exports = app;
