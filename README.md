@@ -1,7 +1,7 @@
 # e-commerce
 * Demo:    
 
-    [https://webshop-admin.herokuapp.com/](https://webshop-admin.herokuapp.com/)
+    [https://webshop-admin.herokuapp.com/](https://webshop-admin.herokuapp.com/) (default: admin/admin)
             
     [https://webshop-client.herokuapp.com/](https://webshop-client.herokuapp.com/)
 * Dev environment: 
