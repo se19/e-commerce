@@ -1,6 +1,7 @@
 const passport = require('passport');
 const localStrategy = require('passport-local').Strategy;
 const User = require('../app/models/user');
+const bcrypt = require('bcrypt');
 
 const passportConfig = () => {
     passport.initialize();
@@ -12,16 +13,22 @@ const passportConfig = () => {
                     username: username
                 })
                 .then(user => {
-                    if (user && user.password === password) {
-                        return done(null, user)
+                    if (user) {
+                        bcrypt.compare(password, user.password, function (err, res) {
+                            if (res === true) {
+                                return done(null, user)
+                            } else {
+                                console.log('PASSWORD FAILED');
+                                return done(null, false)
+                            }
+                        });
                     } else {
                         console.log('NOT FOUND USER');
                         return done(null, false)
                     }
                 })
                 .catch(err => console.log(err));
-        }
-    ))
+        }))
 
     // Khai báo serial mã hóa dữ liệu để có thể lưu trữ user vào session
     passport.serializeUser((user, done) => {

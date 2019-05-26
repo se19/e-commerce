@@ -65,6 +65,7 @@ const create_user = (req, res, next) => {
     newUser.name = req.body.name;
     newUser.username = req.body.username;
     newUser.email = req.body.email;
+    newUser.password = req.body.password;
     newUser.phone = req.body.phone;
     newUser.address = req.body.address;
     newUser.description = req.body.description;
