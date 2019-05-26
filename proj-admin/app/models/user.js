@@ -35,6 +35,14 @@ const userSchema = new Schema({
     type: String,
     required: false
   },
+  userType: {
+    type: String,
+    required: true
+  },
+  dateCreated: {
+    type: Date,
+    required: true
+  },
   available: {
     type: Boolean,
     required: false

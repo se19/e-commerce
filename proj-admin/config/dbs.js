@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 const conn_str = "mongodb+srv://admin:123@cluster0-llp1b.mongodb.net/shopDB?retryWrites=true";
 
 mongoose.set('useCreateIndex', true);
+mongoose.set('useFindAndModify', false);
 
 const connect = (conn_str) => {
     return mongoose.connect(conn_str, {

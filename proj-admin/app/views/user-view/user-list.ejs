@@ -31,7 +31,14 @@
 
                 <!-- Page Content -->
                 <div class="container-fluid">
-                    <% include ../common/partials/users-table %>
+                    <% switch(userType){ 
+                        case 'admin': %>
+                        <% include ../common/partials/users-admin-table %>
+                        <% break;
+                        case 'customer': %>
+                        <% include ../common/partials/users-customer-table %>
+                        <% break; 
+                    } %>
                 </div>
                 <!-- End Page Content -->
 

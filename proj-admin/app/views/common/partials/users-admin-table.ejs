@@ -9,7 +9,7 @@
         <div class="ibox-body">
             <div class="flexbox row">
                 <div class="flexbox col-12 col-md-auto mb-4">
-                    <h5 class="font-strong mb-4">DANH SÁCH TÀI KHOẢN</h5>
+                    <h5 class="font-strong mb-4">DANH SÁCH QUẢN TRỊ VIÊN</h5>
                 </div>
                 <div class="flexbox col-12 col-lg-auto row">
                     <div class="input-group-icon input-group-icon-left mb-4 col-12 col-md-6 col-lg-auto">
@@ -18,7 +18,7 @@
                             placeholder="Tìm kiếm ...">
                     </div>
                     <a class="btn btn-rounded btn-primary btn-air mb-4 col-12 col-md-6 col-lg-auto"
-                        href="/users/add">Thêm người dùng</a>
+                        href="/users/administrators/add">Thêm quản trị viên</a>
                 </div>
             </div>
             <div class="table-responsive row">
@@ -31,7 +31,7 @@
                             <th>Tên người dùng</th>
                             <th>Email</th>
                             <th>Số điện thoại</th>
-                            <th class="no-sort"></th>
+                            <!-- <th class="no-sort"></th> -->
                         </tr>
                     </thead>
                     <tbody>
@@ -40,15 +40,17 @@
                         <tr>
                             <td></td>
                             <td>
-                                <a><%= user.id %></a>
+                                <a href="/users/administrators/<%= user.id %>">
+                                    <%= user.id %>
+                                </a>
                             </td>
                             <td>
-                                <a href="/users/<%= user.id %>">
+                                <a href="/users/administrators/<%= user.id %>">
                                     <%= user.name %>
                                 </a>
                             </td>
                             <td>
-                                <a href="/users/<%= user.id %>">
+                                <a href="/users/administrators/<%= user.id %>">
                                     <%= user.username %>
                                 </a>
                             </td>
@@ -58,16 +60,16 @@
                             <td>
                                 <%= user.phone %>
                             </td>
-                            <td>
-                                <a class="text-light mr-3 font-16" href="/users/<%= user.id %>"><i
+                            <!-- <td>
+                                <a class="text-light mr-3 font-16" href="/users/administrators/<%= user.id %>"><i
                                         class="fa fa-pencil-alt"></i></a>
-                                <form action="/users/<%= user.id %><%- '/delete' %>" method="POST">
+                                <form action="/users/administrators/<%= user.id %><%- '/delete' %>" method="POST">
                                     <input type="hidden" value="<%= user.id %>" name="userId">
                                     <button type="submit">
                                         <i class="fa fa-trash"></i>
                                     </button>
                                 </form>
-                            </td>
+                            </td> -->
                         </tr>
                         <% } %>
                         <% } else { %>

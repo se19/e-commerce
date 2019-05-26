@@ -7,17 +7,34 @@ const user_controller = require('../app/controllers/user-controller');
 router
   //check auth
   .use('/', auth_controller.checkAuth)
+
+  //Administrators
   //List
-  .get('/', user_controller.list_users)
+  .get('/administrators', user_controller.list_administrators)
   //Get create view
-  .get('/add', user_controller.init_user)
+  .get('/administrators/add', user_controller.init_administrator)
   //Create
-  .post('/add', user_controller.create_user)
+  .post('/administrators/add', user_controller.create_user)
   //Get info
-  .get('/:userId', user_controller.get_user)
+  .get('/administrators/:userId', user_controller.get_user)
   //Update
-  .post('/:userId/edit', user_controller.update_user)
+  .post('/administrators/:userId/edit', user_controller.update_user)
   //Delete
-  .post('/:userId/delete', user_controller.delete_user)
+  .post('/administrators/:userId/delete', user_controller.delete_administrator)
+
+  //Customers
+  //List
+  .get('/customers', user_controller.list_customers)
+  //Get create view
+  .get('/customers/add', user_controller.init_customer)
+  //Create
+  .post('/customers/add', user_controller.create_user)
+  //Get info
+  .get('/customers/:userId', user_controller.get_user)
+  //Update
+  .post('/customers/:userId/edit', user_controller.update_user)
+  //Delete
+  .post('/customers/:userId/delete', user_controller.delete_customer)
+  .post('/customers/:userId/reset-password', user_controller.reset_pw_customer)
 
 module.exports = router;

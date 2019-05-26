@@ -1,12 +1,34 @@
 const User = require('../models/user');
 
-//get list
-const list_users = (req, res, next) => {
-    User.find()
+const adminType = 'admin';
+const customerType = 'customer';
+const customerDefaultPassword = 'user';
+
+//get admin list
+const list_administrators = (req, res, next) => {
+    User.find({
+            userType: adminType
+        })
         .then(users => {
             // console.log(users);
             res.render('user-view/user-list', {
-                pageTitle: "Tài khoản người dùng",
+                pageTitle: "Quản trị viên",
+                userType: adminType,
+                users
+            });
+        })
+        .catch(err => console.log(err));
+}
+//get customer list
+const list_customers = (req, res, next) => {
+    User.find({
+            userType: customerType
+        })
+        .then(users => {
+            // console.log(users);
+            res.render('user-view/user-list', {
+                pageTitle: "Khách hàng",
+                userType: customerType,
                 users
             });
         })
@@ -14,11 +36,26 @@ const list_users = (req, res, next) => {
 }
 
 
-//get init user
-const init_user = (req, res, next) => {
+//get init admin
+const init_administrator = (req, res, next) => {
+    let newDate = new Date();
     res.render('user-view/user-info', {
-        pageTitle: "Thêm người dùng",
-        user: {}
+        pageTitle: "Thêm quản trị viên",
+        user: {
+            userType: adminType,
+            dateCreated: newDate
+        }
+    });
+}
+//get init customer
+const init_customer = (req, res, next) => {
+    let newDate = new Date();
+    res.render('user-view/user-info', {
+        pageTitle: "Thêm khách hàng",
+        user: {
+            userType: customerType,
+            dateCreated: newDate
+        }
     });
 }
 
@@ -31,6 +68,8 @@ const create_user = (req, res, next) => {
     newUser.phone = req.body.phone;
     newUser.address = req.body.address;
     newUser.description = req.body.description;
+    newUser.userType = req.body.userType;
+    newUser.dateCreated = req.body.dateCreated;
     newUser.available = req.available;
 
     let image = req.file;
@@ -47,7 +86,14 @@ const create_user = (req, res, next) => {
         .then(result => {
             console.log(result);
             console.log('INSERTED USER');
-            res.redirect('/users');
+            let path = '';
+            if (result.userType === 'admin') {
+                path = 'administrators'
+            }
+            if (result.userType === 'customer') {
+                path = 'customers'
+            }
+            res.redirect('/users/' + path);
         })
         .catch(err => {
             console.log(err);
@@ -107,27 +153,69 @@ const update_user = (req, res, next) => {
         })
         .then(result => {
             console.log('UPDATED USER');
-            res.redirect('/users');
+            let path = '';
+            if (result.userType === 'admin') {
+                path = 'administrators'
+            }
+            if (result.userType === 'customer') {
+                path = 'customers'
+            }
+            res.redirect('/users/' + path);
         })
         .catch(err => console.log(err));
 }
 
 //post to delete
-const delete_user = (req, res, next) => {
+const delete_administrator = (req, res, next) => {
     let userId = req.body.userId;
     User.findByIdAndRemove(userId)
         .then(() => {
-            console.log('DELETED USER');
-            res.redirect('/users');
+            console.log('DELETED ADMIN');
+            res.redirect('/users/administrators');
         })
         .catch(err => console.log(err));
 }
 
+const delete_customer = (req, res, next) => {
+    let userId = req.body.userId;
+    User.findByIdAndRemove(userId)
+        .then(() => {
+            console.log('DELETED CUSTOME');
+            res.redirect('/users/customers');
+        })
+        .catch(err => console.log(err));
+}
+
+const reset_pw_customer = (req, res, next) => {
+    let newUser = new User();
+    newUser.userId = req.body.userId;
+    newUser.userType = req.body.userType;
+
+    if (newUser.userType === customerType) {
+        User.findOne({
+                _id: newUser.userId
+            })
+            .then(user => {
+                user.password = customerDefaultPassword;
+                return user.save();
+            })
+            .then(result => {
+                console.log('RESETED PASSWORD');
+                res.redirect('/users/customers');
+            })
+            .catch(err => console.log(err));
+    }
+}
+
 module.exports = {
-    list_users,
-    init_user,
+    list_administrators,
+    list_customers,
+    init_administrator,
+    init_customer,
     create_user,
     get_user,
     update_user,
-    delete_user
+    delete_administrator,
+    delete_customer,
+    reset_pw_customer
 }
