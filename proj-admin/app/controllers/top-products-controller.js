@@ -1,5 +1,7 @@
 const list_top_products = (req, res, next) => {
-    res.render('top-products-view/top-products');
+    res.render('top-products-view/top-products', {
+        session: req.session
+    });
 }
 
 // const create_product = (req, res, next) => {

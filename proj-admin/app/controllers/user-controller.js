@@ -14,7 +14,8 @@ const list_administrators = (req, res, next) => {
             res.render('user-view/user-list', {
                 pageTitle: "Quản trị viên",
                 userType: adminType,
-                users
+                users,
+                session: req.session
             });
         })
         .catch(err => console.log(err));
@@ -29,7 +30,8 @@ const list_customers = (req, res, next) => {
             res.render('user-view/user-list', {
                 pageTitle: "Khách hàng",
                 userType: customerType,
-                users
+                users,
+                session: req.session
             });
         })
         .catch(err => console.log(err));
@@ -43,7 +45,8 @@ const init_administrator = (req, res, next) => {
         pageTitle: "Thêm quản trị viên",
         user: {
             userType: adminType,
-            dateCreated: newDate
+            dateCreated: newDate,
+            session: req.session
         }
     });
 }
@@ -54,7 +57,8 @@ const init_customer = (req, res, next) => {
         pageTitle: "Thêm khách hàng",
         user: {
             userType: customerType,
-            dateCreated: newDate
+            dateCreated: newDate,
+            session: req.session
         }
     });
 }
@@ -114,7 +118,8 @@ const get_user = (req, res, next) => {
             }
             res.render('user-view/user-info', {
                 pageTitle: user.title,
-                user
+                user,
+                session: req.session
             });
         })
         .catch(err => console.log(err));

@@ -13,7 +13,8 @@ const list_products = (req, res, next) => {
             // console.log(products);
             res.render('product-view/product-list', {
                 pageTitle: "Danh sách hàng hóa",
-                products
+                products,
+                session: req.session
             });
         })
         .catch(err => console.log(err));
@@ -28,7 +29,8 @@ const init_product = async (req, res, next) => {
         pageTitle: "Thêm hàng hóa",
         product: {},
         brands,
-        categories
+        categories,
+        session: req.session
     });
 }
 
@@ -85,7 +87,8 @@ const get_product = async (req, res, next) => {
                 pageTitle: product.title,
                 product,
                 brands,
-                categories
+                categories,
+                session: req.session
             });
         })
         .catch(err => console.log(err));

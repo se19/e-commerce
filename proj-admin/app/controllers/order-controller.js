@@ -1,9 +1,13 @@
 const list_order = (req, res, next) => {
-    res.render('order-view/order-list');
+    res.render('order-view/order-list', {
+        session: req.session
+    });
 }
 
 const get_order = (req, res, next) => {
-    res.render('order-view/order-info');
+    res.render('order-view/order-info', {
+        session: req.session
+    });
 }
 
 const create_order = (req, res, next) => {

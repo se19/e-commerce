@@ -7,7 +7,8 @@ const list_brands = (req, res, next) => {
             console.log(brands);
             res.render('brand-view/brand-list', {
                 pageTitle: "Nhãn hàng",
-                brands: brands
+                brands: brands,
+                session: req.session
             });
         })
         .catch(err => console.log(err));
@@ -18,7 +19,8 @@ const list_brands = (req, res, next) => {
 const init_brand = (req, res, next) => {
     res.render('brand-view/brand-info', {
         pageTitle: "Thêm nhãn hàng",
-        brand: {}
+        brand: {},
+        session: req.session
     });
 }
 
@@ -63,7 +65,8 @@ const get_brand = (req, res, next) => {
             }
             res.render('brand-view/brand-info', {
                 pageTitle: brand.title,
-                brand
+                brand,
+                session: req.session
             });
         })
         .catch(err => console.log(err));

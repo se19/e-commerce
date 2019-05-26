@@ -1,7 +1,16 @@
 const passport = require('passport');
+const User = require('../models/user');
 
 const checkAuth = (req, res, next) => {
     if (req.isAuthenticated()) {
+        //Save user login to session
+        let user = new User();
+        user.name = req.user.name;
+        user.username = req.user.username;
+        user.email = req.user.email;
+        user.imageUrl = req.user.imageUrl;
+
+        req.session.currentUser = user;
         next()
     } else {
         res.redirect('/login');
@@ -18,16 +27,18 @@ const initLogin = (req, res, next) => {
 
 const login = passport.authenticate('local', {
     failureRedirect: '/login',
-    successRedirect: '/'
+    successRedirect: '/',
+    failureFlash: true
 })
-
 
 const initRegister = (req, res, next) => {
     res.render('auth-view/register');
 }
+
 const register = (req, res, next) => {
 
 }
+
 
 const initForgot_pw = (req, res, next) => {
     res.render('auth-view/forgot-pw');

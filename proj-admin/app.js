@@ -56,7 +56,7 @@ app.use(
 app.use(session({
   secret: 'something',
   cookie: {
-    value: 0
+    maxAge: 60000
   }
 }));
 app.use(passport.initialize());
