@@ -8,7 +8,8 @@ const categories = require('./categories');
 const products = require('./products');
 const orders = require('./orders');
 const users = require('./users');
-const bestSales = require('./best-sales');
+const statistics = require('./statistics');
+const top = require('./top');
 const login = require('./login');
 
 router
@@ -19,11 +20,8 @@ router
   .use('/products', products)
   .use('/orders', orders)
   .use('/users', users)
-  .use('/best-sales', bestSales)
-
-  .get('/statistics', (req, res, next) => {
-    res.render('statistics-view/statistics');
-  })
+  .use('/top', top)
+  .use('/statistics', statistics)
   .use('/login', login)
 
 module.exports = router;

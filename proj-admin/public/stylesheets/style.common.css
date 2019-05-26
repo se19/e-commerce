@@ -11,3 +11,9 @@ a {
 body>#wrapper>#content-wrapper>#content {
   min-height: 100vh;
 }
+
+.btn-trans {
+  background: transparent;
+  border: 0;
+  padding: 0;
+}
