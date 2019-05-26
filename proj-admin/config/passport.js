@@ -1,0 +1,48 @@
+const passport = require('passport');
+const localStrategy = require('passport-local').Strategy;
+const User = require('../app/models/user');
+
+const passportConfig = () => {
+    passport.initialize();
+    passport.session();
+
+    passport.use(new localStrategy(
+        (username, password, done) => { //các tên - name trường cần nhập, đủ tên trường thì Done 
+            User.findOne({
+                    username: username
+                })
+                .then(user => {
+                    if (user && user.password === password) {
+                        return done(null, user)
+                    } else {
+                        console.log('NOT FOUND USER');
+                        return done(null, false)
+                    }
+                })
+                .catch(err => console.log(err));
+        }
+    ))
+
+    // Khai báo serial mã hóa dữ liệu để có thể lưu trữ user vào session
+    passport.serializeUser((user, done) => {
+        done(null, user)
+    })
+
+    //Giải mã
+    passport.deserializeUser((user, done) => {
+        User.findOne({
+                username: user.username
+            })
+            .then(userRes => {
+                if (userRes) {
+                    return done(null, userRes)
+                } else {
+                    console.log('NOT FOUND USER');
+                    return done(null, false)
+                }
+            })
+            .catch(err => console.log(err));
+    })
+}
+
+module.exports = passportConfig;

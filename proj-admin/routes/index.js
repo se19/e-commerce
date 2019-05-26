@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
+const common = require('./common');
 const home = require('./home');
 const brands = require('./brands');
 const categories = require('./categories');
@@ -8,9 +9,11 @@ const products = require('./products');
 const orders = require('./orders');
 const users = require('./users');
 const bestSales = require('./best-sales');
+const login = require('./login');
 
 router
-  .use('/', home)
+  .use('/', common)
+  .use('/home', home)
   .use('/brands', brands)
   .use('/categories', categories)
   .use('/products', products)
@@ -21,8 +24,6 @@ router
   .get('/statistics', (req, res, next) => {
     res.render('statistics-view/statistics');
   })
-  .get('/login-view/login', (req, res, next) => {
-    res.render('login');
-  });
+  .use('/login', login)
 
 module.exports = router;

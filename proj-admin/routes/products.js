@@ -1,9 +1,12 @@
 const express = require('express');
 const router = express.Router();
 
+const auth_controller = require('../app/controllers/auth-controller');
 const product_controller = require('../app/controllers/product-controller');
 
 router
+  //check auth
+  .use('/', auth_controller.checkAuth)
   // create
   .get('/add', product_controller.get_add_product)
   .post('/add', product_controller.post_add_product)

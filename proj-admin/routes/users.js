@@ -1,9 +1,12 @@
 var express = require('express');
 var router = express.Router();
 
+const auth_controller = require('../app/controllers/auth-controller');
 const user_controller = require('../app/controllers/user-controller');
 
 router
+  //check auth
+  .use('/', auth_controller.checkAuth)
   //List
   .get('/', user_controller.list_users)
   //Get create view

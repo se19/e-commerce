@@ -1,9 +1,12 @@
 const express = require('express');
 const router = express.Router();
 
+const auth_controller = require('../app/controllers/auth-controller');
 const category_controller = require('../app/controllers/category-controller');
 
 router
+  //check auth
+  .use('/', auth_controller.checkAuth)
   //List
   .get('/', category_controller.list_categories)
   //Get create view

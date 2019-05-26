@@ -1,15 +1,21 @@
-var createError = require('http-errors');
-var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
+const createError = require('http-errors');
+const express = require('express');
+const path = require('path');
+const logger = require('morgan');
 
-var indexRouter = require('./routes/index');
-
+const passport = require('passport');
 const bodyParser = require('body-parser');
+const cookieParser = require('cookie-parser');
+const session = require('express-session');
+
 const multer = require('multer');
+const flash = require('connect-flash');
+
+const indexRouter = require('./routes/index');
+const passportConfig = require('./config/passport');
 
 var app = express();
+
 
 // view engine setup
 app.set('views', path.join(__dirname, 'app/views'));
@@ -27,6 +33,7 @@ app.use(bodyParser.urlencoded({
   extended: false
 }));
 
+//multer upload img
 const fileStorage = multer.diskStorage({
   destination: (req, file, cb) => {
     cb(null, 'public/images/products');
@@ -35,14 +42,31 @@ const fileStorage = multer.diskStorage({
     cb(null, file.originalname);
   }
 });
-
 app.use(
   multer({
     storage: fileStorage
   }).single('image')
 );
 
+
+//config auth
+app.use(session({
+  secret: 'something',
+  cookie: {
+    value: 0
+  }
+}));
+app.use(passport.initialize());
+app.use(passport.session());
+app.use(flash());
+
+
+//use router
 app.use('/', indexRouter);
+
+//use passport config
+passportConfig();
+
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
