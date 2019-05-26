@@ -7,14 +7,17 @@ const product_controller = require('../app/controllers/product-controller');
 router
   //check auth
   .use('/', auth_controller.checkAuth)
-  // create
-  .get('/add', product_controller.get_add_product)
-  .post('/add', product_controller.post_add_product)
-  // read
-  .get('/', product_controller.get_list_product)
-  // update
-  .get('/edit/:productId', product_controller.get_edit_product)
-  .post('/edit', product_controller.post_edit_product)
-  // delete
-  .post('/delete', product_controller.post_delete_product)
+  //List
+  .get('/', product_controller.list_products)
+  //Get create view
+  .get('/add', product_controller.init_product)
+  //Create
+  .post('/add', product_controller.create_product)
+  //Get info
+  .get('/:productId', product_controller.get_product)
+  //Update
+  .post('/:productId/edit', product_controller.update_product)
+  //Delete
+  .post('/:productId/delete', product_controller.delete_product)
+
 module.exports = router;

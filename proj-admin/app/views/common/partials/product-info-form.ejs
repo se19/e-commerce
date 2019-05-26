@@ -5,16 +5,18 @@
 <link href="/stylesheets/admin-cast/main.min.css" rel="stylesheet" />
 
 
-<% const defaultImg = "images/default/no-image.png";%>
+<% let editing = (product.id != null); 
+const defaultImg = "images/default/no-image.png";%>
+
 <div class="page-content fade-in-up">
     <div class="ibox">
         <div class="ibox-body">
-            <h5 class="font-strong mb-5">THÊM HÀNG HÓA</h5>
+            <h5 class="font-strong mb-5">THÔNG TIN HÀNG HÓA</h5>
             <div class="row">
                 <div class="col-lg-4">
                     <div>
                         <img id="img-upload"
-                            src="/<% if (editing) { %><%= product.imageUrl %><% } else { %><%= defaultImg %> <% } %>">
+                            src="/<% if (!product.imageUrl) { %><%= defaultImg %><% } else { %><%= product.imageUrl %><% } %>">
                     </div>
                     <div class="flexbox-b mt-4">
                         <!-- <div class="mr-2">
@@ -32,30 +34,25 @@
                     </div>
                 </div>
                 <div class="col-lg-8">
-                    <form action="/products/<% if (editing) { %>edit<% } else { %>add<% } %>" method="POST"
+                    <form action="/products/<% if (editing) { %><%= product.id %><%-'/edit'%><% } else { %>add<% } %>" method="POST"
                         enctype="multipart/form-data">
                         <div class="row">
-                            <div class="col-sm-3 form-group mb-4">
-                                <label>Mã hàng hóa</label>
-                                <input class="form-control form-control-solid" type="text" name="productId"
-                                    value="<% if (editing) { %><%= product.productId %><% } %>" required>
-                            </div>
-                            <div class="col-sm-9 form-group mb-4">
+                            <div class="col-sm-12 form-group mb-4">
                                 <label>Tên hàng hóa</label>
                                 <input class="form-control form-control-solid" type="text" name="title"
-                                    value="<% if (editing) { %><%= product.title %><% } %>" required>
+                                    value="<%= product.title %>" required>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-sm-6 form-group mb-4">
                                 <label>Giá</label>
                                 <input class="form-control form-control-solid" type="number" name="price"
-                                    value="<% if (editing) { %><%= product.price %><% } %>" required>
+                                    value="<%= product.price %>" required>
                             </div>
                             <div class="col-sm-6 form-group mb-4">
                                 <label>Số lượng</label>
                                 <input class="form-control form-control-solid" type="number" name="numberInventory"
-                                    value="<% if (editing) { %><%= product.numberInventory %><% } %>" required>
+                                    value="<%= product.numberInventory %>" required>
                             </div>
                         </div>
                         <div class="row">
@@ -93,12 +90,12 @@
                         <div class="form-group mb-4">
                             <label>Mô tả</label>
                             <textarea class="form-control form-control-solid" rows="4"
-                                name="description"><% if (editing) { %><%= product.description %><% } %></textarea>
+                                name="description"><%= product.description %></textarea>
                         </div>
                         <div class="form-group mb-4">
                             <label>Hình ảnh</label>
                             <div>
-                                <input id="img-input" type="file" name="image" accept="image/*" required>
+                                <input id="img-input" type="file" name="image" accept="image/*">
                             </div>
                         </div>
                         <div class="form-group mb-4">
@@ -128,11 +125,13 @@
 <script>
     //On init select box
     $(document).ready(function () {
-        let brand = < % -JSON.stringify(product.brandId) % > ;
+        //Must be: let brand = <%- JSON.stringify(product.brandId) %>;
+        let brand = <%- JSON.stringify(product.brandId) %>;
         let brandId = brand._id;
         $("#inputGroupBrands").val(brandId);
 
-        let category = < % -JSON.stringify(product.categoryId) % > ;
+        // Must be: let category = <%- JSON.stringify(product.categoryId) %>;
+        let category = <%- JSON.stringify(product.categoryId) %>;
         let categoryId = category._id;
         $("#inputGroupCategories").val(categoryId);
     });

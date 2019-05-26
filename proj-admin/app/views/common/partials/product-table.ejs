@@ -3,6 +3,7 @@
 <link href="/stylesheets/admin-cast/main.min.css" rel="stylesheet" />
 <script type="text/javascript" src="/javascripts/admin-cast/bootstrap-select.min.js"></script>
 
+<% const defaultImg = "images/default/no-image.png";%>
 
 <div class="page-content fade-in-up">
     <div class="ibox">
@@ -102,7 +103,7 @@
                                     style="width: 105.5px;" aria-label="Price: activate to sort column ascending">Giá
                                 </th>
                                 <th class="sorting" tabindex="0" aria-controls="products-table" rowspan="1" colspan="1"
-                                    style="width: 46.5px;" aria-label="SKU: activate to sort column ascending">Mã hàng
+                                    style="width: 46.5px;" aria-label="SKU: activate to sort column ascending">Nhãn hàng
                                 </th>
                                 <th class="sorting" tabindex="0" aria-controls="products-table" rowspan="1" colspan="1"
                                     style="width: 90.5px;" aria-label="Quantity: activate to sort column ascending">
@@ -114,13 +115,13 @@
                         </thead>
 
                         <tbody>
-                            <% if (prods.length > 0) { %>
-                            <% for (let product of prods) { %>
+                            <% if (products.length > 0) { %>
+                            <% for (let product of products) { %>
                             <tr role="row" class="odd">
-                                <td tabindex="0" class=""><%= product.productId %></td>
+                                <td tabindex="0" class=""><%= product.id %></td>
                                 <td>
-                                    <a href="/products/edit/<%= product.productId %>?edit=true">
-                                        <img class="mr-3" src="<%= product.imageUrl %>" alt="image" width="60">
+                                    <a href="/products/<%= product.id %>">
+                                        <img class="mr-3" src="<% if (product && product.imageUrl) { %><%= product.imageUrl %><% } else { %><%= defaultImg %> <% } %>" alt="image" width="60">
                                         <%= product.title %>
                                     </a>
                                 </td>
@@ -128,16 +129,20 @@
                                 <td><%= product.price %></td>
                                 <td><%= product.brandId.title %></td>
                                 <td>
+                                    <% if(product.numberInventory > 0) { %>
+                                    <%= product.numberInventory %>
+                                    <% } else { %>
                                     <span class="badge badge-danger badge-pill">Hết hàng</span>
+                                    <% } %>
                                 </td>
                                 <td>
-                                    <a class="text-light mr-3 font-16"
-                                        href="/products/edit/<%= product.productId %>?edit=true"><i
+                                    <a class="text-light mr-3 font-16" href="/products/<%= product.id %>"><i
                                             class="fa fa-pencil-alt"></i></a>
-                                    <form action="/products/delete" method="POST">
-                                        <input type="hidden" value="<%= product._id %>" name="pId">
+                                    <form action="/products/<%= product.id %><%- '/delete' %>" method="POST">
+                                        <input type="hidden" value="<%= product.id %>"
+                                            name="productId">
                                         <button type="submit">
-                                           <i class="fa fa-trash"></i>
+                                            <i class="fa fa-trash"></i>
                                         </button>
                                     </form>
                                 </td>

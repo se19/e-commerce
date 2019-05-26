@@ -2,20 +2,38 @@ const Product = require('../models/product');
 const Brand = require('../models/brand');
 const Category = require('../models/category');
 
-// create product
-const get_add_product = async (req, res, next) => {
+
+// read list product 
+const list_products = (req, res, next) => {
+    Product.find()
+        .populate('brandId')
+        .populate('categoryId')
+        //.execPopulate()
+        .then(products => {
+            // console.log(products);
+            res.render('product-view/product-list', {
+                pageTitle: "Danh sách hàng hóa",
+                products
+            });
+        })
+        .catch(err => console.log(err));
+}
+
+// initialize product
+const init_product = async (req, res, next) => {
     let brands = await Brand.find();
     let categories = await Category.find();
 
     res.render('product-view/product-info', {
         pageTitle: "Thêm hàng hóa",
-        editing: false,
         product: {},
-        brands: brands,
-        categories: categories
+        brands,
+        categories
     });
 }
-const post_add_product = async (req, res, next) => {
+
+// post to create product
+const create_product = async (req, res, next) => {
     let newProduct = new Product();
     newProduct.productId = req.body.productId;
     newProduct.title = req.body.title;
@@ -49,33 +67,13 @@ const post_add_product = async (req, res, next) => {
         });
 }
 
-// read list product 
-const get_list_product = (req, res, next) => {
-    Product.find()
-        .populate('brandId')
-        .populate('categoryId')
-        //.execPopulate()
-        .then(products => {
-            console.log(products);
-            res.render('product-view/product-list', {
-                pageTitle: "Danh sách hàng hóa",
-                prods: products
-            });
-        })
-        .catch(err => console.log(err));
-}
-
-// update product 
-const get_edit_product = async (req, res, next) => {
-    const editMode = req.query.edit;
-    if (!editMode) {
-        return res.redirect('/products');
-    }
+// get product info
+const get_product = async (req, res, next) => {
     let brands = await Brand.find();
     let categories = await Category.find();
-    const prodId = req.params.productId;
+    const productId = req.params.productId;
     Product.findOne({
-            productId: prodId
+            _id: productId
         })
         .populate('brandId')
         .populate('categoryId')
@@ -85,16 +83,16 @@ const get_edit_product = async (req, res, next) => {
             }
             res.render('product-view/product-info', {
                 pageTitle: product.title,
-                editing: editMode,
-                product: product,
-                brands: brands,
-                categories: categories
+                product,
+                brands,
+                categories
             });
         })
         .catch(err => console.log(err));
 }
 
-const post_edit_product = async (req, res, next) => {
+// post to update product
+const update_product = async (req, res, next) => {
     const productId = req.body.productId;
     const updateTitle = req.body.title;
     const updatePrice = req.body.price;
@@ -131,9 +129,9 @@ const post_edit_product = async (req, res, next) => {
 }
 
 // delete product
-const post_delete_product = (req, res, next) => {
-    const prodId = req.body.pId;
-    Product.findByIdAndRemove(prodId)
+const delete_product = (req, res, next) => {
+    const productId = req.body.productId;
+    Product.findByIdAndRemove(productId)
         .then(() => {
             console.log('DESTROYED PRODUCT');
             res.redirect('/products');
@@ -143,10 +141,10 @@ const post_delete_product = (req, res, next) => {
 
 
 module.exports = {
-    get_add_product,
-    post_add_product,
-    get_list_product,
-    get_edit_product,
-    post_edit_product,
-    post_delete_product
+    list_products,
+    init_product,
+    create_product,
+    get_product,
+    update_product,
+    delete_product
 }
