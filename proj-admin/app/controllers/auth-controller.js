@@ -19,7 +19,7 @@ const checkAuth = (req, res, next) => {
 
 const initLogin = (req, res, next) => {
     if (req.isAuthenticated()) {
-        res.redirect('/');
+        res.redirect('/home');
     } else {
         res.render('auth-view/login');
     }
@@ -27,7 +27,7 @@ const initLogin = (req, res, next) => {
 
 const login = passport.authenticate('local', {
     failureRedirect: '/login',
-    successRedirect: '/',
+    successRedirect: '/home',
     failureFlash: true
 })
 
