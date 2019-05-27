@@ -45,9 +45,9 @@ const init_administrator = (req, res, next) => {
         pageTitle: "Thêm quản trị viên",
         user: {
             userType: adminType,
-            dateCreated: newDate,
-            session: req.session
-        }
+            dateCreated: newDate
+        },
+        session: req.session
     });
 }
 //get init customer
@@ -57,9 +57,9 @@ const init_customer = (req, res, next) => {
         pageTitle: "Thêm khách hàng",
         user: {
             userType: customerType,
-            dateCreated: newDate,
-            session: req.session
-        }
+            dateCreated: newDate
+        },
+        session: req.session
     });
 }
 
