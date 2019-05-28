@@ -189,7 +189,7 @@ const reset_pw_customer = (req, res, next) => {
     newUser.userId = req.body.userId;
     newUser.userType = req.body.userType;
 
-    if (newUser.userType === customerType) {
+    if (newUser.userType === constants.USERTYPE_CUSTMER) {
         User.findOne({
                 _id: newUser.userId
             })
