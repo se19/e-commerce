@@ -1,21 +1,17 @@
 const User = require('../models/user');
-
-const adminType = 'admin';
-const customerType = 'customer';
-const customerDefaultPassword = 'user';
+const constants = require('../../constants/index');
 
 //get admin list
 const list_administrators = (req, res, next) => {
     User.find({
-            userType: adminType
+            userType: constants.USERTYPE_ADMIN
         })
         .then(users => {
             // console.log(users);
             res.render('user-view/user-list', {
                 pageTitle: "Quản trị viên",
-                userType: adminType,
-                users,
-                session: req.session
+                userType: constants.USERTYPE_ADMIN,
+                users
             });
         })
         .catch(err => console.log(err));
@@ -23,15 +19,14 @@ const list_administrators = (req, res, next) => {
 //get customer list
 const list_customers = (req, res, next) => {
     User.find({
-            userType: customerType
+            userType: constants.USERTYPE_CUSTMER
         })
         .then(users => {
             // console.log(users);
             res.render('user-view/user-list', {
                 pageTitle: "Khách hàng",
-                userType: customerType,
-                users,
-                session: req.session
+                userType: constants.USERTYPE_CUSTMER,
+                users
             });
         })
         .catch(err => console.log(err));
@@ -44,10 +39,9 @@ const init_administrator = (req, res, next) => {
     res.render('user-view/user-info', {
         pageTitle: "Thêm quản trị viên",
         user: {
-            userType: adminType,
+            userType: constants.USERTYPE_ADMIN,
             dateCreated: newDate
-        },
-        session: req.session
+        }
     });
 }
 //get init customer
@@ -56,10 +50,9 @@ const init_customer = (req, res, next) => {
     res.render('user-view/user-info', {
         pageTitle: "Thêm khách hàng",
         user: {
-            userType: customerType,
+            userType: constants.USERTYPE_CUSTMER,
             dateCreated: newDate
-        },
-        session: req.session
+        }
     });
 }
 
@@ -92,10 +85,10 @@ const create_user = (req, res, next) => {
             console.log(result);
             console.log('INSERTED USER');
             let path = '';
-            if (result.userType === 'admin') {
+            if (result.userType === constants.USERTYPE_ADMIN) {
                 path = 'administrators'
             }
-            if (result.userType === 'customer') {
+            if (result.userType === constants.USERTYPE_CUSTMER) {
                 path = 'customers'
             }
             res.redirect('/users/' + path);
@@ -118,8 +111,7 @@ const get_user = (req, res, next) => {
             }
             res.render('user-view/user-info', {
                 pageTitle: user.title,
-                user,
-                session: req.session
+                user
             });
         })
         .catch(err => console.log(err));
@@ -128,7 +120,7 @@ const get_user = (req, res, next) => {
 //post to update user
 const update_user = (req, res, next) => {
     let newUser = new User();
-    newUser.userId = req.body.userId;
+    newUser.userId = req.params.userId;
     newUser.name = req.body.name;
     newUser.username = req.body.username;
     newUser.email = req.body.email;
@@ -160,10 +152,10 @@ const update_user = (req, res, next) => {
         .then(result => {
             console.log('UPDATED USER');
             let path = '';
-            if (result.userType === 'admin') {
+            if (result.userType === constants.USERTYPE_ADMIN) {
                 path = 'administrators'
             }
-            if (result.userType === 'customer') {
+            if (result.userType === constants.USERTYPE_CUSTMER) {
                 path = 'customers'
             }
             res.redirect('/users/' + path);
@@ -202,7 +194,7 @@ const reset_pw_customer = (req, res, next) => {
                 _id: newUser.userId
             })
             .then(user => {
-                user.password = customerDefaultPassword;
+                user.password = constants.DEFAULT_CUSTOMER_PASSWORD;
                 return user.save();
             })
             .then(result => {

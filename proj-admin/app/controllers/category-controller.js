@@ -8,8 +8,7 @@ const list_categories = (req, res, next) => {
             console.log(categories);
             res.render('category-view/category-list', {
                 pageTitle: "Loại hàng",
-                categories: categories,
-                session: req.session
+                categories: categories
             });
         })
         .catch(err => console.log(err));
@@ -20,8 +19,7 @@ const list_categories = (req, res, next) => {
 const init_category = (req, res, next) => {
     res.render('category-view/category-info', {
         pageTitle: "Thêm loại hàng",
-        category: {},
-        session: req.session
+        category: {}
     });
 }
 
@@ -66,8 +64,7 @@ const get_category = (req, res, next) => {
             }
             res.render('category-view/category-info', {
                 pageTitle: category.title,
-                category,
-                session: req.session
+                category
             });
         })
         .catch(err => console.log(err));

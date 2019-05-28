@@ -78,7 +78,7 @@
               <span class="icon-shopping-bag"></span>
               <span class="number">2</span>
             </a>
-            <% if (session.passport && session.passport.user && session.passport.user._id) { %>
+            <% if (userLogin && userLogin._id) { %>
             <a href="/user/profile" class="icons-btn d-inline-block"><span class="icon icon-person"></span></a>
             <a href="/logout" class="icons-btn d-inline-block">Đăng xuất</span></a>
             <% } else { %>

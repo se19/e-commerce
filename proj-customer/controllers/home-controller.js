@@ -14,8 +14,7 @@ const initialization = (req, res, next) => {
             res.render('home-view/index', {
                 hotProds: hotProds,
                 newProds: newProds,
-                pageTitle: 'Trang chủ',
-                session: req.session
+                pageTitle: 'Trang chủ'
             });
         })
         .catch(err => {

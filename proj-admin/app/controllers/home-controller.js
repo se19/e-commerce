@@ -1,8 +1,7 @@
 //Khởi tạo
 const intialization = (req, res, next) => {
     res.render('home-view/home', {
-        title: 'Admin',
-        session: req.session
+        title: 'Admin'
     });
 
     // getAmountBrands(req, res, next);

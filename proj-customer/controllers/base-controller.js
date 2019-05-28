@@ -1,4 +1,28 @@
 //Controller chung, implement tất cả các action dùng chung
+
+//Import constant list
+var constants = require('../constants/index');
+
+//lấy các biến toàn cục, có thể gọi trực tiếp vào trong ejs. 
+//lưu vào res.locals
+const getLocalsVariables = (req, res, next) => {
+
+    //lấy thông tin user đang đăng nhập từ session.
+    if (req.session && req.session.passport && req.session.passport.user) {
+        res.locals.userLogin = req.session.passport.user;
+    } else {
+        res.locals.userLogin = {};
+    }
+
+    //tạo biến data lưu các thông tin như constants, danh sách loại hàng, thương hiệu
+    res.locals.data = {}
+
+    //lấy các const từ file constans
+    res.locals.data.constants = constants;
+
+    next();
+}
+
 const getAllCatelogs = (req, res, next) => {
 
 }
@@ -13,11 +37,8 @@ const getCartQuantity = (req, res, next) => {
 
 }
 
-//TODO
-//impl chuc nang dang nhap here
-//...
-
 module.exports = {
+    getLocalsVariables,
     getAllCatelogs,
     getAllBrands,
     getCartQuantity

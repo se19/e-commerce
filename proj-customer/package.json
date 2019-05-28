@@ -2,7 +2,8 @@
   "name": "proj-customer",
   "version": "0.0.0",
   "scripts": {
-    "start": "node --inspect ./bin/www"
+    "start": "node ./bin/www",
+    "dev": "node --inspect ./bin/www"
   },
   "dependencies": {
     "cookie-parser": "~1.4.3",

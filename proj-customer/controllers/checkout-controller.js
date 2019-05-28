@@ -1,8 +1,7 @@
 //Lấy thông tin đơn hàng hiện tại để checkout
 const initializationCheckout = (req, res, next) => {
     res.render('checkout-view/checkout', {
-        pageTitle: "Thanh toán",
-        session: req.session
+        pageTitle: "Thanh toán"
     });
 }
 

@@ -1,3 +1,5 @@
+<% const webAdminAdress = "https://webshop-admin.herokuapp.com/" %>
+
 <%- include("../common/containers/header")-%>
 <div class="custom-border-bottom py-3">
   <div class="container">
@@ -86,7 +88,7 @@
           <% for (let product of prods) { %>
           <div class="col-lg-6 col-md-6 item-entry mb-4">
             <a href="/shop/<%= product._doc.productId %>" class="product-item md-height bg-gray d-block">
-              <img src="imgs/<%= product._doc.productId %>/main.jpg" alt="Image" class="img-fluid">
+              <img src="<%= data.constants.WEB_ADMIN_PATH %>/<%= product.imageUrl %>" alt="Image" class="img-fluid">
             </a>
             <h2 class="item-title"><a href="/shop/<%= product._doc.productId %>">Laptop
                 <%= product._doc.title %></a></h2>

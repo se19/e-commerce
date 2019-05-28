@@ -1,10 +1,9 @@
 const User = require('../models/user');
 
 //Get thông tin người dùng
-const getIProfileFromSession = (req, res, next) => {
+const getProfile = (req, res, next) => {
     res.render('user-view/update-info', {
-        pageTitle: "Cập nhật thông tin",
-        session: req.session
+        pageTitle: "Cập nhật thông tin"
     });
 }
 
@@ -33,8 +32,8 @@ const updateInfo = (req, res, next) => {
             req.session.passport.user.email = newUser.email;
             req.session.passport.user.phone = newUser.phone;
             req.session.passport.user.address = newUser.address;
-            req.flash('update-success', 'Cập nhật thông tin thành công!');
-            req.session.flash = req.flash('update-success');
+            // req.flash('update-success', 'Cập nhật thông tin thành công!');
+            // res.locals.data.flash = req.flash('update-success');
             res.redirect('/user/profile');
         })
         .catch(err => console.log(err));
@@ -43,14 +42,12 @@ const updateInfo = (req, res, next) => {
 //Thay đổi mật khẩu
 const changePw = (req, res, next) => {
     res.render('user-view/change-pw', {
-        pageTitle: "Đổi mật khẩu",
-        session: req.session
+        pageTitle: "Đổi mật khẩu"
     });
 }
 
 module.exports = {
-    getIProfileFromSession,
-    // getInfo,
+    getProfile,
     updateInfo,
     changePw
 }

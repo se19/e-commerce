@@ -1,8 +1,7 @@
 //Lấy thông tin giỏ hàng từ local storage
 const listCart = (req, res, next) => {
     res.render('cart-view/cart', {
-        pageTitle: "Giỏ hàng",
-        session: req.session
+        pageTitle: "Giỏ hàng"
     });
 }
 

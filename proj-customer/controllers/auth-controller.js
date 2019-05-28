@@ -14,8 +14,7 @@ const initlogin = (req, res, next) => {
         res.redirect('/');
     } else {
         res.render('auth/login', {
-            pageTitle: "Đăng nhập",
-            session: req.session
+            pageTitle: "Đăng nhập"
         });
     }
 }
@@ -31,8 +30,7 @@ const register = (req, res, next) => {
         res.redirect('/');
     } else {
         res.render('auth/register', {
-            pageTitle: "Đăng ký",
-            session: req.session
+            pageTitle: "Đăng ký"
         });
     }
 }
@@ -64,8 +62,7 @@ const forgorPw = (req, res, next) => {
         res.redirect('/');
     } else {
         res.render('auth/forgot', {
-            pageTitle: "Quên mật khẩu",
-            session: req.session
+            pageTitle: "Quên mật khẩu"
         });
     }
 }

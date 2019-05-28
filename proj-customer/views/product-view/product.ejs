@@ -78,7 +78,13 @@
               <span class="icon-shopping-bag"></span>
               <span class="number">2</span>
             </a>
-            <a href="/login" class="icons-btn d-inline-block"><span class="icon icon-person"></span></a>
+            <% if (userLogin && userLogin._id) { %>
+            <a href="/user/profile" class="icons-btn d-inline-block"><span class="icon icon-person"></span></a>
+            <a href="/logout" class="icons-btn d-inline-block">Đăng xuất</span></a>
+            <% } else { %>
+            <a href="/login" class="icons-btn d-inline-block">Dăng nhập</span></a>
+            <a href="/register" class="icons-btn d-inline-block">Đăng ký</span></a>
+            <% } %>
             <a href="#" class="site-menu-toggle js-menu-toggle ml-3 d-inline-block d-lg-none"><span
                 class="icon-menu"></span></a>
           </div>
@@ -125,7 +131,7 @@
           <div class="col-md-1">
           </div>
           <div class="col-md-4">
-            <h2 class="text-black">Laptop <%= product._doc.title %></h2>
+            <h2 class="text-black">Laptop <%= product.title %></h2>
             <div>
               <div class="product-rating">
                 <i class="fas fa-star"></i>
@@ -136,7 +142,7 @@
               </div>
               <a class="review-link" href="#comment">(Xem 10 Nhận xét)</a>
             </div>
-            <p><strong class="text-primary h4"><%= product._doc.price %></strong></p>
+            <p><strong class="text-primary h4"><%= product.price %></strong></p>
             <div class="mb-5">
               <div class="input-group mb-3" style="max-width: 120px;">
                 <div class="input-group-prepend">

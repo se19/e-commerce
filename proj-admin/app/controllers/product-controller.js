@@ -13,8 +13,7 @@ const list_products = (req, res, next) => {
             // console.log(products);
             res.render('product-view/product-list', {
                 pageTitle: "Danh sách hàng hóa",
-                products,
-                session: req.session
+                products
             });
         })
         .catch(err => console.log(err));
@@ -29,8 +28,7 @@ const init_product = async (req, res, next) => {
         pageTitle: "Thêm hàng hóa",
         product: {},
         brands,
-        categories,
-        session: req.session
+        categories
     });
 }
 
@@ -87,8 +85,7 @@ const get_product = async (req, res, next) => {
                 pageTitle: product.title,
                 product,
                 brands,
-                categories,
-                session: req.session
+                categories
             });
         })
         .catch(err => console.log(err));
@@ -96,7 +93,7 @@ const get_product = async (req, res, next) => {
 
 // post to update product
 const update_product = async (req, res, next) => {
-    const productId = req.body.productId;
+    const productId = req.params.productId;
     const updateTitle = req.body.title;
     const updatePrice = req.body.price;
     const updateDescription = req.body.description;
@@ -109,7 +106,7 @@ const update_product = async (req, res, next) => {
         _id: req.body.categoryId
     });
     Product.findOne({
-            productId: productId
+            _id: productId
         })
         .then(product => {
             product.title = updateTitle;

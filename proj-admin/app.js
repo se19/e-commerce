@@ -52,12 +52,14 @@ app.use(
 );
 
 
-//config auth
+//config auth. set time out => auto log out
 app.use(session({
   secret: 'something',
   cookie: {
-    maxAge: 60000
-  }
+    maxAge: (60 * 60 * 1000)
+  },
+  resave: true,
+  saveUninitialized: true
 }));
 app.use(passport.initialize());
 app.use(passport.session());
@@ -87,7 +89,8 @@ app.use(function (err, req, res, next) {
   let isLogin = req.isAuthenticated();
   res.render('common/error', {
     pageTitle: "Không tìm thấy trang!",
-    isLogin
+    isLogin,
+    session: {}
   });
 });
 

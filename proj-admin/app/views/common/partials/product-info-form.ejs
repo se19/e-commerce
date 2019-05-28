@@ -5,8 +5,7 @@
 <link href="/stylesheets/admin-cast/main.min.css" rel="stylesheet" />
 
 
-<% let editing = (product.id != null); 
-const defaultImg = "images/default/no-image.png";%>
+<% let editing = (product.id != null); %>
 
 <div class="page-content fade-in-up">
     <div class="ibox">
@@ -16,7 +15,7 @@ const defaultImg = "images/default/no-image.png";%>
                 <div class="col-lg-4">
                     <div>
                         <img id="img-upload"
-                            src="/<% if (!product.imageUrl) { %><%= defaultImg %><% } else { %><%= product.imageUrl %><% } %>">
+                            src="/<% if (!product.imageUrl) { %><%= constants.DEFAULT_IMG %><% } else { %><%= product.imageUrl %><% } %>">
                     </div>
                     <div class="flexbox-b mt-4">
                         <!-- <div class="mr-2">
@@ -34,8 +33,8 @@ const defaultImg = "images/default/no-image.png";%>
                     </div>
                 </div>
                 <div class="col-lg-8">
-                    <form action="/products/<% if (editing) { %><%= product.id %><%-'/edit'%><% } else { %>add<% } %>" method="POST"
-                        enctype="multipart/form-data">
+                    <form action="/products/<% if (editing) { %><%= product.id %><%-'/edit'%><% } else { %>add<% } %>"
+                        method="POST" enctype="multipart/form-data">
                         <div class="row">
                             <div class="col-sm-12 form-group mb-4">
                                 <label>Tên hàng hóa</label>
@@ -95,7 +94,7 @@ const defaultImg = "images/default/no-image.png";%>
                         <div class="form-group mb-4">
                             <label>Hình ảnh</label>
                             <div>
-                                <input id="img-input" type="file" name="image" accept="image/*">
+                                <input id="img-input" type="file" name="image" accept="image/*" required>
                             </div>
                         </div>
                         <div class="form-group mb-4">
@@ -104,8 +103,8 @@ const defaultImg = "images/default/no-image.png";%>
                                 <span></span>
                             </label>Khả dụng</div>
                         <div class="text-right">
-                            <button class="btn btn-primary btn-air mr-2" type="submit"><% if (editing) { %>Cập
-                                nhật<% } else { %>Thêm mới<% } %></button>
+                            <button class="btn btn-primary btn-air mr-2" type="submit">
+                                <% if (editing) { %>Cập nhật<% } else { %>Thêm mới<% } %></button>
                             <button class="btn btn-secondary">Hủy bỏ</button>
                         </div>
                     </form>

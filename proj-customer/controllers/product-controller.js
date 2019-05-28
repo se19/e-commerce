@@ -6,8 +6,7 @@ const listProduct = (req, res, next) => {
         .then(products => {
             res.render('product-view/shop-list', {
                 prods: products,
-                pageTitle: 'Danh sách sản phẩm',
-                session: req.session
+                pageTitle: 'Danh sách sản phẩm'
             });
         })
         .catch(err => {
@@ -19,14 +18,13 @@ const listProduct = (req, res, next) => {
 const getDetail = (req, res, next) => {
     const prodId = req.params.productId;
     Product.findOne({
-            productId: prodId
+            _id: prodId
         })
         .then(product => {
             //console.log(product);
             res.render('product-view/product', {
                 product: product,
-                pageTitle: 'Chi tiết sản phẩm',
-                session: req.session
+                pageTitle: 'Chi tiết sản phẩm'
             });
         })
         .catch(err => console.log(err));
