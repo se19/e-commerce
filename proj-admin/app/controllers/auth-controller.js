@@ -12,7 +12,9 @@ const initLogin = (req, res, next) => {
     if (req.isAuthenticated()) {
         res.redirect('/home');
     } else {
-        res.render('auth-view/login');
+        res.render('auth-view/login', {
+            pageTitle: "Đăng nhập"
+        });
     }
 }
 
@@ -23,7 +25,9 @@ const login = passport.authenticate('local', {
 })
 
 const initRegister = (req, res, next) => {
-    res.render('auth-view/register');
+    res.render('auth-view/register', {
+        pageTitle: "Đăng ký"
+    });
 }
 
 const register = (req, res, next) => {
@@ -32,7 +36,9 @@ const register = (req, res, next) => {
 
 
 const initForgot_pw = (req, res, next) => {
-    res.render('auth-view/forgot-pw');
+    res.render('auth-view/forgot-pw', {
+        pageTitle: "Quên mật khẩu"
+    });
 }
 
 const forgot_pw = (req, res, next) => {
