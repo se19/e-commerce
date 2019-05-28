@@ -3,34 +3,24 @@ const express = require('express');
 const path = require('path');
 const logger = require('morgan');
 
-const passport = require('passport');
+const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
+
+const passport = require('passport');
 const flash = require('connect-flash');
 
-var indexRouter = require('./routes/index');
+//import passport config
 const passportConfig = require('./config/passport');
+
+//import main router
+const indexRouter = require('./routes/index');
 
 var app = express();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
-
-//config auth
-app.use(session({
-  secret: 'something',
-  cookie: {
-    value: 0
-  }
-}));
-app.use(passport.initialize());
-app.use(passport.session());
-app.use(flash());
-
-//use passport config
-passportConfig();
-
 
 app.use(logger('dev'));
 app.use(express.json());
@@ -40,6 +30,26 @@ app.use(express.urlencoded({
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.use(bodyParser.urlencoded({
+  extended: false
+}));
+
+
+//config auth and session
+app.use(session({
+  secret: 'something',
+  cookie: {
+    maxAge: 3600000
+  }
+}));
+app.use(passport.initialize());
+app.use(passport.session());
+app.use(flash());
+
+//use passport config
+passportConfig();
+
+//use routes
 app.use('/', indexRouter);
 
 
@@ -56,7 +66,12 @@ app.use(function (err, req, res, next) {
 
   // render the error page
   res.status(err.status || 500);
-  res.render('common/error');
+  
+  let isLogin = req.isAuthenticated();
+  res.render('common/error', {
+    pageTitle: "Không tìm thấy trang!",
+    isLogin
+  });
 });
 
 module.exports = app;

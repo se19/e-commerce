@@ -2,78 +2,91 @@ const passport = require('passport');
 const User = require('../models/user');
 
 const checkAuth = (req, res, next) => {
-    //req.isAuthenticated() will return true if user is logged in
     if (req.isAuthenticated()) {
-        //Save user login to session
-        let user = new User();
-        user.name = req.user.name;
-        user.username = req.user.username;
-        user.email = req.user.email;
-        user.imageUrl = req.user.imageUrl;
-
-        req.session.currentUser = user;
         next()
     } else {
         res.redirect('/login');
     }
 };
 
-const initLogin = (req, res, next) => {
-    //req.isAuthenticated() will return true if user is logged in
+const initlogin = (req, res, next) => {
     if (req.isAuthenticated()) {
         res.redirect('/');
     } else {
-         res.render('auth/login', {
-             pageTitle: "Đăng nhập"
-         });
+        res.render('auth/login', {
+            pageTitle: "Đăng nhập",
+            session: req.session
+        });
     }
 }
 
-const login = passport.authenticate('local', {
+const submitLogin = passport.authenticate('local', {
     failureRedirect: '/login',
     successRedirect: '/',
     failureFlash: true
 })
 
-
-// const login = (req, res, next) => {
-//     res.render('auth/login', {
-//         pageTitle: "Đăng nhập"
-//     });
-// }
-
-// const submitLogin = (req, res, next) => {
-
-// }
-
 const register = (req, res, next) => {
-    res.render('auth/register', {
-        pageTitle: "Đăng ký"
-    });
+    if (req.isAuthenticated()) {
+        res.redirect('/');
+    } else {
+        res.render('auth/register', {
+            pageTitle: "Đăng ký",
+            session: req.session
+        });
+    }
 }
 
 const submitRegister = (req, res, next) => {
+    let newUser = new User();
+    newUser.name = req.body.name;
+    newUser.username = req.body.username;
+    newUser.email = req.body.email;
+    newUser.password = req.body.password;
+    newUser.phone = req.body.phone;
+    newUser.userType = 'customer';
+    newUser.dateCreated = new Date();
 
+    newUser
+        .save()
+        .then(user => {
+            console.log(user);
+            console.log('REGISTER USER');
+            res.redirect('/login');
+        })
+        .catch(err => {
+            console.log(err);
+        });
 }
 
 const forgorPw = (req, res, next) => {
-    res.render('auth/forgot', {
-        pageTitle: "Quên mật khẩu"
-    });
+    if (req.isAuthenticated()) {
+        res.redirect('/');
+    } else {
+        res.render('auth/forgot', {
+            pageTitle: "Quên mật khẩu",
+            session: req.session
+        });
+    }
 }
 
 const submitForgorPw = (req, res, next) => {
 
 }
 
+const logout = (req, res, next) => {
+    req.logout();
+    res.redirect('/login');
+}
+
 
 module.exports = {
     checkAuth,
-    initLogin,
-    login,
-    //submitLogin,
+    initlogin,
+    submitLogin,
     register,
     submitRegister,
     forgorPw,
-    submitForgorPw
+    submitForgorPw,
+    logout
 }

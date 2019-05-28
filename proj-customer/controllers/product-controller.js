@@ -6,7 +6,8 @@ const listProduct = (req, res, next) => {
         .then(products => {
             res.render('product-view/shop-list', {
                 prods: products,
-                pageTitle: 'Danh sách sản phẩm'
+                pageTitle: 'Danh sách sản phẩm',
+                session: req.session
             });
         })
         .catch(err => {
@@ -24,7 +25,8 @@ const getDetail = (req, res, next) => {
             //console.log(product);
             res.render('product-view/product', {
                 product: product,
-                pageTitle: 'Chi tiết sản phẩm'
+                pageTitle: 'Chi tiết sản phẩm',
+                session: req.session
             });
         })
         .catch(err => console.log(err));

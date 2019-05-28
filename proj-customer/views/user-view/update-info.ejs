@@ -1,5 +1,4 @@
 <%- include("../common/containers/header")-%>
-
 <div class="container">
   <div class="view-account">
     <section class="module">
@@ -13,19 +12,22 @@
           </nav>
         </div>
         <div class="content-panel">
-          <form class="form-horizontal">
+          <% if (session.flash) { %>
+          <div class="alert alert-success" role="alert"><%= session.flash %> </div>
+          <% } %>
+          <form class="form-horizontal" action="/user/update-info" method="POST">
             <fieldset class="fieldset">
               <!-- <h3 class="fieldset-title">Thông tin cá nhân</h3> -->
               <div class="form-group">
                 <label class="col-md-2 col-sm-3 col-xs-12 control-label">Họ và tên</label>
                 <div class="col-md-10 col-sm-9 col-xs-12">
-                  <input type="text" class="form-control" value="Nguyen Duy Thao">
+                  <input type="text" class="form-control" value="<%= session.passport.user.name %>" name="name">
                 </div>
               </div>
               <div class="form-group">
                 <label class="col-md-2 col-sm-3 col-xs-12 control-label">Địa chỉ</label>
                 <div class="col-md-10 col-sm-9 col-xs-12">
-                  <input type="text" class="form-control" value="227 Nguyễn Văn Cừ, phường 4, quận 5">
+                  <input type="text" class="form-control" value="<%= session.passport.user.address %>" name="address">
                 </div>
               </div>
             </fieldset>
@@ -35,14 +37,14 @@
               <div class="form-group">
                 <label class="col-md-2  col-sm-3 col-xs-12 control-label">Email</label>
                 <div class="col-md-10 col-sm-9 col-xs-12">
-                  <input type="email" class="form-control" value="email@email.com">
+                  <input type="email" class="form-control" value="<%= session.passport.user.email %>" name="email">
 
                 </div>
               </div>
               <div class="form-group">
                 <label class="col-md-2  col-sm-3 col-xs-12 control-label">Số điện thoại</label>
                 <div class="col-md-10 col-sm-9 col-xs-12">
-                  <input type="text" class="form-control" value="0123456789">
+                  <input type="text" class="form-control" value="<%= session.passport.user.phone %>" name="phone">
                 </div>
               </div>
             </fieldset>

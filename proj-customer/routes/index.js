@@ -12,6 +12,7 @@ const userRoutes = require('./user');
 const loginRoutes = require('./login');
 const registerRoutes = require('./register');
 const forgotPwRoutes = require('./forgot-pw');
+const logoutRoutes = require('./logout');
 
 router
   .use('/', homeRoutes)
@@ -23,11 +24,16 @@ router
   .use('/login', loginRoutes)
   .use('/register', registerRoutes)
   .use('/forgot', forgotPwRoutes)
+  .use('/logout', logoutRoutes)
 
   .get('/thankyou', function (req, res, next) {
     res.render('common/thankyou', {
       pageTitle: "Đặt hành thành công"
     });
+  })
+  .post('/logout', function (req, res, next) {
+    req.logout();
+    res.redirect('/login');
   })
 
 module.exports = router;

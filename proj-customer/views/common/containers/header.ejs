@@ -19,7 +19,8 @@
   <link rel="stylesheet" href="/css/aos.css">
 
   <link rel="stylesheet" href="/css/style.css">
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+    integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
 
 </head>
 
@@ -77,8 +78,15 @@
               <span class="icon-shopping-bag"></span>
               <span class="number">2</span>
             </a>
-            <a href="/login" class="icons-btn d-inline-block"><span class="icon icon-person"></span></a>
-            <a href="#" class="site-menu-toggle js-menu-toggle ml-3 d-inline-block d-lg-none"><span class="icon-menu"></span></a>
+            <% if (session.passport && session.passport.user && session.passport.user._id) { %>
+            <a href="/user/profile" class="icons-btn d-inline-block"><span class="icon icon-person"></span></a>
+            <a href="/logout" class="icons-btn d-inline-block">Đăng xuất</span></a>
+            <% } else { %>
+            <a href="/login" class="icons-btn d-inline-block">Dăng nhập</span></a>
+            <a href="/register" class="icons-btn d-inline-block">Đăng ký</span></a>
+            <% } %>
+            <a href="#" class="site-menu-toggle js-menu-toggle ml-3 d-inline-block d-lg-none"><span
+                class="icon-menu"></span></a>
           </div>
         </div>
       </div>

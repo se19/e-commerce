@@ -3,17 +3,16 @@
   <div class="card card-login mx-auto mt-5">
     <div class="card-header">Đăng nhập</div>
     <div class="card-body">
-      <form>
+      <form action="/login" method="POST">
         <div class="form-group">
           <div class="form-label-group">
-            <input type="email" name="username" id="inputEmail" class="form-control" placeholder="Email"
-              required="required" autofocus="autofocus">
+            <!-- <input type="email" id="inputEmail" class="form-control" placeholder="Email" required="required" autofocus="autofocus"> -->
+            <input type="text" id="inputUserName" class="form-control" placeholder="Tên đăng nhập" required="required" autofocus="autofocus" name="username">
           </div>
         </div>
         <div class="form-group">
           <div class="form-label-group">
-            <input type="password" name="password" id="inputPassword" class="form-control" placeholder="Mật khẩu"
-              required="required">
+            <input type="password" id="inputPassword" class="form-control" placeholder="Mật khẩu" required="required" name="password">
           </div>
         </div>
         <div class="form-group">
@@ -24,7 +23,7 @@
             </label>
           </div>
         </div>
-        <a class="btn btn-primary btn-block" href="/user/update-info">Đăng nhập</a>
+        <button class="btn btn-primary btn-block" type="submit">Đăng nhập</button>
       </form>
       <div class="text-center">
         <a class="d-block small mt-3" href="/register">Đăng kí tài khoản</a>
@@ -32,4 +31,4 @@
       </div>
     </div>
   </div>
-  <%- include("../common/containers/footer") -%>
+<%- include("../common/containers/footer") -%>

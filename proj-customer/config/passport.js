@@ -10,8 +10,7 @@ const passportConfig = () => {
     passport.use(new localStrategy(
         (username, password, done) => { //các tên - name trường cần nhập, đủ tên trường thì Done 
             User.findOne({
-                    username: username,
-                    userType: 'client'
+                    username: username
                 })
                 .then(user => {
                     if (user) {
@@ -39,8 +38,7 @@ const passportConfig = () => {
     //Giải mã
     passport.deserializeUser((user, done) => {
         User.findOne({
-                username: user.username,
-                userType: 'client'
+                _id: user._id
             })
             .then(userRes => {
                 if (userRes) {
