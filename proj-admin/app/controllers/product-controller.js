@@ -1,6 +1,7 @@
 const Product = require('../models/product');
 const Brand = require('../models/brand');
 const Category = require('../models/category');
+const fileHelper = require('../../util/file');
 
 // read list product 
 const list_products = (req, res, next) => {
@@ -56,10 +57,10 @@ const create_product = async (req, res, next) => {
             return objImg.path;
         });
         newProduct.imageUrl = images[0];
-        
+
         // bỏ đi tấm hình đầu tiên
         images = images.slice(1);
-        
+
         // copy vào image Description, dùng spead operator để copy
         newProduct.imageDescription = [...images];
     }
@@ -140,7 +141,15 @@ const update_product = async (req, res, next) => {
 // delete product
 const delete_product = (req, res, next) => {
     const productId = req.body.productId;
-    Product.findByIdAndRemove(productId)
+    Product.findById(productId)
+        .then(product => {
+            fileHelper.deleteFile('public\\' + product.imageUrl);
+            for (let img of product.imageDescription) {
+                fileHelper.deleteFile('public\\' + img);
+                console.log('public\\' + img);
+            }
+            return Product.findByIdAndRemove(productId);
+        })
         .then(() => {
             console.log('DESTROYED PRODUCT');
             res.redirect('/products');
