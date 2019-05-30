@@ -102,7 +102,11 @@ const update_brand = (req, res, next) => {
 //post to delete
 const delete_brand = (req, res, next) => {
     let brandId = req.body.brandId;
-    Brand.findByIdAndRemove(brandId)
+    Brand.findById(brandId)
+        .then(brand => {
+            fileHelper.deleteFile('public\\' + brand.imageUrl);
+            return Product.findByIdAndRemove(brandId);
+        })
         .then(() => {
             console.log('DELETED BRAND');
             res.redirect('/brands');

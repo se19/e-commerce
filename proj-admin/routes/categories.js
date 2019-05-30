@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const multerHelper = require('../util/image');
 
 const auth_controller = require('../app/controllers/auth-controller');
 const category_controller = require('../app/controllers/category-controller');
@@ -12,6 +13,7 @@ router
   //Get create view
   .get('/add', category_controller.init_category)
   //Create
+  // .post('/add', multerHelper.uploadImage('categories').single('image'), category_controller.create_category)
   .post('/add', category_controller.create_category)
   //Get info
   .get('/:categoryId', category_controller.get_category)

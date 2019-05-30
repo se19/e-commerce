@@ -103,7 +103,11 @@ const update_category = (req, res, next) => {
 //post to delete
 const delete_category = (req, res, next) => {
     let cateloryId = req.body.categoryId;
-    Category.findByIdAndRemove(cateloryId)
+    Category.findById(cateloryId)
+        .then(category => {
+            fileHelper.deleteFile('public\\' + category.imageUrl);
+            return Product.findByIdAndRemove(cateloryId);
+        })
         .then(() => {
             console.log('DELETED CATEGORY');
             res.redirect('/categories');

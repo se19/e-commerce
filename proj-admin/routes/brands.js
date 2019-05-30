@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+const multerHelper = require('../util/image');
 
 const auth_controller = require('../app/controllers/auth-controller');
 const brand_controller = require('../app/controllers/brand-controller');
@@ -12,6 +13,7 @@ router
   //Get create view
   .get('/add', brand_controller.init_brand)
   //Create
+  //.post('/add', multerHelper.uploadImage('brands').single('image'), brand_controller.create_brand)
   .post('/add', brand_controller.create_brand)
   //Get info
   .get('/:brandId', brand_controller.get_brand)

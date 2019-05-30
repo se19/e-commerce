@@ -43,6 +43,11 @@ const productSchema = new Schema({
     type: Number,
     required: true
   },
+  // lượt xem
+  view: {
+    type: Number
+  },
+  // do review không có tái sử dụng lại nên mình quăng vô product luôn
   reviews: [{
     reviewer: {
       type: String,
@@ -57,10 +62,20 @@ const productSchema = new Schema({
       required: true
     }
   }],
+  // đánh giá trung bình
   average: {
     type: Number,
     require: true
-  }
+  },
+  // danh sách sản phẩm được mua cùng với sản phẩm hiện tại, gồm (id, số lần mua)
+  relatedProduct: [{
+    productId: {
+      type: Schema.Types.ObjectId,
+    },
+    num: {
+      type: Number,
+    }
+  }],
 });
 
 module.exports = mongoose.model('Product', productSchema);
