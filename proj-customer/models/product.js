@@ -19,6 +19,8 @@ const productSchema = new Schema({
     type: String,
     required: false
   },
+  // https://mongoosejs.com/docs/schematypes.html#arrays
+  imageDescription: [String],
   importDate: {
     type: Date,
     required: true
@@ -42,10 +44,18 @@ const productSchema = new Schema({
     required: true
   },
   reviews: [{
-    reviewId: {
-      type: Schema.Types.ObjectId,
-      ref: 'Rate',
+    reviewer: {
+      type: String,
+      required: true
     },
+    comment: {
+      type: String,
+      required: true
+    },
+    rating: {
+      type: Number,
+      required: true
+    }
   }],
   average: {
     type: Number,

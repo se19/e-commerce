@@ -21,7 +21,6 @@ const getDetail = (req, res, next) => {
             _id: prodId
         })
         .then(product => {
-            //console.log(product);
             res.render('product-view/product', {
                 product: product,
                 pageTitle: 'Chi tiết sản phẩm'
