@@ -105,13 +105,23 @@
           <div class="col-md-12 text-center">
             <div class="site-block-27">
               <ul>
-                <li><a href="/shop">&lt;</a></li>
-                <li class="active"><span>1</span></li>
-                <li><a href="/shop">2</a></li>
-                <li><a href="/shop">3</a></li>
-                <li><a href="/shop">4</a></li>
-                <li><a href="/shop">5</a></li>
-                <li><a href="/shop">&gt;</a></li>
+                <% if (hasFirstPage) { %>
+                <li><a href="?page=1">&lt;&lt;</a></li>
+                <% } %>
+
+                <% if (hasPreviousPage) { %>
+                <li><a href="?page=<%= previousPage %>"><%= previousPage %></a></li>
+                <% } %>
+                
+                <li class="active"><a href="?page=<%= currentPage %>"><%= currentPage %></a></li>
+
+                <% if (hasNextPage) { %>
+                <li><a href="?page=<%= nextPage %>"><%= nextPage %></a></li>
+                <% } %>
+
+                <% if (hasLastPage) { %>
+                <li><a href="?page=<%= lastPage %>">&gt;&gt;</a></li>
+                <% } %>
               </ul>
             </div>
           </div>
