@@ -38,7 +38,7 @@ const create_product = async (req, res, next) => {
     newProduct.title = req.body.title;
     newProduct.price = req.body.price;
     newProduct.description = req.body.description;
-    newProduct.importDate = new Date().getDate();
+    newProduct.importDate = Date(Date.now());
     newProduct.numberInventory = req.body.numberInventory;
     newProduct.brandId = req.body.brandId;
     newProduct.categoryId = req.body.categoryId;
