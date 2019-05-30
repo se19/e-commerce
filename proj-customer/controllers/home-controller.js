@@ -1,25 +1,21 @@
 const Product = require('../models/product');
 
-let hotProds = [];
-let newProds = [];
+// mongoose sort thì 1 là tăng dần, -1 là giảm dần
 
-const initialization = (req, res, next) => {
-    Product.find()
-        .then(products => {
-            // bổ sung 2 phương thức sau nào Model product
-            // hotProds = products.sortByPurchased();
-            hotProds = products;
-            // newProds = products.sortByImportDate();
-            newProds = products;
-            res.render('home-view/index', {
-                hotProds: hotProds,
-                newProds: newProds,
-                pageTitle: 'Trang chủ'
-            });
-        })
-        .catch(err => {
-            console.log(err);
-        });
+const initialization = async (req, res, next) => {
+    let hotProds = await Product.find().sort({
+        numberPurchased: -1
+    }).limit(6);
+
+    let newProds = await Product.find().sort({
+        importDate: -1  // ngày giảm dần
+    }).limit(5);
+
+    res.render('home-view/index', {
+        hotProds: hotProds,
+        newProds: newProds,
+        pageTitle: 'Trang chủ'
+    });
 }
 
 

@@ -97,7 +97,8 @@
       <div class="container">
         <div class="row">
           <div class="col-md-12 mb-0"><a href="/">Trang chủ</a> <span class="mx-2 mb-0">/</span> <a href="/shop">Cửa
-              hàng</a> <span class="mx-2 mb-0">/</span> <strong class="text-black">Laptop 1</strong></div>
+              hàng</a> <span class="mx-2 mb-0">/</span> <strong class="text-black">Laptop <%= product.title %></strong>
+          </div>
         </div>
       </div>
     </div>
@@ -134,30 +135,30 @@
           <div class="col-md-4">
             <h2 class="text-black">Laptop <%= product.title %></h2>
             <h5 class="">(1000 Lượt xem)</h3>
-            <div>
-              <div class="product-rating">
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="far fa-star"></i>
-              </div>
-              <a class="review-link" href="#comment">(Xem 10 Nhận xét)</a>
-            </div>
-            <p><strong class="text-primary h4"><%= product.price %></strong></p>
-            <div class="mb-5">
-              <div class="input-group mb-3" style="max-width: 120px;">
-                <div class="input-group-prepend">
-                  <button class="btn btn-outline-primary js-btn-minus" type="button">&minus;</button>
+              <div>
+                <div class="product-rating">
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="far fa-star"></i>
                 </div>
-                <input type="text" class="form-control text-center" value="1" placeholder=""
-                  aria-label="Example text with button addon" aria-describedby="button-addon1">
-                <div class="input-group-append">
-                  <button class="btn btn-outline-primary js-btn-plus" type="button">&plus;</button>
+                <a class="review-link" href="#comment">(Xem 10 Nhận xét)</a>
+              </div>
+              <p><strong class="text-primary h4"><%= product.price %></strong></p>
+              <div class="mb-5">
+                <div class="input-group mb-3" style="max-width: 120px;">
+                  <div class="input-group-prepend">
+                    <button class="btn btn-outline-primary js-btn-minus" type="button">&minus;</button>
+                  </div>
+                  <input type="text" class="form-control text-center" value="1" placeholder=""
+                    aria-label="Example text with button addon" aria-describedby="button-addon1">
+                  <div class="input-group-append">
+                    <button class="btn btn-outline-primary js-btn-plus" type="button">&plus;</button>
+                  </div>
                 </div>
               </div>
-            </div>
-            <p><a href="/cart" class="buy-now btn btn-sm height-auto px-4 py-3 btn-primary">Thêm vào giỏ hàng</a></p>
+              <p><a href="/cart" class="buy-now btn btn-sm height-auto px-4 py-3 btn-primary">Thêm vào giỏ hàng</a></p>
           </div>
         </div>
       </div>
