@@ -8,7 +8,6 @@ const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
 
-const multer = require('multer');
 const flash = require('connect-flash');
 
 //import router config
@@ -18,7 +17,6 @@ const indexRouter = require('./routes/index');
 const passportConfig = require('./config/passport');
 
 var app = express();
-
 
 // view engine setup
 app.set('views', path.join(__dirname, 'app/views'));
@@ -36,20 +34,20 @@ app.use(bodyParser.urlencoded({
   extended: false
 }));
 
-//multer upload img
-const fileStorage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, 'public/images/products');
-  },
-  filename: (req, file, cb) => {
-    cb(null, file.originalname);
-  }
-});
-app.use(
-  multer({
-    storage: fileStorage
-  }).single('image')
-);
+// //multer upload img
+// const fileStorage = multer.diskStorage({
+//   destination: (req, file, cb) => {
+//     cb(null, 'public/images/products');
+//   },
+//   filename: (req, file, cb) => {
+//     cb(null, file.originalname);
+//   }
+// });
+// app.use(
+//   multer({
+//     storage: fileStorage
+//   }).single('image')
+// );
 
 
 //config auth. set time out => auto log out

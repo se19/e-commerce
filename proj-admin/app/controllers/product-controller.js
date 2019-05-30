@@ -2,7 +2,6 @@ const Product = require('../models/product');
 const Brand = require('../models/brand');
 const Category = require('../models/category');
 
-
 // read list product 
 const list_products = (req, res, next) => {
     Product.find()
@@ -46,15 +45,25 @@ const create_product = async (req, res, next) => {
     newProduct.numberPurchased = 0;
     newProduct.average = 0;
 
-    let image = req.file;
+    let images = req.files;
 
-    if (!image) {
+    if (!images) {
         console.log('Errrrrrrrrrrror');
     } else {
-        newProduct.imageUrl = image.path;
-        newProduct.imageUrl = newProduct.imageUrl.slice(7);
+        // bỏ đi 'public//', đồng thời object chỉ giữ lại path
+        images = images.map(objImg => {
+            objImg.path = objImg.path.slice(7);
+            return objImg.path;
+        });
+        newProduct.imageUrl = images[0];
+        
+        // bỏ đi tấm hình đầu tiên
+        images = images.slice(1);
+        
+        // copy vào image Description, dùng spead operator để copy
+        newProduct.imageDescription = [...images];
     }
-
+    //console.log(images);
     newProduct
         .save()
         .then(result => {

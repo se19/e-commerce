@@ -19,6 +19,8 @@ const productSchema = new Schema({
     type: String,
     required: false
   },
+  // https://mongoosejs.com/docs/schematypes.html#arrays
+  imageDescription: [String],
   importDate: {
     type: Date,
     required: true

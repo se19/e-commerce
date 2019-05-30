@@ -11,68 +11,6 @@
             <h5 class="font-strong mb-4">Danh mục hàng hóa</h5>
             <div class="flexbox row">
                 <div class="flexbox col-12 col-lg-auto mb-4">
-                    <!-- <label class="mb-0 mr-2">Loại:</label>
-                    <div class="btn-group bootstrap-select show-tick form-control" style="width: 150px;">
-                        <div class="dropdown-menu open" role="combobox"
-                            style="max-height: 342px; overflow: hidden; min-height: 1px; position: absolute; transform: translate3d(0px, 37px, 0px); top: 0px; left: 0px; will-change: transform;"
-                            x-placement="bottom-start">
-                            <ul class="dropdown-menu inner" role="listbox" aria-expanded="false"
-                                style="max-height: 342px; overflow-y: auto; min-height: 1px;">
-                                <li data-original-index="1"><a tabindex="0" class="" data-tokens="null" role="option"
-                                        aria-disabled="false" aria-selected="false"><span class="text">Tất
-                                            cả</span><span class="fa fa-check check-mark"></span></a></li>
-                                <li class="divider" data-optgroup="1div"></li>
-                                <li class="dropdown-header " data-optgroup="1"><span class="text">Đồ điện tử</span>
-                                </li>
-                                <li data-original-index="2" data-optgroup="1" class="selected"><a tabindex="0"
-                                        class="opt  " data-tokens="null" role="option" aria-disabled="false"
-                                        aria-selected="true"><span class="text">TV &amp; Video</span><span
-                                            class="fa fa-check check-mark"></span></a></li>
-                                <li data-original-index="3" data-optgroup="1"><a tabindex="0" class="opt  "
-                                        data-tokens="null" role="option" aria-disabled="false"
-                                        aria-selected="false"><span class="text">Cameras &amp; Photo</span><span
-                                            class="fa fa-check check-mark"></span></a></li>
-                                <li data-original-index="4" data-optgroup="1"><a tabindex="0" class="opt  "
-                                        data-tokens="null" role="option" aria-disabled="false"
-                                        aria-selected="false"><span class="text">Máy tính &amp; Tablets</span><span
-                                            class="fa fa-check check-mark"></span></a></li>
-                                <li class="divider" data-optgroup="2div"></li>
-                                <li class="dropdown-header " data-optgroup="2"><span class="text">Thời trang</span></li>
-                                <li data-original-index="5" data-optgroup="2"><a tabindex="0" class="opt  "
-                                        data-tokens="null" role="option" aria-disabled="false"
-                                        aria-selected="false"><span class="text">Sức khỏe &amp; Sắc đẹp</span><span
-                                            class="fa fa-check check-mark"></span></a></li>
-                                <li data-original-index="6" data-optgroup="2"><a tabindex="0" class="opt  "
-                                        data-tokens="null" role="option" aria-disabled="false"
-                                        aria-selected="false"><span class="text">Giày</span><span
-                                            class="fa fa-check check-mark"></span></a></li>
-                                <li data-original-index="7" data-optgroup="2"><a tabindex="0" class="opt  "
-                                        data-tokens="null" role="option" aria-disabled="false"
-                                        aria-selected="false"><span class="text">Túi xách</span><span
-                                            class="fa fa-check check-mark"></span></a></li>
-                                <li data-original-index="8" data-optgroup="2"><a tabindex="0" class="opt  "
-                                        data-tokens="null" role="option" aria-disabled="false"
-                                        aria-selected="false"><span class="text">Đồng hồ</span><span
-                                            class="fa fa-check check-mark"></span></a></li>
-                            </ul>
-                        </div>
-                        <select class="selectpicker show-tick form-control" id="type-filter" title="Please select"
-                            data-style="btn-solid" data-width="150px" tabindex="-98">
-                            <option class="bs-title-option" value="">Chọn danh mục</option>
-                            <option value="">Tất cả</option>
-                            <optgroup label="Điện tử">
-                                <option>TV &amp; Video</option>
-                                <option>Máy ảnh &amp; Photo</option>
-                                <option>Máy tính &amp; Tablets</option>
-                            </optgroup>
-                            <optgroup label="Thời trang">
-                                <option>Sức khỏe &amp; Làm đẹp</option>
-                                <option>Giày</option>
-                                <option>Túi xách</option>
-                                <option>Vòng đeo tay</option>
-                            </optgroup>
-                        </select>
-                    </div> -->
                 </div>
                 <div class="flexbox col-12 col-lg-auto row">
                     <div class="input-group-icon input-group-icon-left mb-4 col-12 col-md-6 col-lg-auto">
@@ -118,12 +56,14 @@
                             <% if (products.length > 0) { %>
                             <% for (let product of products) { %>
                             <tr role="row" class="odd">
-                                <td tabindex="0" class=""><%= product.id %></td>
-                                <td>
-                                    <a href="/products/<%= product.id %>">
-                                        <img class="mr-3" src="<% if (product && product.imageUrl) { %><%= product.imageUrl %><% } else { %><%= defaultImg %> <% } %>" alt="image" width="60">
-                                        <%= product.title %>
+                                <td tabindex="0" class="">
+                                    <a href="/products/<%= product.id %>"><%= product.id %>
                                     </a>
+                                </td>
+                                <td> <img class="mr-3"
+                                        src="<% if (product && product.imageUrl) { %><%= product.imageUrl %><% } else { %><%= defaultImg %> <% } %>"
+                                        alt="image" width="60">
+                                    <%= product.title %>
                                 </td>
                                 <td class="sorting_1"><%= product.categoryId.title %></td>
                                 <td><%= product.price %></td>
@@ -139,8 +79,7 @@
                                     <a class="text-light mr-3 font-16" href="/products/<%= product.id %>"><i
                                             class="fa fa-pencil-alt"></i></a>
                                     <form action="/products/<%= product.id %><%- '/delete' %>" method="POST">
-                                        <input type="hidden" value="<%= product.id %>"
-                                            name="productId">
+                                        <input type="hidden" value="<%= product.id %>" name="productId">
                                         <button type="submit">
                                             <i class="fa fa-trash"></i>
                                         </button>
