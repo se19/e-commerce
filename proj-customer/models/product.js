@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const Rate = require('./rate');
 
 const Schema = mongoose.Schema;
 
@@ -47,24 +48,11 @@ const productSchema = new Schema({
   view: {
     type: Number
   },
-  // do review không có tái sử dụng lại nên mình quăng vô product luôn
-  reviews: [{
-    rating: {
-      type: Number,
-      required: true
-    },
-    name: {
-      type: String,
-      required: true
-    },
-    phoneNumber: {
-      type: String
-    },
-    message: {
-      type: String,
-      required: true
-    }
-  }],
+  // do review không có tái sử dụng lại nên mình quăng vô product luôn => không được, phải tạo model để pagination :(
+  reviews: {
+    type: [Schema.Types.ObjectId],
+    ref: 'Rate'
+  },
   // đánh giá trung bình
   average: {
     type: Number,
@@ -82,9 +70,31 @@ const productSchema = new Schema({
   }],
 });
 
+
 productSchema.methods.addReview = function (review) {
-  this.reviews.push(review);
-  return this.save();
+  // thêm review vào sản phẩm
+  this.reviews.push(review._id);
+
+  // populate không được :(((
+  // this.populate({
+  //     path: 'reviews',
+  //   })
+  //   .execPopulate()
+  //   .then(product => {
+  //     console.log(product);
+  //   })
+
+  let sum = 0;
+  Rate.find({_id: {$in: this.reviews}})
+    .then(reviews => {
+      for (let review of reviews) {
+        sum += review.rating;
+      }
+      //làm tròn 2 chữ số
+      this.average = Math.round(sum / this.reviews.length * 100) / 100;
+      // lưu lại product, return ở đây.........
+      return this.save();
+    })
 };
 
 module.exports = mongoose.model('Product', productSchema);

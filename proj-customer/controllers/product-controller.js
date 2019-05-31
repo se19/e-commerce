@@ -1,6 +1,8 @@
 const Product = require('../models/product');
+const Rate = require('../models/rate');
 
-const ITEMS_PER_PAGE = 4;
+const ITEMS_PER_PAGE = 6;
+const REVIEWS_PER_PAGE = 2;
 
 //Get danh sách sản phẩm, bao gồm cả tìm kiếm, sort, order và phân trang
 const listProduct = (req, res, next) => {
@@ -37,41 +39,59 @@ const listProduct = (req, res, next) => {
 };
 
 //Get thông tin sản phẩm
-const getDetail = (req, res, next) => {
+const getDetail = async (req, res, next) => {
     const prodId = req.params.productId;
-    Product.findOne({
-            _id: prodId
-        })
-        .then(product => {
-            res.render('product-view/product', {
-                product: product,
-                pageTitle: 'Chi tiết sản phẩm'
-            });
-        })
-        .catch(err => console.log(err));
+    const product = await Product.findOne({
+        _id: prodId
+    })
+
+    // trường hợp không có '?page' thì page = 1
+    const page = +req.query.page || 1;
+
+    // tìm trong bảng rate những review có id trùng với id trong product.reviews
+    const totalReviews = await Rate.find({_id: {$in: product.reviews}}).countDocuments() // đếm số items;
+    const reviews = await Rate.find({_id: {$in: product.reviews}})
+                .skip((page - 1) * REVIEWS_PER_PAGE) // bỏ qua ~ item
+                .limit(REVIEWS_PER_PAGE);
+
+
+    res.render('product-view/product', {
+        pageTitle: 'Chi tiết sản phẩm',
+        product: product,
+        reviews: reviews,
+        currentPage: page,
+        hasFirstPage: page != 1,
+        hasPreviousPage: page > 1,
+        previousPage: page - 1,
+        hasNextPage: REVIEWS_PER_PAGE * page < totalReviews,
+        nextPage: page + 1,
+        hasLastPage: page != Math.ceil(totalReviews / REVIEWS_PER_PAGE),
+        lastPage: Math.ceil(totalReviews / REVIEWS_PER_PAGE)
+    });
 }
 
 const addComment = (req, res, next) => {
     const prodId = req.params.productId;
-    const rating = req.body.rating;
-    const name = req.body.name;
-    const phoneNumber = req.body.phoneNumber;
-    const message = req.body.message;
-    const review = {
-        rating: rating,
-        name: name,
-        phoneNumber: phoneNumber,
-        message: message
-    };
-    Product.findById(prodId)
-        .then(product => {
-            return product.addReview(review);
+
+    let newRate = new Rate();
+    newRate.rating = req.body.rating;
+    newRate.name = req.body.name;
+    newRate.phoneNumber = req.body.phoneNumber;
+    newRate.message = req.body.message;
+
+    newRate
+        .save()
+        .then(review => {
+            Product.findById(prodId)
+                .then(product => {
+                    return product.addReview(review);
+                })
+                .then(result => {
+                    //console.log(result);
+                    res.redirect('/shop/' + prodId);
+                })
+                .catch(err => console.log(err));
         })
-        .then(result => {
-            console.log(result);
-            res.redirect('/shop/' + prodId);
-        })
-        .catch(err => console.log(err));
 }
 
 module.exports = {

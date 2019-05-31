@@ -187,8 +187,8 @@
                   <div class="col-6">
                     <div class="box_total">
                       <h5>Đánh giá trung bình</h5>
-                      <h4>4.0</h4>
-                      <h6>(5 Nhận xét)</h6>
+                      <h4><%= product.average %></h4>
+                      <h6>(<%= product.reviews.length %> Nhận xét)</h6>
                     </div>
                   </div>
                   <div class="col-6">
@@ -240,26 +240,43 @@
                   </div>
                 </div>
                 <div class="review_list">
+                  <% if (reviews.length > 0) { %>
+                  <% for (let review of reviews) { %>
                   <div class="review_item">
                     <div class="media">
                       <div class="media-body">
-                        <h4>Owen</h4>
+                        <h4><%= review.name %></h4>
+                        <% for (let i=0; i < review.rating; i++ ) { %>
                         <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
+                        <% } %>
+                        <% for (let i=review.rating; i < 5; i++ ) { %>
                         <i class="far fa-star"></i>
+                        <% } %>
                       </div>
                     </div>
-                    <p>Hahahahahahahahaaaaaaaaaaaaaaa</p>
+                    <p><%= review.message %></p>
                   </div>
+                  <% } %>
+                  <% } %>
                 </div>
                 <ul class="reviews-pagination">
-                  <li class="active">1</li>
-                  <li><a href="#">2</a></li>
-                  <li><a href="#">3</a></li>
-                  <li><a href="#">4</a></li>
-                  <li><a href="#"><i class="fa fa-angle-right"></i></a></li>
+                  <% if (hasFirstPage) { %>
+                  <li><a href="?page=1"><i class="fa fa-angle-double-left"></i></a></li>
+                  <% } %>
+
+                  <% if (hasPreviousPage) { %>
+                  <li><a href="?page=<%= previousPage %>"><%= previousPage %></a></li>
+                  <% } %>
+
+                  <li class="active"><a href="?page=<%= currentPage %>"><%= currentPage %></a></li>
+
+                  <% if (hasNextPage) { %>
+                  <li><a href="?page=<%= nextPage %>"><%= nextPage %></a></li>
+                  <% } %>
+
+                  <% if (hasLastPage) { %>
+                  <li><a href="?page=<%= lastPage %>"><i class="fa fa-angle-double-right"></i></a></li>
+                  <% } %>
                 </ul>
               </div>
               <div class="col-lg-6">
@@ -268,33 +285,6 @@
                   <form class="row contact_form" action="/shop/<%= product._doc._id %>/add-comment" method="post"
                     id="contactForm" novalidate="novalidate">
                     <p>Đánh giá: </p>
-                    <!-- <ul class="list">
-                      <li>
-                        <a href="#">
-                          <i class="far fa-star"></i>
-                        </a>
-                      </li>
-                      <li>
-                        <a href="#">
-                          <i class="far fa-star"></i>
-                        </a>
-                      </li>
-                      <li>
-                        <a href="#">
-                          <i class="far fa-star"></i>
-                        </a>
-                      </li>
-                      <li>
-                        <a href="#">
-                          <i class="far fa-star"></i>
-                        </a>
-                      </li>
-                      <li>
-                        <a href="#">
-                          <i class="far fa-star"></i>
-                        </a>
-                      </li>
-                    </ul> -->
                     <fieldset class="rating">
                       <input type="radio" id="star5" name="rating" value="5" /><label class="" for="star5"
                         title="Tuyệt vời - 5 stars">★</label>
