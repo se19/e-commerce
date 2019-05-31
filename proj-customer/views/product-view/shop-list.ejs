@@ -17,14 +17,10 @@
         <div class="border p-4 rounded mb-4">
           <h3 class="mb-3 h6 text-uppercase text-black d-block">Loại sản phẩm</h3>
           <ul class="list-unstyled mb-0">
-            <li class="mb-1"><a href="#" class="d-flex"><span>Laptop Gaming</span> <span
-                  class="text-black ml-auto">(10)</span></a></li>
-            <li class="mb-1"><a href="#" class="d-flex"><span>Laptop văn phòng</span> <span
-                  class="text-black ml-auto">(15)</span></a></li>
-            <li class="mb-1"><a href="#" class="d-flex"><span>Laptop doanh nhân</span> <span
-                  class="text-black ml-auto">(12)</span></a></li>
-            <li class="mb-1"><a href="#" class="d-flex"><span>Laptop ultrabook</span> <span
-                  class="text-black ml-auto">(12)</span></a></li>
+            <% for (let category of categories) { %>
+            <li class="mb-1"><a href="/shop/category/<%= category._id %>" class="d-flex"><span><%= category.title %></span>
+                <span class="text-black ml-auto">(10)</span></a></li>
+            <% } %>
           </ul>
         </div>
 
@@ -37,18 +33,15 @@
 
           <div class="mb-4">
             <h3 class="mb-3 h6 text-uppercase text-black d-block">Thương hiệu</h3>
-            <label for="s_brand_1" class="d-flex">
-              <input type="checkbox" id="s_b1" class="mr-2 mt-1"> <span class="text-black">DELL (19)</span>
-            </label>
-            <label for="s_brand_2" class="d-flex">
-              <input type="checkbox" id="s_b2" class="mr-2 mt-1"> <span class="text-black">ASUS (12)</span>
-            </label>
-            <label for="s_brand_3" class="d-flex">
-              <input type="checkbox" id="s_b3" class="mr-2 mt-1"> <span class="text-black">MSI (13)</span>
-            </label>
-            <label for="s_brand_4" class="d-flex">
-              <input type="checkbox" id="s_b4" class="mr-2 mt-1"> <span class="text-black">MACBOOK (11)</span>
-            </label>
+            <% for (let brand of brands) { %>
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" value="<%= brand._id %>" name="brandPro"
+                id="<%= brand.title %>">
+              <label class="form-check-label text-black" for="<%= brand.title %>">
+                <%= brand.title %> (10)
+              </label>
+            </div>
+            <% } %>
           </div>
         </div>
       </div>
@@ -112,7 +105,7 @@
                 <% if (hasPreviousPage) { %>
                 <li><a href="?page=<%= previousPage %>"><%= previousPage %></a></li>
                 <% } %>
-                
+
                 <li class="active"><a href="?page=<%= currentPage %>"><%= currentPage %></a></li>
 
                 <% if (hasNextPage) { %>
