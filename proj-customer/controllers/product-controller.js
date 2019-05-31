@@ -14,8 +14,8 @@ const listProduct = (req, res, next) => {
         .then(numProducts => {
             totalItems = numProducts;
             return Product.find()
-                .skip((page - 1) * ITEMS_PER_PAGE)  // bỏ qua ~ item
-                .limit(ITEMS_PER_PAGE);             
+                .skip((page - 1) * ITEMS_PER_PAGE) // bỏ qua ~ item
+                .limit(ITEMS_PER_PAGE);
         })
         .then(products => {
             res.render('product-view/shop-list', {
@@ -51,7 +51,31 @@ const getDetail = (req, res, next) => {
         .catch(err => console.log(err));
 }
 
+const addComment = (req, res, next) => {
+    const prodId = req.params.productId;
+    const rating = req.body.rating;
+    const name = req.body.name;
+    const phoneNumber = req.body.phoneNumber;
+    const message = req.body.message;
+    const review = {
+        rating: rating,
+        name: name,
+        phoneNumber: phoneNumber,
+        message: message
+    };
+    Product.findById(prodId)
+        .then(product => {
+            return product.addReview(review);
+        })
+        .then(result => {
+            console.log(result);
+            res.redirect('/shop/' + prodId);
+        })
+        .catch(err => console.log(err));
+}
+
 module.exports = {
     listProduct,
-    getDetail
+    getDetail,
+    addComment
 }

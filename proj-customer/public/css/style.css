@@ -68,7 +68,9 @@ a:hover {
   font-size: 13px;
 }
 
-.btn:hover, .btn:active, .btn:focus {
+.btn:hover,
+.btn:active,
+.btn:focus {
   outline: none;
   -webkit-box-shadow: none;
   box-shadow: none;
@@ -80,7 +82,9 @@ a:hover {
   color: #fff;
 }
 
-.btn.btn-black:hover, .btn.btn-black:active, .btn.btn-black:focus {
+.btn.btn-black:hover,
+.btn.btn-black:active,
+.btn.btn-black:focus {
   background-color: #333333;
 }
 
@@ -88,11 +92,14 @@ a:hover {
   height: 43px;
 }
 
-.form-control:active, .form-control:focus {
+.form-control:active,
+.form-control:focus {
   border-color: #ee4266;
 }
 
-.form-control:hover, .form-control:active, .form-control:focus {
+.form-control:hover,
+.form-control:active,
+.form-control:focus {
   -webkit-box-shadow: none !important;
   box-shadow: none !important;
 }
@@ -262,7 +269,8 @@ a:hover {
   font-size: 20px;
 }
 
-.site-navbar .site-top-icons ul, .site-navbar .site-top-icons ul li {
+.site-navbar .site-top-icons ul,
+.site-navbar .site-top-icons ul li {
   padding: 0;
   margin: 0;
   list-style: none;
@@ -426,12 +434,15 @@ a:hover {
   right: 20px;
 }
 
-.site-navbar .site-navigation .site-menu .has-children .dropdown>li.has-children>.dropdown, .site-navbar .site-navigation .site-menu .has-children .dropdown>li.has-children>ul {
+.site-navbar .site-navigation .site-menu .has-children .dropdown>li.has-children>.dropdown,
+.site-navbar .site-navigation .site-menu .has-children .dropdown>li.has-children>ul {
   left: 100%;
   top: 0;
 }
 
-.site-navbar .site-navigation .site-menu .has-children .dropdown>li.has-children:hover>a, .site-navbar .site-navigation .site-menu .has-children .dropdown>li.has-children:active>a, .site-navbar .site-navigation .site-menu .has-children .dropdown>li.has-children:focus>a {
+.site-navbar .site-navigation .site-menu .has-children .dropdown>li.has-children:hover>a,
+.site-navbar .site-navigation .site-menu .has-children .dropdown>li.has-children:active>a,
+.site-navbar .site-navigation .site-menu .has-children .dropdown>li.has-children:focus>a {
   background: #f4f5f9;
   color: #25262a;
 }
@@ -440,15 +451,21 @@ a:hover {
   text-transform: uppercase;
 }
 
-.site-navbar .site-navigation .site-menu .has-children:hover>a, .site-navbar .site-navigation .site-menu .has-children:focus>a, .site-navbar .site-navigation .site-menu .has-children:active>a {
+.site-navbar .site-navigation .site-menu .has-children:hover>a,
+.site-navbar .site-navigation .site-menu .has-children:focus>a,
+.site-navbar .site-navigation .site-menu .has-children:active>a {
   color: #ee4266;
 }
 
-.site-navbar .site-navigation .site-menu .has-children:hover, .site-navbar .site-navigation .site-menu .has-children:focus, .site-navbar .site-navigation .site-menu .has-children:active {
+.site-navbar .site-navigation .site-menu .has-children:hover,
+.site-navbar .site-navigation .site-menu .has-children:focus,
+.site-navbar .site-navigation .site-menu .has-children:active {
   cursor: pointer;
 }
 
-.site-navbar .site-navigation .site-menu .has-children:hover>.dropdown, .site-navbar .site-navigation .site-menu .has-children:focus>.dropdown, .site-navbar .site-navigation .site-menu .has-children:active>.dropdown {
+.site-navbar .site-navigation .site-menu .has-children:hover>.dropdown,
+.site-navbar .site-navigation .site-menu .has-children:focus>.dropdown,
+.site-navbar .site-navigation .site-menu .has-children:active>.dropdown {
   -webkit-transition-delay: 0s;
   -o-transition-delay: 0s;
   transition-delay: 0s;
@@ -657,12 +674,14 @@ a:hover {
   z-index: 9;
 }
 
-.site-blocks-cover, .site-blocks-cover .row {
+.site-blocks-cover,
+.site-blocks-cover .row {
   min-height: 600px;
   height: calc(100vh - 174px);
 }
 
-.site-blocks-cover.inner-page, .site-blocks-cover.inner-page .row {
+.site-blocks-cover.inner-page,
+.site-blocks-cover.inner-page .row {
   min-height: 400px;
   height: 500px;
 }
@@ -803,7 +822,8 @@ a:hover {
   width: 100%;
 }
 
-.site-blocks-2 .block-2-item .text>span, .site-blocks-2 .block-2-item .text h3 {
+.site-blocks-2 .block-2-item .text>span,
+.site-blocks-2 .block-2-item .text h3 {
   color: #fff;
 }
 
@@ -838,7 +858,8 @@ a:hover {
   transform: translateX(-50%);
 }
 
-.block-3 .owl-nav .owl-prev, .block-3 .owl-nav .owl-next {
+.block-3 .owl-nav .owl-prev,
+.block-3 .owl-nav .owl-next {
   position: relative;
   display: inline-block;
   padding: 20px;
@@ -846,11 +867,13 @@ a:hover {
   color: #5c626e;
 }
 
-.block-3 .owl-nav .owl-prev:hover, .block-3 .owl-nav .owl-next:hover {
+.block-3 .owl-nav .owl-prev:hover,
+.block-3 .owl-nav .owl-next:hover {
   color: #25262a;
 }
 
-.block-3 .owl-nav .owl-prev.disabled, .block-3 .owl-nav .owl-next.disabled {
+.block-3 .owl-nav .owl-prev.disabled,
+.block-3 .owl-nav .owl-next.disabled {
   opacity: .2;
 }
 
@@ -869,7 +892,8 @@ a:hover {
   text-decoration: none;
 }
 
-.block-5 ul, .block-5 ul li {
+.block-5 ul,
+.block-5 ul li {
   list-style: none;
   padding: 0;
   margin: 0;
@@ -982,7 +1006,8 @@ a:hover {
   border-bottom-width: 1px !important;
 }
 
-.site-block-order-table td, .site-block-order-table th {
+.site-block-order-table td,
+.site-block-order-table th {
   color: #000;
 }
 
@@ -1006,11 +1031,13 @@ a:hover {
   transition: .3s all ease-in-out;
 }
 
-.site-block-top-search input:focus, .site-block-top-search input:active {
+.site-block-top-search input:focus,
+.site-block-top-search input:active {
   padding-left: 25px;
 }
 
-.site-block-27 ul, .site-block-27 ul li {
+.site-block-27 ul,
+.site-block-27 ul li {
   padding: 0;
   margin: 0;
 }
@@ -1020,7 +1047,8 @@ a:hover {
   margin-bottom: 4px;
 }
 
-.site-block-27 ul li a, .site-block-27 ul li span {
+.site-block-27 ul li a,
+.site-block-27 ul li span {
   text-align: center;
   display: inline-block;
   width: 40px;
@@ -1030,7 +1058,8 @@ a:hover {
   border: 1px solid #ccc;
 }
 
-.site-block-27 ul li.active a, .site-block-27 ul li.active span {
+.site-block-27 ul li.active a,
+.site-block-27 ul li.active span {
   background: #ee4266;
   color: #fff;
   border: 1px solid transparent;
@@ -1048,7 +1077,8 @@ a:hover {
   background: #ee4266;
 }
 
-#slider-range .ui-slider-handle:focus, #slider-range .ui-slider-handle:active {
+#slider-range .ui-slider-handle:focus,
+#slider-range .ui-slider-handle:active {
   outline: none;
 }
 
@@ -1291,7 +1321,7 @@ a:hover {
   position: absolute;
 }
 
-.item-entry:hover{
+.item-entry:hover {
   border-style: groove;
   border-color: #ee4266;
 }
@@ -1705,10 +1735,13 @@ a:hover {
 .review_box h4 {
   font-size: 24px;
   color: #222222;
-  margin-bottom: 20px;
+  margin-bottom: 0px;
 }
 
-.review_box p {
+.review_box form p {
+  margin-left: 15px;
+  margin-right: 10px;
+  margin-top: 9px;
   margin-bottom: 0px;
   display: inline-block;
 }
@@ -1763,7 +1796,7 @@ a:hover {
   color: #ee4266;
 }
 
-.reviews-pagination li.active {
+.reviews-paginati on li.active {
   background-color: #ee4266;
   border-color: #ee4266;
   color: #FFF;
@@ -1783,4 +1816,68 @@ a:hover {
 
 .carousel-control-next-icon {
   background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%23ee4266' viewBox='0 0 8 8'%3E%3Cpath d='M2.75 0l-1.5 1.5 2.5 2.5-2.5 2.5 1.5 1.5 4-4-4-4z'/%3E%3C/svg%3E");
+}
+
+fieldset,
+label {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  margin: 20px;
+}
+
+h1 {
+  font-size: 1.5em;
+  margin: 10px;
+}
+
+/****** Style Star Rating Widget *****/
+.rating {
+  border: none;
+  float: left;
+}
+
+.rating>input {
+  display: none;
+}
+
+.rating>label {
+  font-size: 1.5rem;
+}
+
+.rating>label:before {
+  margin: 5px;
+  font-size: 1.25em;
+  font-family: FontAwesome;
+  display: inline-block;
+  /* content: '\f005';  */
+  /* f005 là dấu ngôi sao, chả hiểu sao không render được */
+}
+
+.rating>label {
+  color: #ddd;
+  float: right;
+}
+
+/***** CSS Magic to Highlight Stars on Hover *****/
+
+.rating>input:checked~label,
+/* show gold star when clicked */
+.rating:not(:checked)>label:hover,
+/* hover current star */
+.rating:not(:checked)>label:hover~label {
+  color: #ee4266;
+}
+
+/* hover previous stars in list */
+
+.rating>input:checked+label:hover,
+/* hover current star when changing rating */
+.rating>input:checked~label:hover,
+.rating>label:hover~input:checked~label,
+/* lighten current selection */
+.rating>input:checked~label:hover~label {
+  color: #ee4480;
 }

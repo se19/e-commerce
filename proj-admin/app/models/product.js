@@ -49,16 +49,19 @@ const productSchema = new Schema({
   },
   // do review không có tái sử dụng lại nên mình quăng vô product luôn
   reviews: [{
-    reviewer: {
-      type: String,
-      required: true
-    },
-    comment: {
-      type: String,
-      required: true
-    },
     rating: {
       type: Number,
+      required: true
+    },
+    name: {
+      type: String,
+      required: true
+    },
+    phoneNumber: {
+      type: String
+    },
+    message: {
+      type: String,
       required: true
     }
   }],
@@ -71,6 +74,7 @@ const productSchema = new Schema({
   relatedProduct: [{
     productId: {
       type: Schema.Types.ObjectId,
+      ref: 'Product',
     },
     num: {
       type: Number,

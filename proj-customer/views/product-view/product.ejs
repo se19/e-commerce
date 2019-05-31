@@ -265,36 +265,48 @@
               <div class="col-lg-6">
                 <div class="review_box">
                   <h4>Viết nhận xét</h4>
-                  <p>Đánh giá của bạn:</p>
-                  <ul class="list">
-                    <li>
-                      <a href="#">
-                        <i class="far fa-star"></i>
-                      </a>
-                    </li>
-                    <li>
-                      <a href="#">
-                        <i class="far fa-star"></i>
-                      </a>
-                    </li>
-                    <li>
-                      <a href="#">
-                        <i class="far fa-star"></i>
-                      </a>
-                    </li>
-                    <li>
-                      <a href="#">
-                        <i class="far fa-star"></i>
-                      </a>
-                    </li>
-                    <li>
-                      <a href="#">
-                        <i class="far fa-star"></i>
-                      </a>
-                    </li>
-                  </ul>
-                  <form class="row contact_form" action="contact_process.php" method="post" id="contactForm"
-                    novalidate="novalidate">
+                  <form class="row contact_form" action="/shop/<%= product._doc._id %>/add-comment" method="post"
+                    id="contactForm" novalidate="novalidate">
+                    <p>Đánh giá: </p>
+                    <!-- <ul class="list">
+                      <li>
+                        <a href="#">
+                          <i class="far fa-star"></i>
+                        </a>
+                      </li>
+                      <li>
+                        <a href="#">
+                          <i class="far fa-star"></i>
+                        </a>
+                      </li>
+                      <li>
+                        <a href="#">
+                          <i class="far fa-star"></i>
+                        </a>
+                      </li>
+                      <li>
+                        <a href="#">
+                          <i class="far fa-star"></i>
+                        </a>
+                      </li>
+                      <li>
+                        <a href="#">
+                          <i class="far fa-star"></i>
+                        </a>
+                      </li>
+                    </ul> -->
+                    <fieldset class="rating">
+                      <input type="radio" id="star5" name="rating" value="5" /><label class="" for="star5"
+                        title="Tuyệt vời - 5 stars">★</label>
+                      <input type="radio" id="star4" name="rating" value="4" /><label class="" for="star4"
+                        title="Tốt - 4 stars">★</label>
+                      <input type="radio" id="star3" name="rating" value="3" /><label class="" for="star3"
+                        title="Tạm được - 3 stars">★</label>
+                      <input type="radio" id="star2" name="rating" value="2" /><label class="" for="star2"
+                        title="Không hài lòng - 2 stars">★</label>
+                      <input type="radio" id="star1" name="rating" value="1" /><label class="" for="star1"
+                        title="Tệ - 1 star">★</label>
+                    </fieldset>
                     <div class="col-md-12">
                       <div class="form-group">
                         <input type="text" class="form-control" id="name" name="name" placeholder="Tên">
@@ -307,7 +319,8 @@
                     </div>
                     <div class="col-md-12">
                       <div class="form-group">
-                        <input type="text" class="form-control" id="number" name="number" placeholder="Số điện thoại">
+                        <input type="text" class="form-control" id="phoneNumber" name="phoneNumber"
+                          placeholder="Số điện thoại">
                       </div>
                     </div>
                     <div class="col-md-12">
@@ -316,9 +329,10 @@
                           placeholder="Nhận xét"></textarea>
                       </div>
                     </div>
+                    <input type="hidden" value="<%= product.id %>" name="productId">
                     <div class="col-md-12 text-right">
-                      <!-- <button type="submit" value="submit" class="btn submit_btn"></button> -->
-                      <p><a href="cart.html" class="buy-now btn btn-sm height-auto px-4 py-3 btn-primary">Gửi</a></p>
+                      <button type="submit" value="submit"
+                        class="buy-now btn btn-sm height-auto px-4 py-3 btn-primary">Gửi</button>
                     </div>
                   </form>
                 </div>

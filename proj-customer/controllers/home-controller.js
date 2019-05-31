@@ -3,10 +3,12 @@ const Product = require('../models/product');
 // mongoose sort thì 1 là tăng dần, -1 là giảm dần
 
 const initialization = async (req, res, next) => {
+    // chọn ra 6 sản phẩm chạy nhất
     let hotProds = await Product.find().sort({
         numberPurchased: -1
     }).limit(6);
 
+    // chọn ra 5 sản phẩm mới nhất
     let newProds = await Product.find().sort({
         importDate: -1  // ngày giảm dần
     }).limit(5);
