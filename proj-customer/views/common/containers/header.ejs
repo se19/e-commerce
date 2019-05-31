@@ -69,10 +69,38 @@
                     <li><a href="/shop">MACBOOK</a></li>
                   </ul>
                 </li>
+                <li class="has-children">
+                  <a href="" class="icons-btn d-inline-block"><span class="icon icon-person"></span></a>
+                  <% if (userLogin && userLogin._id) { %>
+                  <ul class="dropdown">
+                    <li><a href="/user/profile" class="icons-btn d-inline-block">Thông tin cá nhân</a></li>
+                    <li><a href="/order/history-pay" class="icons-btn d-inline-block">Lịch sử mua hàng</a></li>
+                    <li><a href="/logout" class="icons-btn d-inline-block">Đăng xuất</span></a></li>
+                  </ul>
+                  <% } else { %>
+                  <ul class="dropdown">
+                    <li><a href="/login" class="icons-btn d-inline-block">Dăng nhập</span></a></li>
+                    <li><a href="/register" class="icons-btn d-inline-block">Đăng ký</span></a></li>
+                    <li><a href="/forgot" class="icons-btn d-inline-block">Quên mật khẩu</span></a></li>
+                  </ul>
+                  <% } %>
+                </li>
+              </ul>
+              </li>
               </ul>
             </nav>
           </div>
           <div class="icons">
+            <a href="" class="icons-btn d-inline-block js-search-open"><span class="icon-search"></span></a>
+            <a href="/cart" class="icons-btn d-inline-block bag">
+              <span class="icon-shopping-bag"></span>
+              <span class="number">2</span>
+            </a>
+            <a href="#" class="site-menu-toggle js-menu-toggle ml-3 d-inline-block d-lg-none"><span
+                class="icon-menu"></span></a>
+          </div>
+
+          <!-- <div class="icons">
             <a href="" class="icons-btn d-inline-block js-search-open"><span class="icon-search"></span></a>
             <a href="/cart" class="icons-btn d-inline-block bag">
               <span class="icon-shopping-bag"></span>
@@ -87,7 +115,7 @@
             <% } %>
             <a href="#" class="site-menu-toggle js-menu-toggle ml-3 d-inline-block d-lg-none"><span
                 class="icon-menu"></span></a>
-          </div>
+          </div> -->
         </div>
       </div>
     </div>
