@@ -17,19 +17,17 @@
                         <img id="img-upload"
                             src="/<% if (!product.imageUrl) { %><%= constants.DEFAULT_IMG %><% } else { %><%= product.imageUrl %><% } %>">
                     </div>
-                    <div class="flexbox-b mt-4">
-                        <!-- <div class="mr-2">
-                            <img src="/images/products/28.jpg" alt="image">
+                    <div class="flexbox-b mt-4 row">
+                        <% if(product.imageDescription && product.imageDescription.length > 0) {
+                             for (let i = 0; i < 3 && i < product.imageDescription.length; i++) { %>
+                        <div class="mr-2 col-3">
+                            <img class="img-thumbnail" src="/<%- product.imageDescription[i].image %>" alt="image">
                         </div>
-                        <div class="mr-2">
-                            <img src="/images/products/29.jpg" alt="image">
+                        <% } %>
+                        <div class="file-input-plus file-input" data-toggle="modal" data-target="#imagesModal">
+                            <i class="fa fa-plus" data-toggle="modal" data-target="#imagesModal"></i>
                         </div>
-                        <div class="mr-2">
-                            <img src="/images/products/30.jpg" alt="image">
-                        </div> -->
-                        <!-- <div class="file-input-plus file-input mt-5"><i class="fa fa-plus"></i>
-                            <input type="file">
-                        </div> -->
+                        <% } %>
                     </div>
                 </div>
                 <div class="col-lg-8">
@@ -92,9 +90,9 @@
                                 name="description"><%= product.description %></textarea>
                         </div>
                         <div class="form-group mb-4">
-                            <label>Hình ảnh</label>
+                            <label>Thêm hình ảnh</label>
                             <div>
-                                <input id="img-input" type="file" name="myProductImages" multiple accept="image/*" required>
+                                <input id="img-input" type="file" name="myProductImages" accept="image/*" multiple>
                             </div>
                         </div>
                         <div class="form-group mb-4">
@@ -109,6 +107,40 @@
                         </div>
                     </form>
                 </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="imagesModal" tabindex="-1" role="dialog" aria-labelledby="imagesModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="imagesModalLabel">Danh sách hình ảnh</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <% if(product.imageDescription && product.imageDescription.length > 0) {
+                    for (let i = 0; i < product.imageDescription.length; i++) { %>
+                    <div class="col-6">
+                        <img class="img-thumbnail" src="/<%= product.imageDescription[i].image %>"
+                            alt="image">
+                        <button onclick="setDefaultImage('<%= product.imageDescription[i].id %>')">Đặt làm ảnh đại diện</button>
+                        <button onclick="deleteImage('<%= product.imageDescription[i].id %>')">Xóa</button>
+                    </div>
+                    <% } } else { %>
+                        <p class="text-center">Không có dữ liệu</p>
+                        <p class="text-center">Vui lòng đóng tùy chọn, sau đó chọn thêm hình ảnh và nhấn lưu để lưu hình ảnh.</p>
+                    <% } %>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
             </div>
         </div>
     </div>
@@ -158,6 +190,46 @@
                 };
             }
         });
-
     });
+
+    function setDefaultImage(imgId){
+        $.ajax({
+            url: '/products/' + '<%= product.id %>' + '/images/set-default',
+            type: 'POST',
+            data: {
+                imageId: imgId
+            },
+            success: function (data) {
+                if(data){
+                    setTimeout(function(){
+                        $('#img-upload').attr('src', '/' + data.product.imageUrl);
+                        $('#imagesModal').modal('toggle');
+                    },3000);
+                }
+            },
+            error: function (e) {
+                console.log(e.message);
+            }
+        });
+    }
+
+    function deleteImage(imgId){
+        $.ajax({
+            url: '/products/' + '<%= product.id %>' + '/images/delete',
+            type: 'POST',
+            data: {
+                imageId: imgId
+            },
+            success: function (data) {
+                if(data){
+            //         // setTimeout(function(){
+            //         // },3000);
+                    location.reload();
+                }
+            },
+            error: function (e) {
+                console.log(e.message);
+            }
+        });
+    }
 </script>

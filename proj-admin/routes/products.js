@@ -5,23 +5,6 @@ const multerHelper = require('../util/image');
 const auth_controller = require('../app/controllers/auth-controller');
 const product_controller = require('../app/controllers/product-controller');
 
-const multer = require('multer');
-
-//multer upload img
-const fileStorage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, 'public/images/products');
-  },
-  filename: (req, file, cb) => {
-    cb(null, Date.now() + '-' + file.originalname);
-  }
-});
-
-const upload = multer({
-  storage: fileStorage
-});
-
-
 router
   //check auth
   .use('/', auth_controller.checkAuth)
@@ -30,13 +13,18 @@ router
   //Get create view
   .get('/add', product_controller.init_product)
   //Create
-  //.post('/add', multerHelper.uploadImage('products').array('myProductImages'), product_controller.create_product)
-  .post('/add', upload.array('myProductImages'), product_controller.create_product)
+  .post('/add', multerHelper('products').array('myProductImages'), product_controller.create_product)
   //Get info
   .get('/:productId', product_controller.get_product)
   //Update
-  .post('/:productId/edit', product_controller.update_product)
+  .post('/:productId/edit', multerHelper('products').array('myProductImages'), product_controller.update_product)
   //Delete
   .post('/:productId/delete', product_controller.delete_product)
+  //Images
+  .post('/:productId/images/set-default', product_controller.set_default_image)
+  .post('/:productId/images/delete', product_controller.delete_image)
+  //Reviews
+  .post('/:productId/review/add-or-edit', product_controller.create_update_review)
+  .post('/:productId/review/delete', product_controller.delete_review)
 
 module.exports = router;

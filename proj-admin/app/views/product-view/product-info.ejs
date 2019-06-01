@@ -25,7 +25,10 @@
                 <!-- Page Content -->
                 <div class="container-fluid">
                     <%- include('../common/partials/product-info-form.ejs', {product: product}) %>
-                    <% include ../common/partials/comment-list %>
+                    
+                    <% if(product.id) { %>
+                    <%- include('../common/partials/comment-list.ejs', {product: product}) %>
+                    <% } %>
                 </div>
                 <!-- End Page Content -->
 

@@ -46,9 +46,8 @@
                             <td>
                                 <a class="text-light mr-3 font-16" href="/brands/<%= brand.id %>"><i
                                         class="fa fa-pencil-alt"></i></a>
-                                <form action="/brands/<%= brand.id %><%- '/delete' %>" method="POST">
-                                    <input type="hidden" value="<%= brand.id %>" name="brandId">
-                                    <button type="submit">
+                                <form action="/brands/<%= brand.id %><%- '/delete' %>" method="POST" class="d-inline-block">
+                                    <button type="submit" class="btn-trans">
                                         <i class="fa fa-trash"></i>
                                     </button>
                                 </form>

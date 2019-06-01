@@ -13,12 +13,11 @@ router
   //Get create view
   .get('/add', brand_controller.init_brand)
   //Create
-  //.post('/add', multerHelper.uploadImage('brands').single('image'), brand_controller.create_brand)
-  .post('/add', brand_controller.create_brand)
+  .post('/add', multerHelper('brands').single('image'), brand_controller.create_brand)
   //Get info
   .get('/:brandId', brand_controller.get_brand)
   //Update
-  .post('/:brandId/edit', brand_controller.update_brand)
+  .post('/:brandId/edit', multerHelper('brands').single('image'), brand_controller.update_brand)
   //Delete
   .post('/:brandId/delete', brand_controller.delete_brand)
 
