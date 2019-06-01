@@ -19,12 +19,9 @@ const listProduct = async (req, res, next) => {
         .skip((page - 1) * ITEMS_PER_PAGE) // bỏ qua ~ item
         .limit(ITEMS_PER_PAGE);
 
-    const brands = await Brand.find();
-    const categories = await Category.find();
-
     res.render('product-view/shop-list', {
-        brands: brands,
-        categories: categories,
+        brands: res.locals.data.brands,
+        categories: res.locals.data.categories,
         prods: products,
         pageTitle: 'Danh sách sản phẩm',
         currentPage: page,
@@ -41,11 +38,35 @@ const listProduct = async (req, res, next) => {
 // Get danh sách product theo loại sản phẩm
 const listProductByCat = async (req, res, next) => {
     const catId = req.params.categoryId;
-    const items = await Product.find({
-        categoryId: catId
+
+    /*Phân trang loại sản phẩm*/
+    // trường hợp không có '?page' thì page = 1
+    const page = +req.query.page || 1;
+
+    // đếm số items;
+    let totalItems = await Product.find({categoryId: catId}).countDocuments();
+
+    const products = await Product.find({categoryId: catId})
+        .skip((page - 1) * ITEMS_PER_PAGE) // bỏ qua ~ item
+        .limit(ITEMS_PER_PAGE);
+
+    const brands = await Brand.find();
+    const categories = await Category.find();
+
+    res.render('product-view/shop-list', {
+        brands: res.locals.data.brands,
+        categories: res.locals.data.categories,
+        prods: products,
+        pageTitle: 'Danh sách sản phẩm',
+        currentPage: page,
+        hasFirstPage: page != 1,
+        hasPreviousPage: page > 1,
+        previousPage: page - 1,
+        hasNextPage: ITEMS_PER_PAGE * page < totalItems,
+        nextPage: page + 1,
+        hasLastPage: page != Math.ceil(totalItems / ITEMS_PER_PAGE),
+        lastPage: Math.ceil(totalItems / ITEMS_PER_PAGE)
     });
-    console.log(items);
-    res.redirect('/shop');
 }
 
 
@@ -109,6 +130,7 @@ const addComment = (req, res, next) => {
                 })
                 .then(result => {
                     //console.log(result);
+                    res.redirect('/shop/' + prodId);
                     res.redirect('/shop/' + prodId);
                 })
                 .catch(err => console.log(err));

@@ -3,9 +3,13 @@
 //Import constant list
 var constants = require('../constants/index');
 
+const Brand = require('../models/brand');
+const Category = require('../models/category');
+const Product = require('../models/product');
+
 //lấy các biến toàn cục, có thể gọi trực tiếp vào trong ejs. 
 //lưu vào res.locals
-const getLocalsVariables = (req, res, next) => {
+const getLocalsVariables = async (req, res, next) => {
 
     //lấy thông tin user đang đăng nhập từ session.
     if (req.session && req.session.passport && req.session.passport.user) {
@@ -16,6 +20,25 @@ const getLocalsVariables = (req, res, next) => {
 
     //tạo biến data lưu các thông tin như constants, danh sách loại hàng, thương hiệu
     res.locals.data = {}
+
+    // lấy danh sách thương hiệu
+    res.locals.data.brands = await Brand.find();
+
+    // lấy danh sách loại sản phẩm + số lượng sản phẩm mỗi loại
+
+    // gom nhóm sản phẩm theo nhóm 
+    let groupCat = await Product.aggregate([{
+        $group: {
+            _id: "$categoryId",
+            count: { $sum: 1}   // đếm số lượng theo mỗi loại
+        }
+    }]);
+
+    // join bảng groupCat với bảng Category
+    let groupCatDetail = await Category.populate(groupCat, {path: '_id'});
+    //console.log(groupCatDetail);
+    
+    res.locals.data.categories = groupCatDetail;
 
     //lấy các const từ file constans
     res.locals.data.constants = constants;

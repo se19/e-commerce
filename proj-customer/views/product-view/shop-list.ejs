@@ -18,8 +18,9 @@
           <h3 class="mb-3 h6 text-uppercase text-black d-block">Loại sản phẩm</h3>
           <ul class="list-unstyled mb-0">
             <% for (let category of categories) { %>
-            <li class="mb-1"><a href="/shop/category/<%= category._id %>" class="d-flex"><span><%= category.title %></span>
-                <span class="text-black ml-auto">(10)</span></a></li>
+            <li class="mb-1"><a href="/shop/category/<%= category._id %>"
+                class="d-flex"><span><%= category._id.title %></span>
+                <span class="text-black ml-auto">(<%= category.count %>)</span></a></li>
             <% } %>
           </ul>
         </div>
@@ -98,23 +99,7 @@
           <div class="col-md-12 text-center">
             <div class="site-block-27">
               <ul>
-                <% if (hasFirstPage) { %>
-                <li><a href="?page=1">&lt;&lt;</a></li>
-                <% } %>
-
-                <% if (hasPreviousPage) { %>
-                <li><a href="?page=<%= previousPage %>"><%= previousPage %></a></li>
-                <% } %>
-
-                <li class="active"><a href="?page=<%= currentPage %>"><%= currentPage %></a></li>
-
-                <% if (hasNextPage) { %>
-                <li><a href="?page=<%= nextPage %>"><%= nextPage %></a></li>
-                <% } %>
-
-                <% if (hasLastPage) { %>
-                <li><a href="?page=<%= lastPage %>">&gt;&gt;</a></li>
-                <% } %>
+                <%- include("../common/containers/pagination")-%>
               </ul>
             </div>
           </div>
