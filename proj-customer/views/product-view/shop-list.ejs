@@ -18,7 +18,7 @@
           <h3 class="mb-3 h6 text-uppercase text-black d-block">Loại sản phẩm</h3>
           <ul class="list-unstyled mb-0">
             <% for (let category of categories) { %>
-            <li class="mb-1"><a href="/shop/category/<%= category._id %>"
+            <li class="mb-1"><a href="/shop/category/<%= category._id._id %>"
                 class="d-flex"><span><%= category._id.title %></span>
                 <span class="text-black ml-auto">(<%= category.count %>)</span></a></li>
             <% } %>
@@ -26,12 +26,6 @@
         </div>
 
         <div class="border p-4 rounded mb-4">
-          <div class="mb-4">
-            <h3 class="mb-3 h6 text-uppercase text-black d-block">Khoảng giá</h3>
-            <div id="slider-range" class="border-primary"></div>
-            <input type="text" name="text" id="amount" class="form-control border-0 pl-0 bg-white" disabled="" />
-          </div>
-
           <div class="mb-4">
             <h3 class="mb-3 h6 text-uppercase text-black d-block">Thương hiệu</h3>
             <% for (let brand of brands) { %>
@@ -45,6 +39,19 @@
             <% } %>
           </div>
         </div>
+
+        <div class="border p-4 rounded mb-4">
+          <div class="mb-4">
+            <h3 class="mb-3 h6 text-uppercase text-black d-block">Khoảng giá</h3>
+            <div id="slider-range" class="border-primary"></div>
+            <input type="text" name="text" id="amount" class="form-control border-0 pl-0 bg-white" disabled="" />
+          </div>
+          <div class="col-md-12 text-right">
+            <button type="submit" value="submit" class="btn px-5 btn-primary">Tìm theo giá</button>
+          </div>
+        </div>
+
+
       </div>
 
       <div class="col-md-9 order-2">
@@ -88,9 +95,9 @@
                 <%= product._doc.title %></a></h2>
             <strong class="item-price"><del>$46.00</del> <%= product._doc.price %></strong>
             <div class="star-rating">
-              <!-- <%# for(let i=0; i< = product._doc.rating.average; i++) { %>
+              <% for (let i=0; i < product._doc.average; i++) { %>
               <span class="icon-star2 text-warning"></span>
-              <%# } %> -->
+              <% } %>
             </div>
           </div>
           <% } %>

@@ -24,8 +24,8 @@ const getLocalsVariables = async (req, res, next) => {
     // lấy danh sách thương hiệu
     res.locals.data.brands = await Brand.find();
 
-    // lấy danh sách loại sản phẩm + số lượng sản phẩm mỗi loại
-
+    
+    /* lấy danh sách loại sản phẩm + số lượng sản phẩm mỗi loại */
     // gom nhóm sản phẩm theo nhóm 
     let groupCat = await Product.aggregate([{
         $group: {
@@ -33,12 +33,11 @@ const getLocalsVariables = async (req, res, next) => {
             count: { $sum: 1}   // đếm số lượng theo mỗi loại
         }
     }]);
-
     // join bảng groupCat với bảng Category
     let groupCatDetail = await Category.populate(groupCat, {path: '_id'});
     //console.log(groupCatDetail);
-    
     res.locals.data.categories = groupCatDetail;
+
 
     //lấy các const từ file constans
     res.locals.data.constants = constants;
