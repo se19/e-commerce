@@ -5,17 +5,16 @@
 <link href="/stylesheets/admin-cast/main.min.css" rel="stylesheet" />
 
 <% let editing = (user.id != null); 
-const defaultImg = "images/default/no-image.png";
-let isAdminAcount = (user.userType == 'admin'); %>
+let isAdminAcount = (user.userType == constants.USERTYPE_ADMIN); %>
 
 <div class="page-content fade-in-up">
     <div class="ibox">
         <div class="ibox-body">
             <h5 class="font-strong mb-5">
-                <%  if(user.userType == 'admin'){ %>
+                <%  if(user.userType == constants.USERTYPE_ADMIN){ %>
                 THÔNG TIN QUẢN TRỊ VIÊN
                 <% } %>
-                <%  if(user.userType == 'customer'){ %>
+                <%  if(user.userType == constants.USERTYPE_ADMIN){ %>
                 THÔNG TIN KHÁCH HÀNG
                 <% } %>
             </h5>
@@ -23,7 +22,7 @@ let isAdminAcount = (user.userType == 'admin'); %>
                 <div class="col-lg-4">
                     <div>
                         <img id="img-upload"
-                            src="/<% if (user.imageUrl == null || user.imageUrl == '') { %><%= defaultImg %><% } else { %><%= user.imageUrl %><% } %>">
+                            src="/<% if (user.imageUrl == null || user.imageUrl == '') { %><%= constants.DEFAULT_IMG %><% } else { %><%= user.imageUrl %><% } %>">
                     </div>
                     <div class="flexbox-b mt-4">
                         <!-- <div class="mr-2">
@@ -50,7 +49,8 @@ let isAdminAcount = (user.userType == 'admin'); %>
                             <input class="form-control form-control-solid" type="text" value="<%= user.userType %>"
                                 name="userType">
                         </div>
-                        <button type="submit">Khôi phục mật khẩu mặt định (Mặc định là "user").</button>
+                        <button class="btn btn-primary mb-3" type="submit">Khôi phục mật khẩu mặt định (Mặc định là
+                            "user").</button>
                     </form>
                     <% } %>
                     <form
@@ -121,12 +121,12 @@ let isAdminAcount = (user.userType == 'admin'); %>
                         </div>
 
                         <div hidden>
-                            <input class="form-control form-control-solid" type="text" value="<%= user.id %>"
-                                name="userId">
+                            <!-- <input class="form-control form-control-solid" type="text" value="<%= user.id %>"
+                                name="userId"> -->
                             <input class="form-control form-control-solid" type="text" value="<%= user.userType %>"
                                 name="userType">
-                            <input class="form-control form-control-solid" type="text" value="<%= user.imageUrl %>"
-                                name="imageUrl">
+                            <!-- <input class="form-control form-control-solid" type="text" value="<%= user.imageUrl %>"
+                                name="imageUrl"> -->
                             <input class="form-control form-control-solid" type="datetime"
                                 value="<%= user.dateCreated %>" name="dateCreated">
                         </div>
