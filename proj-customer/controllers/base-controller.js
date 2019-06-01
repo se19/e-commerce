@@ -21,23 +21,38 @@ const getLocalsVariables = async (req, res, next) => {
     //tạo biến data lưu các thông tin như constants, danh sách loại hàng, thương hiệu
     res.locals.data = {}
 
-    // lấy danh sách thương hiệu
-    res.locals.data.brands = await Brand.find();
+    /* lấy danh sách thương hiệu + số lượng sản phẩm mỗi thương hiệu */
+    // gom sản phẩm theo thương hiệu 
+    let groupBrand = await Product.aggregate([{
+        $group: {
+            _id: "$brandId",
+            count: {
+                $sum: 1
+            } // đếm số lượng theo mỗi loại
+        }
+    }]);
+    // join bảng groupBrand với bảng Brand
+    let groupBrandDetail = await Brand.populate(groupBrand, {
+        path: '_id'
+    });
+    res.locals.data.brands = groupBrandDetail;
 
-    
+
     /* lấy danh sách loại sản phẩm + số lượng sản phẩm mỗi loại */
-    // gom nhóm sản phẩm theo nhóm 
+    // gom sản phẩm theo nhóm 
     let groupCat = await Product.aggregate([{
         $group: {
             _id: "$categoryId",
-            count: { $sum: 1}   // đếm số lượng theo mỗi loại
+            count: {
+                $sum: 1
+            } // đếm số lượng theo mỗi loại
         }
     }]);
     // join bảng groupCat với bảng Category
-    let groupCatDetail = await Category.populate(groupCat, {path: '_id'});
-    //console.log(groupCatDetail);
+    let groupCatDetail = await Category.populate(groupCat, {
+        path: '_id'
+    });
     res.locals.data.categories = groupCatDetail;
-
 
     //lấy các const từ file constans
     res.locals.data.constants = constants;

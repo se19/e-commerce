@@ -10,6 +10,8 @@ router
 
   // /shop => Get
   .get('/', product_controller.listProduct)
+  // /shop/brand/_id => Get
+  .get('/brand/:brandId', product_controller.listProductByBrand)
   // /shop/category/_id => Get
   .get('/category/:categoryId', product_controller.listProductByCat)
   // /shop/product => Get

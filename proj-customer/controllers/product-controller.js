@@ -24,6 +24,7 @@ const listProduct = async (req, res, next) => {
         categories: res.locals.data.categories,
         prods: products,
         pageTitle: 'Danh sách sản phẩm',
+        searchInformation: 'Danh sách sản phẩm',
         currentPage: page,
         hasFirstPage: page != 1,
         hasPreviousPage: page > 1,
@@ -35,18 +36,25 @@ const listProduct = async (req, res, next) => {
     });
 };
 
-// Get danh sách product theo loại sản phẩm
-const listProductByCat = async (req, res, next) => {
-    const catId = req.params.categoryId;
 
-    /*Phân trang loại sản phẩm*/
+// Get danh sách product theo loại thương hiệu
+const listProductByBrand = async (req, res, next) => {
+    const brandId = req.params.brandId;
+    const brand = await Brand.findById(brandId);
+    const brandTitle = brand.title;
+
+    /*Phân trang thương hiệu*/
     // trường hợp không có '?page' thì page = 1
     const page = +req.query.page || 1;
 
     // đếm số items;
-    let totalItems = await Product.find({categoryId: catId}).countDocuments();
+    let totalItems = await Product.find({
+        brandId: brandId
+    }).countDocuments();
 
-    const products = await Product.find({categoryId: catId})
+    const products = await Product.find({
+            brandId: brandId
+        })
         .skip((page - 1) * ITEMS_PER_PAGE) // bỏ qua ~ item
         .limit(ITEMS_PER_PAGE);
 
@@ -57,7 +65,8 @@ const listProductByCat = async (req, res, next) => {
         brands: res.locals.data.brands,
         categories: res.locals.data.categories,
         prods: products,
-        pageTitle: 'Danh sách sản phẩm',
+        pageTitle: 'Danh sách sản phẩm thuộc thương hiệu' + brandTitle,
+        searchInformation: 'Danh sách sản phẩm thuộc thương hiệu ' + brandTitle,
         currentPage: page,
         hasFirstPage: page != 1,
         hasPreviousPage: page > 1,
@@ -68,6 +77,48 @@ const listProductByCat = async (req, res, next) => {
         lastPage: Math.ceil(totalItems / ITEMS_PER_PAGE)
     });
 }
+
+// Get danh sách product theo loại sản phẩm
+const listProductByCat = async (req, res, next) => {
+    const catId = req.params.categoryId;
+    const cat = await Category.findById(catId);
+    const catTitle = cat.title;
+
+    /*Phân trang loại sản phẩm*/
+    // trường hợp không có '?page' thì page = 1
+    const page = +req.query.page || 1;
+
+    // đếm số items;
+    let totalItems = await Product.find({
+        categoryId: catId
+    }).countDocuments();
+
+    const products = await Product.find({
+            categoryId: catId
+        })
+        .skip((page - 1) * ITEMS_PER_PAGE) // bỏ qua ~ item
+        .limit(ITEMS_PER_PAGE);
+
+    const brands = await Brand.find();
+    const categories = await Category.find();
+
+    res.render('product-view/shop-list', {
+        brands: res.locals.data.brands,
+        categories: res.locals.data.categories,
+        prods: products,
+        pageTitle: 'Danh sách sản phẩm thuộc ' + catTitle,
+        searchInformation: 'Danh sách sản phẩm thuộc ' + catTitle,
+        currentPage: page,
+        hasFirstPage: page != 1,
+        hasPreviousPage: page > 1,
+        previousPage: page - 1,
+        hasNextPage: ITEMS_PER_PAGE * page < totalItems,
+        nextPage: page + 1,
+        hasLastPage: page != Math.ceil(totalItems / ITEMS_PER_PAGE),
+        lastPage: Math.ceil(totalItems / ITEMS_PER_PAGE)
+    });
+}
+
 
 
 //Get thông tin sản phẩm
@@ -139,6 +190,7 @@ const addComment = (req, res, next) => {
 
 module.exports = {
     listProduct,
+    listProductByBrand,
     listProductByCat,
     getDetail,
     addComment
