@@ -1,0 +1,57 @@
+<%- include("../common/containers/header")-%>
+<div class="container">
+    <div class="card card-login mx-auto mt-5">
+        <div class="card-header">Tìm kiếm nâng cao</div>
+        <div class="card-body">
+            <form action="/search/advance-query">
+                <label>Thương hiệu </label>
+                <div class="select-box form-group mb-2">
+                    <select class="custom-select" id="inputBrands" name="brandId" required>
+                        <option selected>Chọn thương hiệu</option>
+                        <% for (let brand of locals.data.brands) { %>
+                        <option value="<%= brand._id %>"><%= brand.title %></option>
+                        <% } %>
+                    </select>
+                </div>
+
+                <label>Loại sản phẩm </label>
+                <div class="select-box form-group mb-2">
+                    <select class="custom-select" id="inputCategories" name="categoryId" required>
+                        <option selected>Chọn loại sản phẩm</option>
+                        <% for (let category of locals.data.categories) { %>
+                        <option value="<%= category._id %>"><%= category.title %></option>
+                        <% } %>
+                    </select>
+                </div>
+
+                <label>Giá sản phẩm </label>
+                <div class="select-box form-group mb-2">
+                    <select class="custom-select" id="inputPrice" name="price" required>
+                        <!-- mongoose sort thì 1 là tăng dần, -1 là giảm dần -->
+                        <option selected value="-1">Giá giảm dần</option>
+                        <option value="1">Giá tăng dần</option>
+                    </select>
+                </div>
+
+                <label>Số lượng bán ra</label>
+                <div class="select-box form-group mb-2">
+                    <select class="custom-select" id="inputNumPurchased" name="numberPurchased" required>
+                        <!-- mongoose sort thì 1 là tăng dần, -1 là giảm dần -->
+                        <option value="-1" selected>Bán nhiều nhất</option>
+                        <option value="1">Bán it nhất</option>
+                    </select>
+                </div>
+
+                <label>Đánh giá</label>
+                <div class="select-box form-group mb-5">
+                    <select class="custom-select" id="inputRating" name="average" required>
+                        <!-- mongoose sort thì 1 là tăng dần, -1 là giảm dần -->
+                        <option value="-1" selected>Đánh giá cao nhất</option>
+                        <option value="1">Đánh giá thấp nhất</option>
+                    </select>
+                </div>
+                <button class="btn btn-primary btn-block" type="submit">Tìm kiếm</button>
+            </form>
+        </div>
+    </div>
+    <%- include("../common/containers/footer") -%>

@@ -5,6 +5,7 @@ var router = express.Router();
 //Import các router con
 const homeRoutes = require('./home');
 const shopRoutes = require('./shop');
+const searchRoutes = require('./search');
 const cartRoutes = require('./cart');
 const orderRoutes = require('./order');
 const checkoutRoutes = require('./checkout');
@@ -17,6 +18,7 @@ const logoutRoutes = require('./logout');
 router
   .use('/', homeRoutes)
   .use('/shop', shopRoutes)
+  .use('/search', searchRoutes)
   .use('/cart', cartRoutes)
   .use('/order', orderRoutes)
   .use('/checkout', checkoutRoutes)

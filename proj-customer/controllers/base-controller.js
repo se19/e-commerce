@@ -9,7 +9,7 @@ const Product = require('../models/product');
 
 //lấy các biến toàn cục, có thể gọi trực tiếp vào trong ejs. 
 //lưu vào res.locals
-const getLocalsVariables = (req, res, next) => {
+const getLocalsVariables = async (req, res, next) => {
 
     //lấy thông tin user đang đăng nhập từ session.
     if (req.session && req.session.passport && req.session.passport.user) {
@@ -22,11 +22,21 @@ const getLocalsVariables = (req, res, next) => {
         req.session.cart = [];
     }
 
+    if (req.session.queryUrl === undefined) {
+        req.session.queryUrl = "";
+    }
+
     //tạo biến data lưu các thông tin như constants, danh sách loại hàng, thương hiệu
     res.locals.data = {}
 
+    const brands = await Brand.find();
+    res.locals.data.brands = brands;
+
+    const categories = await Category.find();
+    res.locals.data.categories = categories;
+
     //Lấy số lượng sản phẩm trong giỏ hàng hiển thị lên navbar
-    res.local.data.cartQuantity = req.session.cart.length;
+    res.locals.data.cartQuantity = req.session.cart.length;
 
     //lấy các const từ file constans
     res.locals.data.constants = constants;
@@ -75,25 +85,8 @@ const getGroupCategoriesDetail = async (req, res, next) => {
     next();
 }
 
-const getAllCategories = async (req, res, next) => {
-    let categories = await Category.find();
-    res.local.data.categories = categories;
-
-    next();
-}
-
-//Lấy danh sách nhãn hàng hiển thị lên navbar
-const getAllBrands = async (req, res, next) => {
-    let brands = await Brand.find();
-    res.local.data.brands = brands;
-
-    next();
-}
-
 module.exports = {
     getLocalsVariables,
     getGroupBrandsDetail,
     getGroupCategoriesDetail,
-    getAllCategories,
-    getAllBrands
 }
