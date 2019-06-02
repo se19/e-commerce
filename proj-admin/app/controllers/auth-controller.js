@@ -84,24 +84,42 @@ const update_profile = (req, res, next) => {
             _id: newUser.userId
         })
         .then(user => {
-            user.name = newUser.name;
-            user.username = newUser.username;
-            user.email = newUser.email;
-            user.phone = newUser.phone;
-            user.address = newUser.address;
-            user.description = newUser.description;
-            user.available = newUser.available;
-            user.dateCreated = newUser.dateCreated;
-
-            if (image) {
-                user.imageUrl = image.path;
-                user.imageUrl = user.imageUrl.slice(7);
+            if (!user) {
+                console.log('NOT FOUND USER');
+                return res.redirect('/');
             }
-            return user.save();
-        })
-        .then(result => {
-            res.redirect('/profile');
-            // res.redirect(req.get('referer'));
+            if (image) {
+                newUser.imageUrl = image.path;
+                newUser.imageUrl = newUser.imageUrl.slice(7);
+            } else {
+                newUser.imageUrl = user.imageUrl;
+            }
+            User.updateOne({
+                    _id: newUser.userId
+                }, {
+                    name: newUser.name,
+                    username: newUser.username,
+                    email: newUser.email,
+                    phone: newUser.phone,
+                    address: newUser.address,
+                    imageUrl: newUser.imageUrl,
+                    description: newUser.description,
+                    available: newUser.available,
+                    dateCreated: newUser.dateCreated
+                })
+                .then(result => {
+                    console.log('UPDATED USER');
+                    req.session.passport.user.name = newUser.name;
+                    req.session.passport.user.username = newUser.username;
+                    req.session.passport.user.email = newUser.email;
+                    req.session.passport.user.phone = newUser.phone;
+                    req.session.passport.user.address = newUser.address;
+                    req.session.passport.user.description = newUser.description;
+                    req.session.passport.user.available = newUser.available;
+                    req.session.passport.user.dateCreated = newUser.dateCreated;
+                    res.redirect('/profile');
+                })
+                .catch(err => console.log(err));
         })
         .catch(err => console.log(err));
 }
