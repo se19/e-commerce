@@ -16,6 +16,8 @@ const passportConfig = require('./config/passport');
 //import main router
 const indexRouter = require('./routes/index');
 
+const base_controller = require('./controllers/base-controller');
+
 var app = express();
 
 // view engine setup
@@ -54,6 +56,8 @@ passportConfig();
 //use routes
 app.use('/', indexRouter);
 
+//Lấy các thông tin lưu trữ vào bộ nhớ tạm như thông tin người đăng nhập, danh sách nhóm hàng trên navbar,...v.v
+app.use(base_controller.getLocalsVariables)
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
@@ -68,7 +72,7 @@ app.use(function (err, req, res, next) {
 
   // render the error page
   res.status(err.status || 500);
-  
+
   let isLogin = req.isAuthenticated();
   res.render('common/error', {
     pageTitle: "Không tìm thấy trang!",

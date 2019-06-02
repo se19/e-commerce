@@ -17,6 +17,8 @@ const getLocalsVariables = async (req, res, next) => {
     } else {
         res.locals.userLogin = {};
     }
+    if (req.session.cart === undefined)
+        req.session.cart = [];
 
     //tạo biến data lưu các thông tin như constants, danh sách loại hàng, thương hiệu
     res.locals.data = {}

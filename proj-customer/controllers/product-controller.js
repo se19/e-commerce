@@ -2,6 +2,7 @@ const Brand = require('../models/brand');
 const Category = require('../models/category')
 const Product = require('../models/product');
 const Rate = require('../models/rate');
+const Cart = require('../models/cart');
 
 const ITEMS_PER_PAGE = 6;
 const REVIEWS_PER_PAGE = 2;
@@ -58,9 +59,6 @@ const listProductByBrand = async (req, res, next) => {
         .skip((page - 1) * ITEMS_PER_PAGE) // bỏ qua ~ item
         .limit(ITEMS_PER_PAGE);
 
-    const brands = await Brand.find();
-    const categories = await Category.find();
-
     res.render('product-view/shop-list', {
         brands: res.locals.data.brands,
         categories: res.locals.data.categories,
@@ -99,9 +97,6 @@ const listProductByCat = async (req, res, next) => {
         .skip((page - 1) * ITEMS_PER_PAGE) // bỏ qua ~ item
         .limit(ITEMS_PER_PAGE);
 
-    const brands = await Brand.find();
-    const categories = await Category.find();
-
     res.render('product-view/shop-list', {
         brands: res.locals.data.brands,
         categories: res.locals.data.categories,
@@ -127,6 +122,8 @@ const getDetail = async (req, res, next) => {
     const product = await Product.findOne({
         _id: prodId
     })
+    // product.view += 1;
+    // await product.save();
 
     /*Phân trang bình luận*/
     // trường hợp không có '?page' thì page = 1
@@ -188,10 +185,29 @@ const addComment = (req, res, next) => {
         })
 }
 
+
+const addToCart = async (req, res, next) => {
+    const prodId = req.params.productId;
+    const product = await Product.findById(prodId);
+
+    const item = {
+        product: product,
+        quantity: +req.body.quantity,
+        amount: product.price * +req.body.quantity
+    }
+
+
+    Cart.add(req.session.cart, item);
+
+    res.redirect('/shop/' + prodId);
+    console.log(req.session.cart);
+}
+
 module.exports = {
     listProduct,
     listProductByBrand,
     listProductByCat,
     getDetail,
-    addComment
+    addComment,
+    addToCart
 }
