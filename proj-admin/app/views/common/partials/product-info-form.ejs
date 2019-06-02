@@ -103,7 +103,7 @@
                         <div class="text-right">
                             <button class="btn btn-primary btn-air mr-2" type="submit">
                                 <% if (editing) { %>Cập nhật<% } else { %>Thêm mới<% } %></button>
-                            <button class="btn btn-secondary">Hủy bỏ</button>
+                            <button type="button" class="btn btn-secondary"><a href="/products">Hủy bỏ</a></button>
                         </div>
                     </form>
                 </div>
@@ -128,14 +128,15 @@
                     <% if(product.imageDescription && product.imageDescription.length > 0) {
                     for (let i = 0; i < product.imageDescription.length; i++) { %>
                     <div class="col-6">
-                        <img class="img-thumbnail" src="/<%= product.imageDescription[i].image %>"
-                            alt="image">
-                        <button onclick="setDefaultImage('<%= product.imageDescription[i].id %>')">Đặt làm ảnh đại diện</button>
+                        <img class="img-thumbnail" src="/<%= product.imageDescription[i].image %>" alt="image">
+                        <button onclick="setDefaultImage('<%= product.imageDescription[i].id %>')">Đặt làm ảnh đại
+                            diện</button>
                         <button onclick="deleteImage('<%= product.imageDescription[i].id %>')">Xóa</button>
                     </div>
                     <% } } else { %>
-                        <p class="text-center">Không có dữ liệu</p>
-                        <p class="text-center">Vui lòng đóng tùy chọn, sau đó chọn thêm hình ảnh và nhấn lưu để lưu hình ảnh.</p>
+                    <p class="text-center">Không có dữ liệu</p>
+                    <p class="text-center">Vui lòng đóng tùy chọn, sau đó chọn thêm hình ảnh và nhấn lưu để lưu hình
+                        ảnh.</p>
                     <% } %>
                 </div>
             </div>
@@ -192,7 +193,7 @@
         });
     });
 
-    function setDefaultImage(imgId){
+    function setDefaultImage(imgId) {
         $.ajax({
             url: '/products/' + '<%= product.id %>' + '/images/set-default',
             type: 'POST',
@@ -200,11 +201,11 @@
                 imageId: imgId
             },
             success: function (data) {
-                if(data){
-                    setTimeout(function(){
+                if (data) {
+                    setTimeout(function () {
                         $('#img-upload').attr('src', '/' + data.product.imageUrl);
                         $('#imagesModal').modal('toggle');
-                    },3000);
+                    }, 3000);
                 }
             },
             error: function (e) {
@@ -213,7 +214,7 @@
         });
     }
 
-    function deleteImage(imgId){
+    function deleteImage(imgId) {
         $.ajax({
             url: '/products/' + '<%= product.id %>' + '/images/delete',
             type: 'POST',
@@ -221,9 +222,9 @@
                 imageId: imgId
             },
             success: function (data) {
-                if(data){
-            //         // setTimeout(function(){
-            //         // },3000);
+                if (data) {
+                    //         // setTimeout(function(){
+                    //         // },3000);
                     location.reload();
                 }
             },

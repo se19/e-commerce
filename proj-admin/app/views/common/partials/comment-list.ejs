@@ -13,7 +13,7 @@
                     data-target="#commentModal">
                     Thêm bình luận</button>
                 <ul class="media-list">
-                    <% for (let review of product.reviews) { %>
+                    <% for (let review of reviews) { %>
                     <li class="media">
                         <a class="media-img" href="javascript:;">
                             <img src="/images/products/27.jpg" alt="image" width="45">
@@ -80,7 +80,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
-                <button type="submit" class="btn btn-primary">Thêm</button>
+                <button type="submit" class="btn btn-primary">Lưu</button>
             </div>
         </form>
     </div>

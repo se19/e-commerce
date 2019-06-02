@@ -53,27 +53,10 @@ const productSchema = new Schema({
     type: Number
   },
   // do review không có tái sử dụng lại nên mình quăng vô product luôn
-  reviews: [{
-    rating: {
-      type: Number,
-      // required: true
-    },
-    name: {
-      type: String,
-      required: true
-    },
-    phoneNumber: {
-      type: String
-    },
-    message: {
-      type: String,
-      required: true
-    },
-    createdDate: {
-      type: Date,
-      required: true
-    }
-  }],
+  reviews: {
+    type: [Schema.Types.ObjectId],
+    ref: 'Rate'
+  },
   // đánh giá trung bình
   average: {
     type: Number,
