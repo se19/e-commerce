@@ -45,7 +45,14 @@
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">Nhóm:</h6>
                 <a class="collapse-item" href="/products">Tất cả</a>
-                <a class="collapse-item" href="/products">...</a>
+                <% for (let brand of brands) { %>
+                <a class="collapse-item" href="/products"><%= brand.title %></a>
+                <% } %>
+                <h6 class="collapse-header">Thương hiệu:</h6>
+                <a class="collapse-item" href="/products">Tất cả</a>
+                <% for (let category of categories) { %>
+                <a class="collapse-item" href="/products"><%= category.title %></a>
+                <% } %>
             </div>
         </div>
     </li>

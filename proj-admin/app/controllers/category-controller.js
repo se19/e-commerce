@@ -120,11 +120,25 @@ const delete_category = (req, res, next) => {
         .catch(err => console.log(err));
 }
 
+//get list categories
+const get_categories_list_data = (req, res, next) => {
+    Category.find()
+        //.execPopulate()
+        .then(categories => {
+            if (categories) {
+                return categories;
+            }
+        })
+        .catch(err => console.log(err));
+}
+
+
 module.exports = {
     list_categories,
     init_category,
     create_category,
     get_category,
     update_category,
-    delete_category
+    delete_category,
+    get_categories_list_data
 }

@@ -4,8 +4,7 @@
 <!-- THEME STYLES-->
 <link href="/stylesheets/admin-cast/main.min.css" rel="stylesheet" />
 
-<% let editing = (brand.id != null); 
-const defaultImg = "images/default/no-image.png";%>
+<% let editing = (brand.id != null); %>
 
 <div class="page-content fade-in-up">
     <div class="ibox">
@@ -15,7 +14,7 @@ const defaultImg = "images/default/no-image.png";%>
                 <div class="col-lg-4">
                     <div>
                         <img id="img-upload"
-                            src="/<% if (brand.imageUrl == null || brand.imageUrl == '') { %><%= defaultImg %><% } else { %><%= brand.imageUrl %><% } %>">
+                            src="/<% if (brand.imageUrl == null || brand.imageUrl == '') { %><%= constants.DEFAULT_IMG %><% } else { %><%= brand.imageUrl %><% } %>">
                     </div>
                     <div class="flexbox-b mt-4">
                         <!-- <div class="mr-2">
