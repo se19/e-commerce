@@ -198,9 +198,8 @@ const addToCart = async (req, res, next) => {
 
 
     Cart.add(req.session.cart, item);
-
     res.redirect('/shop/' + prodId);
-    console.log(req.session.cart);
+    //console.log(req.session.cart);
 }
 
 module.exports = {

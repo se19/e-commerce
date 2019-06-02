@@ -10,6 +10,6 @@ router
 
   .get('/', cart_controller.listCart)
   .get('/update', cart_controller.updateCart)
-  .get('/delete', cart_controller.deleteItems)
+  .get('/delete/:productId', cart_controller.deleteItems)
 
 module.exports = router;

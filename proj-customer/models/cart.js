@@ -1,16 +1,38 @@
-const add = (cart, item) => {
-    for (let i = 0; i < cart.length; i++) {
-        // dùng equals để so sánh _id
-        if (item.product._id.equals(cart[0].product._id)) {
-            // cập nhật lại số lượng
-            cart[i].quantity += item.quantity;
-            cart[i].amount += item.amount;
+const add = (cartItems, item) => {
+    for (let cartItem of cartItems) {
+        // dùng equals để so sánh _id, nếu đã tồn tại thì cập nhật lại giỏ hàng
+        if (item.product._id.equals(cartItem.product._id)) {
+            cartItem.quantity += item.quantity;
+            cartItem.amount += item.amount;
             return;
         }
     }
-    cart.push(item);
+    // chưa tồn tại thì thêm mới
+    cartItems.push(item);
+}
+
+
+
+const remove = (cartItems, prodId) => {
+    for (let i = 0; i < cartItems.length; i++) {
+        if (cartItems[i].product._id.toString() === prodId.toString()) {
+            cartItems.splice(i, 1);
+            return;
+        }
+    }
+}
+
+//Tổng tiền giỏ hàng
+const inTotal = (cartItems) => {
+    let total = +0;
+    for (let cartItem of cartItems) {
+        total += cartItem.amount;
+    }
+    return total;
 }
 
 module.exports = {
-    add
+    add,
+    remove,
+    inTotal
 }

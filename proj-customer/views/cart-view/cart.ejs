@@ -3,7 +3,9 @@
 <div class="bg-light py-3">
   <div class="container">
     <div class="row">
-      <div class="col-md-12 mb-0"><a href="/">Trang chủ</a> <span class="mx-2 mb-0">/</span> <strong class="text-black">Giỏ hàng</strong></div>
+      <div class="col-md-12 mb-0"><a href="/">Trang chủ</a> <span class="mx-2 mb-0">/</span> <a href="/shop">Cửa
+          hàng</a>
+        <span class="mx-2 mb-0">/</span> <strong class="text-black">Giỏ hàng</strong></div>
     </div>
   </div>
 </div>
@@ -25,53 +27,32 @@
               </tr>
             </thead>
             <tbody>
+              <% for (let cartItem of cartItems) { %>
               <tr>
                 <td class="product-thumbnail">
-                  <img src="imgs/4/main.jpg" alt="Image" class="img-fluid">
+                  <img src="<%= data.constants.WEB_ADMIN_PATH %>/<%= cartItem.product.imageUrl %>" alt="Image"
+                    class="img-fluid">
                 </td>
                 <td class="product-name">
-                  <h2 class="h5 text-black">Laptop 1</h2>
+                  <h2 class="h5 text-black"><%= cartItem.product.title %></h2>
                 </td>
-                <td>$49.00</td>
+                <td><%= cartItem.product.price %></td>
                 <td>
                   <div class="input-group mb-3" style="max-width: 120px;">
                     <div class="input-group-prepend">
                       <button class="btn btn-outline-primary js-btn-minus" type="button">&minus;</button>
                     </div>
-                    <input type="text" class="form-control text-center" value="1" placeholder="" aria-label="Example text with button addon" aria-describedby="button-addon1">
+                    <input type="text" class="form-control text-center" value="<%= cartItem.quantity %>" placeholder=""
+                      aria-label="Example text with button addon" aria-describedby="button-addon1">
                     <div class="input-group-append">
                       <button class="btn btn-outline-primary js-btn-plus" type="button">&plus;</button>
                     </div>
                   </div>
-
                 </td>
-                <td>$49.00</td>
-                <td><a href="#" class="btn btn-primary height-auto btn-sm">X</a></td>
+                <td><%= cartItem.amount %></td>
+                <td><a href="/cart/delete/<%= cartItem.product._id %>" class="btn btn-primary height-auto btn-sm">X</a></td>
               </tr>
-
-              <tr>
-                <td class="product-thumbnail">
-                  <img src="imgs/2/main.jpg" alt="Image" class="img-fluid">
-                </td>
-                <td class="product-name">
-                  <h2 class="h5 text-black">Laptop 2</h2>
-                </td>
-                <td>$49.00</td>
-                <td>
-                  <div class="input-group mb-3" style="max-width: 120px;">
-                    <div class="input-group-prepend">
-                      <button class="btn btn-outline-primary js-btn-minus" type="button">&minus;</button>
-                    </div>
-                    <input type="text" class="form-control text-center" value="1" placeholder="" aria-label="Example text with button addon" aria-describedby="button-addon1">
-                    <div class="input-group-append">
-                      <button class="btn btn-outline-primary js-btn-plus" type="button">&plus;</button>
-                    </div>
-                  </div>
-
-                </td>
-                <td>$49.00</td>
-                <td><a href="#" class="btn btn-primary height-auto btn-sm">X</a></td>
-              </tr>
+              <% } %>
             </tbody>
           </table>
         </div>
@@ -85,7 +66,8 @@
             <button class="btn btn-primary btn-sm btn-block">Cập nhật giỏ hàng</button>
           </div>
           <div class="col-md-6">
-            <button class="btn btn-outline-primary btn-sm btn-block" onclick="window.location='/shop'">Tiếp tục mua hàng</button>
+            <button class="btn btn-outline-primary btn-sm btn-block" onclick="window.location='/cart/update'">Tiếp tục mua
+              hàng</button>
           </div>
         </div>
       </div>
@@ -102,13 +84,14 @@
                 <span class="text-black">Tổng cộng</span>
               </div>
               <div class="col-md-6 text-right">
-                <strong class="text-black">$230.00</strong>
+                <strong class="text-black"> <%= cartTotal %> </strong>
               </div>
             </div>
 
             <div class="row">
               <div class="col-md-12">
-                <button class="btn btn-primary btn-lg btn-block" onclick="window.location='/checkout'">Tiến hành thanh toán</button>
+                <button class="btn btn-primary btn-lg btn-block" onclick="window.location='/checkout'">Tiến hành thanh
+                  toán</button>
               </div>
             </div>
           </div>
