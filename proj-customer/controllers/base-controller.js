@@ -9,7 +9,7 @@ const Product = require('../models/product');
 
 //lấy các biến toàn cục, có thể gọi trực tiếp vào trong ejs. 
 //lưu vào res.locals
-const getLocalsVariables = async (req, res, next) => {
+const getLocalsVariables = (req, res, next) => {
 
     //lấy thông tin user đang đăng nhập từ session.
     if (req.session && req.session.passport && req.session.passport.user) {
@@ -17,13 +17,25 @@ const getLocalsVariables = async (req, res, next) => {
     } else {
         res.locals.userLogin = {};
     }
+
     if (req.session.cart === undefined) {
         req.session.cart = [];
     }
-    
+
     //tạo biến data lưu các thông tin như constants, danh sách loại hàng, thương hiệu
     res.locals.data = {}
 
+    //Lấy số lượng sản phẩm trong giỏ hàng hiển thị lên navbar
+    res.local.data.cartQuantity = req.session.cart.length;
+
+    //lấy các const từ file constans
+    res.locals.data.constants = constants;
+
+    next();
+}
+
+
+const getGroupBrandsDetail = async (req, res, next) => {
     /* lấy danh sách thương hiệu + số lượng sản phẩm mỗi thương hiệu */
     // gom sản phẩm theo thương hiệu 
     let groupBrand = await Product.aggregate([{
@@ -35,12 +47,15 @@ const getLocalsVariables = async (req, res, next) => {
         }
     }]);
     // join bảng groupBrand với bảng Brand
-    let groupBrandDetail = await Brand.populate(groupBrand, {
+    let groupBrandsDetail = await Brand.populate(groupBrand, {
         path: '_id'
     });
-    res.locals.data.brands = groupBrandDetail;
+    res.locals.data.groupBrandsDetail = groupBrandsDetail;
 
+    next();
+}
 
+const getGroupCategoriesDetail = async (req, res, next) => {
     /* lấy danh sách loại sản phẩm + số lượng sản phẩm mỗi loại */
     // gom sản phẩm theo nhóm 
     let groupCat = await Product.aggregate([{
@@ -52,34 +67,33 @@ const getLocalsVariables = async (req, res, next) => {
         }
     }]);
     // join bảng groupCat với bảng Category
-    let groupCatDetail = await Category.populate(groupCat, {
+    let groupCategoriesDetail = await Category.populate(groupCat, {
         path: '_id'
     });
-    res.locals.data.categories = groupCatDetail;
-
-    //lấy các const từ file constans
-    res.locals.data.constants = constants;
+    res.locals.data.groupCategoriesDetail = groupCategoriesDetail;
 
     next();
 }
 
-const getAllCatelogs = (req, res, next) => {
+const getAllCategories = async (req, res, next) => {
+    let categories = await Category.find();
+    res.local.data.categories = categories;
 
+    next();
 }
 
 //Lấy danh sách nhãn hàng hiển thị lên navbar
-const getAllBrands = (req, res, next) => {
+const getAllBrands = async (req, res, next) => {
+    let brands = await Brand.find();
+    res.local.data.brands = brands;
 
-}
-
-//Lấy số lượng sản phẩm trong giỏ hàng hiển thị lên navbar
-const getCartQuantity = (req, res, next) => {
-
+    next();
 }
 
 module.exports = {
     getLocalsVariables,
-    getAllCatelogs,
-    getAllBrands,
-    getCartQuantity
+    getGroupBrandsDetail,
+    getGroupCategoriesDetail,
+    getAllCategories,
+    getAllBrands
 }

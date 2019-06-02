@@ -21,8 +21,8 @@ const listProduct = async (req, res, next) => {
         .limit(ITEMS_PER_PAGE);
 
     res.render('product-view/shop-list', {
-        brands: res.locals.data.brands,
-        categories: res.locals.data.categories,
+        brands: res.locals.data.groupBrandsDetail,
+        categories: res.locals.data.groupCategoriesDetail,
         prods: products,
         pageTitle: 'Danh sách sản phẩm',
         searchInformation: 'Danh sách sản phẩm',
@@ -60,8 +60,8 @@ const listProductByBrand = async (req, res, next) => {
         .limit(ITEMS_PER_PAGE);
 
     res.render('product-view/shop-list', {
-        brands: res.locals.data.brands,
-        categories: res.locals.data.categories,
+        brands: res.locals.data.groupBrandsDetail,
+        categories: res.locals.data.groupCategoriesDetail,
         prods: products,
         pageTitle: 'Danh sách sản phẩm thuộc thương hiệu' + brandTitle,
         searchInformation: 'Danh sách sản phẩm thuộc thương hiệu ' + brandTitle,
@@ -98,8 +98,8 @@ const listProductByCat = async (req, res, next) => {
         .limit(ITEMS_PER_PAGE);
 
     res.render('product-view/shop-list', {
-        brands: res.locals.data.brands,
-        categories: res.locals.data.categories,
+        brands: res.locals.data.groupBrandsDetail,
+        categories: res.locals.data.groupCategoriesDetail,
         prods: products,
         pageTitle: 'Danh sách sản phẩm thuộc ' + catTitle,
         searchInformation: 'Danh sách sản phẩm thuộc ' + catTitle,

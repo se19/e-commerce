@@ -44,6 +44,7 @@ const create_product = async (req, res, next) => {
     newProduct.brandId = req.body.brandId;
     newProduct.categoryId = req.body.categoryId;
     newProduct.numberPurchased = 0;
+    newProduct.view = 0;
     newProduct.average = 0;
 
     let images = req.files;
