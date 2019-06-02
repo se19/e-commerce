@@ -1,4 +1,5 @@
 const Category = require('../models/category');
+const fileHelper = require('../../util/file');
 
 //get list
 const list_categories = (req, res, next) => {
@@ -44,7 +45,7 @@ const create_category = (req, res, next) => {
         .then(result => {
             console.log(result);
             console.log('INSERTED CATEGORY');
-            res.redirect('/categories');
+            res.redirect('/categories/' + result.id);
         })
         .catch(err => {
             console.log(err);
@@ -73,7 +74,7 @@ const get_category = (req, res, next) => {
 //posst to update category
 const update_category = (req, res, next) => {
     let newCategory = new Category();
-    newCategory.categoryId = req.body.categoryId;
+    newCategory.categoryId = req.params.categoryId;
     newCategory.title = req.body.title;
     newCategory.description = req.body.description;
     newCategory.available = req.body.available;
@@ -95,18 +96,22 @@ const update_category = (req, res, next) => {
         })
         .then(result => {
             console.log('UPDATED CATEGORY');
-            res.redirect('/categories');
+            res.redirect(req.get('referer'));
         })
         .catch(err => console.log(err));
 }
 
 //post to delete
 const delete_category = (req, res, next) => {
-    let cateloryId = req.body.categoryId;
+    let cateloryId = req.params.categoryId;
     Category.findById(cateloryId)
         .then(category => {
-            fileHelper.deleteFile('public\\' + category.imageUrl);
-            return Product.findByIdAndRemove(cateloryId);
+            if (category) {
+                if (category.imageUrl) {
+                    fileHelper.deleteFile('public\\' + category.imageUrl);
+                }
+                return Product.findByIdAndRemove(cateloryId);
+            }
         })
         .then(() => {
             console.log('DELETED CATEGORY');
@@ -115,11 +120,25 @@ const delete_category = (req, res, next) => {
         .catch(err => console.log(err));
 }
 
+//get list categories
+const get_categories_list_data = (req, res, next) => {
+    Category.find()
+        //.execPopulate()
+        .then(categories => {
+            if (categories) {
+                return categories;
+            }
+        })
+        .catch(err => console.log(err));
+}
+
+
 module.exports = {
     list_categories,
     init_category,
     create_category,
     get_category,
     update_category,
-    delete_category
+    delete_category,
+    get_categories_list_data
 }

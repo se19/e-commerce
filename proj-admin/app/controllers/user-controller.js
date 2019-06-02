@@ -19,13 +19,13 @@ const list_administrators = (req, res, next) => {
 //get customer list
 const list_customers = (req, res, next) => {
     User.find({
-            userType: constants.USERTYPE_CUSTMER
+            userType: constants.USERTYPE_CUSTOMER
         })
         .then(users => {
             // console.log(users);
             res.render('user-view/user-list', {
                 pageTitle: "Khách hàng",
-                userType: constants.USERTYPE_CUSTMER,
+                userType: constants.USERTYPE_CUSTOMER,
                 users
             });
         })
@@ -50,7 +50,7 @@ const init_customer = (req, res, next) => {
     res.render('user-view/user-info', {
         pageTitle: "Thêm khách hàng",
         user: {
-            userType: constants.USERTYPE_CUSTMER,
+            userType: constants.USERTYPE_CUSTOMER,
             dateCreated: newDate
         }
     });
@@ -88,10 +88,11 @@ const create_user = (req, res, next) => {
             if (result.userType === constants.USERTYPE_ADMIN) {
                 path = 'administrators'
             }
-            if (result.userType === constants.USERTYPE_CUSTMER) {
+            if (result.userType === constants.USERTYPE_CUSTOMER) {
                 path = 'customers'
             }
-            res.redirect('/users/' + path);
+            res.redirect('/users/' + path + "/" + result.id);
+            // res.redirect(req.get('referer'));
         })
         .catch(err => {
             console.log(err);
@@ -155,17 +156,18 @@ const update_user = (req, res, next) => {
             if (result.userType === constants.USERTYPE_ADMIN) {
                 path = 'administrators'
             }
-            if (result.userType === constants.USERTYPE_CUSTMER) {
+            if (result.userType === constants.USERTYPE_CUSTOMER) {
                 path = 'customers'
             }
-            res.redirect('/users/' + path);
+            res.redirect('/users/' + path + "/" + result.id);
+            // res.redirect(req.get('referer'));
         })
         .catch(err => console.log(err));
 }
 
 //post to delete
 const delete_administrator = (req, res, next) => {
-    let userId = req.body.userId;
+    let userId = req.params.userId;
     User.findByIdAndRemove(userId)
         .then(() => {
             console.log('DELETED ADMIN');
@@ -175,7 +177,7 @@ const delete_administrator = (req, res, next) => {
 }
 
 const delete_customer = (req, res, next) => {
-    let userId = req.body.userId;
+    let userId = req.params.userId;
     User.findByIdAndRemove(userId)
         .then(() => {
             console.log('DELETED CUSTOME');
@@ -186,10 +188,10 @@ const delete_customer = (req, res, next) => {
 
 const reset_pw_customer = (req, res, next) => {
     let newUser = new User();
-    newUser.userId = req.body.userId;
+    newUser.userId = req.params.userId;
     newUser.userType = req.body.userType;
 
-    if (newUser.userType === constants.USERTYPE_CUSTMER) {
+    if (newUser.userType === constants.USERTYPE_CUSTOMER) {
         User.findOne({
                 _id: newUser.userId
             })
@@ -199,7 +201,7 @@ const reset_pw_customer = (req, res, next) => {
             })
             .then(result => {
                 console.log('RESETED PASSWORD');
-                res.redirect('/users/customers');
+                res.redirect(req.get('referer'));
             })
             .catch(err => console.log(err));
     }

@@ -18,6 +18,7 @@ const uploadImage = (folderName) => {
 
     return upload;
 }
-exports.uploadImage = async () => {
-    await uploadImage(folderName);
-};
+module.exports = uploadImage;
+// exports.uploadImage = async () => {
+//     await uploadImage(folderName);
+// };

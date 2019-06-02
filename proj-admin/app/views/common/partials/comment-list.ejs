@@ -1,5 +1,7 @@
 <link href="/stylesheets/admin-cast/main.min.css" rel="stylesheet" />
 
+<% let newReview = {}; %>
+
 <div class="row">
     <div class="col-12">
         <div class="ibox ibox-fullheight">
@@ -7,45 +9,105 @@
                 <div class="ibox-title">Danh sách bình luận</div>
             </div>
             <div class="ibox-body">
+                <button class="btn btn-primary ibox-title btn-add-review" data-toggle="modal"
+                    data-target="#commentModal">
+                    Thêm bình luận</button>
                 <ul class="media-list">
+                    <% for (let review of product.reviews) { %>
                     <li class="media">
                         <a class="media-img" href="javascript:;">
                             <img src="/images/products/27.jpg" alt="image" width="45">
                         </a>
                         <div class="media-body">
                             <div class="media-heading">
-                                <a class="comment-author" href="javascript:;">Stella Obrien</a><small
+                                <a class="comment-author" href="javascript:;"><%= review.name %></a><small
                                     class="text-muted ml-2">5 ngày trước</small>
                                 <div class="float-right font-13">
-                                    <a class="text-muted mr-2" data-toggle="tooltip" data-original-title="Edit"><i
-                                            class="fa fa-pencil-alt"></i></a>
-                                    <a class="text-muted" data-toggle="tooltip" data-original-title="Delete"><i
-                                            class="fa fa-trash"></i></a>
+                                    <a class="text-muted mr-2" data-toggle="tooltip" data-original-title="Sửa">
+                                        <i class="fa fa-pencil-alt btnEdit" data-toggle="modal"
+                                            data-target="#commentModal" data-id="<%= review.id %>"
+                                            data-name="<%= review.name %>" data-phone="<%= review.phoneNumber %>"
+                                            data-message="<%= review.message %>"></i></a>
+                                    <form class="d-inline-block" action="/products/<%= product.id %>/review/delete"
+                                        method="POST">
+                                        <button class="text-muted btn-trans btn-del-review" data-toggle="tooltip"
+                                            data-original-title="Xóa" data-id="<%= review.id %>">
+                                            <i class="fa fa-trash"></i> </button>
+                                        <input type="text" class="reviewId" name="reviewId" hidden>
+                                    </form>
                                 </div>
                             </div>
-                            <p>Quá tệ.</p>
+                            <p><%= review.message %></p>
                         </div>
                     </li>
-                    <li class="media">
-                        <a class="media-img" href="javascript:;">
-                            <img src="/images/products/27.jpg" alt="image" width="45">
-                        </a>
-                        <div class="media-body">
-                            <div class="media-heading">
-                                <a class="comment-author" href="javascript:;">Becky Brooks</a><small
-                                    class="text-muted ml-2">5 ngày trước</small>
-                                <div class="float-right font-13">
-                                    <a class="text-muted mr-2" data-toggle="tooltip" data-original-title="Edit"><i
-                                            class="fa fa-pencil-alt"></i></a>
-                                    <a class="text-muted" data-toggle="tooltip" data-original-title="Delete"><i
-                                            class="fa fa-trash"></i></a>
-                                </div>
-                            </div>
-                            <p>Tốt lắm!</p>
-                        </div>
-                    </li>
+                    <% } %>
                 </ul>
             </div>
         </div>
     </div>
 </div>
+
+<!-- Modal -->
+<div class="modal fade" id="commentModal" tabindex="-1" role="dialog" aria-labelledby="commentModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <form class="modal-content" action="/products/<%= product.id %>/review/add-or-edit" method="POST">
+            <div class="modal-header">
+                <h5 class="modal-title" id="commentModalLabel">Thông tin bình luận</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="nameInput">Họ tên</label>
+                    <input type="text" class="form-control" id="nameInput" placeholder="Nhập họ tên" name="name"
+                        required>
+                </div>
+                <div class="form-group">
+                    <label for="phoneInput">Sô điện thoại</label>
+                    <input type="text" class="form-control" id="phoneInput" placeholder="Nhập số điện thoại"
+                        name="phoneNumber" required>
+                </div>
+                <div class="form-group">
+                    <label for="messageInput">Bình luận</label>
+                    <textarea class="form-control" id="messageInput" placeholder="Nhập nội dung" cols="30" rows="5"
+                        name="message" required></textarea>
+                </div>
+                <div hidden>
+                    <input type="text" class="reviewId" name="reviewId">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                <button type="submit" class="btn btn-primary">Thêm</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $('.btnEdit').click(function () {
+            let reviewId = $('.btnEdit').attr('data-id');
+            $('.reviewId').val(reviewId);
+            if (reviewId) {
+                let reviewName = $('.btnEdit').attr('data-name');
+                $('#nameInput').val(reviewName);
+                let reviewPhone = $('.btnEdit').attr('data-phone');
+                $('#phoneInput').val(reviewPhone);
+                let reviewMessage = $('.btnEdit').attr('data-message');
+                $('#messageInput').text(reviewMessage);
+            }
+        })
+        $('.btn-add-review').click(function () {
+            $('#nameInput').val("");
+            $('#phoneInput').val("");
+            $('#messageInput').text("");
+        })
+        $('.btn-del-review').click(function () {
+            let reviewId = $('.btnEdit').attr('data-id');
+            $('.reviewId').val(reviewId);
+        })
+    })
+</script>

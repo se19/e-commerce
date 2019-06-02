@@ -13,12 +13,11 @@ router
   //Get create view
   .get('/add', category_controller.init_category)
   //Create
-  // .post('/add', multerHelper.uploadImage('categories').single('image'), category_controller.create_category)
-  .post('/add', category_controller.create_category)
+  .post('/add', multerHelper('categories').single('image'), category_controller.create_category)
   //Get info
   .get('/:categoryId', category_controller.get_category)
   //Update
-  .post('/:categoryId/edit', category_controller.update_category)
+  .post('/:categoryId/edit', multerHelper('categories').single('image'), category_controller.update_category)
   //Delete
   .post('/:categoryId/delete', category_controller.delete_category)
 

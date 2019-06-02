@@ -4,8 +4,7 @@
 <!-- THEME STYLES-->
 <link href="/stylesheets/admin-cast/main.min.css" rel="stylesheet" />
 
-<% let editing = (brand.id != null); 
-const defaultImg = "images/default/no-image.png";%>
+<% let editing = (brand.id != null); %>
 
 <div class="page-content fade-in-up">
     <div class="ibox">
@@ -15,7 +14,7 @@ const defaultImg = "images/default/no-image.png";%>
                 <div class="col-lg-4">
                     <div>
                         <img id="img-upload"
-                            src="/<% if (brand.imageUrl == null || brand.imageUrl == '') { %><%= defaultImg %><% } else { %><%= brand.imageUrl %><% } %>">
+                            src="/<% if (brand.imageUrl == null || brand.imageUrl == '') { %><%= constants.DEFAULT_IMG %><% } else { %><%= brand.imageUrl %><% } %>">
                     </div>
                     <div class="flexbox-b mt-4">
                         <!-- <div class="mr-2">
@@ -46,13 +45,13 @@ const defaultImg = "images/default/no-image.png";%>
                         <div class="form-group mb-4">
                             <label>Mô tả</label>
                             <textarea class="form-control form-control-solid" rows="4"
-                                name="description"><% if (editing) { %><%= brand.description %><% } %></textarea>
+                                name="description"><%= brand.description %></textarea>
                         </div>
 
                         <div class="form-group mb-4">
                             <label>Hình ảnh</label>
                             <div>
-                                <input id="img-input" type="file" name="image" accept="image/*" required>
+                                <input id="img-input" type="file" name="image" accept="image/*">
                             </div>
                         </div>
 
@@ -63,15 +62,10 @@ const defaultImg = "images/default/no-image.png";%>
                             </label>Khả dụng
                         </div>
 
-                        <div hidden>
-                            <input class="form-control form-control-solid" type="text" value="<%= brand.id %>"
-                                name="brandId" hidden>
-                        </div>
-
                         <div class="text-right">
                             <button class="btn btn-primary btn-air mr-2" type="submit"><% if (editing) { %>Cập
                                 nhật<% } else { %>Thêm mới<% } %></button>
-                            <button class="btn btn-secondary">Hủy bỏ</button>
+                            <button type="button" class="btn btn-secondary"><a href="/brands">Trở lại</a></button>
                         </div>
                     </form>
                 </div>

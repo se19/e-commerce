@@ -63,7 +63,6 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash());
 
-
 //use router
 app.use('/', indexRouter);
 

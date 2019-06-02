@@ -63,9 +63,8 @@
                             <td>
                                 <a class="text-light mr-3 font-16" href="/users/customers/<%= user.id %>"><i
                                         class="fa fa-pencil-alt"></i></a>
-                                <form action="/users/customers/<%= user.id %><%- '/delete' %>" method="POST">
-                                    <input type="hidden" value="<%= user.id %>" name="userId">
-                                    <button type="submit">
+                                <form action="/users/customers/<%= user.id %><%- '/delete' %>" method="POST" class="d-inline-block">
+                                    <button type="submit" class="btn-trans">
                                         <i class="fa fa-trash"></i>
                                     </button>
                                 </form>

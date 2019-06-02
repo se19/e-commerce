@@ -46,9 +46,9 @@
                             <td>
                                 <a class="text-light mr-3 font-16" href="/categories/<%= category.id %>"><i
                                         class="fa fa-pencil-alt"></i></a>
-                                <form action="/categories/<%= category.id %><%- '/delete' %>" method="POST">
+                                <form action="/categories/<%= category.id %><%- '/delete' %>" method="POST" class="d-inline-block">
                                     <input type="hidden" value="<%= category.id %>" name="categoryId">
-                                    <button type="submit">
+                                    <button type="submit" class="btn-trans">
                                         <i class="fa fa-trash"></i>
                                     </button>
                                 </form>
