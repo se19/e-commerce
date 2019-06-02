@@ -25,7 +25,7 @@ const userSchema = new Schema({
   },
   address: {
     type: String,
-    required: true
+    required: false
   },
   imageUrl: {
     type: String,
@@ -41,7 +41,7 @@ const userSchema = new Schema({
   },
   dateCreated: {
     type: Date,
-    required: true
+    required: false
   },
   available: {
     type: Boolean,

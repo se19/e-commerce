@@ -13,8 +13,7 @@ let isAdminAcount = (user.userType == constants.USERTYPE_ADMIN); %>
             <h5 class="font-strong mb-5">
                 <%  if(user.userType == constants.USERTYPE_ADMIN){ %>
                 THÔNG TIN QUẢN TRỊ VIÊN
-                <% } %>
-                <%  if(user.userType == constants.USERTYPE_ADMIN){ %>
+                <% } else { %>
                 THÔNG TIN KHÁCH HÀNG
                 <% } %>
             </h5>
@@ -54,7 +53,7 @@ let isAdminAcount = (user.userType == constants.USERTYPE_ADMIN); %>
                     </form>
                     <% } %>
                     <form
-                        action="/users/<% if(user.userType=='admin'){ %>administrators<% } else { %>customers<% } %>/<% if(editing){ %><%= user.id %><%-'/edit'%><% } else { %>add<% } %>"
+                        action="/<% if(user.id == userLogin._id) { %>profile<% } else { %>users/<% if(user.userType=='admin'){ %>administrators<% } else { %>customers<% } %>/<% if(editing){ %><%= user.id %><%-'/edit'%><% } else { %>add<% } } %>"
                         method="POST" enctype="multipart/form-data">
                         <div class="row">
                             <div class="col-sm-6 form-group mb-4">
@@ -121,24 +120,20 @@ let isAdminAcount = (user.userType == constants.USERTYPE_ADMIN); %>
                         </div>
 
                         <div hidden>
-                            <!-- <input class="form-control form-control-solid" type="text" value="<%= user.id %>"
-                                name="userId"> -->
                             <input class="form-control form-control-solid" type="text" value="<%= user.userType %>"
                                 name="userType">
-                            <!-- <input class="form-control form-control-solid" type="text" value="<%= user.imageUrl %>"
-                                name="imageUrl"> -->
                             <input class="form-control form-control-solid" type="datetime"
                                 value="<%= user.dateCreated %>" name="dateCreated">
                         </div>
 
-                        <% if(editing && isAdminAcount) {%>
+                        <% if(editing && (isAdminAcount || user.id != userLogin._id)) {%>
                         <div class="text-danger">
                             Lưu ý: không thể sửa thông tin của quản trị viên khác!
                         </div>
                         <% } %>
 
                         <div class="text-right">
-                            <% if(!editing || !isAdminAcount) {%>
+                            <% if(!editing || !isAdminAcount || user.id == userLogin._id) {%>
                             <button class="btn btn-primary btn-air mr-2" type="submit"><% if (editing) { %>Cập
                                 nhật<% } else { %>Thêm mới<% } %></button>
                             <% } %>
