@@ -7,7 +7,10 @@
 <div class="page-content fade-in-up">
     <div class="ibox">
         <div class="ibox-body">
-            <h5 class="font-strong mb-4">DANH SÁCH ĐƠN HÀNG</h5>
+            <h5 class="font-strong mb-4">DANH SÁCH ĐƠN HÀNG
+                <% if(locals.user){ %> ĐÃ ĐẶT</h5>
+            <% } else { %>
+            </h5>
             <div class="flexbox row">
                 <form class="flexbox col-12 col-lg-auto mb-4" action="/orders" method="GET">
                     <label class="mb-0 mr-2">Loại:</label>
@@ -31,6 +34,7 @@
                 <!-- <a class="btn btn-rounded btn-primary btn-air mb-4 col-12 col-md-6 col-lg-auto"
                         href="/orders/add">Thêm đơn hàng</a> -->
             </div>
+            <% } %>
             <div class="table-responsive row">
                 <table class="table table-bordered table-hover" id="orders-table">
                     <thead class="thead-default thead-lg">

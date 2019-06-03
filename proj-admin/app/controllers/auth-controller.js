@@ -1,5 +1,6 @@
 const passport = require('passport');
 const User = require('../models/user');
+const Order = require('../models/order');
 
 const checkAuth = (req, res, next) => {
     if (req.isAuthenticated()) {
@@ -47,9 +48,18 @@ const forgot_pw = (req, res, next) => {
 }
 
 //get profile info
-const get_profile = (req, res, next) => {
+const get_profile = async (req, res, next) => {
     let userId = req.session.passport.user._id;
-    User.findOne({
+    let orders;
+    await Order.find({
+            'user.userId': userId
+        })
+        .then(result => {
+            console.log(result);
+            orders = result;
+        })
+        .catch(err => console.log(err));
+    await User.findOne({
             _id: userId
         })
         .then(user => {
@@ -59,7 +69,9 @@ const get_profile = (req, res, next) => {
             }
             res.render('user-view/user-info', {
                 pageTitle: "Thông tin cá nhân",
-                user
+                user,
+                orders,
+                status: ""
             });
         })
         .catch(err => console.log(err));

@@ -1,4 +1,5 @@
 const User = require('../models/user');
+const Order = require('../models/order');
 const constants = require('../../constants/index');
 
 //get admin list
@@ -100,9 +101,19 @@ const create_user = (req, res, next) => {
 }
 
 //get user info
-const get_user = (req, res, next) => {
+const get_user = async (req, res, next) => {
     let userId = req.params.userId;
-    User.findOne({
+
+    let orders;
+    await Order.find({
+            'user.userId': userId
+        })
+        .then(result => {
+            console.log(result);
+            orders = result;
+        })
+        .catch(err => console.log(err));
+    await User.findOne({
             _id: userId
         })
         .then(user => {
@@ -112,7 +123,9 @@ const get_user = (req, res, next) => {
             }
             res.render('user-view/user-info', {
                 pageTitle: user.title,
-                user
+                user,
+                orders: orders,
+                status: ""
             });
         })
         .catch(err => console.log(err));
