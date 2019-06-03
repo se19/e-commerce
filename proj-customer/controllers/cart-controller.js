@@ -12,7 +12,11 @@ const listCart = async (req, res, next) => {
 
 //Cập nhật giỏ hàng
 const updateCart = (req, res, next) => {
+    let stringQuantity = req.body.stringQuantity;
+    // stringQuantity là danh sách số lượng mới
+    Cart.update(req.session.cart, stringQuantity);
 
+    res.json(1)
 }
 
 //Xóa sản phẩm khỏi giỏ hàng
@@ -23,7 +27,8 @@ const deleteItems = (req, res, next) => {
     //     pageTitle: "Giỏ hàng",
     //     cartItems: req.session.cart
     // });
-    res.redirect('/cart');
+    //res.redirect('/cart');
+    res.json(productId);
 }
 
 

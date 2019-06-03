@@ -9,7 +9,9 @@ router
   .use(base_controller.getLocalsVariables)
 
   .get('/', cart_controller.listCart)
-  .get('/update', cart_controller.updateCart)
-  .get('/delete/:productId', cart_controller.deleteItems)
+  // phải thêm vô vì không hiểu sao khi thực hiện xong cart_controller.deleteItems nó lại chạy vô route này :((
+  //.post('/', (req, res, next) => {})
+  .post('/update', cart_controller.updateCart)
+  .post('/delete/:productId', cart_controller.deleteItems)
 
 module.exports = router;

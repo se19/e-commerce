@@ -1,3 +1,7 @@
+// Cấu trúc của cart
+// Cart = { [ {product}, quantity, amount ], total }
+
+
 const add = (cartItems, item) => {
     for (let cartItem of cartItems) {
         // dùng equals để so sánh _id, nếu đã tồn tại thì cập nhật lại giỏ hàng
@@ -11,7 +15,14 @@ const add = (cartItems, item) => {
     cartItems.push(item);
 }
 
-
+const update = (cartItems, stringQuantity) => {
+    for (let i = 0; i < cartItems.length; i++) {
+        if (cartItems[i].quantity != +stringQuantity[i]) {
+            cartItems[i].quantity = +stringQuantity[i]; // cập nhật số lượng
+            cartItems[i].amount = cartItems[i].quantity * cartItems[i].product.price;
+        }
+    }
+}
 
 const remove = (cartItems, prodId) => {
     for (let i = 0; i < cartItems.length; i++) {
@@ -33,6 +44,7 @@ const inTotal = (cartItems) => {
 
 module.exports = {
     add,
+    update,
     remove,
     inTotal
 }

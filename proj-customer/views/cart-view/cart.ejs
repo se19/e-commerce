@@ -13,7 +13,7 @@
 <div class="site-section">
   <div class="container">
     <div class="row mb-5">
-      <form class="col-md-12" method="post">
+      <div class="col-md-12" method="post">
         <div class="site-blocks-table">
           <table class="table table-bordered">
             <thead>
@@ -42,28 +42,31 @@
                     <div class="input-group-prepend">
                       <button class="btn btn-outline-primary js-btn-minus" type="button">&minus;</button>
                     </div>
-                    <input type="text" class="form-control text-center" value="<%= cartItem.quantity %>" placeholder=""
-                      aria-label="Example text with button addon" aria-describedby="button-addon1">
+                    <input type="text" class="quantity-product-in-cart form-control text-center"
+                      value="<%= cartItem.quantity %>" placeholder="" aria-label="Example text with button addon"
+                      aria-describedby="button-addon1">
                     <div class="input-group-append">
                       <button class="btn btn-outline-primary js-btn-plus" type="button">&plus;</button>
                     </div>
                   </div>
                 </td>
                 <td><%= cartItem.amount %></td>
-                <td><a href="/cart/delete/<%= cartItem.product._id %>" class="btn btn-primary height-auto btn-sm">X</a></td>
+                <td><button class="btn-delete-product-in-cart btn btn-sm height-auto px-3 py-2 btn-primary"
+                    value="<%= cartItem.product._id %>">X</button>
+                </td>
               </tr>
               <% } %>
             </tbody>
           </table>
         </div>
-      </form>
+      </div>
     </div>
 
     <div class="row">
       <div class="col-md-6">
         <div class="row mb-5">
           <div class="col-md-6 mb-3 mb-md-0">
-            <button class="btn btn-primary btn-sm btn-block">Cập nhật giỏ hàng</button>
+            <button class="btn-update-cart btn btn-primary btn-sm btn-block">Cập nhật giỏ hàng</button>
           </div>
           <div class="col-md-6">
             <button class="btn btn-outline-primary btn-sm btn-block" onclick="window.location='/shop'">Tiếp tục mua
@@ -101,3 +104,60 @@
   </div>
 </div>
 <%- include("../common/containers/footer") -%>
+<script>
+  // https://stackoverflow.com/questions/17416756/remove-a-table-row-after-ajax-success
+  $(".btn-delete-product-in-cart").click(function () {
+    let $tr = $(this).closest(
+      'tr'); //here we hold a reference to the clicked tr which will be later used to delete the row
+    $.ajax({
+        url: '/cart/delete/' + $(this).val(),
+        type: 'POST',
+      })
+      .done(function () {
+        //on success, hide element user wants to delete.
+        $tr.find('td').fadeOut(1000, function () {
+          $tr.remove();
+        });
+      })
+      .fail(function () {
+        alert("error");
+      })
+  });
+
+  $(".btn-update-cart").click(function () {
+    // https://stackoverflow.com/questions/12862601/jquery-get-all-form-elements-input-textarea-select
+    // https://developer.mozilla.org/en-US/docs/Web/API/NodeList
+    // alert($('.quantity-product-in-cart').val());
+
+    // https://api.jquery.com/jquery.post/
+    // data: A plain object or string that is sent to the server with the request.
+
+    let stringQuantity = "";
+
+    $('.quantity-product-in-cart').each(
+      function () {
+        let input = $(this);
+        //arrayQuantity.push(input.val());
+        stringQuantity += input.val();
+      }
+    );
+    //alert(stringQuantity);
+    $.ajax({
+        url: '/cart/update',
+        type: 'POST',
+        data: {
+          stringQuantity: stringQuantity
+        },
+      })
+      .done(function () {
+        location.reload();
+      })
+      .fail(function (e) {
+        alert.log(e.message);
+      })
+
+  });
+</script>
+</body>
+
+</html>
