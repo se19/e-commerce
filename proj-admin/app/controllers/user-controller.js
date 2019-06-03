@@ -220,6 +220,20 @@ const reset_pw_customer = (req, res, next) => {
     }
 }
 
+const upgrade_user = (req, res, next) => {
+    let userId = req.params.userId;
+    User.updateOne({
+            _id: userId
+        }, {
+            userType: constants.USERTYPE_ADMIN
+        })
+        .then(result => {
+            console.log('UPGRADED USER');
+            res.redirect('/users/administrators/' + userId);
+        })
+        .catch(err => console.log(err));
+}
+
 module.exports = {
     list_administrators,
     list_customers,
@@ -230,5 +244,6 @@ module.exports = {
     update_user,
     delete_administrator,
     delete_customer,
-    reset_pw_customer
+    reset_pw_customer,
+    upgrade_user
 }

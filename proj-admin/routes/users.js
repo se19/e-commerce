@@ -37,5 +37,6 @@ router
   //Delete
   .post('/customers/:userId/delete', user_controller.delete_customer)
   .post('/customers/:userId/reset-password', user_controller.reset_pw_customer)
+  .post('/customers/:userId/upgrade', user_controller.upgrade_user)
 
 module.exports = router;

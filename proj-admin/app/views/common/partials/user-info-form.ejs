@@ -40,17 +40,26 @@ let isAdminAcount = (user.userType == constants.USERTYPE_ADMIN); %>
                 </div>
                 <div class="col-lg-8">
 
-                    <% if(editing && !isAdminAcount) {%>
-                    <form action="/users/customers/<%= user.id %>/reset-password %>" method="POST">
-                        <div hidden>
-                            <input class="form-control form-control-solid" type="text" value="<%= user.id %>"
-                                name="userId">
-                            <input class="form-control form-control-solid" type="text" value="<%= user.userType %>"
-                                name="userType">
-                        </div>
-                        <button class="btn btn-primary mb-3" type="submit">Khôi phục mật khẩu mặt định (Mặc định là
-                            "user").</button>
-                    </form>
+                    <% if(editing && !isAdminAcount) { %>
+                    <div class="row">
+                        <div class="d-none d-md-block col-md-6"></div>
+                        <form action="/users/customers/<%= user.id %>/upgrade %>" method="POST" class="col-12 col-md-3">
+                            <div hidden>
+                                <input class="form-control form-control-solid" type="text" value="<%= user.userType %>"
+                                    name="userType">
+                            </div>
+                            <button class="btn btn-primary mb-3 w-100" type="submit">Nâng cấp tài khoản</button>
+                        </form>
+                        <form action="/users/customers/<%= user.id %>/reset-password %>" method="POST"
+                            class="col-12 col-md-3">
+                            <div hidden>
+                                <input class="form-control form-control-solid" type="text" value="<%= user.userType %>"
+                                    name="userType">
+                            </div>
+                            <button class="btn btn-primary mb-3 w-100" type="submit">Đặt lại mật khẩu</button>
+                        </form>
+                    </div>
+                    <div class="row"><span class="w-100 text-right">(Mặc định là "user")</span></div>
                     <% } %>
                     <form
                         action="/<% if(user.id == userLogin._id) { %>profile<% } else { %>users/<% if(user.userType=='admin'){ %>administrators<% } else { %>customers<% } %>/<% if(editing){ %><%= user.id %><%-'/edit'%><% } else { %>add<% } } %>"
