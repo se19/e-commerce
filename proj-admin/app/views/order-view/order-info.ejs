@@ -29,8 +29,8 @@
                     <div class="d-flex align-items-center mb-5">
                         <span class="mr-4 static-badge badge-pink"><i class="fa fa-shopping-cart"></i></span>
                         <div>
-                            <h5 class="font-strong">Đơn hàng #1253</h5>
-                            <div class="text-light">Emma Johnson, 17.05.2018, Đang vận chuyển</div>
+                            <h5 class="font-strong">Đơn hàng <%= order.id %></h5>
+                            <div class="text-light"><%= order.user.name %>, 17.05.2018, Đang vận chuyển</div>
                         </div>
                     </div>
                     <div class="row">
@@ -49,60 +49,26 @@
                                             </tr>
                                         </thead>
                                         <tbody>
+                                            <% for(let item of order.products) { %>
                                             <tr>
                                                 <td>3</td>
                                                 <td>
                                                     <img class="mr-3" src="/images/products/10.jpg" alt="image"
-                                                        width="60" />Evaflor "Whisky"</td>
-                                                <td>$12</td>
-                                                <td>3</td>
-                                                <td>$36</td>
+                                                        width="60" /><%= item.product.title %></td>
+                                                <td><%= item.product.price %></td>
+                                                <td><%= item.quantity %></td>
+                                                <td><%= item.product.price * item.quantity %></td>
                                             </tr>
-                                            <tr>
-                                                <td>4</td>
-                                                <td>
-                                                    <img class="mr-3" src="/images/products/11.jpg" alt="image"
-                                                        width="60" />Evaflor "Whisky Silver"</td>
-                                                <td>$12</td>
-                                                <td>4</td>
-                                                <td>$48</td>
-                                            </tr>
-                                            <tr>
-                                                <td>10</td>
-                                                <td>
-                                                    <img class="mr-3" src="/images/products/11.jpg" alt="image"
-                                                        width="60" />Women's bag Cromia "Luxor"</td>
-                                                <td>$430</td>
-                                                <td>1</td>
-                                                <td>$430</td>
-                                            </tr>
-                                            <tr>
-                                                <td>6</td>
-                                                <td>
-                                                    <img class="mr-3" src="/images/products/11.jpg" alt="image"
-                                                        width="60" />Women's wrist watch "Moschino"</td>
-                                                <td>$335</td>
-                                                <td>1</td>
-                                                <td>$335</td>
-                                            </tr>
-                                            <tr>
-                                                <td>13</td>
-                                                <td>
-                                                    <img class="mr-3" src="/images/products/11.jpg" alt="image"
-                                                        width="60" />Women's bag Cromia "Starlight"</td>
-                                                <td>$416</td>
-                                                <td>1</td>
-                                                <td>$416</td>
-                                            </tr>
+                                            <% } %>
                                         </tbody>
                                     </table>
                                     <div class="d-flex justify-content-end">
                                         <div class="text-right" style="width:300px;">
                                             <div class="row mb-2">
                                                 <div class="col-6">Tổng tiền</div>
-                                                <div class="col-6">$1265</div>
+                                                <div class="col-6"><%= order.amount ? order.amount : 0 %></div>
                                             </div>
-                                            <div class="row mb-2">
+                                            <!-- <div class="row mb-2">
                                                 <div class="col-6">Giảm giá 5%:</div>
                                                 <div class="col-6">-$63.25</div>
                                             </div>
@@ -111,7 +77,7 @@
                                                 <div class="col-6">
                                                     <div class="h3 font-strong">$1201.71</div>
                                                 </div>
-                                            </div>
+                                            </div> -->
                                         </div>
                                     </div>
                                 </div>
@@ -123,20 +89,34 @@
                                     <h5 class="font-strong mb-4">Chi tiết đơn hàng</h5>
                                     <div class="row align-items-center mb-3">
                                         <div class="col-4 text-light">Tổng thanh toán</div>
-                                        <div class="col-8 h3 font-strong text-pink mb-0">$1201.71</div>
+                                        <div class="col-8 h3 font-strong text-pink mb-0">
+                                            <%= order.amount ? order.amount: 0 %></div>
                                     </div>
                                     <div class="row align-items-center mb-3">
                                         <div class="col-4 text-light">Ngày dặt hàng</div>
-                                        <div class="col-8">17.05.2018</div>
+                                        <div class="col-8"><%= order.dateCreated %></div>
                                     </div>
                                     <div class="row align-items-center mb-3">
                                         <div class="col-4 text-light">Ngày giao hàng</div>
-                                        <div class="col-8">17.05.2018</div>
+                                        <div class="col-8"><%= order.dateCompleted %></div>
                                     </div>
                                     <div class="row align-items-center mb-3">
                                         <div class="col-4 text-light">Trạng thái</div>
                                         <div class="col-8">
-                                            <span class="badge badge-success badge-pill">Đang vận chuyển</span>
+                                            <% switch(order.status) {
+                                                    case constants.ORDER_STATUS_PENDING: %>
+                                            <span class="badge badge-primary badge-pill">Đang chờ</span>
+                                            <% break;
+                                                    case constants.ORDER_STATUS_SHIPPING: %>
+                                            <span class="badge badge-info badge-pill">Đang vận chuyển</span>
+                                            <% break;
+                                                    case constants.ORDER_STATUS_COMPLETED: %>
+                                            <span class="badge badge-success badge-pill">Đã hoàn thành</span>
+                                            <% break;
+                                                    case constants.ORDER_STATUS_CANCELED: %>
+                                            <span class="badge badge-danger badge-pill">Đã hủy</span>
+                                            <% break;
+                                                } %>
                                         </div>
                                     </div>
                                     <div class="row align-items-center">
@@ -145,32 +125,84 @@
                                             <img src="/images/logos/visa.png" alt="image" width="55" />
                                         </div>
                                     </div>
+                                    <% if(order.status != constants.ORDER_STATUS_COMPLETED && order.status != constants.ORDER_STATUS_CANCELED) { %>
+                                    <div class="row">
+                                        <form action="/orders/<%= order.id %>/change-status" method="POST"
+                                            class="d-inline-block">
+                                            <button type="submit" class="btn btn-info">Thay đổi trạng thái</button>
+                                        </form>
+                                        <form action="/orders/<%= order.id %>/cancel" method="POST"
+                                            class="d-inline-block">
+                                            <button type="submit" class="btn btn-danger">Hủy đơn</button>
+                                        </form>
+                                    </div>
+                                    <% } %>
                                 </div>
                             </div>
                             <div class="ibox">
                                 <div class="ibox-body">
-                                    <h5 class="font-strong mb-4">Thông tin khách hàng</h5>
+                                    <h5 class="font-strong mb-4">Thông tin người nhận</h5>
                                     <div class="row align-items-center mb-3">
                                         <div class="col-4 text-light">Họ tên</div>
-                                        <div class="col-8">Emma Johnson</div>
+                                        <div class="col-8"><%= order.user.name %></div>
                                     </div>
                                     <div class="row align-items-center mb-3">
                                         <div class="col-4 text-light">Địa chỉ</div>
-                                        <div class="col-8">San Francisco, CA 94103 Market Street</div>
+                                        <div class="col-8"><%= order.user.address %></div>
                                     </div>
                                     <div class="row align-items-center mb-3">
                                         <div class="col-4 text-light">Email</div>
-                                        <div class="col-8">example@gmail.com</div>
+                                        <div class="col-8"><%= order.user.email %></div>
                                     </div>
                                     <div class="row align-items-center">
                                         <div class="col-4 text-light">Số điện thoại</div>
-                                        <div class="col-8">+380681478544</div>
+                                        <div class="col-8"><%= order.user.phone %></div>
+                                    </div>
+                                    <div class="row">
+                                        <button type="submit" class="btn btn-info" data-toggle="modal"
+                                            data-target="#receiverModal">Thay đổi thông tin</button>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
+                <!-- Modal -->
+                <div class="modal fade" id="receiverModal" tabindex="-1" role="dialog"
+                    aria-labelledby="receiverModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <form class="modal-content" action="/orders/<%= order.id %>/edit-user" method="POST">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="receiverModalLabel">Thông tin người nhận</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="form-group">
+                                    <label for="nameInput">Họ tên</label>
+                                    <input type="text" class="form-control" id="nameInput" placeholder="Nhập họ tên" value="<%= order.user.name %>"
+                                        name="name" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="nameInput">Địa chỉ</label>
+                                    <input type="text" class="form-control" id="addressInput" placeholder="Nhập địa chỉ" value="<%= order.user.address %>"
+                                        name="address" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="phoneInput">Sô điện thoại</label>
+                                    <input type="text" class="form-control" id="phoneInput"
+                                        placeholder="Nhập số điện thoại" name="phone" value="<%= order.user.phone %>" required>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
+                                <button type="submit" class="btn btn-primary">Lưu</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
                 <!-- End Page Content -->
 
             </div>

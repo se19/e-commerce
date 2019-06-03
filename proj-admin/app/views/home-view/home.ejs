@@ -63,7 +63,7 @@
                 </a>
               </div>
               <div class="col-lg-4 col-md-6">
-                <a href="/orders">
+                <a href="/orders?status=">
                   <div class="card mb-4">
                     <div class="card-body flexbox-b">
                       <div class="easypie mr-4" data-percent="70" data-bar-color="#ff4081" data-size="80"
@@ -111,24 +111,24 @@
                 <div class="ibox ibox-fullheight">
                   <div class="ibox-head">
                     <div class="ibox-title">
-                      <a href="/orders">ĐƠN HÀNG</a>
+                      <a href="/orders?status=">ĐƠN HÀNG</a>
                     </div>
                   </div>
                   <div class="ibox-body">
                     <div class="mb-5">
                       <div class="flexbox-b mb-2">
                         <span class="badge-point badge-success mr-2"></span>
-                        <a href="/orders">Đã giao hàng</a>
+                        <a href="/orders?status=<%= constants.ORDER_STATUS_COMPLETED %>">Đã giao hàng</a>
                         <span class="h4 mb-0 ml-4">257</span>
                       </div>
                       <div class="flexbox-b mb-2">
                         <span class="badge-point badge-primary mr-2"></span>
-                        <a href="/orders">Đang vận chuyển</a>
+                        <a href="/orders?status=<%= constants.ORDER_STATUS_SHIPPING %>">Đang vận chuyển</a>
                         <span class="h4 mb-0 ml-4">225</span>
                       </div>
                       <div class="flexbox-b mb-2">
                         <span class="badge-point badge-pink mr-2"></span>
-                        <a href="/orders">Đang chờ</a>
+                        <a href="/orders?status=<%= constants.ORDER_STATUS_PENDING %>">Đang chờ</a>
                         <span class="h4 mb-0 ml-4">17</span>
                       </div>
                     </div>

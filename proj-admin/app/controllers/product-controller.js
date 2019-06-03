@@ -1,7 +1,11 @@
 const Product = require('../models/product');
 const Brand = require('../models/brand');
 const Category = require('../models/category');
+const Rate = require('../models/rate');
 const fileHelper = require('../../util/file');
+
+const ITEMS_PER_PAGE = 6;
+const REVIEWS_PER_PAGE = 2;
 
 // read list product 
 const list_products = (req, res, next) => {
@@ -72,7 +76,7 @@ const create_product = async (req, res, next) => {
         .then(result => {
             console.log(result);
             console.log('Created Product');
-            res.redirect(req.get('referer'));
+            res.redirect('/products/' + result.id);
         })
         .catch(err => {
             console.log(err);
@@ -84,23 +88,58 @@ const get_product = async (req, res, next) => {
     let brands = await Brand.find();
     let categories = await Category.find();
     const productId = req.params.productId;
-    Product.findOne({
+    let product = new Product();
+
+    await Product.findOne({
             _id: productId
         })
         .populate('brandId')
         .populate('categoryId')
-        .then(product => {
-            if (!product) {
+        .then(result => {
+            if (!result) {
                 return res.redirect('/products');
             }
-            res.render('product-view/product-info', {
-                pageTitle: product.title,
-                product,
-                brands,
-                categories
-            });
+            product = result;
         })
         .catch(err => console.log(err));
+
+    if (product) {
+        /*Phân trang bình luận*/
+        // trường hợp không có '?page' thì page = 1
+        const page = +req.query.page || 1;
+
+        // tìm trong bảng rate những review có id trùng với id trong product.reviews
+        const totalReviews = await Rate.find({
+            _id: {
+                $in: product.reviews
+            }
+        }).countDocuments() // đếm số items;
+
+        const reviews = await Rate.find({
+            _id: {
+                $in: product.reviews
+            }
+        })
+        // .skip((page - 1) * REVIEWS_PER_PAGE) // bỏ qua ~ item
+        // .limit(REVIEWS_PER_PAGE);
+
+
+        await res.render('product-view/product-info', {
+            pageTitle: product.title,
+            product,
+            brands,
+            categories,
+            reviews: reviews,
+            currentPage: page,
+            hasFirstPage: page != 1,
+            hasPreviousPage: page > 1,
+            previousPage: page - 1,
+            hasNextPage: REVIEWS_PER_PAGE * page < totalReviews,
+            nextPage: page + 1,
+            hasLastPage: page != Math.ceil(totalReviews / REVIEWS_PER_PAGE),
+            lastPage: Math.ceil(totalReviews / REVIEWS_PER_PAGE)
+        });
+    }
 }
 
 // post to update product
@@ -224,60 +263,90 @@ const delete_image = (req, res, next) => {
 }
 
 // post to create or update review
-const create_update_review = async (req, res, next) => {
+const create_update_review = (req, res, next) => {
     let productId = req.params.productId;
     let reviewId = req.body.reviewId;
-    let review = {
-        name: req.body.name,
-        phoneNumber: req.body.phoneNumber,
-        message: req.body.message,
-        createdDate: new Date()
+    let reviewName = req.body.name;
+    let reviewPhoneNumber = req.body.phoneNumber;
+    let reviewMessage = req.body.message;
+    // let reviewCreatedDate = req.body.createdDate;
+
+    if (reviewId) {
+        //update
+        Rate.updateOne({
+                _id: reviewId
+            }, {
+                name: reviewName,
+                phoneNumber: reviewPhoneNumber,
+                message: reviewMessage
+            })
+            .then(result => {
+                console.log('UPDATED REVIEW');
+                res.redirect('/products/' + productId);
+            })
+            .catch(err => console.log(err));
+
+    } else {
+        Product.findOne({
+                _id: productId
+            })
+            .then(product => {
+                if (product) {
+                    if (!product.reviews) {
+                        product.reviews = [];
+                    }
+                    //create
+                    let newReview = new Rate();
+                    newReview.name = reviewName;
+                    newReview.phoneNumber = reviewPhoneNumber;
+                    newReview.message = reviewPhoneNumber;
+                    newReview.createdDate = new Date();
+
+                    newReview.save()
+                        .then(review => {
+                            if (review) {
+                                product.reviews.unshift(review);
+                            }
+                            return product.save();
+                        })
+                        .then(result => {
+                            console.log(result);
+                            res.redirect('/products/' + productId);
+                        })
+                        .catch(err => {
+                            console.log(err);
+                        });
+                }
+            })
+            .catch(err => console.log(err));
     }
 
-    Product.findOne({
-            _id: productId
-        })
-        .then(product => {
-            if (product) {
-                if (!product.reviews) {
-                    product.reviews = [];
-                }
-                if (reviewId) {
-                    //update
-                    product.reviews.forEach((item, index) => {
-                        if (item.id === reviewId) {
-                            product.reviews[index].name = review.name;
-                            product.reviews[index].phoneNumber = review.phoneNumber;
-                            product.reviews[index].message = review.message;
-                        }
-                    });
-                } else {
-                    //create
-                    product.reviews.unshift(review);
-                }
-            }
-            return product.save();
-        })
-        .then(result => {
-            console.log('UPDATED PRODUCT!');
-            res.redirect(req.get('referer'));
-        })
-        .catch(err => console.log(err));
 }
 
 // post to delete review
 const delete_review = async (req, res, next) => {
     let productId = req.params.productId;
     let reviewId = req.body.reviewId;
-    Product.findOne({
+    await Rate.findById(reviewId)
+        .then(rate => {
+            if (rate) {
+                return Rate.findByIdAndRemove(rate.id);
+            }
+        })
+        .then(() => {
+            console.log('DELETED ORDER');
+        })
+        .catch(err => console.log(err));
+
+    await Product.findOne({
             _id: productId
         })
         .then(product => {
             if (product) {
                 if (reviewId) {
-                    product.reviews.forEach((item, index) => {
-                        if (item.id === reviewId) {
-                            product.reviews = product.reviews.filter(item => item.id != reviewId);
+                    product.reviews.forEach((review, index) => {
+                        if (review.toString() === reviewId) {
+                            product.reviews = product.reviews.filter(item => item != reviewId);
                         }
                     });
                 }

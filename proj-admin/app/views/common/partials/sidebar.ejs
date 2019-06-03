@@ -43,13 +43,12 @@
         </a>
         <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
-                <h6 class="collapse-header">Nhóm:</h6>
                 <a class="collapse-item" href="/products">Tất cả</a>
+                <h6 class="collapse-header">Nhóm:</h6>
                 <% for (let brand of brands) { %>
                 <a class="collapse-item" href="/products"><%= brand.title %></a>
                 <% } %>
                 <h6 class="collapse-header">Thương hiệu:</h6>
-                <a class="collapse-item" href="/products">Tất cả</a>
                 <% for (let category of categories) { %>
                 <a class="collapse-item" href="/products"><%= category.title %></a>
                 <% } %>
@@ -74,10 +73,10 @@
         <div id="collapseOrders" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">Tình trạng:</h6>
-                <a class="collapse-item" href="/orders">Đã giao</a>
-                <a class="collapse-item" href="/orders">Đang giao</a>
-                <a class="collapse-item" href="/orders">Chưa giao</a>
-                <a class="collapse-item" href="/orders">Đơn tạm</a>
+                <a class="collapse-item" href="/orders?status=<%= constants.ORDER_STATUS_COMPLETED %>">Đã giao hàng</a>
+                <a class="collapse-item" href="/orders?status=<%= constants.ORDER_STATUS_SHIPPING %>">Đang vận chuyển</a>
+                <a class="collapse-item" href="/orders?status=<%= constants.ORDER_STATUS_PENDING %>">Chưa xác nhận</a>
+                <a class="collapse-item" href="/orders?status=<%= constants.ORDER_STATUS_CANCELED %>">Đã hủy</a>
             </div>
         </div>
     </li>

@@ -3,16 +3,23 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const rateSchema = new Schema({
-  reviewer: {
-    type: String,
-    required: true
-  },
-  comment: {
-    type: String,
-    required: true
-  },
-  star: {
+  rating: {
     type: Number,
+    required: false
+  },
+  name: {
+    type: String,
+    required: true
+  },
+  phoneNumber: {
+    type: String
+  },
+  message: {
+    type: String,
+    required: true
+  },
+  createdDate: {
+    type: Date,
     required: true
   }
 });
