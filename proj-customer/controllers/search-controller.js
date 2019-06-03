@@ -9,7 +9,7 @@ const getSearch = async (req, res, next) => {
     // https://github.com/Automattic/mongoose/issues/598
 
     const keyword = req.query.keyword;
-    req.session.queryUrl = "/search/?keyword=" + keyword;
+    req.session.queryUrl = "keyword=" + keyword + "&";
 
     /*Phân trang sản phẩm*/
     // trường hợp không có '?page' thì page = 1
@@ -18,7 +18,6 @@ const getSearch = async (req, res, next) => {
     let totalItems = await Product.find({
         title: new RegExp(keyword, 'i')
     }).countDocuments();
-    console.log(totalItems);
 
     const products = await Product.find({
             title: new RegExp(keyword, 'i')
@@ -39,7 +38,8 @@ const getSearch = async (req, res, next) => {
         hasNextPage: ITEMS_PER_PAGE * page < totalItems,
         nextPage: page + 1,
         hasLastPage: page != Math.ceil(totalItems / ITEMS_PER_PAGE),
-        lastPage: Math.ceil(totalItems / ITEMS_PER_PAGE)
+        lastPage: Math.ceil(totalItems / ITEMS_PER_PAGE),
+        queryUrl: req.session.queryUrl
     });
 }
 
@@ -57,8 +57,8 @@ const getAdvanceSearchQuery = async (req, res, next) => {
     const price = +req.query.price;
     const numberPurchased = +req.query.numberPurchased;
     const average = +req.query.average;
-    console.log(brandId + ' - ' + categoryId + ' - ' + price + ' - ' + numberPurchased + ' - ' + average)
-
+    //console.log(brandId + ' - ' + categoryId + ' - ' + price + ' - ' + numberPurchased + ' - ' + average)
+    req.session.queryUrl = "brandId=" + brandId + "&categoryId=" + categoryId + "&price=" + price + "&numberPurchased=" + numberPurchased + "&average=" + average + "&";
 
     /*Phân trang sản phẩm*/
     // trường hợp không có '?page' thì page = 1
@@ -95,7 +95,8 @@ const getAdvanceSearchQuery = async (req, res, next) => {
         hasNextPage: ITEMS_PER_PAGE * page < totalItems,
         nextPage: page + 1,
         hasLastPage: page != Math.ceil(totalItems / ITEMS_PER_PAGE),
-        lastPage: Math.ceil(totalItems / ITEMS_PER_PAGE)
+        lastPage: Math.ceil(totalItems / ITEMS_PER_PAGE),
+        queryUrl: req.session.queryUrl
     });
 
 }

@@ -9,8 +9,9 @@ const REVIEWS_PER_PAGE = 2;
 
 //Get danh sách sản phẩm, bao gồm cả tìm kiếm, sort, order và phân trang
 const listProduct = async (req, res, next) => {
-    /*Phân trang sản phẩm*/
+    req.session.queryUrl = "";
 
+    /*Phân trang sản phẩm*/
     // trường hợp không có '?page' thì page = 1
     const page = +req.query.page || 1;
     // đếm số items;
@@ -33,13 +34,16 @@ const listProduct = async (req, res, next) => {
         hasNextPage: ITEMS_PER_PAGE * page < totalItems,
         nextPage: page + 1,
         hasLastPage: page != Math.ceil(totalItems / ITEMS_PER_PAGE),
-        lastPage: Math.ceil(totalItems / ITEMS_PER_PAGE)
+        lastPage: Math.ceil(totalItems / ITEMS_PER_PAGE),
+        queryUrl: req.session.queryUrl
     });
 };
 
 
 // Get danh sách product theo loại thương hiệu
 const listProductByBrand = async (req, res, next) => {
+    req.session.queryUrl = "";
+
     const brandId = req.params.brandId;
     const brand = await Brand.findById(brandId);
     const brandTitle = brand.title;
@@ -72,12 +76,15 @@ const listProductByBrand = async (req, res, next) => {
         hasNextPage: ITEMS_PER_PAGE * page < totalItems,
         nextPage: page + 1,
         hasLastPage: page != Math.ceil(totalItems / ITEMS_PER_PAGE),
-        lastPage: Math.ceil(totalItems / ITEMS_PER_PAGE)
+        lastPage: Math.ceil(totalItems / ITEMS_PER_PAGE),
+        queryUrl: req.session.queryUrl
     });
 }
 
 // Get danh sách product theo loại sản phẩm
 const listProductByCat = async (req, res, next) => {
+    req.session.queryUrl = "";
+
     const catId = req.params.categoryId;
     const cat = await Category.findById(catId);
     const catTitle = cat.title;
@@ -110,7 +117,8 @@ const listProductByCat = async (req, res, next) => {
         hasNextPage: ITEMS_PER_PAGE * page < totalItems,
         nextPage: page + 1,
         hasLastPage: page != Math.ceil(totalItems / ITEMS_PER_PAGE),
-        lastPage: Math.ceil(totalItems / ITEMS_PER_PAGE)
+        lastPage: Math.ceil(totalItems / ITEMS_PER_PAGE),
+        queryUrl: req.session.queryUrl
     });
 }
 
@@ -118,6 +126,8 @@ const listProductByCat = async (req, res, next) => {
 
 //Get thông tin sản phẩm
 const getDetail = async (req, res, next) => {
+    req.session.queryUrl = "";
+    
     const prodId = req.params.productId;
     const product = await Product.findOne({
         _id: prodId
@@ -156,7 +166,8 @@ const getDetail = async (req, res, next) => {
         hasNextPage: REVIEWS_PER_PAGE * page < totalReviews,
         nextPage: page + 1,
         hasLastPage: page != Math.ceil(totalReviews / REVIEWS_PER_PAGE),
-        lastPage: Math.ceil(totalReviews / REVIEWS_PER_PAGE)
+        lastPage: Math.ceil(totalReviews / REVIEWS_PER_PAGE),
+        queryUrl: req.session.queryUrl
     });
 }
 

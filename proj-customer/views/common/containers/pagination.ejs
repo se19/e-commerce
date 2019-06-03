@@ -1,17 +1,17 @@
 <% if (hasFirstPage) { %>
-<li><a href="?page=1"><i class="fa fa-angle-double-left"></i></a></li>
+<li><a href="?<%= queryUrl %>page=1"><i class="fa fa-angle-double-left"></i></a></li>
 <% } %>
 
 <% if (hasPreviousPage) { %>
-<li><a href="?page=<%= previousPage %>"><%= previousPage %></a></li>
+<li><a href="?<%= queryUrl %>page=<%= previousPage %>"><%= previousPage %></a></li>
 <% } %>
 
-<li class="active"><a href="?page=<%= currentPage %>"><%= currentPage %></a></li>
+<li class="active"><a href="?<%= queryUrl %>page=<%= currentPage %>"><%= currentPage %></a></li>
 
 <% if (hasNextPage) { %>
-<li><a href="?page=<%= nextPage %>"><%= nextPage %></a></li>
+<li><a href="?<%= queryUrl %>page=<%= nextPage %>"><%= nextPage %></a></li>
 <% } %>
 
 <% if (hasLastPage) { %>
-<li><a href="?page=<%= lastPage %>"><i class="fa fa-angle-double-right"></i></a></li>
+<li><a href="?<%= queryUrl %>page=<%= lastPage %>"><i class="fa fa-angle-double-right"></i></a></li>
 <% } %>

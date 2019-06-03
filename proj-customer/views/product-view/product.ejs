@@ -21,21 +21,17 @@
   <link rel="stylesheet" href="../css/style.css">
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
     integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
-
 </head>
 
 <body>
-
   <div class="site-wrap">
-
-
     <div class="site-navbar bg-white py-2">
 
       <div class="search-wrap">
         <div class="container">
           <a href="#" class="search-close js-search-close"><span class="icon-close2"></span></a>
-          <form action="#" method="post">
-            <input type="text" class="form-control" placeholder="Nhập từ khóa và nhấn enter để tìm kiếm">
+          <form action="/search">
+            <input type="text" class="form-control" name="keyword" placeholder="Nhập từ khóa và nhấn enter để tìm kiếm">
           </form>
         </div>
       </div>
@@ -54,19 +50,34 @@
                 <li class="has-children">
                   <a href="/shop">Loại sản phẩm</a>
                   <ul class="dropdown">
-                    <li><a href="/shop">Laptop Gaming</a></li>
-                    <li><a href="/shop">Laptop văn phòng</a></li>
-                    <li><a href="/shop">Laptop doanh nhân</a></li>
-                    <li><a href="/shop">Laptop ultrabook</a></li>
+                    <% for (let category of locals.data.categories) { %>
+                    <li><a href="/shop/category/<%= category._id %>"><%= category.title %> </a></li>
+                    <% } %>
                   </ul>
                 </li>
                 <li class="has-children">
                   <a href="/shop">Thương hiệu</a>
                   <ul class="dropdown">
-                    <li><a href="/shop">DELL</a></li>
-                    <li><a href="/shop">ASUS</a></li>
-                    <li><a href="/shop">MSI</a></li>
-                    <li><a href="/shop">MACBOOK</a></li>
+                    <% for (let brand of locals.data.brands) { %>
+                    <li><a href="/shop/brand/<%= brand._id %>""><%= brand.title %> </a></li>
+                    <% } %>
+                  </ul>
+                </li>
+                <li class=" has-children">
+                        <a href="" class="icons-btn d-inline-block"><span class="icon icon-person"></span></a>
+                        <ul class="dropdown">
+                          <% if (userLogin && userLogin._id) { %>
+                          <li><a href="/user/profile" class="icons-btn d-inline-block">Thông tin cá nhân</a></li>
+                          <li><a href="/order/history-pay" class="icons-btn d-inline-block">Lịch sử mua hàng</a></li>
+                          <li><a href="/logout" class="icons-btn d-inline-block">Đăng xuất</span></a></li>
+                          <% } else { %>
+                          <li><a href="/login" class="icons-btn d-inline-block">Đăng nhập</span></a></li>
+                          <li><a href="/register" class="icons-btn d-inline-block">Đăng ký</span></a></li>
+                          <li><a href="/forgot" class="icons-btn d-inline-block">Quên mật khẩu</span></a></li>
+                          <% } %>
+                          <li><a href="/search/advance" class="icons-btn d-inline-block">Tìm kiếm nâng cao</a></li>
+                        </ul>
+                    </li>
                   </ul>
                 </li>
               </ul>
@@ -76,15 +87,8 @@
             <a href="" class="icons-btn d-inline-block js-search-open"><span class="icon-search"></span></a>
             <a href="/cart" class="icons-btn d-inline-block bag">
               <span class="icon-shopping-bag"></span>
-              <span class="number">2</span>
+              <span class="number"><%= locals.data.cartQuantity %></span>
             </a>
-            <% if (userLogin && userLogin._id) { %>
-            <a href="/user/profile" class="icons-btn d-inline-block"><span class="icon icon-person"></span></a>
-            <a href="/logout" class="icons-btn d-inline-block">Đăng xuất</span></a>
-            <% } else { %>
-            <a href="/login" class="icons-btn d-inline-block">Dăng nhập</span></a>
-            <a href="/register" class="icons-btn d-inline-block">Đăng ký</span></a>
-            <% } %>
             <a href="#" class="site-menu-toggle js-menu-toggle ml-3 d-inline-block d-lg-none"><span
                 class="icon-menu"></span></a>
           </div>
