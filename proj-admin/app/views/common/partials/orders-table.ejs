@@ -9,25 +9,27 @@
         <div class="ibox-body">
             <h5 class="font-strong mb-4">DANH SÁCH ĐƠN HÀNG</h5>
             <div class="flexbox row">
-                <div class="flexbox col-12 col-lg-auto mb-4">
+                <form class="flexbox col-12 col-lg-auto mb-4" action="/orders" method="GET">
                     <label class="mb-0 mr-2">Loại:</label>
-                    <select class="selectpicker show-tick form-control" id="type-filter" title="Vui lòng chọn"
-                        data-style="btn-solid" data-width="150px">
+                    <select class="show-tick form-control" id="status-filter" title="Vui lòng chọn"
+                        value="<%= status %>" name="status" data-style="btn-solid" data-width="150px"
+                        onchange="this.form.submit()">
                         <option value="">Tất cả</option>
-                        <option>Đang vận chuyển</option>
-                        <option>Đã hoàn thành</option>
-                        <option>Đang chờ</option>
-                        <option>Đã hủy</option>
+                        <option value="<%= constants.ORDER_STATUS_PENDING %>">Đang chờ</option>
+                        <option value="<%= constants.ORDER_STATUS_SHIPPING %>">Đang vận chuyển</option>
+                        <option value="<%= constants.ORDER_STATUS_COMPLETED %>">Đã hoàn thành</option>
+                        <option value="<%= constants.ORDER_STATUS_CANCELED %>">Đã hủy</option>
                     </select>
-                </div>
+                </form>
                 <div class="flexbox col-12 col-lg-auto row">
                     <div class="input-group-icon input-group-icon-left mb-4 col-12 col-md-6 col-lg-auto">
                         <span class="input-icon input-icon-right font-16"><i class="fa fa-search"></i></span>
                         <input class="form-control form-control-rounded form-control-solid" id="key-search" type="text"
                             placeholder="Tìm kiếm ...">
                     </div>
-                    <a class="btn btn-rounded btn-primary btn-air mb-4 col-12 col-md-6 col-lg-auto" href="/orders/add">Thêm đơn hàng</a>
                 </div>
+                <!-- <a class="btn btn-rounded btn-primary btn-air mb-4 col-12 col-md-6 col-lg-auto"
+                        href="/orders/add">Thêm đơn hàng</a> -->
             </div>
             <div class="table-responsive row">
                 <table class="table table-bordered table-hover" id="orders-table">
@@ -40,249 +42,80 @@
                             <th>Trạng thái</th>
                             <th>Thanh toán</th>
                             <th>Ngày đặt hàng</th>
-                            <th class="no-sort"></th>
+                            <th class="no-sort">Hủy</th>
                         </tr>
                     </thead>
                     <tbody>
+                        <% for(let order of orders) { %>
                         <tr>
-                            <td>1</td>
+                            <td></td>
                             <td>
-                                <a href="/orders/info">#1254</a>
+                                <a href="/orders/<%= order.id %>"><%= order.id %></a>
                             </td>
-                            <td>Becky Brooks</td>
-                            <td>$457</td>
+                            <td><%= order.user.name %></td>
+                            <td><%= order.amount %></td>
                             <td>
-                                <span class="badge badge-success badge-pill">Đang vận chuyển</span>
-                            </td>
-                            <td>Đã thanh toán</td>
-                            <td>17.05.2018</td>
-                            <td>
-                                <a class="text-muted font-16" href="/"><i class="fa fa-trash"></i></a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>2</td>
-                            <td>
-                                <a href="/orders/info">#1253</a>
-                            </td>
-                            <td>Emma Johnson</td>
-                            <td>$1200</td>
-                            <td>
-                                <span class="badge badge-success badge-pill">Đang vận chuyển</span>
-                            </td>
-                            <td>Đã thanh toán</td>
-                            <td>17.05.2018</td>
-                            <td>
-                                <a class="text-muted font-16" href="/"><i class="fa fa-trash"></i></a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>3</td>
-                            <td>
-                                <a href="/orders/info">#1252</a>
-                            </td>
-                            <td>Noah Williams</td>
-                            <td>$780</td>
-                            <td>
+                                <% switch(order.status) {
+                                    case constants.ORDER_STATUS_PENDING: %>
                                 <span class="badge badge-primary badge-pill">Đang chờ</span>
-                            </td>
-                            <td>Đã thanh toán</td>
-                            <td>16.05.2018</td>
-                            <td>
-                                <a class="text-muted font-16" href="/"><i class="fa fa-trash"></i></a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>4</td>
-                            <td>
-                                <a href="/orders/info">#1251</a>
-                            </td>
-                            <td>Sophia Jones</td>
-                            <td>$105</td>
-                            <td>
+                                <% break;
+                                    case constants.ORDER_STATUS_SHIPPING: %>
+                                <span class="badge badge-info badge-pill">Đang vận chuyển</span>
+                                <% break;
+                                    case constants.ORDER_STATUS_COMPLETED: %>
                                 <span class="badge badge-success badge-pill">Đã hoàn thành</span>
-                            </td>
-                            <td>Đã thanh toán</td>
-                            <td>15.05.2018</td>
-                            <td>
-                                <a class="text-muted font-16" href="/"><i class="fa fa-trash"></i></a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>5</td>
-                            <td>
-                                <a href="/orders/info">#1250</a>
-                            </td>
-                            <td>Jacob Brown</td>
-                            <td>$40</td>
-                            <td>
-                                <span class="badge badge-primary badge-pill">Đang chờ</span>
-                            </td>
-                            <td>_</td>
-                            <td>12.05.2018</td>
-                            <td>
-                                <a class="text-muted font-16" href="/"><i class="fa fa-trash"></i></a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>6</td>
-                            <td>
-                                <a href="/orders/info">#1249</a>
-                            </td>
-                            <td>James Davis</td>
-                            <td>$78</td>
-                            <td>
-                                <span class="badge badge-success badge-pill">Đang vận chuyển</span>
-                            </td>
-                            <td>Đã thanh toán</td>
-                            <td>12.05.2018</td>
-                            <td>
-                                <a class="text-muted font-16" href="/"><i class="fa fa-trash"></i></a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>7</td>
-                            <td>
-                                <a href="/orders/info">#1248</a>
-                            </td>
-                            <td>Ava Wilson</td>
-                            <td>$1450</td>
-                            <td>
+                                <% break;
+                                    case constants.ORDER_STATUS_CANCELED: %>
                                 <span class="badge badge-danger badge-pill">Đã hủy</span>
+                                <% break;
+                                } %>
                             </td>
-                            <td>_</td>
-                            <td>11.05.2018</td>
+                            <td> <% if(order.paid){ %>Đã thanh toán<% } else { %>Chưa thanh toán<% } %> </td>
+                            <td><%= order.dateCreated %></td>
                             <td>
-                                <a class="text-muted font-16" href="/"><i class="fa fa-trash"></i></a>
+                                <% if(order.status != constants.ORDER_STATUS_CANCELED) { %>
+                                <form action="/orders/<%= order.id %>/cancel" method="POST">
+                                    <button type="submit" class="text-muted font-16 btn-trans"><i
+                                            class="fa fa-times-circle"></i></a>
+                                </form>
+                                <% } %>
                             </td>
                         </tr>
-                        <tr>
-                            <td>8</td>
-                            <td>
-                                <a href="/orders/info">#1247</a>
-                            </td>
-                            <td>Ethan Taylor</td>
-                            <td>$390</td>
-                            <td>
-                                <span class="badge badge-success badge-pill">Đã hoàn thành</span>
-                            </td>
-                            <td>Đã thanh toán</td>
-                            <td>10.05.2018</td>
-                            <td>
-                                <a class="text-muted font-16" href="/"><i class="fa fa-trash"></i></a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>9</td>
-                            <td>
-                                <a href="/orders/info">#1246</a>
-                            </td>
-                            <td>Emily Thomas</td>
-                            <td>$850</td>
-                            <td>
-                                <span class="badge badge-success badge-pill">Đã hoàn thành</span>
-                            </td>
-                            <td>Đã thanh toán</td>
-                            <td>10.05.2018</td>
-                            <td>
-                                <a class="text-muted font-16" href="/"><i class="fa fa-trash"></i></a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>10</td>
-                            <td>
-                                <a href="/orders/info">#1245</a>
-                            </td>
-                            <td>Noah Moore</td>
-                            <td>$220</td>
-                            <td>
-                                <span class="badge badge-danger badge-pill">Đã hủy</span>
-                            </td>
-                            <td>_</td>
-                            <td>09.05.2018</td>
-                            <td>
-                                <a class="text-muted font-16" href="/"><i class="fa fa-trash"></i></a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>11</td>
-                            <td>
-                                <a href="/orders/info">#1244</a>
-                            </td>
-                            <td>Mia Anderson</td>
-                            <td>$90</td>
-                            <td>
-                                <span class="badge badge-success badge-pill">Đã hoàn thành</span>
-                            </td>
-                            <td>Đã thanh toán</td>
-                            <td>08.05.2018</td>
-                            <td>
-                                <a class="text-muted font-16" href="/"><i class="fa fa-trash"></i></a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>12</td>
-                            <td>
-                                <a href="/orders/info">#1243</a>
-                            </td>
-                            <td>Amelia Harris</td>
-                            <td>$670</td>
-                            <td>
-                                <span class="badge badge-success badge-pill">Đã hoàn thành</span>
-                            </td>
-                            <td>Đã thanh toán</td>
-                            <td>08.05.2018</td>
-                            <td>
-                                <a class="text-muted font-16" href="/"><i class="fa fa-trash"></i></a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>13</td>
-                            <td>
-                                <a href="/orders/info">#1242</a>
-                            </td>
-                            <td>Sofia Jackson</td>
-                            <td>$1120</td>
-                            <td>
-                                <span class="badge badge-success badge-pill">Đã hoàn thành</span>
-                            </td>
-                            <td>Đã thanh toán</td>
-                            <td>07.05.2018</td>
-                            <td>
-                                <a class="text-muted font-16" href="/"><i class="fa fa-trash"></i></a>
-                            </td>
-                        </tr>
+                        <% } %>
                     </tbody>
                 </table>
             </div>
+            </f>
         </div>
     </div>
-</div>
-<!-- END PAGE CONTENT-->
+    <!-- END PAGE CONTENT-->
 
 
-<script type="text/javascript" src="/javascripts/admin-cast/datatables.min.js"></script>
-<script type="text/javascript" src="/javascripts/admin-cast/app.min.js"></script>
+    <script type="text/javascript" src="/javascripts/admin-cast/datatables.min.js"></script>
+    <script type="text/javascript" src="/javascripts/admin-cast/app.min.js"></script>
 
-<script>
-    $(function () {
-        $('#orders-table').DataTable({
-            pageLength: 10,
-            fixedHeader: true,
-            responsive: true,
-            "sDom": 'rtip',
-            columnDefs: [{
-                targets: 'no-sort',
-                orderable: false
-            }]
+    <script>
+        $(document).ready(function () {
+            $("#status-filter option[value='<%= status %>']").attr("selected", true);
         });
+        $(function () {
+            $('#orders-table').DataTable({
+                pageLength: 10,
+                fixedHeader: true,
+                responsive: true,
+                "sDom": 'rtip',
+                columnDefs: [{
+                    targets: 'no-sort',
+                    orderable: false
+                }]
+            });
 
-        var table = $('#orders-table').DataTable();
-        $('#key-search').on('keyup', function () {
-            table.search(this.value).draw();
+            var table = $('#orders-table').DataTable();
+            $('#key-search').on('keyup', function () {
+                table.search(this.value).draw();
+            });
+            $('#type-filter').on('change', function () {
+                table.column(4).search($(this).val()).draw();
+            });
         });
-        $('#type-filter').on('change', function () {
-            table.column(4).search($(this).val()).draw();
-        });
-    });
-</script>
+    </script>
