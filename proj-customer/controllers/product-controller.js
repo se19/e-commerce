@@ -201,6 +201,7 @@ const addToCart = async (req, res, next) => {
     const prodId = req.params.productId;
     const product = await Product.findById(prodId);
 
+
     const item = {
         product: product,
         quantity: +req.body.quantity,
@@ -209,7 +210,8 @@ const addToCart = async (req, res, next) => {
 
 
     Cart.add(req.session.cart, item);
-    res.redirect('/shop/' + prodId);
+    res.json(prodId); // res linh tinh cái gì đó 
+    //res.redirect('/shop/' + prodId);
     //console.log(req.session.cart);
 }
 

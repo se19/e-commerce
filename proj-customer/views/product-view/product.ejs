@@ -150,22 +150,24 @@
                 <a class="review-link" href="#comment">(Xem <%= product.reviews.length %> Nhận xét)</a>
               </div>
               <p><strong class="text-primary h4"><%= product.price %></strong></p>
-              <form action="/shop/<%= product._doc._id %>/add-to-cart" method="post">
-                <div class="mb-5">
-                  <div class="input-group mb-3" style="max-width: 120px;">
-                    <div class="input-group-prepend">
-                      <button class="btn btn-outline-primary js-btn-minus" type="button">&minus;</button>
-                    </div>
-                    <input type="text" class="form-control text-center" name="quantity" value="1" placeholder=""
-                      aria-label="Example text with button addon" aria-describedby="button-addon1">
-                    <div class="input-group-append">
-                      <button class="btn btn-outline-primary js-btn-plus" type="button">&plus;</button>
-                    </div>
+              <!-- <form action="/shop/<%= product._doc._id %>/add-to-cart" method="post"> -->
+              <div class="mb-5">
+                <div class="input-group mb-3" style="max-width: 120px;">
+                  <div class="input-group-prepend">
+                    <button class="btn btn-outline-primary js-btn-minus" type="button">&minus;</button>
+                  </div>
+                  <input type="text" class="form-control text-center" id="quantityPurchase" value="1" placeholder=""
+                    aria-label="Example text with button addon" aria-describedby="button-addon1">
+                  <div class="input-group-append">
+                    <button class="btn btn-outline-primary js-btn-plus" type="button">&plus;</button>
                   </div>
                 </div>
-                <button type="submit" value="submit" class="buy-now btn btn-sm height-auto px-4 py-3 btn-primary">Thêm
-                  vào giỏ hàng</button>
-              </form>
+              </div>
+              <!-- <button type="submit" value="submit" class="buy-now btn btn-sm height-auto px-4 py-3 btn-primary">Thêm
+                  vào giỏ hàng</button> -->
+              <button id="btnAddProductToCart" class="buy-now btn btn-sm height-auto px-4 py-3 btn-primary">Thêm vào giỏ
+                hàng</button>
+              <!-- </form> -->
           </div>
         </div>
       </div>
@@ -503,7 +505,25 @@
   <script src="../js/jquery.magnific-popup.min.js"></script>
   <script src="../js/aos.js"></script>
   <script src="../js/main.js"></script>
-
+  <script>
+    $("#btnAddProductToCart").click(function () {
+      // https://stackoverflow.com/questions/4088467/get-the-value-in-an-input-text-box
+      // https://stackoverflow.com/questions/8840257/jquery-ajax-handling-continue-responses-success-vs-done
+      $.ajax({
+          url: '/shop/' + '<%= product._doc._id %>' + '/add-to-cart',
+          type: 'POST',
+          data: {
+            quantity: $("#quantityPurchase").val()
+          }
+        })
+        .done(function () {
+          $("#quantityPurchase").val(1);
+        })
+        .fail(function () {
+          alert("error");
+        })
+    });
+  </script>
 </body>
 
 </html>
