@@ -24,7 +24,9 @@
                 <!-- Page Content -->
                 <div class="container-fluid">
                     <%- include('../common/partials/user-info-form', {user}) %>
+                    <% if(user.id){ %>
                     <% include ../common/partials/orders-table %>
+                    <% } %>
                 </div>
                 <!-- End Page Content -->
 

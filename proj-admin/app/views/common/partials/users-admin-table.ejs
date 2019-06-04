@@ -11,6 +11,17 @@
                 <div class="flexbox col-12 col-md-auto mb-4">
                     <h5 class="font-strong mb-4">DANH SÁCH QUẢN TRỊ VIÊN</h5>
                 </div>
+                <form class="flexbox col-12 col-lg-auto mb-4 d-inline-block" action="/users/administrators"
+                    method="GET">
+                    <label class="mb-0 mr-2 nowrap">Trạng thái:</label>
+                    <select class="show-tick form-control form-control-solid" id="available-filter"
+                        title="Vui lòng chọn" name="available" data-style="btn-solid" data-width="150px"
+                        onchange="this.form.submit()">
+                        <option value="">Tất cả</option>
+                        <option value="true">Khả dụng</option>
+                        <option value="false">Đã vô hiệu hóa</option>
+                    </select>
+                </form>
                 <div class="flexbox col-12 col-lg-auto row">
                     <div class="input-group-icon input-group-icon-left mb-4 col-12 col-md-6 col-lg-auto">
                         <span class="input-icon input-icon-right font-16"><i class="fa fa-search"></i></span>
@@ -88,6 +99,9 @@
 <script type="text/javascript" src="/javascripts/admin-cast/app.min.js"></script>
 
 <script>
+    $(document).ready(function () {
+        $("#available-filter option[value='<%= available %>']").attr("selected", true);
+    });
     $(function () {
         $('#orders-table').DataTable({
             pageLength: 10,

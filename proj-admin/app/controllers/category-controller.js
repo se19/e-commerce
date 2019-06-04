@@ -3,13 +3,22 @@ const fileHelper = require('../../util/file');
 
 //get list
 const list_categories = (req, res, next) => {
-    Category.find()
+    let available = req.query.available;
+    let params = {};
+    if (available === 'true') {
+        params.available = true;
+    } else if (available === 'false') {
+        params.available = false;
+    }
+
+    Category.find(params)
         //.execPopulate()
         .then(categories => {
             console.log(categories);
             res.render('category-view/category-list', {
                 pageTitle: "Loại hàng",
-                categories: categories
+                categories: categories,
+                available: params.available
             });
         })
         .catch(err => console.log(err));
@@ -29,7 +38,11 @@ const create_category = (req, res, next) => {
     let newCategory = new Category();
     newCategory.title = req.body.title;
     newCategory.description = req.body.description;
-    newCategory.available = req.available;
+    if (req.body.available) {
+        newCategory.available = true;
+    } else {
+        newCategory.available = false;
+    }
 
     let image = req.file;
 
@@ -77,7 +90,11 @@ const update_category = (req, res, next) => {
     newCategory.categoryId = req.params.categoryId;
     newCategory.title = req.body.title;
     newCategory.description = req.body.description;
-    newCategory.available = req.body.available;
+    if (req.body.available) {
+        newCategory.available = true;
+    } else {
+        newCategory.available = false;
+    }
 
     let image = req.file;
 
@@ -104,20 +121,30 @@ const update_category = (req, res, next) => {
 //post to delete
 const delete_category = (req, res, next) => {
     let cateloryId = req.params.categoryId;
-    Category.findById(cateloryId)
-        .then(category => {
-            if (category) {
-                if (category.imageUrl) {
-                    fileHelper.deleteFile('public\\' + category.imageUrl);
-                }
-                return Product.findByIdAndRemove(cateloryId);
-            }
+    Category.updateOne({
+            _id: cateloryId
+        }, {
+            available: false
         })
-        .then(() => {
-            console.log('DELETED CATEGORY');
+        .then(result => {
+            console.log('DISABLED CATEGORY');
             res.redirect('/categories');
         })
         .catch(err => console.log(err));
+    // Category.findById(cateloryId)
+    //     .then(category => {
+    //         if (category) {
+    //             if (category.imageUrl) {
+    //                 fileHelper.deleteFile('public\\' + category.imageUrl);
+    //             }
+    //             return Product.findByIdAndRemove(cateloryId);
+    //         }
+    //     })
+    //     .then(() => {
+    //         console.log('DELETED CATEGORY');
+    //         res.redirect('/categories');
+    //     })
+    //     .catch(err => console.log(err));
 }
 
 //get list categories

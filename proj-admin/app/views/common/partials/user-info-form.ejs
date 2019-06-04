@@ -167,6 +167,11 @@ let isAdminAcount = (user.userType == constants.USERTYPE_ADMIN); %>
 <script src="/javascripts/admin-cast/app.min.js"></script>
 <!-- PAGE LEVEL SCRIPTS-->
 <script>
+    $(document).ready(function () {
+        if(<%= !editing %> || <%= user.available == true %>){
+            $("input[name='available']").attr("checked", true)
+        }
+    });
     $(function () {
         $('.tagsinput').tagsinput({
             tagClass: 'label label-primary'

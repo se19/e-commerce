@@ -48,6 +48,10 @@ const productSchema = new Schema({
     type: Number,
     required: true
   },
+  available: {
+    type: Boolean,
+    required: true
+  },
   // lượt xem
   view: {
     type: Number

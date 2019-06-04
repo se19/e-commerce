@@ -4,12 +4,20 @@ const fileHelper = require('../../util/file');
 
 //get list
 const list_brands = (req, res, next) => {
-    Brand.find()
+    let available = req.query.available;
+    let params = {};
+    if (available === 'true') {
+        params.available = true;
+    } else if (available === 'false') {
+        params.available = false;
+    }
+    Brand.find(params)
         .then(brands => {
             console.log(brands);
             res.render('brand-view/brand-list', {
                 pageTitle: "Nhãn hàng",
-                brands: brands
+                brands: brands,
+                available: params.available
             });
         })
         .catch(err => console.log(err));
@@ -29,7 +37,11 @@ const create_brand = (req, res, next) => {
     let newBrand = new Brand();
     newBrand.title = req.body.title;
     newBrand.description = req.body.description;
-    newBrand.available = req.available;
+    if (req.body.available) {
+        newBrand.available = true;
+    } else {
+        newBrand.available = false;
+    }
 
     let image = req.file;
 
@@ -77,7 +89,11 @@ const update_brand = (req, res, next) => {
     newBrand.brandId = req.params.brandId;
     newBrand.title = req.body.title;
     newBrand.description = req.body.description;
-    newBrand.available = req.body.available;
+    if (req.body.available) {
+        newBrand.available = true;
+    } else {
+        newBrand.available = false;
+    }
 
     let image = req.file;
 
@@ -104,20 +120,30 @@ const update_brand = (req, res, next) => {
 //post to delete
 const delete_brand = (req, res, next) => {
     let brandId = req.params.brandId;
-    Brand.findById(brandId)
-        .then(brand => {
-            if (brand) {
-                if (brand.imageUrl) {
-                    fileHelper.deleteFile('public\\' + brand.imageUrl);
-                }
-                return Brand.findByIdAndRemove(brandId);
-            }
+    Brand.updateOne({
+            _id: brandId
+        }, {
+            available: false
         })
-        .then(() => {
-            console.log('DELETED BRAND');
+        .then(result => {
+            console.log('DISABLED BRAND');
             res.redirect('/brands');
         })
         .catch(err => console.log(err));
+    // Brand.findById(brandId)
+    //     .then(brand => {
+    //         if (brand) {
+    //             if (brand.imageUrl) {
+    //                 fileHelper.deleteFile('public\\' + brand.imageUrl);
+    //             }
+    //             return Brand.findByIdAndRemove(brandId);
+    //         }
+    //     })
+    //     .then(() => {
+    //         console.log('DELETED BRAND');
+    //         res.redirect('/brands');
+    //     })
+    //     .catch(err => console.log(err));
 }
 
 module.exports = {

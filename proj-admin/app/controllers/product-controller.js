@@ -11,18 +11,24 @@ const REVIEWS_PER_PAGE = 2;
 const list_products = async (req, res, next) => {
     let brandId = req.query.brandId;
     let categoryId = req.query.categoryId;
-    let query = {};
+    let available = req.query.available;
+    let params = {};
     if (brandId) {
-        query.brandId = brandId;
+        params.brandId = brandId;
     }
     if (categoryId) {
-        query.categoryId = categoryId;
+        params.categoryId = categoryId;
+    }
+    if (available === 'true') {
+        params.available = true;
+    } else if (available === 'false') {
+        params.available = false;
     }
 
     let brands = await Brand.find();
     let categories = await Category.find();
 
-    await Product.find(query)
+    await Product.find(params)
         .populate('brandId')
         .populate('categoryId')
         //.execPopulate()
@@ -34,7 +40,8 @@ const list_products = async (req, res, next) => {
                 brands,
                 categories,
                 brandId,
-                categoryId
+                categoryId,
+                available: params.available
             });
         })
         .catch(err => console.log(err));
@@ -66,6 +73,12 @@ const create_product = async (req, res, next) => {
     newProduct.numberPurchased = 0;
     newProduct.view = 0;
     newProduct.average = 0;
+    if (req.body.available) {
+        newProduct.available = true;
+    } else {
+        newProduct.available = false;
+    }
+
 
     let images = req.files;
 
@@ -173,6 +186,13 @@ const update_product = async (req, res, next) => {
     let updateCategoryId = await Category.findOne({
         _id: req.body.categoryId
     });
+    let updateAvailable;
+    if (req.body.available) {
+        updateAvailable = true;
+    } else {
+        updateAvailable = false;
+    }
+
     Product.findOne({
             _id: productId
         })
@@ -198,6 +218,7 @@ const update_product = async (req, res, next) => {
             product.numberInventory = updatenumberInventory;
             product.brandId = updateBrandId;
             product.categoryId = updateCategoryId;
+            product.available = updateAvailable;
             return product.save();
         })
         .then(result => {
@@ -209,21 +230,32 @@ const update_product = async (req, res, next) => {
 
 // delete product
 const delete_product = (req, res, next) => {
-    const productId = req.body.productId;
-    Product.findById(productId)
-        .then(product => {
-            fileHelper.deleteFile('public\\' + product.imageUrl);
-            for (let img of product.imageDescription) {
-                fileHelper.deleteFile('public\\' + img);
-                console.log('public\\' + img);
-            }
-            return Product.findByIdAndRemove(productId);
+    const productId = req.params.productId;
+
+    Product.updateOne({
+            _id: productId
+        }, {
+            available: false
         })
-        .then(() => {
-            console.log('DESTROYED PRODUCT');
+        .then(result => {
+            console.log('DISABLED PRODUCT');
             res.redirect('/products');
         })
         .catch(err => console.log(err));
+    // Product.findById(productId)
+    //     .then(product => {
+    //         fileHelper.deleteFile('public\\' + product.imageUrl);
+    //         for (let img of product.imageDescription) {
+    //             fileHelper.deleteFile('public\\' + img);
+    //             console.log('public\\' + img);
+    //         }
+    //         return Product.findByIdAndRemove(productId);
+    //     })
+    //     .then(() => {
+    //         console.log('DESTROYED PRODUCT');
+    //         res.redirect('/products');
+    //     })
+    //     .catch(err => console.log(err));
 }
 
 // set default image product

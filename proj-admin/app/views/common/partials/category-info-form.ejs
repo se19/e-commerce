@@ -84,6 +84,11 @@
 <script src="/javascripts/admin-cast/app.min.js"></script>
 <!-- PAGE LEVEL SCRIPTS-->
 <script>
+    $(document).ready(function () {
+        if(<%= !editing %> || <%= category.available == true %>){
+            $("input[name='available']").attr("checked", true)
+        }
+    });
     $(function () {
         $('.tagsinput').tagsinput({
             tagClass: 'label label-primary'

@@ -17,7 +17,7 @@ const categorySchema = new Schema({
     },
     available: {
         type: Boolean,
-        required: false
+        required: true
     }
 });
 

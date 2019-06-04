@@ -49,7 +49,7 @@
                             <div class="col-sm-6 form-group mb-4">
                                 <label>Số lượng</label>
                                 <input class="form-control form-control-solid" type="number" name="numberInventory"
-                                    value="<%= product.numberInventory %>" required>
+                                    value="<%= product.numberInventory %>" min="0" required>
                             </div>
                         </div>
                         <div class="row">
@@ -57,7 +57,7 @@
                                 <label>Thương hiệu </label>
                                 <div>
                                     <div class="select-box">
-                                        <select class="custom-select" id="inputGroupBrands"
+                                        <select class="custom-select form-control-solid pb-2 pt-2 h-auto" id="inputGroupBrands"
                                             value="<%= product.brandId %>" name="brandId" aria-placeholder="" required>
                                             <option value="">Vui lòng chọn...</option>
                                             <% for (let i = 0; i < brands.length; i++) { %>
@@ -71,7 +71,7 @@
                                 <label>Loại sản phẩm </label>
                                 <div>
                                     <div class="select-box">
-                                        <select class="custom-select" id="inputGroupCategories"
+                                        <select class="custom-select form-control-solid pb-2 pt-2 h-auto" id="inputGroupCategories"
                                             value="<%= product.categoryId %>" name="categoryId" required>
                                             <option value="">Vui lòng chọn...</option>
                                             <% for (let i = 0; i < categories.length; i++) { %>
@@ -97,7 +97,7 @@
                         </div>
                         <div class="form-group mb-4">
                             <label class="ui-switch switch-icon mr-3 mb-0">
-                                <input type="checkbox" checked="">
+                                <input type="checkbox"  name="available">
                                 <span></span>
                             </label>Khả dụng</div>
                         <div class="text-right">
@@ -166,6 +166,11 @@
         let category = <%- JSON.stringify(product.categoryId) %>;
         let categoryId = category._id;
         $("#inputGroupCategories").val(categoryId);
+
+        //set checkbox
+        if(<%= !editing %> || <%= product.available == true %>){
+            $("input[name='available']").attr("checked", true)
+        }
     });
 
     $(function () {

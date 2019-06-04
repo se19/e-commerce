@@ -4,30 +4,46 @@ const constants = require('../../constants/index');
 
 //get admin list
 const list_administrators = (req, res, next) => {
-    User.find({
-            userType: constants.USERTYPE_ADMIN
-        })
+    let available = req.query.available;
+    let params = {
+        userType: constants.USERTYPE_ADMIN
+    };
+    if (available === 'true') {
+        params.available = true;
+    } else if (available === 'false') {
+        params.available = false;
+    }
+    User.find(params)
         .then(users => {
             // console.log(users);
             res.render('user-view/user-list', {
                 pageTitle: "Quản trị viên",
                 userType: constants.USERTYPE_ADMIN,
-                users
+                users,
+                available: params.available
             });
         })
         .catch(err => console.log(err));
 }
 //get customer list
 const list_customers = (req, res, next) => {
-    User.find({
-            userType: constants.USERTYPE_CUSTOMER
-        })
+    let available = req.query.available;
+    let params = {
+        userType: constants.USERTYPE_CUSTOMER
+    };
+    if (available === 'true') {
+        params.available = true;
+    } else if (available === 'false') {
+        params.available = false;
+    }
+    User.find(params)
         .then(users => {
             // console.log(users);
             res.render('user-view/user-list', {
                 pageTitle: "Khách hàng",
                 userType: constants.USERTYPE_CUSTOMER,
-                users
+                users,
+                available: params.available
             });
         })
         .catch(err => console.log(err));
@@ -69,7 +85,11 @@ const create_user = (req, res, next) => {
     newUser.description = req.body.description;
     newUser.userType = req.body.userType;
     newUser.dateCreated = req.body.dateCreated;
-    newUser.available = req.available;
+    if (req.body.available) {
+        newUser.available = true;
+    } else {
+        newUser.available = false;
+    }
 
     let image = req.file;
 
@@ -141,7 +161,11 @@ const update_user = (req, res, next) => {
     newUser.phone = req.body.phone;
     newUser.address = req.body.address;
     newUser.description = req.body.description;
-    newUser.available = req.body.available;
+    if (req.body.available) {
+        newUser.available = true;
+    } else {
+        newUser.available = false;
+    }
 
     let image = req.file;
 
@@ -181,22 +205,42 @@ const update_user = (req, res, next) => {
 //post to delete
 const delete_administrator = (req, res, next) => {
     let userId = req.params.userId;
-    User.findByIdAndRemove(userId)
-        .then(() => {
+    User.updateOne({
+            _id: userId
+        }, {
+            available: false
+        })
+        .then(result => {
             console.log('DELETED ADMIN');
             res.redirect('/users/administrators');
         })
         .catch(err => console.log(err));
+    // User.findByIdAndRemove(userId)
+    //     .then(() => {
+    //         console.log('DELETED ADMIN');
+    //         res.redirect('/users/administrators');
+    //     })
+    //     .catch(err => console.log(err));
 }
 
 const delete_customer = (req, res, next) => {
     let userId = req.params.userId;
-    User.findByIdAndRemove(userId)
-        .then(() => {
-            console.log('DELETED CUSTOME');
+    User.updateOne({
+            _id: userId
+        }, {
+            available: false
+        })
+        .then(result => {
+            console.log('DELETED CUSTOMER');
             res.redirect('/users/customers');
         })
         .catch(err => console.log(err));
+    // User.findByIdAndRemove(userId)
+    //     .then(() => {
+    //         console.log('DELETED CUSTOME');
+    //         res.redirect('/users/customers');
+    //     })
+    //     .catch(err => console.log(err));
 }
 
 const reset_pw_customer = (req, res, next) => {

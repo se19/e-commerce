@@ -11,6 +11,16 @@
                 <div class="flexbox col-12 col-md-auto mb-4">
                     <h5 class="font-strong mb-4">DANH SÁCH LOẠI HÀNG HÓA</h5>
                 </div>
+                <form class="flexbox col-12 col-lg-auto mb-4 d-inline-block" action="/categories" method="GET">
+                    <label class="mb-0 mr-2 nowrap">Trạng thái:</label>
+                    <select class="show-tick form-control form-control-solid" id="available-filter"
+                        title="Vui lòng chọn" name="available" data-style="btn-solid" data-width="150px"
+                        onchange="this.form.submit()">
+                        <option value="">Tất cả</option>
+                        <option value="true">Khả dụng</option>
+                        <option value="false">Đã xóa</option>
+                    </select>
+                </form>
                 <div class="flexbox col-12 col-lg-auto row">
                     <div class="input-group-icon input-group-icon-left mb-4 col-12 col-md-6 col-lg-auto">
                         <span class="input-icon input-icon-right font-16"><i class="fa fa-search"></i></span>
@@ -46,12 +56,14 @@
                             <td>
                                 <a class="text-light mr-3 font-16" href="/categories/<%= category.id %>"><i
                                         class="fa fa-pencil-alt"></i></a>
-                                <form action="/categories/<%= category.id %><%- '/delete' %>" method="POST" class="d-inline-block">
-                                    <input type="hidden" value="<%= category.id %>" name="categoryId">
+                                <% if(category.available == true) { %>
+                                <form action="/categories/<%= category.id %><%- '/delete' %>" method="POST"
+                                    class="d-inline-block">
                                     <button type="submit" class="btn-trans">
                                         <i class="fa fa-trash"></i>
                                     </button>
                                 </form>
+                                <% } %>
                             </td>
                         </tr>
                         <% } %>
@@ -71,6 +83,9 @@
 <script type="text/javascript" src="/javascripts/admin-cast/app.min.js"></script>
 
 <script>
+    $(document).ready(function () {
+        $("#available-filter option[value='<%= available %>']").attr("selected", true);
+    });
     $(function () {
         $('#orders-table').DataTable({
             pageLength: 10,

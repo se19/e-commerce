@@ -57,7 +57,7 @@
 
                         <div class="form-group mb-4">
                             <label class="ui-switch switch-icon mr-3 mb-0">
-                                <input type="checkbox" value="false" name="available">
+                                <input type="checkbox" name="available">
                                 <span></span>
                             </label>Khả dụng
                         </div>
@@ -82,6 +82,11 @@
 <script src="/javascripts/admin-cast/app.min.js"></script>
 <!-- PAGE LEVEL SCRIPTS-->
 <script>
+    $(document).ready(function () {
+        if(<%= !editing %> || <%= brand.available == true %>){
+            $("input[name='available']").attr("checked", true)
+        }
+    });
     $(function () {
         $('.tagsinput').tagsinput({
             tagClass: 'label label-primary'

@@ -29,7 +29,7 @@
 
     <!-- Nav Item - brands Menu -->
     <li class="nav-item">
-        <a class="nav-link" href="/brands">
+        <a class="nav-link" href="/brands?available=true">
             <i class="fas fa fa-store"></i>
             <span>Nhãn hàng</span></a>
     </li>
@@ -43,14 +43,14 @@
         </a>
         <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
-                <a class="collapse-item" href="/products?brandId=&categoryId=">Tất cả</a>
+                <a class="collapse-item" href="/products?brandId=&categoryId=&avalable=true">Tất cả</a>
                 <h6 class="collapse-header">Nhóm:</h6>
                 <% for (let category of categories) { %>
-                <a class="collapse-item" href="/products?brandId=&categoryId=<%= category.id %>"><%= category.title %></a>
+                <a class="collapse-item" href="/products?brandId=&categoryId=<%= category.id %>&avalable=true"><%= category.title %></a>
                 <% } %>
                 <h6 class="collapse-header">Thương hiệu:</h6>
                 <% for (let brand of brands) { %>
-                <a class="collapse-item" href="/products?brandId=<%= brand.id %>&categoryId="><%= brand.title %></a>
+                <a class="collapse-item" href="/products?brandId=<%= brand.id %>&categoryId=&avalable=true"><%= brand.title %></a>
                 <% } %>
             </div>
         </div>
@@ -58,7 +58,7 @@
 
     <!-- Nav Item - Categories -->
     <li class="nav-item">
-        <a class="nav-link" href="/categories">
+        <a class="nav-link" href="/categories?available=true">
             <i class="fas fa fa-object-group pr-1"></i>
             <span>Loại hàng hóa</span></a>
     </li>
@@ -91,10 +91,10 @@
 
     <!-- Nav Item - Statistics -->
     <li class="nav-item">
-        <a class="nav-link" href="/users/customers">
+        <a class="nav-link" href="/users/customers?available=true">
             <i class="fas fa fa-users"></i>
             <span>Khách hàng</span></a>
-        <a class="nav-link" href="/users/administrators">
+        <a class="nav-link" href="/users/administrators?available=true">
             <i class="fas fa fa-users"></i>
             <span>Quản trị viên</span></a>
     </li>
