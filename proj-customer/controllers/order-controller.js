@@ -49,21 +49,35 @@ const createOrder = (req, res, next) => {
 }
 
 //Get danh sách order đã đặt
-const listBills = (req, res, next) => {
-    res.render('order-view/history-pay', {
-        pageTitle: "Lịch sử đặt hàng"
-    });
+const listOrders = (req, res, next) => {
+    Order.find({
+            userId: req.session.passport.user._id
+        })
+        .then((orders) => {
+            res.render('order-view/history', {
+                pageTitle: "Danh sách đặt hàng",
+                orders: orders
+            });
+        })
+        .catch(err => console.log(err));
 }
 
 //Cập nhật giỏ hàng
-const getBillInfo = (req, res, next) => {
-    res.render('order-view/bill-detail', {
-        pageTitle: "Thông tin đơn hàng"
-    });
+const getOrderInfo = (req, res, next) => {
+    let orderId = req.params.orderId;
+    Order.findById(orderId)
+        .populate('userId')
+        .then((order) => {
+            res.render('order-view/order-detail', {
+                pageTitle: "Thông tin đơn hàng",
+                order: order
+            });
+        })
+        .catch(err => console.log(err));
 }
 
 module.exports = {
     createOrder,
-    listBills,
-    getBillInfo
+    listOrders,
+    getOrderInfo
 }

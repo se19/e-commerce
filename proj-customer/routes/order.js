@@ -12,7 +12,7 @@ router
   .use(base_controller.getLocalsVariables)
 
   .post('/create-order', order_controller.createOrder)
-  .get('/history-pay', order_controller.listBills)
-  .get('/bill-detail', order_controller.getBillInfo)
+  .get('/history', order_controller.listOrders)
+  .get('/history/:orderId', order_controller.getOrderInfo)
 
 module.exports = router;

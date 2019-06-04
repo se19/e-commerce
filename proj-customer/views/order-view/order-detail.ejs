@@ -1,0 +1,106 @@
+<%- include("../common/containers/header")-%>
+<!--================Order Details Area =================-->
+<div class="bg-light py-3">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12 mb-0"><a href="/">Trang chủ</a> <span class="mx-2 mb-0">/</span> <a href="/history-pay">Hóa
+          đơn</a> <span class="mx-2 mb-0">/</span> <strong class="text-black">Chi tiết hóa đơn</strong></div>
+    </div>
+  </div>
+</div>
+
+<section class="site-section">
+  <div class="container">
+    <div class="row order_d_inner">
+      <div class="col-lg-4">
+        <div class="details_item">
+          <h4>Thông tin đơn hàng</h4>
+          <ul class="list">
+            <li><a href=""><span>Mã hóa đơn</span> : <%= order._id %></a></li>
+            <li><a href=""><span>Ngày đặt</span> : <%= order.dateCreated %></a></li>
+            <li><a href=""><span>Số tiền</span> : <%= order.total %></a></li>
+            <li><a href=""><span>Trạng thái</span> : <%= order.status %></a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="col-lg-4">
+        <div class="details_item">
+          <h4>Thông tin người đặt</h4>
+          <ul class="list">
+            <li><a href=""><span>Họ tên</span> : <%= order.userId.name %></a></li>
+            <li><a href=""><span>Địa chỉ</span> : <%= order.userId.address %></a></li>
+            <li><a href=""><span>Số điện thoại</span> : <%= order.userId.phone %></a></li>
+            <li><a href=""><span>Email </span> : <%= order.userId.email %></a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="col-lg-4">
+        <div class="details_item">
+          <h4>Thông tin người nhận</h4>
+          <ul class="list">
+            <li><a href=""><span>Họ tên</span> : <%= order.receiver.name %></a></li>
+            <li><a href=""><span>Địa chỉ</span> : <%= order.receiver.address %></a></li>
+            <li><a href=""><span>Số điện thoại</span> : <%= order.receiver.phone %></a></li>
+            <li><a href=""><span>Email </span> : <%= order.receiver.email %></a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="order_details_table">
+      <h2>Chi tiết đơn hàng</h2>
+      <div class="table-responsive">
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">Sản phẩm</th>
+              <th scope="col">Đơn giá</th>
+              <th scope="col">Số lượng</th>
+              <th scope="col">Tổng cộng</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% for (let product of order.products) { %>
+            <tr>
+              <td>
+                <h5><a href="/shop/<%= product.productId %>"><%= product.title %></a></h5>
+              </td>
+              <td>
+                <h5><%= product.price %></h5>
+              </td>
+              <td>
+                <h5><%= product.quantity %></h5>
+              </td>
+              <td>
+                <h5><%= product.amount %></h5>
+              </td>
+            </tr>
+            <% } %>
+            <tr>
+              <td>
+                <h4>Tổng hóa đơn</h4>
+              </td>
+              <td>
+                <h5></h5>
+              </td>
+              <td>
+                <h5></h5>
+              </td>
+              <td>
+                <h4><%= order.total %></h4>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
+<!--================End Order Details Area =================-->
+<%- include("../common/containers/footer") -%>
+
+</body>
+
+</html>
