@@ -1,16 +1,15 @@
-//Lấy thông tin đơn hàng hiện tại để checkout
+const Cart = require('../models/cart');
+
+//Lấy thông tin giỏ hàng hiện tại để checkout
 const initializationCheckout = (req, res, next) => {
+    let inTotal = Cart.inTotal(req.session.cart);
     res.render('checkout-view/checkout', {
-        pageTitle: "Thanh toán"
+        pageTitle: "Đặt hàng",
+        cartItems: req.session.cart,
+        cartTotal: inTotal
     });
 }
 
-//Cập nhật giỏ hàng
-const addCoupons = (req, res, next) => {
-
-}
-
 module.exports = {
-    initializationCheckout,
-    addCoupons
+    initializationCheckout
 }

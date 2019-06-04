@@ -28,11 +28,11 @@ router
   .use('/forgot', forgotPwRoutes)
   .use('/logout', logoutRoutes)
 
-  .get('/thankyou', function (req, res, next) {
-    res.render('common/thankyou', {
-      pageTitle: "Đặt hành thành công"
-    });
-  })
+  // .get('/thankyou', function (req, res, next) {
+  //   res.render('common/thankyou', {
+  //     pageTitle: "Đặt hành thành công"
+  //   });
+  // })
   .post('/logout', function (req, res, next) {
     req.logout();
     res.redirect('/login');

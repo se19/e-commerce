@@ -1,5 +1,5 @@
 // Cấu trúc của cart
-// Cart = { [ {product}, quantity, amount ], total }
+// Cart = { [ {product}, quantity, amount ] }
 
 
 const add = (cartItems, item) => {

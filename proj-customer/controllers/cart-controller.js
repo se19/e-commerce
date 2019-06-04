@@ -1,7 +1,7 @@
 const Cart = require('../models/cart');
 
 //Lấy thông tin giỏ hàng từ local storage
-const listCart = async (req, res, next) => {
+const listCart = (req, res, next) => {
     let inTotal = Cart.inTotal(req.session.cart);
     res.render('cart-view/cart', {
         pageTitle: "Giỏ hàng",

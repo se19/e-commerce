@@ -9,6 +9,5 @@ router
   .use(base_controller.getLocalsVariables)
 
   .get('/', checkout_controller.initializationCheckout)
-  .post('/', checkout_controller.addCoupons)
 
 module.exports = router;

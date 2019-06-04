@@ -11,6 +11,7 @@ router
   //Lấy các thông tin lưu trữ vào bộ nhớ tạm như thông tin người đăng nhập, danh sách nhóm hàng trên navbar,...v.v
   .use(base_controller.getLocalsVariables)
 
+  .post('/create-order', order_controller.createOrder)
   .get('/history-pay', order_controller.listBills)
   .get('/bill-detail', order_controller.getBillInfo)
 
