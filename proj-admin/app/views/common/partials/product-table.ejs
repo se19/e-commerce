@@ -3,14 +3,32 @@
 <link href="/stylesheets/admin-cast/main.min.css" rel="stylesheet" />
 <script type="text/javascript" src="/javascripts/admin-cast/bootstrap-select.min.js"></script>
 
-<% const defaultImg = "images/default/no-image.png";%>
-
 <div class="page-content fade-in-up">
     <div class="ibox">
         <div class="ibox-body">
             <h5 class="font-strong mb-4">Danh mục hàng hóa</h5>
-            <div class="flexbox row">
+            <form class="flexbox row" action="/products" method="GET">
                 <div class="flexbox col-12 col-lg-auto mb-4">
+                    <label class="mb-0 mr-2">Loại:</label>
+                    <select class="show-tick form-control" id="category-filter" title="Vui lòng chọn"
+                        name="categoryId" data-style="btn-solid" data-width="150px"
+                        onchange="this.form.submit()">
+                        <option value="">Tất cả</option>
+                        <% for(let category of categories) { %>
+                        <option value="<%= category.id %>"><%= category.title %></option>
+                        <% } %>
+                    </select>
+                </div>
+                <div class="flexbox col-12 col-lg-auto mb-4">
+                    <label class="mb-0 mr-2 nowrap">Nhãn hàng:</label>
+                    <select class="show-tick form-control" id="brand-filter" title="Vui lòng chọn"
+                        name="brandId" data-style="btn-solid" data-width="150px"
+                        onchange="this.form.submit()">
+                        <option value="">Tất cả</option>
+                        <% for(let brand of brands) { %>
+                        <option value="<%= brand.id %>"><%= brand.title %></option>
+                        <% } %>
+                    </select>
                 </div>
                 <div class="flexbox col-12 col-lg-auto row">
                     <div class="input-group-icon input-group-icon-left mb-4 col-12 col-md-6 col-lg-auto">
@@ -21,7 +39,7 @@
                     <a class="btn btn-rounded btn-primary btn-air mb-4 col-12 col-md-6 col-lg-auto"
                         href="/products/add">Thêm hàng hóa</a>
                 </div>
-            </div>
+            </form>
             <div class="table-responsive row m-0">
                 <div id="products-table_wrapper" class="dataTables_wrapper container-fluid dt-bootstrap4 no-footer">
                     <table class="table table-bordered table-hover dataTable no-footer dtr-inline" id="products-table"
@@ -61,7 +79,7 @@
                                     </a>
                                 </td>
                                 <td> <img class="mr-3"
-                                        src="<% if (product && product.imageUrl) { %><%= product.imageUrl %><% } else { %><%= defaultImg %> <% } %>"
+                                        src="<% if (product && product.imageUrl) { %><%= product.imageUrl %><% } else { %><%= constants.DEFAULT_IMG %> <% } %>"
                                         alt="image" width="60">
                                     <%= product.title %>
                                 </td>
@@ -78,7 +96,8 @@
                                 <td>
                                     <a class="text-light mr-3 font-16" href="/products/<%= product.id %>"><i
                                             class="fa fa-pencil-alt"></i></a>
-                                    <form action="/products/<%= product.id %><%- '/delete' %>" method="POST" class="d-inline-block">
+                                    <form action="/products/<%= product.id %><%- '/delete' %>" method="POST"
+                                        class="d-inline-block">
                                         <input type="hidden" value="<%= product.id %>" name="productId">
                                         <button type="submit" class="btn-trans">
                                             <i class="fa fa-trash"></i>
@@ -117,6 +136,11 @@
 <script type="text/javascript" src="/javascripts/admin-cast/datatables.min.js"></script>
 <script type="text/javascript" src="/javascripts/admin-cast/app.min.js"></script>
 <script>
+    $(document).ready(function () {
+        $("#category-filter option[value='<%= categoryId %>']").attr("selected", true);
+        $("#brand-filter option[value='<%= brandId %>']").attr("selected", true);
+    });
+    
     $(function () {
         $('#products-table').DataTable({
             pageLength: 10,

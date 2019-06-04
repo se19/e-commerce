@@ -8,8 +8,21 @@ const ITEMS_PER_PAGE = 6;
 const REVIEWS_PER_PAGE = 2;
 
 // read list product 
-const list_products = (req, res, next) => {
-    Product.find()
+const list_products = async (req, res, next) => {
+    let brandId = req.query.brandId;
+    let categoryId = req.query.categoryId;
+    let query = {};
+    if (brandId) {
+        query.brandId = brandId;
+    }
+    if (categoryId) {
+        query.categoryId = categoryId;
+    }
+
+    let brands = await Brand.find();
+    let categories = await Category.find();
+
+    await Product.find(query)
         .populate('brandId')
         .populate('categoryId')
         //.execPopulate()
@@ -17,7 +30,11 @@ const list_products = (req, res, next) => {
             // console.log(products);
             res.render('product-view/product-list', {
                 pageTitle: "Danh sách hàng hóa",
-                products
+                products,
+                brands,
+                categories,
+                brandId,
+                categoryId
             });
         })
         .catch(err => console.log(err));

@@ -43,14 +43,14 @@
         </a>
         <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
-                <a class="collapse-item" href="/products">Tất cả</a>
+                <a class="collapse-item" href="/products?brandId=&categoryId=">Tất cả</a>
                 <h6 class="collapse-header">Nhóm:</h6>
-                <% for (let brand of brands) { %>
-                <a class="collapse-item" href="/products"><%= brand.title %></a>
+                <% for (let category of categories) { %>
+                <a class="collapse-item" href="/products?brandId=&categoryId=<%= category.id %>"><%= category.title %></a>
                 <% } %>
                 <h6 class="collapse-header">Thương hiệu:</h6>
-                <% for (let category of categories) { %>
-                <a class="collapse-item" href="/products"><%= category.title %></a>
+                <% for (let brand of brands) { %>
+                <a class="collapse-item" href="/products?brandId=<%= brand.id %>&categoryId="><%= brand.title %></a>
                 <% } %>
             </div>
         </div>
