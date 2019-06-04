@@ -21,6 +21,6 @@ router
   .post('/:orderId/cancel', order_controller.cancel_order)
   .post('/:orderId/edit-user', order_controller.update_userinfo_order)
   //Delete
-  .post('/:orderId/delete', order_controller.delete_order)
+  // .post('/:orderId/delete', order_controller.delete_order)
 
 module.exports = router;

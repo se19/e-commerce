@@ -51,6 +51,17 @@
                 </div>
             </form>
             <div class="table-responsive row m-0">
+                <% if(locals.message ){ 
+                        if(locals.message.success) { %>
+                <div class="alert alert-success" role="alert">
+                    <%= message.success %>
+                </div>
+                <% } 
+                    if(locals.message.error) { %>
+                <div class="alert alert-danger" role="alert">
+                    <%= message.error %>
+                </div>
+                <% } } %>
                 <div id="products-table_wrapper" class="dataTables_wrapper container-fluid dt-bootstrap4 no-footer">
                     <table class="table table-bordered table-hover dataTable no-footer dtr-inline" id="products-table"
                         role="grid" aria-describedby="products-table_info" style="width: 1268px;">

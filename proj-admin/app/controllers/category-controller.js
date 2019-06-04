@@ -3,8 +3,12 @@ const fileHelper = require('../../util/file');
 
 //get list
 const list_categories = (req, res, next) => {
+    //get notification
+    res.locals.message = req.flash();
+
     let available = req.query.available;
     let params = {};
+
     if (available === 'true') {
         params.available = true;
     } else if (available === 'false') {
@@ -21,7 +25,10 @@ const list_categories = (req, res, next) => {
                 available: params.available
             });
         })
-        .catch(err => console.log(err));
+        .catch(err => {
+            console.log(err);
+            req.flash('error', 'Lỗi!')
+        });
 }
 
 
@@ -58,22 +65,29 @@ const create_category = (req, res, next) => {
         .then(result => {
             console.log(result);
             console.log('INSERTED CATEGORY');
+            req.flash('success', 'Thêm thành công!')
             res.redirect('/categories/' + result.id);
         })
         .catch(err => {
             console.log(err);
+            req.flash('error', 'Lỗi!')
         });
 }
 
 //get category info
 const get_category = (req, res, next) => {
+    //get notification
+    res.locals.message = req.flash();
+
     let categoryId = req.params.categoryId;
+
     Category.findOne({
             _id: categoryId
         })
         .then(category => {
             if (!category) {
                 console.log('NOT FOUND CATEGORY');
+                req.flash('error', 'Loại hàng hóa không tồn tại!')
                 return res.redirect('/categories');
             }
             res.render('category-view/category-info', {
@@ -81,7 +95,10 @@ const get_category = (req, res, next) => {
                 category
             });
         })
-        .catch(err => console.log(err));
+        .catch(err => {
+            console.log(err);
+            req.flash('error', 'Lỗi!')
+        });
 }
 
 //posst to update category
@@ -113,9 +130,13 @@ const update_category = (req, res, next) => {
         })
         .then(result => {
             console.log('UPDATED CATEGORY');
+            req.flash('success', 'Cập nhật thành công!')
             res.redirect(req.get('referer'));
         })
-        .catch(err => console.log(err));
+        .catch(err => {
+            console.log(err);
+            req.flash('error', 'Lỗi!')
+        });
 }
 
 //post to delete
@@ -128,9 +149,13 @@ const delete_category = (req, res, next) => {
         })
         .then(result => {
             console.log('DISABLED CATEGORY');
+            req.flash('success', 'Đã vô hiệu hóa loại hàng hóa có mã số ' + cateloryId);
             res.redirect('/categories');
         })
-        .catch(err => console.log(err));
+        .catch(err => {
+            console.log(err);
+            req.flash('error', 'Lỗi!')
+        });
     // Category.findById(cateloryId)
     //     .then(category => {
     //         if (category) {
@@ -147,18 +172,6 @@ const delete_category = (req, res, next) => {
     //     .catch(err => console.log(err));
 }
 
-//get list categories
-const get_categories_list_data = (req, res, next) => {
-    Category.find()
-        //.execPopulate()
-        .then(categories => {
-            if (categories) {
-                return categories;
-            }
-        })
-        .catch(err => console.log(err));
-}
-
 
 module.exports = {
     list_categories,
@@ -166,6 +179,5 @@ module.exports = {
     create_category,
     get_category,
     update_category,
-    delete_category,
-    get_categories_list_data
+    delete_category
 }

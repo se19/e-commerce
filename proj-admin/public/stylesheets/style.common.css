@@ -12,6 +12,17 @@ body>#wrapper>#content-wrapper>#content {
   min-height: 100vh;
 }
 
+footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+}
+
+footer>div {
+  margin: 0 !important;
+  padding: 0;
+}
+
 .btn-trans {
   background: transparent;
   border: 0;

@@ -33,6 +33,17 @@
                 </div>
             </div>
             <div class="table-responsive row">
+                <% if(locals.message ){ 
+                        if(locals.message.success) { %>
+                <div class="alert alert-success" role="alert">
+                    <%= message.success %>
+                </div>
+                <% } 
+                    if(locals.message.error) { %>
+                <div class="alert alert-danger" role="alert">
+                    <%= message.error %>
+                </div>
+                <% } } %>
                 <table class="table table-bordered tablef-hover" id="orders-table">
                     <thead class="thead-default thead-lg">
                         <tr>

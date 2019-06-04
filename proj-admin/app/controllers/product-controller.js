@@ -9,6 +9,9 @@ const REVIEWS_PER_PAGE = 2;
 
 // read list product 
 const list_products = async (req, res, next) => {
+    //get notification
+    res.locals.message = req.flash();
+
     let brandId = req.query.brandId;
     let categoryId = req.query.categoryId;
     let available = req.query.available;
@@ -44,7 +47,10 @@ const list_products = async (req, res, next) => {
                 available: params.available
             });
         })
-        .catch(err => console.log(err));
+        .catch(err => {
+            console.log(err);
+            req.flash('error', 'Lỗi!')
+        });
 }
 
 // initialize product
@@ -106,15 +112,20 @@ const create_product = async (req, res, next) => {
         .then(result => {
             console.log(result);
             console.log('Created Product');
+            req.flash('success', 'Thêm thành công!')
             res.redirect('/products/' + result.id);
         })
         .catch(err => {
             console.log(err);
+            req.flash('error', 'Lỗi!')
         });
 }
 
 // get product info
 const get_product = async (req, res, next) => {
+    //get notification
+    res.locals.message = req.flash();
+
     let brands = await Brand.find();
     let categories = await Category.find();
     const productId = req.params.productId;
@@ -131,7 +142,10 @@ const get_product = async (req, res, next) => {
             }
             product = result;
         })
-        .catch(err => console.log(err));
+        .catch(err => {
+            console.log(err);
+            req.flash('error', 'Lỗi!')
+        });
 
     if (product) {
         /*Phân trang bình luận*/
@@ -223,9 +237,13 @@ const update_product = async (req, res, next) => {
         })
         .then(result => {
             console.log('UPDATED PRODUCT!');
+            req.flash('success', 'Cập nhật thành công!')
             res.redirect(req.get('referer'));
         })
-        .catch(err => console.log(err));
+        .catch(err => {
+            console.log(err);
+            req.flash('error', 'Lỗi!')
+        });
 }
 
 // delete product
@@ -239,9 +257,13 @@ const delete_product = (req, res, next) => {
         })
         .then(result => {
             console.log('DISABLED PRODUCT');
+            req.flash('success', 'Đã vô hiệu hóa nhãn hàng có mã số ' + brandId);
             res.redirect('/products');
         })
-        .catch(err => console.log(err));
+        .catch(err => {
+            console.log(err);
+            req.flash('error', 'Lỗi!')
+        });
     // Product.findById(productId)
     //     .then(product => {
     //         fileHelper.deleteFile('public\\' + product.imageUrl);
@@ -274,12 +296,16 @@ const set_default_image = (req, res, next) => {
             return product.save();
         })
         .then(result => {
-            console.log('SET DEFAULT PRODUCT!');
+            console.log('SET DEFAULT IMAGE PRODUCT!');
+            req.flash('success', 'Thay đổi ảnh đại diện thành công!');
             res.json({
                 product: result
             })
         })
-        .catch(err => console.log(err));
+        .catch(err => {
+            console.log(err);
+            req.flash('error', 'Lỗi!')
+        });
 }
 
 // delete image from product
@@ -303,12 +329,16 @@ const delete_image = (req, res, next) => {
         })
         .then(result => {
             console.log('DELETED IMAGE!');
+            req.flash('success', 'Xóa hình ảnh thành công!');
             res.json({
                 image: item
             })
             // res.redirect('/products');
         })
-        .catch(err => console.log(err));
+        .catch(err => {
+            console.log(err);
+            req.flash('error', 'Lỗi!')
+        });
 }
 
 // post to create or update review
@@ -331,9 +361,13 @@ const create_update_review = (req, res, next) => {
             })
             .then(result => {
                 console.log('UPDATED REVIEW');
+                req.flash('success', 'Cập nhật bình luận thành công!');
                 res.redirect('/products/' + productId);
             })
-            .catch(err => console.log(err));
+            .catch(err => {
+                console.log(err);
+                req.flash('error', 'Lỗi!')
+            });
 
     } else {
         Product.findOne({
@@ -360,14 +394,19 @@ const create_update_review = (req, res, next) => {
                         })
                         .then(result => {
                             console.log(result);
+                            req.flash('success', 'Thêm bình luận mới thành công!');
                             res.redirect('/products/' + productId);
                         })
                         .catch(err => {
                             console.log(err);
+                            req.flash('error', 'Lỗi!')
                         });
                 }
             })
-            .catch(err => console.log(err));
+            .catch(err => {
+                console.log(err);
+                req.flash('error', 'Lỗi!')
+            });
     }
 
 }
@@ -382,10 +421,10 @@ const delete_review = async (req, res, next) => {
                 return Rate.findByIdAndRemove(rate.id);
             }
         })
-        .then(() => {
-            console.log('DELETED ORDER');
-        })
-        .catch(err => console.log(err));
+        .catch(err => {
+            console.log(err);
+            req.flash('error', 'Lỗi!')
+        });
 
     await Product.findOne({
             _id: productId
@@ -404,9 +443,13 @@ const delete_review = async (req, res, next) => {
         })
         .then(result => {
             console.log('UPDATED PRODUCT!');
+            req.flash('success', 'Xóa thành công bình luận có mã số ' + reviewId);
             res.redirect(req.get('referer'));
         })
-        .catch(err => console.log(err));
+        .catch(err => {
+            console.log(err);
+            req.flash('error', 'Lỗi!')
+        });
 }
 
 

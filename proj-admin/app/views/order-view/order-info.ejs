@@ -33,6 +33,17 @@
                             <div class="text-light"><%= order.user.name %>, 17.05.2018, Đang vận chuyển</div>
                         </div>
                     </div>
+                    <% if(locals.message ){ 
+                        if(locals.message.success) { %>
+                    <div class="alert alert-success" role="alert">
+                        <%= message.success %>
+                    </div>
+                    <% } 
+                    if(locals.message.error) { %>
+                    <div class="alert alert-danger" role="alert">
+                        <%= message.error %>
+                    </div>
+                    <% } } %>
                     <div class="row">
                         <div class="col-xl-7">
                             <div class="ibox">

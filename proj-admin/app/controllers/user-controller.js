@@ -4,7 +4,11 @@ const constants = require('../../constants/index');
 
 //get admin list
 const list_administrators = (req, res, next) => {
+    //get notification
+    res.locals.message = req.flash();
+
     let available = req.query.available;
+
     let params = {
         userType: constants.USERTYPE_ADMIN
     };
@@ -23,7 +27,10 @@ const list_administrators = (req, res, next) => {
                 available: params.available
             });
         })
-        .catch(err => console.log(err));
+        .catch(err => {
+            console.log(err);
+            req.flash('error', 'Lỗi!')
+        });
 }
 //get customer list
 const list_customers = (req, res, next) => {
@@ -46,7 +53,10 @@ const list_customers = (req, res, next) => {
                 available: params.available
             });
         })
-        .catch(err => console.log(err));
+        .catch(err => {
+            console.log(err);
+            req.flash('error', 'Lỗi!')
+        });
 }
 
 
@@ -105,6 +115,7 @@ const create_user = (req, res, next) => {
         .then(result => {
             console.log(result);
             console.log('INSERTED USER');
+            req.flash('success', 'Thêm thành công!')
             let path = '';
             if (result.userType === constants.USERTYPE_ADMIN) {
                 path = 'administrators'
@@ -117,11 +128,15 @@ const create_user = (req, res, next) => {
         })
         .catch(err => {
             console.log(err);
+            req.flash('error', 'Lỗi!')
         });
 }
 
 //get user info
 const get_user = async (req, res, next) => {
+    //get notification
+    res.locals.message = req.flash();
+
     let userId = req.params.userId;
 
     let orders;
@@ -148,7 +163,10 @@ const get_user = async (req, res, next) => {
                 status: ""
             });
         })
-        .catch(err => console.log(err));
+        .catch(err => {
+            console.log(err);
+            req.flash('error', 'Lỗi!')
+        });
 }
 
 //post to update user
@@ -189,6 +207,7 @@ const update_user = (req, res, next) => {
         })
         .then(result => {
             console.log('UPDATED USER');
+            req.flash('success', 'Cập nhật thành công!')
             let path = '';
             if (result.userType === constants.USERTYPE_ADMIN) {
                 path = 'administrators'
@@ -199,7 +218,10 @@ const update_user = (req, res, next) => {
             res.redirect('/users/' + path + "/" + result.id);
             // res.redirect(req.get('referer'));
         })
-        .catch(err => console.log(err));
+        .catch(err => {
+            console.log(err);
+            req.flash('error', 'Lỗi!')
+        });
 }
 
 //post to delete
@@ -212,9 +234,13 @@ const delete_administrator = (req, res, next) => {
         })
         .then(result => {
             console.log('DELETED ADMIN');
+            req.flash('success', 'Đã vô hiệu hóa quản trị viên có mã số ' + userId);
             res.redirect('/users/administrators');
         })
-        .catch(err => console.log(err));
+        .catch(err => {
+            console.log(err);
+            req.flash('error', 'Lỗi!')
+        });
     // User.findByIdAndRemove(userId)
     //     .then(() => {
     //         console.log('DELETED ADMIN');
@@ -232,9 +258,13 @@ const delete_customer = (req, res, next) => {
         })
         .then(result => {
             console.log('DELETED CUSTOMER');
+            req.flash('success', 'Đã vô hiệu hóa khách hàng có mã số ' + userId);
             res.redirect('/users/customers');
         })
-        .catch(err => console.log(err));
+        .catch(err => {
+            console.log(err);
+            req.flash('error', 'Lỗi!')
+        });
     // User.findByIdAndRemove(userId)
     //     .then(() => {
     //         console.log('DELETED CUSTOME');
@@ -258,9 +288,13 @@ const reset_pw_customer = (req, res, next) => {
             })
             .then(result => {
                 console.log('RESETED PASSWORD');
+                req.flash('success', 'Khôi phục mật khẩu thành công! Mật khẩu hiện tại là ' + constants.DEFAULT_CUSTOMER_PASSWORD);
                 res.redirect(req.get('referer'));
             })
-            .catch(err => console.log(err));
+            .catch(err => {
+                console.log(err);
+                req.flash('error', 'Lỗi!')
+            });
     }
 }
 
@@ -273,9 +307,13 @@ const upgrade_user = (req, res, next) => {
         })
         .then(result => {
             console.log('UPGRADED USER');
+            req.flash('success', 'Nâng cấp lên tài khoản quản trị viên thành công!');
             res.redirect('/users/administrators/' + userId);
         })
-        .catch(err => console.log(err));
+        .catch(err => {
+            console.log(err);
+            req.flash('error', 'Lỗi!')
+        });
 }
 
 module.exports = {

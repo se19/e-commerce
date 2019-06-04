@@ -39,6 +39,17 @@ let isAdminAcount = (user.userType == constants.USERTYPE_ADMIN); %>
                     </div>
                 </div>
                 <div class="col-lg-8">
+                    <% if(locals.message ){ 
+                            if(locals.message.success) { %>
+                    <div class="alert alert-success" role="alert">
+                        <%= message.success %>
+                    </div>
+                    <% } 
+                        if(locals.message.error) { %>
+                    <div class="alert alert-danger" role="alert">
+                        <%= message.error %>
+                    </div>
+                    <% } } %>
 
                     <% if(editing && !isAdminAcount) { %>
                     <div class="row">

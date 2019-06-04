@@ -4,6 +4,9 @@ const fileHelper = require('../../util/file');
 
 //get list
 const list_brands = (req, res, next) => {
+    //get notification
+    res.locals.message = req.flash();
+
     let available = req.query.available;
     let params = {};
     if (available === 'true') {
@@ -20,7 +23,10 @@ const list_brands = (req, res, next) => {
                 available: params.available
             });
         })
-        .catch(err => console.log(err));
+        .catch(err => {
+            console.log(err);
+            req.flash('error', 'Lỗi!')
+        });
 }
 
 
@@ -57,15 +63,20 @@ const create_brand = (req, res, next) => {
         .then(result => {
             console.log(result);
             console.log('INSERTED BRAND');
+            req.flash('success', 'Thêm thành công!')
             res.redirect('/brands/' + result.id);
         })
         .catch(err => {
             console.log(err);
+            req.flash('error', 'Lỗi!')
         });
 }
 
 //get brand info
 const get_brand = (req, res, next) => {
+    //get notification
+    res.locals.message = req.flash();
+    
     let brandId = req.params.brandId;
     Brand.findOne({
             _id: brandId
@@ -73,6 +84,7 @@ const get_brand = (req, res, next) => {
         .then(brand => {
             if (!brand) {
                 console.log('NOT FOUND BRAND');
+                req.flash('error', 'Nhãn hàng không tồn tại!')
                 return res.redirect('/brands');
             }
             res.render('brand-view/brand-info', {
@@ -80,7 +92,10 @@ const get_brand = (req, res, next) => {
                 brand
             });
         })
-        .catch(err => console.log(err));
+        .catch(err => {
+            console.log(err);
+            req.flash('error', 'Lỗi!')
+        });
 }
 
 //posst to update brand
@@ -112,9 +127,15 @@ const update_brand = (req, res, next) => {
         })
         .then(result => {
             console.log('UPDATED BRAND');
+            req.flash('success', 'Cập nhật thành công!')
             res.redirect(req.get('referer'));
         })
-        .catch(err => console.log(err));
+        .catch(
+            err => {
+                console.log(err);
+                req.flash('error', 'Lỗi!')
+            }
+        );
 }
 
 //post to delete
@@ -127,9 +148,13 @@ const delete_brand = (req, res, next) => {
         })
         .then(result => {
             console.log('DISABLED BRAND');
-            res.redirect('/brands');
+            req.flash('success', 'Đã vô hiệu hóa nhãn hàng có mã số ' + brandId);
+            res.redirect(req.get('referer'));
         })
-        .catch(err => console.log(err));
+        .catch(err => {
+            console.log(err);
+            req.flash('error', 'Lỗi!')
+        });
     // Brand.findById(brandId)
     //     .then(brand => {
     //         if (brand) {

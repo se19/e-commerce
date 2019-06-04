@@ -32,6 +32,17 @@
                     </div>
                 </div>
                 <div class="col-lg-8">
+                    <% if(locals.message ){ 
+                            if(locals.message.success) { %>
+                    <div class="alert alert-success" role="alert">
+                        <%= message.success %>
+                    </div>
+                    <% } 
+                        if(locals.message.error) { %>
+                    <div class="alert alert-danger" role="alert">
+                        <%= message.error %>
+                    </div>
+                    <% } } %>
                     <form action="/categories/<% if(editing){ %><%= category.id %><%-'/edit'%><% } else { %>add<% } %>"
                         method="POST" enctype="multipart/form-data">
                         <div class="row">

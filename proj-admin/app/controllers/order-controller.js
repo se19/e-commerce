@@ -4,6 +4,9 @@ const constants = require('../../constants/index');
 
 //get list
 const list_orders = (req, res, next) => {
+    //get notification
+    res.locals.message = req.flash();
+
     let status = req.query.status;
 
     // const searchKeyword = req.query.searchKeyword;
@@ -24,7 +27,10 @@ const list_orders = (req, res, next) => {
                 status: status
             });
         })
-        .catch(err => console.log(err));
+        .catch(err => {
+            console.log(err);
+            req.flash('error', 'Lỗi!')
+        });
 }
 
 
@@ -68,6 +74,9 @@ const list_orders = (req, res, next) => {
 
 //get order info
 const get_order = (req, res, next) => {
+    //get notification
+    res.locals.message = req.flash();
+
     let orderId = req.params.orderId;
     Order.findOne({
             _id: orderId
@@ -82,7 +91,10 @@ const get_order = (req, res, next) => {
                 order
             });
         })
-        .catch(err => console.log(err));
+        .catch(err => {
+            console.log(err);
+            req.flash('error', 'Lỗi!')
+        });
 }
 
 //posst to update order
@@ -136,9 +148,13 @@ const change_order_status = (req, res, next) => {
         })
         .then(result => {
             console.log('UPDATED ORDER');
+            req.flash('success', 'Thay đổi trạng thái thành công!')
             res.redirect(req.get('referer'));
         })
-        .catch(err => console.log(err));
+        .catch(err => {
+            console.log(err);
+            req.flash('error', 'Lỗi!')
+        });
 }
 
 const cancel_order = (req, res, next) => {
@@ -155,9 +171,13 @@ const cancel_order = (req, res, next) => {
         })
         .then(result => {
             console.log('UPDATED ORDER');
+            req.flash('success', 'Hủy đơn hàng thành công!')
             res.redirect(req.get('referer'));
         })
-        .catch(err => console.log(err));
+        .catch(err => {
+            console.log(err);
+            req.flash('error', 'Lỗi!')
+        });
 }
 
 const update_userinfo_order = (req, res, next) => {
@@ -177,28 +197,36 @@ const update_userinfo_order = (req, res, next) => {
         })
         .then(result => {
             console.log('UPDATED USER');
+            req.flash('success', 'Thay đổi thông tin người dùng thành công!')
             res.redirect('/orders/' + orderId);
         })
-        .catch(err => console.log(err));
+        .catch(err => {
+            console.log(err);
+            req.flash('error', 'Lỗi!')
+        });
 }
 
 //post to dele
 
 //post to delete
-const delete_order = (req, res, next) => {
-    let orderId = req.params.orderId;
-    Order.findById(orderId)
-        .then(order => {
-            if (order) {
-                return Order.findByIdAndRemove(orderId);
-            }
-        })
-        .then(() => {
-            console.log('DELETED ORDER');
-            res.redirect('/orders');
-        })
-        .catch(err => console.log(err));
-}
+// const delete_order = (req, res, next) => {
+//     let orderId = req.params.orderId;
+//     Order.findById(orderId)
+//         .then(order => {
+//             if (order) {
+//                 return Order.findByIdAndRemove(orderId);
+//             }
+//         })
+//         .then(() => {
+//             console.log('DELETED ORDER');
+//             req.flash('success', 'Xóa đơn hàng thành công!')
+//             res.redirect('/orders');
+//         })
+//         .catch(err => {
+//             console.log(err);
+//             req.flash('error', 'Lỗi!')
+//         });
+// }
 
 module.exports = {
     list_orders,
@@ -209,5 +237,5 @@ module.exports = {
     change_order_status,
     cancel_order,
     update_userinfo_order,
-    delete_order
+    // delete_order
 }
