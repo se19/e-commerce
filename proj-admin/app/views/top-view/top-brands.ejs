@@ -57,76 +57,18 @@
                                             </tr>
                                         </thead>
                                         <tbody>
+                                            <% for(let item of topBrands) { %>
                                             <tr>
-                                                <td>1</td>
-                                                <td>#1254</td>
-                                                <td>#Nhãn hàng 4</td>
-                                                <td>100.000.000 vnđ</td>
                                                 <td></td>
+                                                <td><%= item._id %></td>
+                                                <td><%= item.brand.title %></td>
+                                                <td><%= item.summary %> cái</td>
+                                                <td>
+                                                    <a class="text-light mr-3 font-16"
+                                                        href="/brands/<%= item._id %>"><i class="fa fa-eye"></i></a>
+                                                </td>
                                             </tr>
-                                            <tr>
-                                                <td>2</td>
-                                                <td>#1254</td>
-                                                <td>#Nhãn hàng 4</td>
-                                                <td>100.000.000 vnđ</td>
-                                                <td></td>
-                                            </tr>
-                                            <tr>
-                                                <td>3</td>
-                                                <td>#1254</td>
-                                                <td>#Nhãn hàng 4</td>
-                                                <td>100.000.000 vnđ</td>
-                                                <td></td>
-                                            </tr>
-                                            <tr>
-                                                <td>4</td>
-                                                <td>#1254</td>
-                                                <td>#Nhãn hàng 4</td>
-                                                <td>100.000.000 vnđ</td>
-                                                <td></td>
-                                            </tr>
-                                            <tr>
-                                                <td>5</td>
-                                                <td>#1254</td>
-                                                <td>#Nhãn hàng 4</td>
-                                                <td>100.000.000 vnđ</td>
-                                                <td></td>
-                                            </tr>
-                                            <tr>
-                                                <td>6</td>
-                                                <td>#1254</td>
-                                                <td>#Nhãn hàng 4</td>
-                                                <td>100.000.000 vnđ</td>
-                                                <td></td>
-                                            </tr>
-                                            <tr>
-                                                <td>7</td>
-                                                <td>#1254</td>
-                                                <td>#Nhãn hàng 4</td>
-                                                <td>100.000.000 vnđ</td>
-                                                <td></td>
-                                            </tr>
-                                            <tr>
-                                                <td>8</td>
-                                                <td>#1254</td>
-                                                <td>#Nhãn hàng 4</td>
-                                                <td>100.000.000 vnđ</td>
-                                                <td></td>
-                                            </tr>
-                                            <tr>
-                                                <td>9</td>
-                                                <td>#1254</td>
-                                                <td>#Nhãn hàng 4</td>
-                                                <td>100.000.000 vnđ</td>
-                                                <td></td>
-                                            </tr>
-                                            <tr>
-                                                <td>10</td>
-                                                <td>#1254</td>
-                                                <td>#Nhãn hàng 4</td>
-                                                <td>100.000.000 vnđ</td>
-                                                <td></td>
-                                            </tr>
+                                            <% } %>
                                         </tbody>
                                     </table>
                                 </div>
@@ -186,31 +128,24 @@
             });
         });
 
-        // Flot Pie Chart
+           // Flot Pie Chart
         $(function () {
-            var data = [{
-                label: "Nhãn hàng 1",
-                data: 33,
-                color: "#bdc3c7",
-            }, {
-                label: "Nhãn hàng 2",
-                data: 15,
-                color: "#43AEA8",
-            }, {
-                label: "Nhãn hàng 3",
-                data: 12,
-                color: "#ccc",
-            }, {
-                label: "Nhãn hàng 4",
-                data: 20,
-                color: "#ddd",
-            }, {
-                label: "Nhãn hàng 5",
-                data: 20,
-                color: "#eaeaea",
-            }];
+            const chartColor = ['#660066', '#003366', '#0066dc', '#079fab', '#bce7fd', '#fef65b',
+                '#ffa500', '#f08080', '#a3ff00', '#008000'
+            ];
+            let chartData = [];
+            const topBrands = <%- JSON.stringify(topBrands) %>;
+            const total = <%- JSON.stringify(total) %>;
+            for (let i = 0; i < topBrands.length; i++) {
+                let data = {
+                    label: topBrands[i].title,
+                    data: +topBrands[i].summary / total,
+                    color: chartColor[i]
+                };
+                chartData.push(data);
+            }
 
-            var plotObj = $.plot($("#flot_pie_chart"), data, {
+            var plotObj = $.plot($("#flot_pie_chart"), chartData, {
                 series: {
                     pie: {
                         show: true

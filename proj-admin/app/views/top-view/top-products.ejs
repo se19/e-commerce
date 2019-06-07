@@ -52,133 +52,25 @@
                                                 <th>#</th>
                                                 <th>Mã hàng hóa</th>
                                                 <th>Tên hàng hóa</th>
-                                                <th>Số lượng</th>
                                                 <th>Đơn giá</th>
                                                 <th>Tổng doanh số</th>
                                                 <th class="no-sort">Chi tiết</th>
                                             </tr>
                                         </thead>
                                         <tbody>
+                                            <% for(let item of topProducts) { %>
                                             <tr>
-                                                <td>1</td>
-                                                <td>#1254</td>
-                                                <td>Tivi SKU-324234</td>
-                                                <td>100 cái</td>
-                                                <td>1.000.000</td>
-                                                <td>100.000.000</td>
+                                                <td></td>
+                                                <td><%= item._id %></td>
+                                                <td><%= item.product.title %></td>
+                                                <td><%= item.product.price %></td>
+                                                <td><%= item.summary %> cái</td>
                                                 <td>
-                                                    <a class="text-light mr-3 font-16" href="/products/info"><i
-                                                            class="fa fa-eye"></i></a>
+                                                    <a class="text-light mr-3 font-16"
+                                                        href="/products/<%= item._id %>"><i class="fa fa-eye"></i></a>
                                                 </td>
                                             </tr>
-                                            <tr>
-                                                <td>2</td>
-                                                <td>#1254</td>
-                                                <td>Tivi SKU-324234</td>
-                                                <td>100 cái</td>
-                                                <td>1.000.000</td>
-                                                <td>100.000.000</td>
-                                                <td>
-                                                    <a class="text-light mr-3 font-16" href="/products/info"><i
-                                                            class="fa fa-eye"></i></a>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>3</td>
-                                                <td>#1254</td>
-                                                <td>Tivi SKU-324234</td>
-                                                <td>100 cái</td>
-                                                <td>1.000.000</td>
-                                                <td>100.000.000</td>
-                                                <td>
-                                                    <a class="text-light mr-3 font-16" href="/products/info"><i
-                                                            class="fa fa-eye"></i></a>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>4</td>
-                                                <td>#1254</td>
-                                                <td>Tivi SKU-324234</td>
-                                                <td>100 cái</td>
-                                                <td>1.000.000</td>
-                                                <td>100.000.000</td>
-                                                <td>
-                                                    <a class="text-light mr-3 font-16" href="/products/info"><i
-                                                            class="fa fa-eye"></i></a>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>5</td>
-                                                <td>#1254</td>
-                                                <td>Tivi SKU-324234</td>
-                                                <td>100 cái</td>
-                                                <td>1.000.000</td>
-                                                <td>100.000.000</td>
-                                                <td>
-                                                    <a class="text-light mr-3 font-16" href="/products/info"><i
-                                                            class="fa fa-eye"></i></a>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>6</td>
-                                                <td>#1254</td>
-                                                <td>Tivi SKU-324234</td>
-                                                <td>100 cái</td>
-                                                <td>1.000.000</td>
-                                                <td>100.000.000</td>
-                                                <td>
-                                                    <a class="text-light mr-3 font-16" href="/products/info"><i
-                                                            class="fa fa-eye"></i></a>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>7</td>
-                                                <td>#1254</td>
-                                                <td>Tivi SKU-324234</td>
-                                                <td>100 cái</td>
-                                                <td>1.000.000</td>
-                                                <td>100.000.000</td>
-                                                <td>
-                                                    <a class="text-light mr-3 font-16" href="/products/info"><i
-                                                            class="fa fa-eye"></i></a>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>8</td>
-                                                <td>#1254</td>
-                                                <td>Tivi SKU-324234</td>
-                                                <td>100 cái</td>
-                                                <td>1.000.000</td>
-                                                <td>100.000.000</td>
-                                                <td>
-                                                    <a class="text-light mr-3 font-16" href="/products/info"><i
-                                                            class="fa fa-eye"></i></a>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>9</td>
-                                                <td>#1254</td>
-                                                <td>Tivi SKU-324234</td>
-                                                <td>100 cái</td>
-                                                <td>1.000.000</td>
-                                                <td>100.000.000</td>
-                                                <td>
-                                                    <a class="text-light mr-3 font-16" href="/products/info"><i
-                                                            class="fa fa-eye"></i></a>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>10</td>
-                                                <td>#1254</td>
-                                                <td>Tivi SKU-324234</td>
-                                                <td>100 cái</td>
-                                                <td>1.000.000</td>
-                                                <td>100.000.000</td>
-                                                <td>
-                                                    <a class="text-light mr-3 font-16" href="/products/info"><i
-                                                            class="fa fa-eye"></i></a>
-                                                </td>
-                                            </tr>
+                                            <% } %>
                                         </tbody>
                                     </table>
                                 </div>
@@ -239,29 +131,22 @@
 
         // Flot Pie Chart
         $(function () {
-            var data = [{
-                label: "Tivi SKU-324234",
-                data: 33,
-                color: "#bdc3c7",
-            }, {
-                label: "Tivi SKU-324234",
-                data: 15,
-                color: "#43AEA8",
-            }, {
-                label: "Tivi SKU-324234",
-                data: 12,
-                color: "#ccc",
-            }, {
-                label: "Tivi SKU-324234",
-                data: 20,
-                color: "#ddd",
-            }, {
-                label: "Tivi SKU-324234",
-                data: 20,
-                color: "#eaeaea",
-            }];
+            const chartColor = ['#660066', '#003366', '#0066dc', '#079fab', '#bce7fd', '#fef65b',
+                '#ffa500', '#f08080', '#a3ff00', '#008000'
+            ];
+            let chartData = [];
+            const topProducts = <%- JSON.stringify(topProducts) %>;
+            const total = <%- JSON.stringify(total) %>;
+            for (let i = 0; i < topProducts.length; i++) {
+                let data = {
+                    label: topProducts[i].product.title,
+                    data: +topProducts[i].summary / total,
+                    color: chartColor[i]
+                };
+                chartData.push(data);
+            }
 
-            var plotObj = $.plot($("#flot_pie_chart"), data, {
+            var plotObj = $.plot($("#flot_pie_chart"), chartData, {
                 series: {
                     pie: {
                         show: true

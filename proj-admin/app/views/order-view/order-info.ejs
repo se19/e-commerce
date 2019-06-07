@@ -30,7 +30,22 @@
                         <span class="mr-4 static-badge badge-pink"><i class="fa fa-shopping-cart"></i></span>
                         <div>
                             <h5 class="font-strong">Đơn hàng <%= order.id %></h5>
-                            <div class="text-light"><%= order.user.name %>, 17.05.2018, Đang vận chuyển</div>
+                            <div class="text-light"><%= order.userId.username %>, <%= order.dateCreated %>, 
+                                <% switch(order.status) {
+                                        case constants.ORDER_STATUS_PENDING: %>
+                                    Đang chờ
+                                <% break;
+                                        case constants.ORDER_STATUS_SHIPPING: %>
+                                    Đang vận chuyển
+                                <% break;
+                                        case constants.ORDER_STATUS_COMPLETED: %>
+                                    Đã hoàn thành
+                                <% break;
+                                        case constants.ORDER_STATUS_CANCELED: %>
+                                    Đã hủy
+                                <% break;
+                                    } %>
+                            </div>
                         </div>
                     </div>
                     <% if(locals.message ){ 
@@ -65,10 +80,10 @@
                                                 <td>3</td>
                                                 <td>
                                                     <img class="mr-3" src="/images/products/10.jpg" alt="image"
-                                                        width="60" /><%= item.product.title %></td>
-                                                <td><%= item.product.price %></td>
+                                                        width="60" /><%= item.title %></td>
+                                                <td><%= item.price %></td>
                                                 <td><%= item.quantity %></td>
-                                                <td><%= item.product.price * item.quantity %></td>
+                                                <td><%= item.amount %></td>
                                             </tr>
                                             <% } %>
                                         </tbody>
@@ -77,7 +92,7 @@
                                         <div class="text-right" style="width:300px;">
                                             <div class="row mb-2">
                                                 <div class="col-6">Tổng tiền</div>
-                                                <div class="col-6"><%= order.amount ? order.amount : 0 %></div>
+                                                <div class="col-6"><%= order.total %></div>
                                             </div>
                                             <!-- <div class="row mb-2">
                                                 <div class="col-6">Giảm giá 5%:</div>
@@ -101,7 +116,7 @@
                                     <div class="row align-items-center mb-3">
                                         <div class="col-4 text-light">Tổng thanh toán</div>
                                         <div class="col-8 h3 font-strong text-pink mb-0">
-                                            <%= order.amount ? order.amount: 0 %></div>
+                                            <%= order.total %></div>
                                     </div>
                                     <div class="row align-items-center mb-3">
                                         <div class="col-4 text-light">Ngày dặt hàng</div>
@@ -137,14 +152,14 @@
                                         </div>
                                     </div>
                                     <% if(order.status != constants.ORDER_STATUS_COMPLETED && order.status != constants.ORDER_STATUS_CANCELED) { %>
-                                    <div class="row">
-                                        <form action="/orders/<%= order.id %>/change-status" method="POST"
-                                            class="d-inline-block">
-                                            <button type="submit" class="btn btn-info">Thay đổi trạng thái</button>
-                                        </form>
+                                    <div class="pt-3 text-right">
                                         <form action="/orders/<%= order.id %>/cancel" method="POST"
                                             class="d-inline-block">
                                             <button type="submit" class="btn btn-danger">Hủy đơn</button>
+                                        </form>
+                                        <form action="/orders/<%= order.id %>/change-status" method="POST"
+                                            class="d-inline-block">
+                                            <button type="submit" class="btn btn-info">Thay đổi trạng thái</button>
                                         </form>
                                     </div>
                                     <% } %>
@@ -155,21 +170,21 @@
                                     <h5 class="font-strong mb-4">Thông tin người nhận</h5>
                                     <div class="row align-items-center mb-3">
                                         <div class="col-4 text-light">Họ tên</div>
-                                        <div class="col-8"><%= order.user.name %></div>
+                                        <div class="col-8"><%= order.receiver.name %></div>
                                     </div>
                                     <div class="row align-items-center mb-3">
                                         <div class="col-4 text-light">Địa chỉ</div>
-                                        <div class="col-8"><%= order.user.address %></div>
+                                        <div class="col-8"><%= order.receiver.address %></div>
                                     </div>
                                     <div class="row align-items-center mb-3">
                                         <div class="col-4 text-light">Email</div>
-                                        <div class="col-8"><%= order.user.email %></div>
+                                        <div class="col-8"><%= order.receiver.email %></div>
                                     </div>
                                     <div class="row align-items-center">
                                         <div class="col-4 text-light">Số điện thoại</div>
-                                        <div class="col-8"><%= order.user.phone %></div>
+                                        <div class="col-8"><%= order.receiver.phone %></div>
                                     </div>
-                                    <div class="row">
+                                    <div class="pt-3 text-right">
                                         <button type="submit" class="btn btn-info" data-toggle="modal"
                                             data-target="#receiverModal">Thay đổi thông tin</button>
                                     </div>
@@ -192,18 +207,18 @@
                             <div class="modal-body">
                                 <div class="form-group">
                                     <label for="nameInput">Họ tên</label>
-                                    <input type="text" class="form-control" id="nameInput" placeholder="Nhập họ tên" value="<%= order.user.name %>"
+                                    <input type="text" class="form-control" id="nameInput" placeholder="Nhập họ tên" value="<%= order.receiver.name %>"
                                         name="name" required>
                                 </div>
                                 <div class="form-group">
                                     <label for="nameInput">Địa chỉ</label>
-                                    <input type="text" class="form-control" id="addressInput" placeholder="Nhập địa chỉ" value="<%= order.user.address %>"
+                                    <input type="text" class="form-control" id="addressInput" placeholder="Nhập địa chỉ" value="<%= order.receiver.address %>"
                                         name="address" required>
                                 </div>
                                 <div class="form-group">
                                     <label for="phoneInput">Sô điện thoại</label>
                                     <input type="text" class="form-control" id="phoneInput"
-                                        placeholder="Nhập số điện thoại" name="phone" value="<%= order.user.phone %>" required>
+                                        placeholder="Nhập số điện thoại" name="phone" value="<%= order.receiver.phone %>" required>
                                 </div>
                             </div>
                             <div class="modal-footer">

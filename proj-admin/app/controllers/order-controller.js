@@ -19,6 +19,7 @@ const list_orders = (req, res, next) => {
                 $regex: new RegExp(status, "i")
             },
         })
+        .populate('userId')
         .then(orders => {
             console.log(orders);
             res.render('order-view/order-list', {
@@ -81,6 +82,7 @@ const get_order = (req, res, next) => {
     Order.findOne({
             _id: orderId
         })
+        .populate('userId')
         .then(order => {
             if (!order) {
                 console.log('NOT FOUND ORDER');
@@ -189,7 +191,7 @@ const update_userinfo_order = (req, res, next) => {
     Order.updateOne({
             _id: orderId
         }, {
-            user: {
+            receiver: {
                 name: name,
                 address: address,
                 phone: phone

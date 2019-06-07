@@ -10,6 +10,7 @@ a {
 
 body>#wrapper>#content-wrapper>#content {
   min-height: 100vh;
+  margin-bottom: 65px;
 }
 
 footer {
