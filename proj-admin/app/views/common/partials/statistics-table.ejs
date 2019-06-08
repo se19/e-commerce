@@ -3,45 +3,80 @@
 <link href="/stylesheets/admin-cast/main.min.css" rel="stylesheet" />
 <script type="text/javascript" src="/javascripts/admin-cast/bootstrap-select.min.js"></script>
 
+<% const maxYear = new Date().getFullYear(); %>
 <!-- START PAGE CONTENT-->
 <div class="page-content fade-in-up">
     <div class="ibox">
         <div class="ibox-body">
             <h5 class="font-strong mb-3">Thống kê doanh số bán hàng</h5>
             <div class="flexbox row">
-                <div class="flexbox mb-4 col-12 col-lg-auto">
-                    <label class="mb-0 mr-2">Theo: </label>
-                    <select class="selectpicker show-tick form-control" id="type-filter" title="Vui lòng chọn"
-                        data-style="btn-solid" data-width="150px">
-                        <option>Ngày</option>
-                        <option>Tuần</option>
-                        <option>Quý</option>
-                        <option>Tháng</option>
-                        <option>Năm</option>
+                <form class="flexbox col-12 col-lg-4 mb-4 row" action="/statistics" method="GET">
+                    <label class="col-12 col-sm-4 nowrap pt-2">Theo:</label>
+                    <select class="col-12 col-sm-8 show-tick form-control form-control-solid" id="period-filter"
+                        title="Vui lòng chọn" name="period" data-style="btn-solid" data-width="150px"
+                        onchange="this.form.submit()">
+                        <option value="day">Ngày</option>
+                        <option value="week">Tuần</option>
+                        <option value="month">Tháng</option>
+                        <option value="quarter">Quý</option>
+                        <option value="year">Năm</option>
                     </select>
-                </div>
-                <div class="flexbox col-12 col-lg-auto row pr-0 pr-lg-4">
-                    <label class="mb-4 text-nowrap col-12 col-sm-6 col-lg-auto">Từ ngày: </label>
-                    <input class="mb-4 form-control form-control-solid selectpicker w-auto col-12 col-sm-6 col-lg-auto"
-                        id="key-search" type="date">
-                    <label class="mb-4 text-nowrap col-12 col-sm-6 col-lg-auto">Đến ngày: </label>
-                    <input class="mb-4 form-control form-control-solid selectpicker w-auto col-12 col-sm-6 col-lg-auto"
-                        id="key-search" type="date">
-                </div>
-            </div>
-            <div class="flexbox mb-4">
-                <div class="flexbox"></div>
-                <a class="btn btn-rounded btn-primary btn-air" href="/statistics">Tra cứu</a>
-            </div>
+                </form>
 
+                <form class="flexbox col-12 col-lg-6 row pr-0 pr-lg-4" action="/statistics"
+                    method="GET">
+                    <div hidden><input type="text" name="period" value="<%= period %>"></div>
+
+                    <% if(period != 'year') { %>
+                    <div class="mb-4 text-nowrap col-12 col-lg-6 row">
+                        <label class="text-nowrap col-12 col-sm-4 pt-2">Năm: </label>
+                        <select class="show-tick form-control form-control-solid col-12 col-sm-8" title="Vui lòng chọn"
+                            name="year" data-style="btn-solid" data-width="150px" onchange="this.form.submit()">
+                            <option value="">Chọn năm</option>
+                            <% for(let i = maxYear; i > 2000; i--) { %>
+                            <option value="<%= i %>"><%= i %></option>
+                            <% } %>
+                        </select>
+                    </div>
+                    <% } %>
+
+                    <% if(period == 'day') { %>
+                    <div class="mb-4 text-nowrap col-12 col-lg-6 row">
+                        <label class="text-nowrap col-12 col-sm-4 pt-2">Tháng: </label>
+                        <select class="show-tick form-control form-control-solid col-12 col-sm-8" title="Vui lòng chọn"
+                            name="month" data-style="btn-solid" data-width="150px" onchange="this.form.submit()">
+                            <option value="">Chọn tháng</option>
+                            <% for(let i = 1; i <= 12; i++) { %>
+                            <option value="<%= i %>"><%= i %></option>
+                            <% } %>
+                        </select>
+                    </div>
+                    <% } %>
+
+                </form>
+
+            </div>
             <div class="row">
                 <div class="col-md-12">
                     <div class="ibox">
                         <div class="ibox-head">
-                            <div class="ibox-title">Biểu đồ doanh số theo ngày</div>
+                            <div class="ibox-title">Biểu đồ doanh số theo
+                                <% switch(period) {
+                                    case 'day': %> Ngày trong tháng <%= currMonth %> - <%= currYear %>
+                                <% break;
+                                    case 'week': %> Tuần trong năm <%= currYear %>
+                                <% break;
+                                    case 'month': %> Tháng trong năm <%= currYear %>
+                                <% break;
+                                    case 'quarter': %> Quý trong năm <%= currYear %>
+                                <% break;
+                                    case 'year': %> Năm
+                                <% break;
+                                } %>
+                            </div>
                         </div>
                         <div class="ibox-body">
-                            <div id="flot_bar_chart" style="height:280px;"></div>
+                            <div id="statistic_flot_bar_chart" style="height:280px;"></div>
                         </div>
                     </div>
                 </div>
@@ -52,116 +87,49 @@
                     <thead class="thead-default thead-lg">
                         <tr>
                             <th>#</th>
-                            <th>Ngày</th>
+                            <th>
+                                <% switch(period) {
+                                        case 'day': %> Ngày
+                                <% break;
+                                        case 'week': %> Tuần
+                                <% break;
+                                        case 'month': %> Tháng
+                                <% break;
+                                        case 'quarter': %>Quý
+                                <% break;
+                                        case 'year': %>Năm
+                                <% break;
+                                    } %>
+                            </th>
                             <th>Doanh số</th>
-                            <th class="no-sort"></th>
+                            <!-- <th class="no-sort"></th> -->
                         </tr>
                     </thead>
                     <tbody>
+                        <% for(let i = 0; i < items.length; i++) { %>
                         <tr>
-                            <td>1</td>
-                            <td>17.05.2018</td>
-                            <td>100.000.000 vnđ</td>
+                            <td><%= i + 1 %></td>
                             <td>
-                                <a class="text-light mr-3 font-16" href="/"><i class="fa fa-pencil-alt"></i></a>
+                                <% switch(period) {
+                                        case 'day': %>
+                                <%= items[i]._id.day %>.<%= items[i]._id.month %>.<%= items[i]._id.year %>
+                                <% break;
+                                        case 'week': %> <%= items[i]._id.week %> - <%= items[i]._id.year %>
+                                <% break;
+                                        case 'month': %> <%= items[i]._id.month %> - <%= items[i]._id.year %>
+                                <% break;
+                                        case 'quarter': %> <%= items[i]._id.quarter %> - <%= items[i]._id.year %>
+                                <% break;
+                                        case 'year': %><%= items[i]._id.year %>
+                                <% break;
+                                    } %>
                             </td>
-                        </tr>
-                        <tr>
-                            <td>2</td>
-                            <td>18.05.2018</td>
-                            <td>200.000.000 vnđ</td>
-                            <td>
+                            <td><%= items[i].summary %> cái</td>
+                            <!-- <td>
                                 <a class="text-light mr-3 font-16" href="/"><i class="fa fa-pencil-alt"></i></a>
-                            </td>
+                            </td> -->
                         </tr>
-                        <tr>
-                            <td>3</td>
-                            <td>19.05.2018</td>
-                            <td>100.000.000 vnđ</td>
-                            <td>
-                                <a class="text-light mr-3 font-16" href="/"><i class="fa fa-pencil-alt"></i></a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>4</td>
-                            <td>20.05.2018</td>
-                            <td>500.000.000 vnđ</td>
-                            <td>
-                                <a class="text-light mr-3 font-16" href="/"><i class="fa fa-pencil-alt"></i></a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>5</td>
-                            <td>31.05.2018</td>
-                            <td>400.000.000 vnđ</td>
-                            <td>
-                                <a class="text-light mr-3 font-16" href="/"><i class="fa fa-pencil-alt"></i></a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>6</td>
-                            <td>22.05.2018</td>
-                            <td>420.000.000 vnđ</td>
-                            <td>
-                                <a class="text-light mr-3 font-16" href="/"><i class="fa fa-pencil-alt"></i></a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>7</td>
-                            <td>23.05.2018</td>
-                            <td>400.000.000 vnđ</td>
-                            <td>
-                                <a class="text-light mr-3 font-16" href="/"><i class="fa fa-pencil-alt"></i></a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>8</td>
-                            <td>24.05.2018</td>
-                            <td>900.000.000 vnđ</td>
-                            <td>
-                                <a class="text-light mr-3 font-16" href="/"><i class="fa fa-pencil-alt"></i></a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>9</td>
-                            <td>25.05.2018</td>
-                            <td>400.000.000 vnđ</td>
-                            <td>
-                                <a class="text-light mr-3 font-16" href="/"><i class="fa fa-pencil-alt"></i></a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>10</td>
-                            <td>26.05.2018</td>
-                            <td>400.000.000 vnđ</td>
-                            <td>
-                                <a class="text-light mr-3 font-16" href="/"><i class="fa fa-pencil-alt"></i></a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>11</td>
-                            <td>27.05.2018</td>
-                            <td>400.000.000 vnđ</td>
-                            <td>
-                                <a class="text-light mr-3 font-16" href="/"><i class="fa fa-pencil-alt"></i></a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>12</td>
-                            <td>28.05.2018</td>
-                            <td>400.000.000 vnđ</td>
-                            <td>
-                                <a class="text-light mr-3 font-16" href="/"><i class="fa fa-pencil-alt"></i></a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>13</td>
-                            <td>29.05.2018</td>
-                            <td>100.000.000 vnđ</td>
-                            <td>
-                                <a class="text-light mr-3 font-16" href="/"><i class="fa fa-pencil-alt"></i></a>
-                            </td>
-                        </tr>
+                        <% } %>
                     </tbody>
                 </table>
             </div>
@@ -180,6 +148,127 @@
 <script type="text/javascript" src="/javascripts/admin-cast/jquery.flot.tooltip.min.js">
 </script>
 <script>
+    $(document).ready(function () {
+        $("#period-filter option[value='<%= period %>']").attr("selected", true);
+        $("select[name='year'] option[value='<%= currYear %>']").attr("selected", true);
+        $("select[name='month'] option[value='<%= currMonth %>']").attr("selected", true);
+
+        const dataItems = <%- JSON.stringify(items) %>;
+        const period = <%- JSON.stringify(period) %>;
+        const currMonth = <%- JSON.stringify(currMonth) %>;
+        const currYear = <%- JSON.stringify(currYear) %>;
+
+        const barOptions = {
+            series: {
+                bars: {
+                    show: true,
+                    barWidth: 0.6,
+                    fill: true,
+                    align: 'center',
+                    fillColor: {
+                        colors: [{
+                            opacity: 0.8
+                        }, {
+                            opacity: 0.8
+                        }]
+                    }
+                }
+            },
+            xaxis: {
+                mode: 'categories',
+                tickDecimals: 0
+            },
+            colors: ["#18C5A9"],
+            grid: {
+                color: "#999999",
+                hoverable: true,
+                clickable: true,
+                tickColor: '#DADDE0', // "#D4D4D4",
+                borderWidth: 0
+            },
+            legend: {
+                show: false
+            },
+            tooltip: true,
+            tooltipOpts: {
+                content: "%x - Số lượng: %y"
+            }
+        };
+        const barData = {
+            label: "bar",
+            data: []
+        };
+        switch (period) {
+            case 'day':
+                for (let i = 1; i < new Date(currYear, currMonth, 0).getDate(); i++) {
+                    let itemIndex = dataItems.findIndex((item) => item._id.day === i);
+                    if (itemIndex !== -1) {
+                        barData.data.push([
+                            i,
+                            dataItems[itemIndex].summary
+                        ])
+                    } else{
+                        barData.data.push([i, 0])
+                    }
+                }
+                break;
+            case 'week':
+                for (let i = 0; i < 53; i++) {
+                    let itemIndex = dataItems.findIndex((item) => item._id.week === i);
+                    if (itemIndex !== -1) {
+                        barData.data.push([
+                            i,
+                            dataItems[itemIndex].summary
+                        ])
+                    } else{
+                        barData.data.push([i, 0])
+                    }
+                }
+                break;
+            case 'month':
+                for (let i = 1; i < 13; i++) {
+                    let itemIndex = dataItems.findIndex((item) => item._id.month === i);
+                    if (itemIndex !== -1) {
+                        barData.data.push([
+                            i,
+                            dataItems[itemIndex].summary
+                        ])
+                    } else{
+                        barData.data.push([i, 0])
+                    }
+                }
+                break;
+            case 'quarter':
+                for (let i = 1; i < 5; i++) {
+                    let itemIndex = dataItems.findIndex((item) => item._id.quarter === i);
+                    if (itemIndex !== -1) {
+                        barData.data.push([
+                            i,
+                            dataItems[itemIndex].summary
+                        ])
+                    } else{
+                        barData.data.push([i, 0])
+                    }
+                }
+                break;
+            case 'year':
+                for (let i = 2001; i < currYear + 1; i++) {
+                    let itemIndex = dataItems.findIndex((item) => item._id.year === i);
+                    if (itemIndex !== -1) {
+                        barData.data.push([
+                            i,
+                            dataItems[itemIndex].summary
+                        ])
+                    } else{
+                        barData.data.push([i, 0])
+                    }
+                }
+                break;
+        }
+
+        $.plot($("#statistic_flot_bar_chart"), [barData], barOptions);
+    });
+
     $(function () {
         $('#accounts-table').DataTable({
             pageLength: 10,
