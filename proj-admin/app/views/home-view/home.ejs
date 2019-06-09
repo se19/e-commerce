@@ -12,7 +12,7 @@
   <!-- Page Wrapper -->
   <div id="wrapper">
 
-      <% console.log(constants) %>
+    <% console.log(constants) %>
     <!-- Include sidebar partial -->
     <% include ../common/partials/sidebar %>
 
@@ -30,16 +30,16 @@
           <div class="page-content fade-in-up">
             <div class="row mb-4">
               <div class="col-lg-4 col-md-6">
-                <a href="/brands">
+                <a href="/brands?available=true">
                   <div class="card mb-4">
                     <div class="card-body flexbox-b">
                       <div class="easypie mr-4" data-percent="73" data-bar-color="#18C5A9" data-size="80"
                         data-line-width="8">
-                        <span class="easypie-data text-success" style="font-size:32px;"><i
-                            class="la la-users"></i></span>
+                        <span class="easypie-data text-success" style="font-size:32px;">
+                            <i class="fas fa-copyright"></i></span>
                       </div>
                       <div>
-                        <h3 class="font-strong text-success">18</h3>
+                        <h3 class="font-strong text-success"><%= data.totalBrands %></h3>
                         <div class="text-muted">NHÃN HÀNG</div>
                       </div>
                     </div>
@@ -47,15 +47,15 @@
                 </a>
               </div>
               <div class="col-lg-4 col-md-6">
-                <a href="/users/customers">
+                <a href="/users/customers?available=true">
                   <div class="card mb-4">
                     <div class="card-body flexbox-b">
                       <div class="easypie mr-4" data-percent="42" data-bar-color="#5c6bc0" data-size="80"
                         data-line-width="8">
-                        <span class="easypie-data font-26 text-primary"><i class="ti-world"></i></span>
+                        <span class="easypie-data font-26 text-primary"><i class="fas fa-users"></i></span>
                       </div>
                       <div>
-                        <h3 class="font-strong text-primary">644</h3>
+                        <h3 class="font-strong text-primary"><%= data.totalCustomers %></h3>
                         <div class="text-muted">KHÁCH HÀNG</div>
                       </div>
                     </div>
@@ -68,10 +68,10 @@
                     <div class="card-body flexbox-b">
                       <div class="easypie mr-4" data-percent="70" data-bar-color="#ff4081" data-size="80"
                         data-line-width="8">
-                        <span class="easypie-data text-pink" style="font-size:32px;"><i class="la la-tags"></i></span>
+                        <span class="easypie-data text-pink" style="font-size:32px;"><i class="fas fa-cart-arrow-down"></i></i></i></span>
                       </div>
                       <div>
-                        <h3 class="font-strong text-pink">210</h3>
+                        <h3 class="font-strong text-pink"><%= data.totalOrders %></h3>
                         <div class="text-muted">ĐƠN ĐẶT HÀNG</div>
                       </div>
                     </div>
@@ -86,7 +86,7 @@
                     <div class="d-flex justify-content-between mb-4">
                       <div>
                         <h3 class="m-0">
-                          <a href="/statistics">DOANH SỐ</a>
+                          <a href="/statistics">THỐNG KÊ</a>
                         </h3>
                       </div>
                       <ul class="nav nav-pills nav-pills-rounded nav-pills-air" id="chart_tabs">
@@ -102,7 +102,7 @@
                       </ul>
                     </div>
                     <div>
-                      <canvas id="visitors_chart" style="height:260px;"></canvas>
+                      <canvas id="statistics_chart" style="height:260px;"></canvas>
                     </div>
                   </div>
                 </div>
@@ -119,21 +119,21 @@
                       <div class="flexbox-b mb-2">
                         <span class="badge-point badge-success mr-2"></span>
                         <a href="/orders?status=<%= constants.ORDER_STATUS_COMPLETED %>">Đã giao hàng</a>
-                        <span class="h4 mb-0 ml-4">257</span>
+                        <span class="h4 mb-0 ml-4"><%= data.totalCompleted %></span>
                       </div>
                       <div class="flexbox-b mb-2">
                         <span class="badge-point badge-primary mr-2"></span>
                         <a href="/orders?status=<%= constants.ORDER_STATUS_SHIPPING %>">Đang vận chuyển</a>
-                        <span class="h4 mb-0 ml-4">225</span>
+                        <span class="h4 mb-0 ml-4"><%= data.totalShipping %></span>
                       </div>
                       <div class="flexbox-b mb-2">
                         <span class="badge-point badge-pink mr-2"></span>
                         <a href="/orders?status=<%= constants.ORDER_STATUS_PENDING %>">Đang chờ</a>
-                        <span class="h4 mb-0 ml-4">17</span>
+                        <span class="h4 mb-0 ml-4"><%= data.totalPending %></span>
                       </div>
                     </div>
                     <div class="ibox-fullwidth-block">
-                      <canvas id="age_chart" style="height:260px;"></canvas>
+                      <canvas id="order_chart" style="height:260px;"></canvas>
                     </div>
                   </div>
                 </div>
@@ -146,12 +146,12 @@
                     <div class="ibox ibox-fullheight">
                       <div class="ibox-head">
                         <div class="ibox-title">
-                          <a href="/categories">DANH MỤC HÀNG HÓA</a>
+                          <a href="/categories?available=true">DANH MỤC HÀNG HÓA</a>
                         </div>
                       </div>
                       <div class="ibox-body">
                         <div>
-                          <canvas id="screens_chart" style="height:260px;"></canvas>
+                          <canvas id="categories_chart" style="height:260px;"></canvas>
                         </div>
                       </div>
                     </div>
@@ -160,32 +160,17 @@
                     <div class="ibox ibox-fullheight">
                       <div class="ibox-head">
                         <div class="ibox-title">
-                          <a href="/products">TOP HÀNG HÓA</a>
+                          <a href="/top/products">TOP HÀNG HÓA</a>
                         </div>
                       </div>
                       <div class="ibox-body">
                         <ul class="list-group list-group-divider list-group-full">
+                          <% for(let item of data.topProducts) { %>
                           <li class="list-group-item flexbox">
-                            <span class="flexbox"><i class="la la-chrome mr-3 font-40"></i>Tivi SKU232844</span>
-                            <span class="badge badge-success badge-pill">34.7%</span>
+                            <a class="flexbox" href="/products/<%= item.product.productId %>"><i class="la la-chrome mr-3 font-40"></i><%= item.product.title %></a>
+                            <span class="badge badge-success badge-pill"><%= item.summary %> cái</span>
                           </li>
-                          <li class="list-group-item flexbox">
-                            <span class="flexbox"><i class="la la-firefox mr-3 font-40"></i>Tivi SKU232844</span>
-                            <span class="badge badge-primary badge-pill">34.7%</span>
-                          </li>
-                          <li class="list-group-item flexbox">
-                            <span class="flexbox"><i class="la la-opera mr-3 font-40"></i>Tivi SKU232844</span>
-                            <span class="badge badge-pink badge-pill">34.7%</span>
-                          </li>
-                          <li class="list-group-item flexbox">
-                            <span class="flexbox"><i class="la la-internet-explorer mr-3 font-40"></i>Tivi SKU232844
-                            </span>
-                            <span class="badge badge-info badge-pill">34.7%</span>
-                          </li>
-                          <li class="list-group-item flexbox">
-                            <span class="flexbox"><i class="la la-safari mr-3 font-40"></i>Tivi SKU232844</span>
-                            <span class="badge badge-warning badge-pill">34.7%</span>
-                          </li>
+                          <% } %>
                         </ul>
                       </div>
                     </div>
@@ -196,16 +181,16 @@
                     <div class="flexbox mb-5">
                       <div class="flexbox">
                         <span class="mr-4"
-                          style="width:60px;height:60px;background-color:#e7e9f6;color:#5c6bc0;display:inline-flex;align-items:center;justify-content:center;font-size:35px;"><i
-                            class="ti-files"></i></span>
+                          style="width:60px;height:60px;background-color:#e7e9f6;color:#5c6bc0;display:inline-flex;align-items:center;justify-content:center;font-size:35px;">
+                          <i class="fab fa-font-awesome-flag"></i></span>
                         <div>
                           <h5 class="font-strong">
-                            <a href="/brands">TOP 5 NHãn HÀNG</a>
+                            <a href="/top/brands">TOP 5 NHÃN HÀNG</a>
                           </h5>
                           <div class="text-light">Top 5 nhãn hàng đạt doanh só cao nhất</div>
                         </div>
                       </div>
-                      <ul class="nav nav-pills nav-pills-rounded nav-pills-air">
+                      <!-- <ul class="nav nav-pills nav-pills-rounded nav-pills-air">
                         <li class="nav-item ml-1">
                           <a class="nav-link active" href="#tab_1" data-toggle="tab">Tuần</a>
                         </li>
@@ -215,124 +200,24 @@
                         <li class="nav-item ml-1">
                           <a class="nav-link" href="#tab_3" data-toggle="tab">Năm</a>
                         </li>
-                      </ul>
+                      </ul> -->
                     </div>
                     <div class="tab-content">
                       <div class="tab-pane fade show active" id="tab_1">
                         <div class="flexbox">
-                          <div class="text-center">
-                            <div class="mb-3">Nhãn hàng 2</div>
+                          <% for(let item of data.topBrands) { %>
+                          <div class="text-center mb-3">
+                            <a class="d-block mb-3" href="/brands/<%= item.brand._id %>"><%= item.brand.title %></a>
                             <div class="easypie" data-percent="44" data-bar-color="#5c6bc0" data-size="80"
                               data-line-width="8">
-                              <span class="easypie-data h3 font-strong">44<sup>%</sup></span>
+                              <span class="easypie-data h3 font-strong"><%= item.summary %><sup>cái</sup></span>
                             </div>
                           </div>
+                          <% } %>
+                          <% for(let i = data.topBrands.length; i < 5; i++) { %>
                           <div class="text-center">
-                            <div class="mb-3">Nhãn hàng 1</div>
-                            <div class="easypie" data-percent="28" data-bar-color="#18c5a9" data-size="80"
-                              data-line-width="8">
-                              <span class="easypie-data h3 font-strong">28<sup>%</sup></span>
-                            </div>
                           </div>
-                          <div class="text-center">
-                            <div class="mb-3">Nhãn hàng 3</div>
-                            <div class="easypie" data-percent="9" data-bar-color="#5c6bc0" data-size="80"
-                              data-line-width="8">
-                              <span class="easypie-data h3 font-strong">9<sup>%</sup></span>
-                            </div>
-                          </div>
-                          <div class="text-center">
-                            <div class="mb-3">Nhãn hàng 4</div>
-                            <div class="easypie" data-percent="13" data-bar-color="#ff4081" data-size="80"
-                              data-line-width="8">
-                              <span class="easypie-data h3 font-strong">13<sup>%</sup></span>
-                            </div>
-                          </div>
-                          <div class="text-center">
-                            <div class="mb-3">Nhãn hàng 5</div>
-                            <div class="easypie" data-percent="6" data-bar-color="#5c6bc0" data-size="80"
-                              data-line-width="8">
-                              <span class="easypie-data h3 font-strong">6<sup>%</sup></span>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="tab-pane fade" id="tab_2">
-                        <div class="flexbox">
-                          <div class="text-center">
-                            <div class="mb-3">Nhãn hàng 5</div>
-                            <div class="easypie" data-percent="33" data-bar-color="#5c6bc0" data-size="80"
-                              data-line-width="8">
-                              <span class="easypie-data h3 font-strong">33<sup>%</sup></span>
-                            </div>
-                          </div>
-                          <div class="text-center">
-                            <div class="mb-3">Nhãn hàng 1</div>
-                            <div class="easypie" data-percent="42" data-bar-color="#18c5a9" data-size="80"
-                              data-line-width="8">
-                              <span class="easypie-data h3 font-strong">42<sup>%</sup></span>
-                            </div>
-                          </div>
-                          <div class="text-center">
-                            <div class="mb-3">Nhãn hàng 2</div>
-                            <div class="easypie" data-percent="8" data-bar-color="#5c6bc0" data-size="80"
-                              data-line-width="8">
-                              <span class="easypie-data h3 font-strong">8<sup>%</sup></span>
-                            </div>
-                          </div>
-                          <div class="text-center">
-                            <div class="mb-3">Nhãn hàng 3</div>
-                            <div class="easypie" data-percent="11" data-bar-color="#ff4081" data-size="80"
-                              data-line-width="8">
-                              <span class="easypie-data h3 font-strong">11<sup>%</sup></span>
-                            </div>
-                          </div>
-                          <div class="text-center">
-                            <div class="mb-3">Nhãn hàng 4</div>
-                            <div class="easypie" data-percent="6" data-bar-color="#5c6bc0" data-size="80"
-                              data-line-width="8">
-                              <span class="easypie-data h3 font-strong">6<sup>%</sup></span>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="tab-pane fade" id="tab_3">
-                        <div class="flexbox">
-                          <div class="text-center">
-                            <div class="mb-3">Nhãn hàng 5</div>
-                            <div class="easypie" data-percent="41" data-bar-color="#5c6bc0" data-size="80"
-                              data-line-width="8">
-                              <span class="easypie-data h3 font-strong">41<sup>%</sup></span>
-                            </div>
-                          </div>
-                          <div class="text-center">
-                            <div class="mb-3">Nhãn hàng 4</div>
-                            <div class="easypie" data-percent="32" data-bar-color="#18c5a9" data-size="80"
-                              data-line-width="8">
-                              <span class="easypie-data h3 font-strong">32<sup>%</sup></span>
-                            </div>
-                          </div>
-                          <div class="text-center">
-                            <div class="mb-3">Nhãn hàng 3</div>
-                            <div class="easypie" data-percent="10" data-bar-color="#5c6bc0" data-size="80"
-                              data-line-width="8">
-                              <span class="easypie-data h3 font-strong">10<sup>%</sup></span>
-                            </div>
-                          </div>
-                          <div class="text-center">
-                            <div class="mb-3">Nhãn hàng 2</div>
-                            <div class="easypie" data-percent="12" data-bar-color="#ff4081" data-size="80"
-                              data-line-width="8">
-                              <span class="easypie-data h3 font-strong">12<sup>%</sup></span>
-                            </div>
-                          </div>
-                          <div class="text-center">
-                            <div class="mb-3">Nhãn hàng 1</div>
-                            <div class="easypie" data-percent="5" data-bar-color="#5c6bc0" data-size="80"
-                              data-line-width="8">
-                              <span class="easypie-data h3 font-strong">5<sup>%</sup></span>
-                            </div>
-                          </div>
+                          <% } %>
                         </div>
                       </div>
                     </div>
@@ -343,7 +228,7 @@
                 <div class="ibox ibox-fullheight">
                   <div class="ibox-head">
                     <div class="ibox-title">
-                      <a href="/users">KHÁCH HÀNG MỚI</a>
+                      <a href="/users/customers">KHÁCH HÀNG MỚI</a>
                     </div>
                     <div class="ibox-tools">
                       <a class="dropdown-toggle" data-toggle="dropdown"><i class="ti-user"></i></a>
@@ -356,72 +241,18 @@
                   </div>
                   <div class="ibox-body">
                     <ul class="media-list media-list-divider mr-2 scroller" data-height="580px">
+                      <% for(let user of data.topNewUsers) { %>
                       <li class="media align-items-center">
-                        <a class="media-img" href="javascript:;">
-                          <img class="img-circle" src="/images/products/27.jpg" alt="image" width="54" />
+                        <a class="media-img" href="/users/customers/<%= user.id %>">
+                          <img class="img-circle" src="/<%= user.imageUrl %>" alt="image" width="54" />
                         </a>
-                        <div class="media-body d-flex align-items-center">
+                        <a class="media-body d-flex align-items-center" href="/users/customers/<%= user.id %>">
                           <div class="flex-1">
-                            <div class="media-heading">Lynn Weaver</div><small class="text-muted">Lorem Ipsum is simply
-                              dummy</small>
+                            <div class="media-heading"><%= user.username %></div><small class="text-muted"><%= user.name %></small>
                           </div>
-                        </div>
-                      </li>
-                      <li class="media align-items-center">
-                        <a class="media-img" href="javascript:;">
-                          <img class="img-circle" src="/images/products/27.jpg" alt="image" width="54" />
                         </a>
-                        <div class="media-body d-flex align-items-center">
-                          <div class="flex-1">
-                            <div class="media-heading">Connor Perez</div><small class="text-muted">Lorem Ipsum is simply
-                              dummy</small>
-                          </div>
-                        </div>
                       </li>
-                      <li class="media align-items-center">
-                        <a class="media-img" href="javascript:;">
-                          <img class="img-circle" src="/images/products/27.jpg" alt="image" width="54" />
-                        </a>
-                        <div class="media-body d-flex align-items-center">
-                          <div class="flex-1">
-                            <div class="media-heading">Tyrone Carroll</div><small class="text-muted">Lorem Ipsum is
-                              simply dummy</small>
-                          </div>
-                        </div>
-                      </li>
-                      <li class="media align-items-center">
-                        <a class="media-img" href="javascript:;">
-                          <img class="img-circle" src="/images/products/27.jpg" alt="image" width="54" />
-                        </a>
-                        <div class="media-body d-flex align-items-center">
-                          <div class="flex-1">
-                            <div class="media-heading">Stella Obrien</div><small class="text-muted">Lorem Ipsum is
-                              simply dummy</small>
-                          </div>
-                        </div>
-                      </li>
-                      <li class="media align-items-center">
-                        <a class="media-img" href="javascript:;">
-                          <img class="img-circle" src="/images/products/27.jpg" alt="image" width="54" />
-                        </a>
-                        <div class="media-body d-flex align-items-center">
-                          <div class="flex-1">
-                            <div class="media-heading">Becky Brooks</div><small class="text-muted">Lorem Ipsum is simply
-                              dummy</small>
-                          </div>
-                        </div>
-                      </li>
-                      <li class="media align-items-center">
-                        <a class="media-img" href="javascript:;">
-                          <img class="img-circle" src="/images/products/27.jpg" alt="image" width="54" />
-                        </a>
-                        <div class="media-body d-flex align-items-center">
-                          <div class="flex-1">
-                            <div class="media-heading">Bob Gonzalez</div><small class="text-muted">Lorem Ipsum is simply
-                              dummy</small>
-                          </div>
-                        </div>
-                      </li>
+                      <% } %>
                     </ul>
                   </div>
                 </div>
@@ -461,6 +292,223 @@
   </script>
   <script src="/javascripts/admin-cast/dashboard_visitors.js" type="text/javascript"></script>
 
+
+  <script>
+    $(document).ready(function () {
+    
+      const baseData = <%- JSON.stringify(data) %>;
+
+      // order Chart
+      const ctx = document.getElementById("order_chart").getContext("2d");
+      const gradientStroke = ctx.createLinearGradient(500, 0, 100, 0);
+      const gradientFill = ctx.createLinearGradient(500, 0, 100, 0);
+      gradientStroke.addColorStop(0, "#f39c12");
+      gradientStroke.addColorStop(1, "#e91e63");
+      gradientFill.addColorStop(0, "#f39c12");
+      gradientFill.addColorStop(1, "#e91e63");
+
+      const lineData = {
+        labels: ["Đã giao hàng", "Đang vận chuyển", "Đang chờ"],
+        datasets: [{
+          label: "Số lượng",
+          backgroundColor: gradientFill,
+          hoverBackgroundColor: gradientFill,
+          data: [baseData.totalCompleted, baseData.totalShipping, baseData.totalPending],
+        }],
+      };
+      const lineOptions = {
+        responsive: true,
+        maintainAspectRatio: false,
+        showScale: false,
+        scales: {
+          xAxes: [{
+            gridLines: {
+              display: false,
+              drawBorder: false,
+            },
+            barPercentage: 0.8,
+            categoryPercentage: 0.8
+          }],
+          yAxes: [{
+            display: false,
+            gridLines: false,
+            gridLines: {
+              display: false,
+              drawBorder: false,
+            },
+          }]
+        },
+        legend: {
+          display: false
+        }
+      };
+      new Chart(ctx, {
+        type: 'bar',
+        data: lineData,
+        options: lineOptions
+      });
+
+      //categories chart
+      const doughnutData = {
+        labels: baseData.topPopulatedCategories.map(item => item.title),
+        datasets: [{
+            data: baseData.topPopulatedCategories.map(item => item.productsSize),
+            backgroundColor: ["#5c6bc0","#18c5a9","#ff4081"],
+            hoverBorderColor: ["#5c6bc0","#18c5a9","#ff4081"],
+        }]
+      };
+      const doughnutOptions = {
+          responsive: true,
+          legend: {
+              labels: {
+                  boxWidth: 12,
+              }
+          },
+          cutoutPercentage: 70
+      };
+      const ctx4 = document.getElementById("categories_chart").getContext("2d");
+      new Chart(ctx4, {type: 'doughnut', data: doughnutData, options:doughnutOptions});
+
+      //statistics chart
+      const ctx5 = document.getElementById("statistics_chart").getContext("2d");
+      const lastDayOfMonth = new Date(new Date().getFullYear(), new Date().getMonth()+1, 0).getDate();
+      let statistic_data = {
+          1 : {
+            data: [
+              new Array(7).fill(0),
+              new Array(7).fill(0),
+              new Array(7).fill(0)
+            ],
+            labels: ["CN", "Thứ 2", "Thứ 3", "Thứ 4", "Thứ 5", "Thứ 6", "Thứ 7"],
+          },
+          2 : {
+            data: [
+              new Array(lastDayOfMonth).fill(0),
+              new Array(lastDayOfMonth).fill(0),
+              new Array(lastDayOfMonth).fill(0)
+            ],
+            labels: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", ''],
+          },
+          3 : {
+            data: [
+              new Array(12).fill(0),
+              new Array(12).fill(0),
+              new Array(12).fill(0)
+            ],
+            labels: ["Tháng 1", "Tháng 2", "Tháng 3", "Tháng 4", "Tháng 5", "Tháng 6", "Tháng 7", "Tháng 8", "Tháng 9", "Tháng 10", "Tháng 11", "Tháng 12"],
+          },
+      };
+      
+      baseData.statistics.newCustomersByWeek.forEach(item => {
+        statistic_data[1].data[0][item._id.dayOfWeek - 1] = item.summary;
+      });
+      baseData.statistics.ordersByWeek.forEach(item => {
+        statistic_data[1].data[1][item._id.dayOfWeek - 1] = item.summary;
+      });   
+      baseData.statistics.salesByWeek.forEach(item => {
+        statistic_data[1].data[2][item._id.dayOfWeek - 1] = item.summary;
+      });   
+      
+      baseData.statistics.newCustomersByMonth.forEach(item => {
+        statistic_data[2].data[0][item._id.day - 1] = item.summary;
+      });
+      baseData.statistics.ordersByMonth.forEach(item => {
+        statistic_data[2].data[1][item._id.day - 1] = item.summary;
+      });   
+      baseData.statistics.salesByMonth.forEach(item => {
+        statistic_data[2].data[2][item._id.day - 1] = item.summary;
+      }); 
+      
+      baseData.statistics.newCustomersByYear.forEach(item => {
+        statistic_data[3].data[0][item._id.day - 1] = item.summary;
+      });
+      baseData.statistics.ordersByYear.forEach(item => {
+        statistic_data[3].data[1][item._id.day - 1] = item.summary;
+      });   
+      baseData.statistics.salesByYear.forEach(item => {
+        statistic_data[3].data[2][item._id.day - 1] = item.summary;
+      }); 
+
+
+      const statistics_chart = new Chart(ctx5, {
+          type: 'line', 
+          data: {
+              labels: ["CN", "Thứ 2", "Thứ 3", "Thứ 4", "Thứ 5", "Thứ 6", "Thứ 7"],
+              datasets: [
+                  {
+                      label: "Khách hàng mới",
+                      data: statistic_data[1].data[0],
+                      borderColor: 'rgba(117,54,230,0.9)',
+                      backgroundColor: 'rgba(117,54,230,0.9)',
+                      pointBackgroundColor: 'rgba(117,54,230,0.9)',
+                      pointBorderColor: 'rgba(117,54,230,0.9)',
+                      borderWidth: 1,
+                      pointBorderWidth: 1,
+                      pointRadius: 0,
+                      pointHitRadius: 30,
+                  },{
+                      label: "Đơn hàng",
+                      data: statistic_data[1].data[1],
+                      backgroundColor: 'rgba(255,64,129, 0.7)',
+                      borderColor: 'rgba(255,64,129, 0.7)',
+                      pointBackgroundColor: 'rgba(255,64,129, 0.7)',
+                      pointBorderColor: 'rgba(255,64,129, 0.7)',
+                      borderWidth: 1,
+                      pointBorderWidth: 1,
+                      pointRadius: 0,
+                      pointHitRadius: 30,
+                  },{
+                      label: "Doanh số",
+                      data: statistic_data[1].data[2],
+                      borderColor: 'rgba(104,218,221,1)',
+                      backgroundColor: 'rgba(104,218,221,1)',
+                      pointBackgroundColor: 'rgba(104,218,221,1)',
+                      pointBorderColor: 'rgba(104,218,221,1)',
+                      borderWidth: 1,
+                      pointBorderWidth: 1,
+                      pointRadius: 0,
+                      pointHitRadius: 30,
+                  },
+              ],
+          }, 
+          options: {
+              responsive: true,
+              maintainAspectRatio: false,
+              showScale: false,
+              scales: {
+                  xAxes: [{
+                      gridLines: {
+                          display: false,
+                      },
+                  }],
+                  yAxes: [{
+                      gridLines: {
+                          display: false,
+                          drawBorder: false,
+                      },
+                  }]
+              },
+              legend: {
+                  labels: {
+                      boxWidth: 12
+                  }
+              },
+          }
+      });
+
+      $('#chart_tabs a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+        const id = $(this).attr('data-id');
+          if(id && +id in statistic_data) {
+            statistics_chart.data.labels = statistic_data[id].labels;
+            const datasets = statistics_chart.data.datasets;
+              $.each(datasets,function(index,value) {
+                  datasets[index].data = statistic_data[id].data[index];
+              });
+          }
+          statistics_chart.update();
+      });
+    });
+  </script>
 </body>
 
 </html>

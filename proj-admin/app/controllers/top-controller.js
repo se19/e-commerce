@@ -27,7 +27,7 @@ const list_top_products = (req, res, next) => {
                 }
             });
             res.render('top-view/top-products', {
-                pageTitle: "Sản phẩm bán chạy",
+                pageTitle: "Hàng hóa bán chạy",
                 topProducts,
                 total
             });
