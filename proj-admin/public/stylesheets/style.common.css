@@ -17,7 +17,7 @@ ul#ui-id-1,
 ul#ui-id-2 {
   width: 100px;
   max-height: 300px;
-  overflow-y: scroll;
+  overflow-y: auto;
   z-index: 1000;
 }
 
@@ -34,7 +34,7 @@ ul#ui-id-2 li {
   }
 }
 
-.table.table-bordered.tablef-hover.dataTable:not(#orders-table) {
+#user-info .table.table-bordered.tablef-hover.dataTable:not(#orders-table) {
   width: auto !important;
 }
 

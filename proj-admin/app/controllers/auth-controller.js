@@ -133,6 +133,7 @@ const update_profile = (req, res, next) => {
                     req.session.passport.user.phone = newUser.phone;
                     req.session.passport.user.address = newUser.address;
                     req.session.passport.user.description = newUser.description;
+                    req.session.passport.user.imageUrl = newUser.imageUrl;
                     req.session.passport.user.available = newUser.available;
                     req.session.passport.user.dateCreated = newUser.dateCreated;
                     res.redirect('/profile');
