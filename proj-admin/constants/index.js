@@ -1,4 +1,5 @@
 const constants = {
+    WEB_SHOP_PATH: "https://webshop-client.herokuapp.com",
     DEFAULT_IMG: "images/default/no-image.png",
     DEFAULT_CUSTOMER_PASSWORD: "user",
     USERTYPE_ADMIN: "admin",

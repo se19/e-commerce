@@ -293,7 +293,11 @@
             minLength: 0,
             source: availableTags,
             select: function (event, data) {
-                document.location.href = data.item.route;
+                if(data.item.route === <%- JSON.stringify(locals.constants.WEB_SHOP_PATH) %>){
+                    window.open(data.item.route, '_blank');
+                } else {
+                    document.location.href = data.item.route;                    
+                }
             }
         });
         $("#ui-id-1").addClass("form-control form-control-solid");
