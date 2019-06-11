@@ -26,6 +26,7 @@
                                     </div>
 
                                     <div class="col-12">
+
                                         <p class="text-warning">
                                             Lưu ý: Trang quản trị đang trong giai đoạn phát triển. Đăng nhập với tài
                                             khoản mặc
@@ -38,6 +39,20 @@
                                                 </li>
                                             </ul>
                                         </p>
+                                    </div>
+
+                                    <div class="col-12">
+                                        <% if(locals.message ){ 
+                                            if(locals.message.success) { %>
+                                        <div class="alert alert-success" role="alert">
+                                            <%= message.success %>
+                                        </div>
+                                        <% } 
+                                        if(locals.message.error) { %>
+                                        <div class="alert alert-danger" role="alert">
+                                            <%= message.error %>
+                                        </div>
+                                        <% } } %>
                                     </div>
 
                                     <form class="user" action="/login" method="POST">

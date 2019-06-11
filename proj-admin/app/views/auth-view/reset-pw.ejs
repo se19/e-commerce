@@ -23,9 +23,9 @@
                             min-height: 500px;">
                                 <div class="p-5">
                                     <div class="text-center">
-                                        <h1 class="h4 text-gray-900 mb-4">Quên mật khẩu?</h1>
+                                        <h1 class="h4 text-gray-900 mb-4">Khôi phục mật khẩu</h1>
                                     </div>
-                                    <form class="user mt-5" action="/forgot-password" method="POST">
+                                    <form class="user mt-5" action="/forgot-password/reset/<%- token %>" method="POST">
                                         <div class="col-12">
                                             <% if(locals.message ){ 
                                                 if(locals.message.success) { %>
@@ -41,14 +41,17 @@
                                         </div>
 
                                         <div class="form-group">
-                                            <input type="email" class="form-control form-control-user"
-                                                id="exampleInputEmail" aria-describedby="emailHelp" name="email"
-                                                placeholder="Nhập email khôi phục tài khoản" required>
+                                            <input type="password" class="form-control" name="newPw"
+                                                placeholder="Mật khẩu mới..." required>
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="password" class="form-control"
+                                                placeholder="Nhập lại mật khẩu mới..." name="replacePw" required>
                                         </div>
                                         <button type="submit" class="btn btn-primary btn-user btn-block mt-3 mt-3">
                                             Đồng ý
                                         </button>
-                                        
+
                                         <a href="/login" class="btn btn-google btn-user btn-block">
                                             Đăng nhập
                                         </a>

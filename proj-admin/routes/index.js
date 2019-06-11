@@ -11,6 +11,7 @@ const users = require('./users');
 const statistics = require('./statistics');
 const top = require('./top');
 const login = require('./login');
+const forgotPw = require('./forgot-pw');
 
 router
   .use('/', common)
@@ -23,5 +24,6 @@ router
   .use('/top', top)
   .use('/statistics', statistics)
   .use('/login', login)
+  .use('/forgot-password', forgotPw)
 
 module.exports = router;

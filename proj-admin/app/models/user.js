@@ -47,6 +47,14 @@ const userSchema = new Schema({
     type: Boolean,
     required: true
   },
+  resetPasswordToken: {
+    type: String,
+    required: false
+  },
+  resetPasswordExpires: {
+    type: String,
+    required: false
+  }
   // cart: {
   //   items: [{
   //     productId: {
