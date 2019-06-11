@@ -1,3 +1,0 @@
-- cd C:\MongoDB\bin
-- open cmd
-- mongorestore -d database_name path_to_database_dump_folder
