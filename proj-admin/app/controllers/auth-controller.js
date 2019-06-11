@@ -75,12 +75,16 @@ const forgot_pw = (req, res, next) => {
                     return res.redirect('/forgot-password');
                 }
 
-                user.resetPasswordToken = token;
-                user.resetPasswordExpires = Date.now() + 3600000; // 1 hour
-
-                user.save(function (err) {
-                    done(err, token, user);
-                });
+                User.updateOne({
+                        email: req.body.email
+                    }, {
+                        resetPasswordToken: token,
+                        resetPasswordExpires: Date.now() + 3600000 // 1 hour
+                    })
+                    .then(result => {
+                        done(err, token, user);
+                    })
+                    .catch(err => console.log(err));
             });
         },
         function (token, user, done) {
