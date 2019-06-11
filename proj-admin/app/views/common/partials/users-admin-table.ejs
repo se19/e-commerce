@@ -58,29 +58,29 @@
                     </thead>
                     <tbody>
                         <% if (users.length > 0) { %>
-                        <% for (let user of users) { %>
+                        <% for (let i = 0; i < users.length; i++) { %>
                         <tr>
-                            <td></td>
+                            <td><%= i + 1 %></td>
                             <td>
-                                <a href="/users/administrators/<%= user.id %>">
-                                    <%= user.id %>
+                                <a href="/users/administrators/<%= users[i].id %>">
+                                    <%= users[i].id %>
                                 </a>
                             </td>
                             <td>
-                                <a href="/users/administrators/<%= user.id %>">
-                                    <%= user.name %>
+                                <a href="/users/administrators/<%= users[i].id %>">
+                                    <%= users[i].name %>
                                 </a>
                             </td>
                             <td>
-                                <a href="/users/administrators/<%= user.id %>">
-                                    <%= user.username %>
+                                <a href="/users/administrators/<%= users[i].id %>">
+                                    <%= users[i].username %>
                                 </a>
                             </td>
                             <td>
-                                <%= user.email %>
+                                <%= users[i].email %>
                             </td>
                             <td>
-                                <%= user.phone %>
+                                <%= users[i].phone %>
                             </td>
                             <!-- <td>
                                 <a class="text-light mr-3 font-16" href="/users/administrators/<%= user.id %>"><i

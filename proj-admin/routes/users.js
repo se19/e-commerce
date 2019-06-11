@@ -39,4 +39,7 @@ router
   .post('/customers/:userId/reset-password', user_controller.reset_pw_customer)
   .post('/customers/:userId/upgrade', user_controller.upgrade_user)
 
+  //Validate
+  .post('/check-username-exist', user_controller.check_username_exist)
+  .post('/check-email-exist', user_controller.check_email_exist)
 module.exports = router;

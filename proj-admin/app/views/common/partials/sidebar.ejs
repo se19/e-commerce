@@ -72,6 +72,7 @@
         </a>
         <div id="collapseOrders" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
+                <a class="collapse-item" href="/orders?status=">Tất cả</a>
                 <h6 class="collapse-header">Tình trạng:</h6>
                 <a class="collapse-item" href="/orders?status=<%= constants.ORDER_STATUS_COMPLETED %>">Đã giao hàng</a>
                 <a class="collapse-item" href="/orders?status=<%= constants.ORDER_STATUS_SHIPPING %>">Đang vận chuyển</a>
@@ -148,14 +149,20 @@
     </div>
 
     <!-- Nav Item - Pages Collapse Menu -->
-    <li class="nav-item active">
+    <li class="nav-item">
         <a class="nav-link" href="#" data-toggle="collapse" data-target="#collapseOptions" aria-expanded="true"
             aria-controls="collapseOptions">
             <i class="fas fa-fw fa-cog"></i>
             <span>Tùy chọn</span>
         </a>
         <div id="collapseOptions" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
-            <div class="bg-white py-2 collapse-inner rounded">
+            <div class="bg-white py-2 collapse-inner rounded">                
+                <a class="collapse-item" href="/profile">
+                    Thông tin cá nhân
+                </a>
+                <a class="collapse-item" href="/change-pw">
+                    Đổi mật khẩu
+                </a>
                 <!-- <h6 class="collapse-header">Login Screens:</h6> -->
                 <a class="collapse-item" data-toggle="modal" data-target="#contactModal">Liên hệ hỗ trợ</a>
                 <!-- <a class="collapse-item" href="register.html">Register</a> -->

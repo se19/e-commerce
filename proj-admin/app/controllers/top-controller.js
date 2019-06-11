@@ -1,7 +1,14 @@
 const Order = require('../models/order');
+const constants = require('../../constants/index');
 
 const list_top_products = (req, res, next) => {
     Order.aggregate([{
+            $match: {
+                status: {
+                    $eq: constants.ORDER_STATUS_COMPLETED
+                }
+            }
+        }, {
             $unwind: '$products'
         }, {
             $group: {
@@ -40,6 +47,13 @@ const list_top_products = (req, res, next) => {
 
 const list_top_brands = (req, res, next) => {
     Order.aggregate([{
+                $match: {
+                    status: {
+                        $eq: constants.ORDER_STATUS_COMPLETED
+                    }
+                }
+            },
+            {
                 $unwind: '$products'
             },
             {
@@ -49,7 +63,8 @@ const list_top_brands = (req, res, next) => {
                     foreignField: '_id',
                     as: 'products.product'
                 }
-            }, {
+            },
+            {
                 $unwind: '$products.product'
             },
             {
@@ -59,7 +74,8 @@ const list_top_brands = (req, res, next) => {
                     foreignField: '_id',
                     as: 'products.product.brand'
                 }
-            }, {
+            },
+            {
                 $group: {
                     _id: '$products.product.brandId',
                     brand: {
@@ -69,11 +85,14 @@ const list_top_brands = (req, res, next) => {
                         $sum: '$products.quantity'
                     }
                 }
-            }, {
+            },
+            {
                 $unwind: '$brand'
-            }, {
+            },
+            {
                 $limit: 10
-            }, {
+            },
+            {
                 $sort: {
                     summary: -1
                 }

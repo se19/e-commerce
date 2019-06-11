@@ -1,4 +1,5 @@
 const Order = require('../models/order');
+const constants = require('../../constants/index');
 
 const list_statistics = (req, res, next) => {
     const period = req.query.period ? req.query.period : 'day';
@@ -6,14 +7,16 @@ const list_statistics = (req, res, next) => {
     const month = req.query.month ? +req.query.month : new Date().getMonth() + 1;
 
     let pipeline = [{
+        $match: {
+            status: {
+                $eq: constants.ORDER_STATUS_COMPLETED
+            }
+        }
+    }, {
         $unwind: '$products'
     }, {
         $project: {
-            dateCreated: {
-                $dateFromString: {
-                    dateString: '$dateCreated'
-                }
-            },
+            dateCreated: '$dateCreated',
             quantity: '$products.quantity'
         }
     }, {
@@ -83,27 +86,27 @@ const list_statistics = (req, res, next) => {
 
     switch (period) {
         case 'day':
-            pipeline[3].$match.month = {
+            pipeline[4].$match.month = {
                 $eq: month
             };
-            pipeline[4].$group._id.month = '$month';
-            pipeline[4].$group._id.day = '$day';
+            pipeline[5].$group._id.month = '$month';
+            pipeline[5].$group._id.day = '$day';
             break;
         case 'week':
-            pipeline[4].$group._id.week = '$week';
+            pipeline[5].$group._id.week = '$week';
             break;
         case 'month':
-            pipeline[4].$group._id.month = '$month';
+            pipeline[5].$group._id.month = '$month';
             break;
         case 'quarter':
-            pipeline[4].$group._id.quarter = '$quarter';
+            pipeline[5].$group._id.quarter = '$quarter';
             break;
         case 'year':
-            pipeline.splice(3, 1);
+            pipeline.splice(4, 1);
             break;
     }
 
-    Order.aggregate(pipeline).then(items => {           
+    Order.aggregate(pipeline).then(items => {
 
             res.render('statistics-view/statistics', {
                 pageTitle: "Thống kê doanh số",

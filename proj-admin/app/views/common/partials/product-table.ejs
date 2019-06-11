@@ -105,11 +105,11 @@
                                     <%= product.title %>
                                 </td>
                                 <td class="sorting_1"><%= product.categoryId.title %></td>
-                                <td><%= product.price %></td>
+                                <td><%= product.price.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' }) %></td>
                                 <td><%= product.brandId.title %></td>
                                 <td>
                                     <% if(product.numberInventory > 0) { %>
-                                    <%= product.numberInventory %>
+                                    <%= product.numberInventory.toLocaleString('vi-VN', { style: 'decimal' }) %>
                                     <% } else { %>
                                     <span class="badge badge-danger badge-pill">Hết hàng</span>
                                     <% } %>
@@ -122,7 +122,9 @@
                                         class="d-inline-block">
                                         <input type="hidden" value="<%= product.id %>" name="productId">
                                         <button type="submit" class="btn-trans">
-                                            <i class="fa fa-trash"></i>
+                                            <a class="text-light">
+                                                <i class="fa fa-trash"></i>
+                                            </a>
                                         </button>
                                     </form>
                                     <% } %>

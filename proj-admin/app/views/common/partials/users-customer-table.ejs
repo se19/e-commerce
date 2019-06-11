@@ -44,7 +44,7 @@
                     <%= message.error %>
                 </div>
                 <% } } %>
-                <table class="table table-bordered tablef-hover" id="orders-table">
+                <table class="table table-bordered tablef-hover" id="users-table">
                     <thead class="thead-default thead-lg">
                         <tr>
                             <th>#</th>
@@ -58,38 +58,40 @@
                     </thead>
                     <tbody>
                         <% if (users.length > 0) { %>
-                        <% for (let user of users) { %>
+                        <% for (let i = 0; i < users.length; i++) { %>
                         <tr>
-                            <td></td>
+                            <td><%= i + 1 %></td>
                             <td>
-                                <a href="/users/customers/<%= user.id %>">
-                                    <%= user.id %>
+                                <a href="/users/customers/<%= users[i].id %>">
+                                    <%= users[i].id %>
                                 </a>
                             </td>
                             <td>
-                                <a href="/users/customers/<%= user.id %>">
-                                    <%= user.name %>
+                                <a href="/users/customers/<%= users[i].id %>">
+                                    <%= users[i].name %>
                                 </a>
                             </td>
                             <td>
-                                <a href="/users/customers/<%= user.id %>">
-                                    <%= user.username %>
+                                <a href="/users/customers/<%= users[i].id %>">
+                                    <%= users[i].username %>
                                 </a>
                             </td>
                             <td>
-                                <%= user.email %>
+                                <%= users[i].email %>
                             </td>
                             <td>
-                                <%= user.phone %>
+                                <%= users[i].phone %>
                             </td>
                             <td>
-                                <a class="text-light mr-3 font-16" href="/users/customers/<%= user.id %>"><i
+                                <a class="text-light mr-3 font-16" href="/users/customers/<%= users[i].id %>"><i
                                         class="fa fa-pencil-alt"></i></a>
-                                <% if(user.available == true) { %>
-                                <form action="/users/customers/<%= user.id %><%- '/delete' %>" method="POST"
+                                <% if(users[i].available == true) { %>
+                                <form action="/users/customers/<%= users[i].id %><%- '/delete' %>" method="POST"
                                     class="d-inline-block">
                                     <button type="submit" class="btn-trans">
-                                        <i class="fa fa-trash"></i>
+                                        <a class="text-light">
+                                            <i class="fa fa-trash"></i>
+                                        </a>
                                     </button>
                                 </form>
                                 <% } %>
@@ -116,7 +118,7 @@
         $("#available-filter option[value='<%= available %>']").attr("selected", true);
     });
     $(function () {
-        $('#orders-table').DataTable({
+        $('#users-table').DataTable({
             pageLength: 10,
             fixedHeader: true,
             responsive: true,
@@ -127,7 +129,7 @@
             }]
         });
 
-        var table = $('#orders-table').DataTable();
+        var table = $('#users-table').DataTable();
         $('#key-search').on('keyup', function () {
             table.search(this.value).draw();
         });

@@ -84,7 +84,7 @@
                 <div class="ibox">
                   <div class="ibox-body">
                     <div class="d-flex justify-content-between mb-4">
-                      <div>
+                      <div class="m-1">
                         <h3 class="m-0">
                           <a href="/statistics">THỐNG KÊ</a>
                         </h3>
@@ -244,7 +244,7 @@
                       <% for(let user of data.topNewUsers) { %>
                       <li class="media align-items-center">
                         <a class="media-img" href="/users/customers/<%= user.id %>">
-                          <img class="img-circle" src="/<%= user.imageUrl %>" alt="image" width="54" />
+                          <img class="img-circle" src="/<% if (!user.imageUrl) { %><%= constants.DEFAULT_IMG %><% } else { %><%= user.imageUrl %><% } %>" alt="image" width="54" />
                         </a>
                         <a class="media-body d-flex align-items-center" href="/users/customers/<%= user.id %>">
                           <div class="flex-1">
@@ -420,13 +420,13 @@
       }); 
       
       baseData.statistics.newCustomersByYear.forEach(item => {
-        statistic_data[3].data[0][item._id.day - 1] = item.summary;
+        statistic_data[3].data[0][item._id.month - 1] = item.summary;
       });
       baseData.statistics.ordersByYear.forEach(item => {
-        statistic_data[3].data[1][item._id.day - 1] = item.summary;
+        statistic_data[3].data[1][item._id.month - 1] = item.summary;
       });   
       baseData.statistics.salesByYear.forEach(item => {
-        statistic_data[3].data[2][item._id.day - 1] = item.summary;
+        statistic_data[3].data[2][item._id.month - 1] = item.summary;
       }); 
 
 
@@ -447,7 +447,7 @@
                       pointRadius: 0,
                       pointHitRadius: 30,
                   },{
-                      label: "Đơn hàng",
+                      label: "Đơn hàng mới",
                       data: statistic_data[1].data[1],
                       backgroundColor: 'rgba(255,64,129, 0.7)',
                       borderColor: 'rgba(255,64,129, 0.7)',

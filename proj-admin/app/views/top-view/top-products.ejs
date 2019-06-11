@@ -58,16 +58,16 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <% for(let item of topProducts) { %>
+                                            <% for(let i = 0; i < topProducts.length; i++) { %>
                                             <tr>
-                                                <td></td>
-                                                <td><%= item._id %></td>
-                                                <td><%= item.product.title %></td>
-                                                <td><%= item.product.price %></td>
-                                                <td><%= item.summary %> cái</td>
+                                                <td><%= i + 1 %></td>
+                                                <td><%= topProducts[i]._id %></td>
+                                                <td><%= topProducts[i].product.title %></td>
+                                                <td><%= topProducts[i].product.price %></td>
+                                                <td><%= topProducts[i].summary %> cái</td>
                                                 <td>
                                                     <a class="text-light mr-3 font-16"
-                                                        href="/products/<%= item._id %>"><i class="fa fa-eye"></i></a>
+                                                        href="/products/<%= topProducts[i]._id %>"><i class="fa fa-eye"></i></a>
                                                 </td>
                                             </tr>
                                             <% } %>

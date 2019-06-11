@@ -1,4 +1,5 @@
 const Order = require('../models/order');
+const Product = require('../models/product');
 const constants = require('../../constants/index');
 
 
@@ -141,6 +142,7 @@ const change_order_status = (req, res, next) => {
                         break;
                     case constants.ORDER_STATUS_COMPLETED:
                         order.status = constants.ORDER_STATUS_COMPLETED;
+                        order.dateCompleted = new Date();
                         break;
                     default:
                         order.status = constants.ORDER_STATUS_CANCELED;

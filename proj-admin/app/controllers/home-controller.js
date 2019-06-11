@@ -2,7 +2,6 @@ const constants = require('../../constants/index');
 const Brand = require('../models/brand');
 const User = require('../models/user');
 const Order = require('../models/order');
-const Product = require('../models/product');
 const Category = require('../models/category');
 
 //Khởi tạo
@@ -76,6 +75,12 @@ const intialization = async (req, res, next) => {
 
     //get top 5 product
     const topProducts = await Order.aggregate([{
+        $match: {
+            status: {
+                $eq: constants.ORDER_STATUS_COMPLETED
+            }
+        }
+    }, {
         $unwind: '$products'
     }, {
         $group: {
@@ -104,6 +109,12 @@ const intialization = async (req, res, next) => {
 
     //get top 5 brands 
     const topBrands = await Order.aggregate([{
+            $match: {
+                status: {
+                    $eq: constants.ORDER_STATUS_COMPLETED
+                }
+            }
+        }, {
             $unwind: '$products'
         },
         {
@@ -145,15 +156,7 @@ const intialization = async (req, res, next) => {
     ])
 
     //GET statistics
-    const statisticsPipeline = [{
-        $project: {
-            dateCreated: {
-                $dateFromString: {
-                    dateString: '$dateCreated'
-                }
-            }
-        }
-    }, {
+    const statisticsPipeline = [ {
         $project: {
             year: {
                 $year: '$dateCreated'
@@ -189,69 +192,74 @@ const intialization = async (req, res, next) => {
     }]
 
     //new customers
-    const newCustomersPipeline = [{
+    let newCustomersPipeline = JSON.parse(JSON.stringify([{
         $match: {
             userType: constants.USERTYPE_CUSTOMER
         }
-    }, ...statisticsPipeline];
+    }, ...statisticsPipeline]));
 
-    let newCustomersByYearPipeline = [...newCustomersPipeline];
-    newCustomersByYearPipeline[4].$group._id.month = '$month';
+    let newCustomersByYearPipeline = JSON.parse(JSON.stringify([...newCustomersPipeline]));
+    newCustomersByYearPipeline[3].$group._id.month = '$month';
     const newCustomersByYear = await User.aggregate(newCustomersByYearPipeline);
 
-    let newCustomersByMonthPipeline = [...newCustomersPipeline];
-    newCustomersByMonthPipeline[3].$match.month = { $eq: currMonth };
-    newCustomersByMonthPipeline[4].$group._id.month = '$month';
-    newCustomersByMonthPipeline[4].$group._id.day = '$day';
+    let newCustomersByMonthPipeline = JSON.parse(JSON.stringify([...newCustomersPipeline]));
+    newCustomersByMonthPipeline[2].$match.month = { $eq: currMonth };
+    newCustomersByMonthPipeline[3].$group._id.month = '$month';
+    newCustomersByMonthPipeline[3].$group._id.day = '$day';
     const newCustomersByMonth = await User.aggregate(newCustomersByMonthPipeline);
 
-    let newCustomersByWeekPipeline = [...newCustomersPipeline];
-    newCustomersByWeekPipeline[3].$match.week = { $eq: currWeek };
-    newCustomersByWeekPipeline[4].$group._id.week = '$week';
-    newCustomersByWeekPipeline[4].$group._id.dayOfWeek = '$dayOfWeek';
+    let newCustomersByWeekPipeline = JSON.parse(JSON.stringify([...newCustomersPipeline]));
+    newCustomersByWeekPipeline[2].$match.week = { $eq: currWeek };
+    newCustomersByWeekPipeline[3].$group._id.week = '$week';
+    newCustomersByWeekPipeline[3].$group._id.dayOfWeek = '$dayOfWeek';
     const newCustomersByWeek = await User.aggregate(newCustomersByWeekPipeline);
 
     //orders
 
-    let ordersByYearPipeline = [...statisticsPipeline];
-    ordersByYearPipeline[2].$match.month = { $eq: currMonth };
-    ordersByYearPipeline[3].$group._id.month = '$month';
+    let ordersByYearPipeline = JSON.parse(JSON.stringify([...statisticsPipeline]));
+    ordersByYearPipeline[2].$group._id.month = '$month';
     const ordersByYear = await Order.aggregate(ordersByYearPipeline);
 
-    let ordersByMonthPipeline = [...statisticsPipeline];
-    ordersByMonthPipeline[2].$match.month = { $eq: currMonth };
-    ordersByMonthPipeline[3].$group._id.month = '$month';
-    ordersByMonthPipeline[3].$group._id.day = '$day';
+    let ordersByMonthPipeline = JSON.parse(JSON.stringify([...statisticsPipeline]));
+    ordersByMonthPipeline[1].$match.month = { $eq: currMonth };
+    ordersByMonthPipeline[2].$group._id.month = '$month';
+    ordersByMonthPipeline[2].$group._id.day = '$day';
     const ordersByMonth = await Order.aggregate(ordersByMonthPipeline);
 
-    let ordersByWeekPipeline = [...statisticsPipeline];
-    ordersByWeekPipeline[2].$match.week = { $eq: currWeek };
-    ordersByWeekPipeline[3].$group._id.week = '$week';
-    ordersByWeekPipeline[3].$group._id.dayOfWeek = '$dayOfWeek';
+    let ordersByWeekPipeline = JSON.parse(JSON.stringify([...statisticsPipeline]));
+    ordersByWeekPipeline[1].$match.week = { $eq: currWeek };
+    ordersByWeekPipeline[2].$group._id.week = '$week';
+    ordersByWeekPipeline[2].$group._id.dayOfWeek = '$dayOfWeek';
     const ordersByWeek = await Order.aggregate(ordersByWeekPipeline);
 
     //sales
     
-    let salesPipeline = [...statisticsPipeline];
-    salesPipeline[0].$project.quantity = '$products.quantity';
-    salesPipeline[1].$project.quantity = '$quantity';
-    salesPipeline[3].$group.summary = { $sum: '$quantity' };
+    let salesPipeline = JSON.parse(JSON.stringify([{
+        $match: {
+            status: {
+                $eq: constants.ORDER_STATUS_COMPLETED
+            }
+        }
+    },{
+        $unwind: '$products'
+    }, ...statisticsPipeline]));
+    salesPipeline[2].$project.quantity = '$products.quantity';
+    salesPipeline[4].$group.summary = { $sum: '$quantity' };
 
-    let salesByYearPipeline = [...salesPipeline];
-    salesByYearPipeline[2].$match.month = { $eq: currMonth };
-    salesByYearPipeline[3].$group._id.month = '$month';
+    let salesByYearPipeline = JSON.parse(JSON.stringify([...salesPipeline]));
+    salesByYearPipeline[4].$group._id.month = '$month';
     const salesByYear = await Order.aggregate(salesByYearPipeline);
 
-    let salesByMonthPipeline = [...salesPipeline];
-    salesByMonthPipeline[2].$match.month = { $eq: currMonth };
-    salesByMonthPipeline[3].$group._id.month = '$month';
-    salesByMonthPipeline[3].$group._id.day = '$day';
+    let salesByMonthPipeline = JSON.parse(JSON.stringify([...salesPipeline]));
+    salesByMonthPipeline[3].$match.month = { $eq: currMonth };
+    salesByMonthPipeline[4].$group._id.month = '$month';
+    salesByMonthPipeline[4].$group._id.day = '$day';
     const salesByMonth = await Order.aggregate(salesByMonthPipeline);
 
-    let salesByWeekPipeline = [...salesPipeline];
-    salesByWeekPipeline[2].$match.week = { $eq: currWeek };
-    salesByWeekPipeline[3].$group._id.week = '$week';
-    salesByWeekPipeline[3].$group._id.dayOfWeek = '$dayOfWeek';
+    let salesByWeekPipeline = JSON.parse(JSON.stringify([...salesPipeline]));
+    salesByWeekPipeline[3].$match.week = { $eq: currWeek };
+    salesByWeekPipeline[4].$group._id.week = '$week';
+    salesByWeekPipeline[4].$group._id.dayOfWeek = '$dayOfWeek';
     const salesByWeek = await Order.aggregate(salesByWeekPipeline);
 
 

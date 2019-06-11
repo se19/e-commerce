@@ -54,7 +54,7 @@ let isAdminAcount = (user.userType == constants.USERTYPE_ADMIN); %>
                     <% if(editing && !isAdminAcount) { %>
                     <div class="row">
                         <div class="d-none d-md-block col-md-6"></div>
-                        <form action="/users/customers/<%= user.id %>/upgrade %>" method="POST" class="col-12 col-md-3">
+                        <form id="user-form" action="/users/customers/<%= user.id %>/upgrade %>" method="POST" class="col-12 col-md-3">
                             <div hidden>
                                 <input class="form-control form-control-solid" type="text" value="<%= user.userType %>"
                                     name="userType">
@@ -83,8 +83,8 @@ let isAdminAcount = (user.userType == constants.USERTYPE_ADMIN); %>
                             </div>
                             <div class="col-sm-6 form-group mb-4">
                                 <label>Tên người dùng</label>
-                                <input class="form-control form-control-solid" type="text" value="<%= user.username %>"
-                                    name="username" required>
+                                <input id="username" class="form-control form-control-solid" type="text" value="<%= user.username %>"
+                                    name="username" required onchange="checkUsernameExist(event)">
                             </div>
                         </div>
 
@@ -101,8 +101,8 @@ let isAdminAcount = (user.userType == constants.USERTYPE_ADMIN); %>
                         <div class="row">
                             <div class="col-sm-6 form-group mb-4">
                                 <label>Email</label>
-                                <input class="form-control form-control-solid" type="email" value="<%= user.email %>"
-                                    name="email" title="Email không hợp lệ" required>
+                                <input id="email" class="form-control form-control-solid" type="email" value="<%= user.email %>"
+                                    name="email" title="Email không hợp lệ" required onchange="checkEmailExist(event)">
                             </div>
                             <div class="col-sm-6 form-group mb-4">
                                 <label>Số điện thoại</label>
@@ -132,12 +132,14 @@ let isAdminAcount = (user.userType == constants.USERTYPE_ADMIN); %>
                             </div>
                         </div>
 
+                        <% if(!isAdminAcount) { %>
                         <div class="form-group mb-4">
                             <label class="ui-switch switch-icon mr-3 mb-0">
                                 <input type="checkbox" value="false" name="available">
                                 <span></span>
                             </label>Khả dụng
                         </div>
+                        <% } %>
 
                         <div hidden>
                             <input class="form-control form-control-solid" type="text" value="<%= user.userType %>"
@@ -146,7 +148,7 @@ let isAdminAcount = (user.userType == constants.USERTYPE_ADMIN); %>
                                 value="<%= user.dateCreated %>" name="dateCreated">
                         </div>
 
-                        <% if(editing && (isAdminAcount || user.id != userLogin._id)) {%>
+                        <% if(editing && isAdminAcount && user.id != userLogin._id) {%>
                         <div class="text-danger">
                             Lưu ý: không thể sửa thông tin của quản trị viên khác!
                         </div>
@@ -157,11 +159,17 @@ let isAdminAcount = (user.userType == constants.USERTYPE_ADMIN); %>
                             <button class="btn btn-primary btn-air mr-2" type="submit"><% if (editing) { %>Cập
                                 nhật<% } else { %>Thêm mới<% } %></button>
                             <% } %>
+                            <% if(isAdminAcount && user.id == userLogin._id) {%>
                             <button class="btn btn-secondary" type="button">
-                                <a
-                                    href="/users/<% if(user.userType=='admin'){ %>administrators<% } else { %>customers<% } %>">
-                                    Hủy bỏ</a>
+                                <a href="/">Trở lại</a>
                             </button>
+                            <% } else { %>
+                            <a href="/users/<% if(user.userType=='admin'){ %>administrators<% } else { %>customers<% } %>">
+                                <button class="btn btn-secondary" type="button">
+                                    Trở lại
+                                </button>
+                            </a>
+                            <% } %>
                         </div>
                     </form>
                 </div>
@@ -177,9 +185,10 @@ let isAdminAcount = (user.userType == constants.USERTYPE_ADMIN); %>
 <!-- CORE SCRIPTS-->
 <script src="/javascripts/admin-cast/app.min.js"></script>
 <!-- PAGE LEVEL SCRIPTS-->
+
 <script>
     $(document).ready(function () {
-        if(<%= !editing %> || <%= user.available == true %>){
+        if ( <%= !editing %> || <%= user.available == true %>) {
             $("input[name='available']").attr("checked", true)
         }
     });
@@ -188,11 +197,6 @@ let isAdminAcount = (user.userType == constants.USERTYPE_ADMIN); %>
             tagClass: 'label label-primary'
         });
         $('.tagsinput.form-control-solid').siblings('.bootstrap-tagsinput').addClass('form-control-solid');
-
-        // $(".category-item").click(function () { //use a class, since your ID gets mangled
-        //     $(this).addClass("checked"); //add the class to the clicked element
-        //     alert('ok');
-        // });
 
         //Handle image on changed
         $("#img-input").change(function ($event) {
@@ -207,4 +211,46 @@ let isAdminAcount = (user.userType == constants.USERTYPE_ADMIN); %>
             }
         });
     });
+
+    function checkUsernameExist(event) {
+        $.ajax({
+            url: '/users/check-username-exist',
+            type: 'POST',
+            data: {
+                username: event.target.value
+            },
+            success: function (ok) {
+                const usernameElement = document.getElementById("username");
+                if (ok) {
+                    usernameElement.setCustomValidity("Tên người dùng đã được sử dụng.");
+                } else {
+                    usernameElement.setCustomValidity("");
+                }
+            },
+            error: function (e) {
+                console.log(e.message);
+            }
+        });
+    }
+
+    function checkEmailExist(event) {
+        $.ajax({
+            url: '/users/check-email-exist',
+            type: 'POST',
+            data: {
+                email: event.target.value
+            },
+            success: function (ok) {
+                const emailElement = document.getElementById("email");
+                if (ok) {
+                    emailElement.setCustomValidity("Email đã được sử dụng.");
+                } else {
+                    emailElement.setCustomValidity("");
+                }
+            },
+            error: function (e) {
+                console.log(e.message);
+            }
+        });
+    }
 </script>

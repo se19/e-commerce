@@ -57,15 +57,15 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <% for(let item of topBrands) { %>
+                                            <% for(let i = 0; i < topBrands.length; i++) { %>
                                             <tr>
-                                                <td></td>
-                                                <td><%= item._id %></td>
-                                                <td><%= item.brand.title %></td>
-                                                <td><%= item.summary %> cái</td>
+                                                <td><%= i + 1 %></td>
+                                                <td><%= topBrands[i]._id %></td>
+                                                <td><%= topBrands[i].brand.title %></td>
+                                                <td><%= topBrands[i].summary.toLocaleString('vi-VN', { style: 'decimal' }) %> cái</td>
                                                 <td>
                                                     <a class="text-light mr-3 font-16"
-                                                        href="/brands/<%= item._id %>"><i class="fa fa-eye"></i></a>
+                                                        href="/brands/<%= topBrands[i]._id %>"><i class="fa fa-eye"></i></a>
                                                 </td>
                                             </tr>
                                             <% } %>

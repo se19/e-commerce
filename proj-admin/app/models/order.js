@@ -28,6 +28,10 @@ const orderSchema = new Schema({
     amount: {
       type: Number,
       require: true
+    },
+    imageUrl: {
+      type: Number,
+      required: false
     }
   }],
   total: {

@@ -1,4 +1,5 @@
 const passport = require('passport');
+const bcrypt = require('bcrypt');
 const User = require('../models/user');
 const Order = require('../models/order');
 
@@ -87,8 +88,13 @@ const update_profile = (req, res, next) => {
     newUser.phone = req.body.phone;
     newUser.address = req.body.address;
     newUser.description = req.body.description;
-    newUser.available = req.body.available;
     newUser.dateCreated = req.body.dateCreated;
+
+    if (req.body.available) {
+        newUser.available = true;
+    } else {
+        newUser.available = false;
+    }
 
     let image = req.file;
 
@@ -137,6 +143,58 @@ const update_profile = (req, res, next) => {
 }
 
 
+const init_change_password = (req, res, next) => {
+    //get notification
+    res.locals.message = req.flash();
+
+    res.render('auth-view/change-pw', {
+        pageTitle: "Thay đổi mật khẩu",
+    });
+};
+
+const change_password = (req, res, next) => {
+
+    const oldPw = req.body.oldPw;
+    const newPw = req.body.newPw;
+    const replacePw = req.body.replacePw;
+    if (newPw !== replacePw) {
+        req.flash('error', 'Mật khẩu mới không khớp!');
+        return res.redirect('/change-pw');
+    }
+    User.findOne({
+            _id: res.locals.userLogin._id
+        })
+        .then(user => {
+            if (!user) {
+                console.log('NOT FOUND USER');
+                req.flash('error', 'Người dùng không tồn tại!');
+                res.redirect('/');
+            } else {
+                bcrypt.compare(oldPw, user.password, function (err, response) {
+                    if (response === true) {
+                        user.password = newPw;
+                        user.save().then(result => {
+                                req.flash('success', 'Cập nhật thành công!');
+                                res.redirect('/change-pw');
+                            })
+                            .catch(err => {
+                                console.log(err);
+                                req.flash('error', 'Lỗi!')
+                            });
+                    } else {
+                        req.flash('error', 'Sai mật khẩu cũ!');
+                        res.redirect('/change-pw');
+                    }
+                });
+            }
+        })
+        .catch(err => {
+            console.log(err);
+            req.flash('error', 'Lỗi!')
+        });
+
+};
+
 const logout = (req, res, next) => {
     req.logout();
     res.redirect('/login');
@@ -152,5 +210,7 @@ module.exports = {
     forgot_pw,
     get_profile,
     update_profile,
+    init_change_password,
+    change_password,
     logout
 }

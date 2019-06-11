@@ -12,37 +12,56 @@
                 <button class="btn btn-primary ibox-title btn-add-review" data-toggle="modal"
                     data-target="#commentModal">
                     Thêm bình luận</button>
-                <ul class="media-list">
-                    <% for (let review of reviews) { %>
-                    <li class="media">
+                <ul class="media-list mt-3">
+                    <% for (let i = 0; i < reviews.length; i++) { %>
+                    <!-- <li class="media">
                         <a class="media-img" href="javascript:;">
                             <img src="/images/products/27.jpg" alt="image" width="45">
-                        </a>
-                        <div class="media-body">
+                        </a> -->
+                        <div class="media-body mt-4">
                             <div class="media-heading">
-                                <a class="comment-author" href="javascript:;"><%= review.name %></a><small
-                                    class="text-muted ml-2">5 ngày trước</small>
+                                <a class="badge badge-secondary mr-3"> <%= i + 1 %> </a>
+                                <a class="comment-author mr-3" href="javascript:;"><%= reviews[i].name %></a><small
+                                    class="text-muted ml-2"><%= reviews[i].createdDate.toLocaleString() %></small>
                                 <div class="float-right font-13">
                                     <a class="text-muted mr-2" data-toggle="tooltip" data-original-title="Sửa">
                                         <i class="fa fa-pencil-alt btnEdit" data-toggle="modal"
-                                            data-target="#commentModal" data-id="<%= review.id %>"
-                                            data-name="<%= review.name %>" data-phone="<%= review.phoneNumber %>"
-                                            data-message="<%= review.message %>"></i></a>
+                                            data-target="#commentModal" data-id="<%= reviews[i].id %>"
+                                            data-name="<%= reviews[i].name %>" data-phone="<%= reviews[i].phoneNumber %>"
+                                            data-message="<%= reviews[i].message %>"></i></a>
                                     <form class="d-inline-block" action="/products/<%= product.id %>/review/delete"
                                         method="POST">
                                         <button class="text-muted btn-trans btn-del-review" data-toggle="tooltip"
-                                            data-original-title="Xóa" data-id="<%= review.id %>">
-                                            <i class="fa fa-trash"></i> </button>
+                                            data-original-title="Xóa" data-id="<%= reviews[i].id %>">
+                                             <a class="text-light">
+                                                <i class="fa fa-trash"></i>
+                                            </a> 
+                                        </button>
                                         <input type="text" class="reviewId" name="reviewId" hidden>
                                     </form>
                                 </div>
                             </div>
-                            <p><%= review.message %></p>
+                            <p class="mt-2"><pre><%= reviews[i].message %></pre></p>
                         </div>
                     </li>
                     <% } %>
                 </ul>
             </div>
+            
+            <table class="table table-bordered tablef-hover" id="comments-table" hidden>
+                <thead class="thead-default thead-lg">
+                    <tr>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% for (let review of reviews) { %>
+                    <tr>
+                        <td></td>
+                    </tr>
+                    <% } %>
+                </tbody>
+            </table>
         </div>
     </div>
 </div>
@@ -86,6 +105,7 @@
     </div>
 </div>
 
+<script type="text/javascript" src="/javascripts/admin-cast/datatables.min.js"></script>
 <script>
     $(document).ready(function () {
         $('.btnEdit').click(function () {
@@ -110,4 +130,18 @@
             $('.reviewId').val(reviewId);
         })
     })
+    
+    $(function () {
+        $('#comments-table').DataTable({
+            pageLength: 10,
+            fixedHeader: true,
+            responsive: true,
+            "sDom": 'rtip',
+            columnDefs: [{
+                targets: 'no-sort',
+                orderable: false
+            }]
+        });
+    });
+        
 </script>

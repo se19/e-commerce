@@ -54,24 +54,28 @@
                     </thead>
                     <tbody>
                         <% if (brands.length > 0) { %>
-                        <% for (let brand of brands) { %>
+                        <% for (let i = 0; i < brands.length; i++) { %>
                         <tr>
-                            <td></td>
+                            <td><%= i + 1 %></td>
                             <td>
-                                <a><%= brand.id %></a>
+                                <a href="/brands/<%= brands[i].id %>">
+                                    <%= brands[i].id %>
+                                </a></td>
                             </td>
                             <td>
-                                <a href="/brands/<%= brand.id %>">
-                                    <%= brand.title %>
+                                <a href="/brands/<%= brands[i].id %>">
+                                    <%= brands[i].title %>
                                 </a></td>
                             <td>
-                                <a class="text-light mr-3 font-16" href="/brands/<%= brand.id %>"><i
+                                <a class="text-light mr-3 font-16" href="/brands/<%= brands[i].id %>"><i
                                         class="fa fa-pencil-alt"></i></a>
-                                <% if(brand.available == true) { %>
-                                <form action="/brands/<%= brand.id %><%- '/delete' %>" method="POST"
+                                <% if(brands[i].available == true) { %>
+                                <form action="/brands/<%= brands[i].id %><%- '/delete' %>" method="POST"
                                     class="d-inline-block">
                                     <button type="submit" class="btn-trans">
-                                        <i class="fa fa-trash"></i>
+                                        <a class="text-light">
+                                            <i class="fa fa-trash"></i>
+                                        </a>
                                     </button>
                                 </form>
                                 <% } %>

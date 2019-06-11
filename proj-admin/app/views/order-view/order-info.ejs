@@ -30,7 +30,7 @@
                         <span class="mr-4 static-badge badge-pink"><i class="fa fa-shopping-cart"></i></span>
                         <div>
                             <h5 class="font-strong">Đơn hàng <%= order.id %></h5>
-                            <div class="text-light"><%= order.userId.username %>, <%= order.dateCreated %>, 
+                            <div class="text-light"><%= order.userId.username %>, <%= order.dateCreated.toLocaleString() %>, 
                                 <% switch(order.status) {
                                         case constants.ORDER_STATUS_PENDING: %>
                                     Đang chờ
@@ -79,11 +79,11 @@
                                             <tr>
                                                 <td>3</td>
                                                 <td>
-                                                    <img class="mr-3" src="/images/products/10.jpg" alt="image"
+                                                    <img class="mr-3" src="/<% if (!item.imageUrl) { %><%= constants.DEFAULT_IMG %><% } else { %><%= item.imageUrl %><% } %>" alt="image"
                                                         width="60" /><%= item.title %></td>
-                                                <td><%= item.price %></td>
-                                                <td><%= item.quantity %></td>
-                                                <td><%= item.amount %></td>
+                                                <td><%= item.price.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' }) %></td>
+                                                <td><%= item.quantity.toLocaleString('vi-VN', { style: 'decimal' }) %></td>
+                                                <td><%= item.amount.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' }) %></td>
                                             </tr>
                                             <% } %>
                                         </tbody>
@@ -92,7 +92,7 @@
                                         <div class="text-right" style="width:300px;">
                                             <div class="row mb-2">
                                                 <div class="col-6">Tổng tiền</div>
-                                                <div class="col-6"><%= order.total %></div>
+                                                <div class="col-6"><%= order.total.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' }) %></div>
                                             </div>
                                             <!-- <div class="row mb-2">
                                                 <div class="col-6">Giảm giá 5%:</div>
@@ -116,15 +116,15 @@
                                     <div class="row align-items-center mb-3">
                                         <div class="col-4 text-light">Tổng thanh toán</div>
                                         <div class="col-8 h3 font-strong text-pink mb-0">
-                                            <%= order.total %></div>
+                                            <%= order.total.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' }) %></div>
                                     </div>
                                     <div class="row align-items-center mb-3">
                                         <div class="col-4 text-light">Ngày dặt hàng</div>
-                                        <div class="col-8"><%= order.dateCreated %></div>
+                                        <div class="col-8"><%= order.dateCreated.toLocaleString() %></div>
                                     </div>
                                     <div class="row align-items-center mb-3">
                                         <div class="col-4 text-light">Ngày giao hàng</div>
-                                        <div class="col-8"><%= order.dateCompleted %></div>
+                                        <div class="col-8"><%= order.dateCompleted ? order.dateCompleted.toLocaleString() : 'Chưa có' %></div>
                                     </div>
                                     <div class="row align-items-center mb-3">
                                         <div class="col-4 text-light">Trạng thái</div>
@@ -168,6 +168,13 @@
                             <div class="ibox">
                                 <div class="ibox-body">
                                     <h5 class="font-strong mb-4">Thông tin người nhận</h5>
+                                    <div class="row align-items-center mb-3">
+                                        <div class="col-4 text-light">Tài khoản đặt hàng</div>
+                                        <div class="col-8">
+                                            <a href="/users/<% if(order.userId.userType == constants.USERTYPE_ADMIN){ %>administrators<% } else{ %>customers<% } %>/<%= order.userId.id %>">
+                                            <%= order.userId.username %>
+                                        </a></div>
+                                    </div>
                                     <div class="row align-items-center mb-3">
                                         <div class="col-4 text-light">Họ tên</div>
                                         <div class="col-8"><%= order.receiver.name %></div>

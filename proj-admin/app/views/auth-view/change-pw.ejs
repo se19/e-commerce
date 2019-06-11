@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <% include ../common/partials/head %>
+    <title><%= pageTitle %></title>
+</head>
+
+<body>
+
+    <!-- Page Wrapper -->
+    <div id="wrapper">
+
+        <!-- Include sidebar partial -->
+        <% include ../common/partials/sidebar %>
+
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+
+            <!-- Main Content -->
+            <div id="content">
+
+                <!-- Include topbar partial -->
+                <% include ../common/partials/topbar %>
+
+                <div class="container">
+
+                    <!-- Outer Row -->
+                    <div class="row justify-content-center">
+
+                        <div class="col-xl-10 col-lg-12 col-md-9">
+
+                            <div class="card o-hidden border-0 shadow-lg">
+                                <div class="card-body p-0">
+                                    <!-- Nested Row within Card Body -->
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <div class="p-5 text-center">
+                                                <div class="text-center mb-4">
+                                                    <h1 class="h4 text-gray-900 mb-2">Thay đổi mật khẩu</h1>
+                                                </div>
+                                                <% if(locals.message ){ 
+                                                    if(locals.message.success) { %>
+                                                <div class="alert alert-success" role="alert">
+                                                    <%= message.success %>
+                                                </div>
+                                                <% } 
+                                                if(locals.message.error) { %>
+                                                <div class="alert alert-danger" role="alert">
+                                                    <%= message.error %>
+                                                </div>
+                                                <% } } %>
+                                                <form class="user w-50 d-inline-block" action="/change-pw"
+                                                    method="POST">
+                                                    <div class="form-group">
+                                                        <input type="password" class="form-control" name="oldPw"
+                                                            placeholder="Mật khẩu cũ..." required>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <input type="password" class="form-control" name="newPw"
+                                                            placeholder="Mật khẩu mới..." required>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <input type="password" class="form-control"
+                                                            placeholder="Nhập lại mật khẩu mới..." name="replacePw"
+                                                            required>
+                                                    </div>
+                                                    <button type="submit" class="btn btn-primary btn-user btn-block">
+                                                        Cập nhật
+                                                    </button>
+                                                    <a href="/">
+                                                        <button type="button" class="btn btn-user btn-block">
+                                                            Trở lại
+                                                        </button>
+                                                    </a>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+            </div>
+            <!-- End Main Content -->
+
+            <!-- Footer -->
+            <!-- Include footer partial -->
+            <% include ../common/partials/footer %>
+            <!-- End Footer -->
+
+        </div>
+        <!-- End Content Wrapper -->
+
+    </div>
+    <!-- End of Page Wrapper -->
+
+    <!-- Include bottom partial -->
+    <% include ../common/partials/bottom %>
+</body>
+
+</html>

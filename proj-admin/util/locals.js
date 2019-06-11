@@ -14,7 +14,9 @@ const locals = async (req, res, next) => {
     }
     res.locals.session = req.session;
     if (!res.locals.brands) {
-        await Brand.find()
+        await Brand.find({
+                available: true
+            })
             .then(brands => {
                 if (brands) {
                     res.locals.brands = brands;
@@ -23,7 +25,9 @@ const locals = async (req, res, next) => {
             .catch(err => console.log(err));
     }
     if (!res.locals.categories) {
-        await Category.find()
+        await Category.find({
+                available: true
+            })
             .then(categories => {
                 if (categories) {
                     res.locals.categories = categories;

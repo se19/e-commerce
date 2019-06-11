@@ -55,12 +55,18 @@ const list_products = async (req, res, next) => {
 
 // initialize product
 const init_product = async (req, res, next) => {
-    let brands = await Brand.find();
-    let categories = await Category.find();
+    let brands = await Brand.find({
+        available: true
+    });
+    let categories = await Category.find({
+        available: true
+    });
 
     res.render('product-view/product-info', {
         pageTitle: "Thêm hàng hóa",
-        product: {},
+        product: {
+            available: true
+        },
         brands,
         categories
     });

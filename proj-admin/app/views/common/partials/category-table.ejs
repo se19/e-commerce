@@ -54,24 +54,28 @@
                     </thead>
                     <tbody>
                         <% if (categories.length > 0) { %>
-                        <% for (let category of categories) { %>
+                        <% for (let i = 0; i < categories.length; i++) { %>
                         <tr>
-                            <td></td>
+                            <td><%= i + 1 %></td>
                             <td>
-                                <a><%= category.id %></a>
+                                <a href="/categories/<%= categories[i].id %>">
+                                    <%= categories[i].id %>
+                                </a>
                             </td>
                             <td>
-                                <a href="/categories/<%= category.id %>">
-                                    <%= category.title %>
+                                <a href="/categories/<%= categories[i].id %>">
+                                    <%= categories[i].title %>
                                 </a></td>
                             <td>
-                                <a class="text-light mr-3 font-16" href="/categories/<%= category.id %>"><i
+                                <a class="text-light mr-3 font-16" href="/categories/<%= categories[i].id %>"><i
                                         class="fa fa-pencil-alt"></i></a>
-                                <% if(category.available == true) { %>
-                                <form action="/categories/<%= category.id %><%- '/delete' %>" method="POST"
+                                <% if(categories[i].available == true) { %>
+                                <form action="/categories/<%= categories[i].id %><%- '/delete' %>" method="POST"
                                     class="d-inline-block">
                                     <button type="submit" class="btn-trans">
-                                        <i class="fa fa-trash"></i>
+                                        <a class="text-light">
+                                            <i class="fa fa-trash"></i>
+                                        </a>
                                     </button>
                                 </form>
                                 <% } %>

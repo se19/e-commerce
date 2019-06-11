@@ -34,3 +34,12 @@
 .dropdown-menu .category-item.checked a .check-mark {
     display: block;
 }
+
+/* table */
+table.dataTable>tbody>tr.child ul.dtr-details {
+    display: block !important;
+}
+
+table.dataTable>tbody>tr.child ul.dtr-details .dtr-data {
+    float: right !important;
+}

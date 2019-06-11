@@ -141,7 +141,7 @@ const get_user = async (req, res, next) => {
 
     let orders;
     await Order.find({
-            'user.userId': userId
+            'userId': userId
         })
         .then(result => {
             console.log(result);
@@ -316,6 +316,44 @@ const upgrade_user = (req, res, next) => {
         });
 }
 
+const check_username_exist = (req, res, next) => {
+    const username = req.body.username;
+    let ok = false;
+
+    User.findOne({
+            username: username
+        })
+        .then(result => {
+            if (result) {
+                ok = true;
+            }
+            res.json(ok);
+        })
+        .catch(err => {
+            console.log(err);
+            req.flash('error', 'Lỗi!')
+        });
+}
+
+const check_email_exist = (req, res, next) => {
+    const email = req.body.email;
+    let ok = false;
+
+    User.findOne({
+            email: email
+        })
+        .then(result => {
+            if (result) {
+                ok = true;
+            }
+            res.json(ok);
+        })
+        .catch(err => {
+            console.log(err);
+            req.flash('error', 'Lỗi!')
+        });
+}
+
 module.exports = {
     list_administrators,
     list_customers,
@@ -327,5 +365,7 @@ module.exports = {
     delete_administrator,
     delete_customer,
     reset_pw_customer,
-    upgrade_user
+    upgrade_user,
+    check_username_exist,
+    check_email_exist
 }

@@ -61,16 +61,16 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <% for(let order of orders) { %>
+                        <% for(let i = 0; i < orders.length; i++) { %>
                         <tr>
-                            <td></td>
+                            <td><%= i + 1 %></td>
                             <td>
-                                <a href="/orders/<%= order.id %>"><%= order.id %></a>
+                                <a href="/orders/<%= orders[i].id %>"><%= orders[i].id %></a>
                             </td>
-                            <td><%= order.userId.username %></td>
-                            <td><%= order.total %></td>
+                            <td><%= orders[i].userId.username %></td>
+                            <td><%= orders[i].total.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' }) %></td>
                             <td>
-                                <% switch(order.status) {
+                                <% switch(orders[i].status) {
                                     case constants.ORDER_STATUS_PENDING: %>
                                 <span class="badge badge-primary badge-pill">Đang chờ</span>
                                 <% break;
@@ -85,11 +85,11 @@
                                 <% break;
                                 } %>
                             </td>
-                            <td> <% if(order.paid){ %>Đã thanh toán<% } else { %>Chưa thanh toán<% } %> </td>
-                            <td><%= order.dateCreated %></td>
+                            <td> <% if(orders[i].paid){ %>Đã thanh toán<% } else { %>Chưa thanh toán<% } %> </td>
+                            <td><%= orders[i].dateCreated.toLocaleString() %></td>
                             <td>
-                                <% if(order.status != constants.ORDER_STATUS_CANCELED) { %>
-                                <form action="/orders/<%= order.id %>/cancel" method="POST">
+                                <% if(orders[i].status != constants.ORDER_STATUS_CANCELED && orders[i].status != constants.ORDER_STATUS_COMPLETED) { %>
+                                <form action="/orders/<%= orders[i].id %>/cancel" method="POST">
                                     <button type="submit" class="text-muted font-16 btn-trans"><i
                                             class="fa fa-times-circle"></i></a>
                                 </form>
