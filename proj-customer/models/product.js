@@ -21,7 +21,12 @@ const productSchema = new Schema({
     required: false
   },
   // https://mongoosejs.com/docs/schematypes.html#arrays
-  imageDescription: [String],
+  imageDescription: [{
+    image: {
+      type: String,
+      required: true
+    }
+  }],
   importDate: {
     type: Date,
     required: true
@@ -42,6 +47,10 @@ const productSchema = new Schema({
   },
   numberPurchased: {
     type: Number,
+    required: true
+  },
+  available: {
+    type: Boolean,
     required: true
   },
   // lượt xem
@@ -85,7 +94,11 @@ productSchema.methods.addReview = function (review) {
   //   })
 
   let sum = 0;
-  Rate.find({_id: {$in: this.reviews}})
+  Rate.find({
+      _id: {
+        $in: this.reviews
+      }
+    })
     .then(reviews => {
       for (let review of reviews) {
         sum += review.rating;

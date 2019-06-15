@@ -5,7 +5,7 @@ const Schema = mongoose.Schema;
 const rateSchema = new Schema({
   rating: {
     type: Number,
-    required: true
+    required: false
   },
   name: {
     type: String,
@@ -16,6 +16,10 @@ const rateSchema = new Schema({
   },
   message: {
     type: String,
+    required: true
+  },
+  createdDate: {
+    type: Date,
     required: true
   }
 });

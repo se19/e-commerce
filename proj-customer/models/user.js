@@ -41,12 +41,20 @@ const userSchema = new Schema({
   },
   dateCreated: {
     type: Date,
-    required: true
+    required: false
   },
   available: {
     type: Boolean,
+    required: true
+  },
+  resetPasswordToken: {
+    type: String,
     required: false
   },
+  resetPasswordExpires: {
+    type: String,
+    required: false
+  }
   // cart: {
   //   items: [{
   //     productId: {
