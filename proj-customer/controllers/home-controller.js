@@ -4,13 +4,17 @@ const Product = require('../models/product');
 
 const initialization = async (req, res, next) => {
     // chọn ra 6 sản phẩm chạy nhất
-    let hotProds = await Product.find().sort({
+    let hotProds = await Product.find({
+        available: true
+    }).sort({
         numberPurchased: -1
     }).limit(6);
 
     // chọn ra 5 sản phẩm mới nhất
-    let newProds = await Product.find().sort({
-        importDate: -1  // ngày giảm dần
+    let newProds = await Product.find({
+        available: true
+    }).sort({
+        importDate: -1 // ngày giảm dần
     }).limit(5);
 
     res.render('home-view/index', {

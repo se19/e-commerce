@@ -13,18 +13,21 @@ const passportConfig = () => {
                     username: username
                 })
                 .then(user => {
-                    if (user) {
+                    if (user.available == false) {
+                        console.log('USER HAS BEEN LOOKED');
+                        return done(null, false);
+                    } else if (user) {
                         bcrypt.compare(password, user.password, function (err, res) {
                             if (res === true) {
                                 return done(null, user)
                             } else {
                                 console.log('PASSWORD FAILED');
-                                return done(null, false)
+                                return done(null, false);
                             }
                         });
                     } else {
                         console.log('NOT FOUND USER');
-                        return done(null, false)
+                        return done(null, false);
                     }
                 })
                 .catch(err => console.log(err));

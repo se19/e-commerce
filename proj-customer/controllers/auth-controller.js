@@ -37,13 +37,22 @@ const register = (req, res, next) => {
 
 const submitRegister = (req, res, next) => {
     let newUser = new User();
-    newUser.name = req.body.name;
     newUser.username = req.body.username;
-    newUser.email = req.body.email;
     newUser.password = req.body.password;
+    newUser.name = req.body.name;
+    newUser.email = req.body.email;
     newUser.phone = req.body.phone;
     newUser.userType = 'customer';
     newUser.dateCreated = new Date();
+    newUser.available = true;
+
+    bcrypt.hash(newUser.password, 10, function (err, hash) {
+        if (err) {
+            console.log('HASH FAILED');
+            res.redirect('/login');
+        }
+        newUser.password = hash;
+    })
 
     newUser
         .save()

@@ -29,10 +29,14 @@ const getLocalsVariables = async (req, res, next) => {
     //tạo biến data lưu các thông tin như constants, danh sách loại hàng, thương hiệu
     res.locals.data = {}
 
-    const brands = await Brand.find();
+    const brands = await Brand.find({
+        available: true
+    });
     res.locals.data.brands = brands;
 
-    const categories = await Category.find();
+    const categories = await Category.find({
+        available: true
+    });
     res.locals.data.categories = categories;
 
     //Lấy số lượng sản phẩm trong giỏ hàng hiển thị lên navbar
