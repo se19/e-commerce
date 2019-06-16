@@ -58,24 +58,24 @@
             </div>
             <div class="d-flex">
               <div class="dropdown mr-1 ml-md-auto">
-                <button type="button" class="btn btn-white btn-sm dropdown-toggle px-4" id="dropdownMenuOffset"
+                <!-- <button type="button" class="btn btn-white btn-sm dropdown-toggle px-4" id="dropdownMenuOffset"
                   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                   Chọn
                 </button>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuOffset">
-                  <a class="dropdown-item" href="#">Sản phẩm mới nhất</a>
-                  <a class="dropdown-item" href="#">Sản phẩm bán chạy</a>
-                </div>
+                  <a class="dropdown-item" href="">Sản phẩm bán kém nhất</a>
+                  <a class="dropdown-item" href="">Sản phẩm bán chạy nhất</a>
+                </div> -->
               </div>
               <div class="btn-group">
                 <button type="button" class="btn btn-white btn-sm dropdown-toggle px-4" id="dropdownMenuReference"
                   data-toggle="dropdown">Sắp xếp</button>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuReference">
-                  <a class="dropdown-item" href="#">Tên tăng dần</a>
+                  <!-- <a class="dropdown-item" href="#">Tên tăng dần</a>
                   <a class="dropdown-item" href="#">Tên giảm dần</a>
-                  <div class="dropdown-divider"></div>
-                  <a class="dropdown-item" href="#">Giá tăng dần</a>
-                  <a class="dropdown-item" href="#">Giá giảm dần</a>
+                  <div class="dropdown-divider"></div> -->
+                  <a class="dropdown-item" href="?price=1">Giá tăng dần</a>
+                  <a class="dropdown-item" href="?price=-1">Giá giảm dần</a>
                 </div>
               </div>
             </div>
@@ -89,7 +89,9 @@
             </a>
             <h2 class="item-title"><a href="/shop/<%= product._doc._id %>">Laptop
                 <%= product._doc.title %></a></h2>
-            <strong class="item-price"><del>$46.00</del> <%= product._doc.price %></strong>
+            <strong class="item-price">
+              <!-- <del>$46.00</del> -->
+              <%= product._doc.price.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' }) %></strong>
             <div class="star-rating">
               <% for (let i=0; i < product._doc.average; i++) { %>
               <span class="icon-star2 text-warning"></span>

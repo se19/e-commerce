@@ -7,7 +7,7 @@
                 <label>Thương hiệu </label>
                 <div class="select-box form-group mb-2">
                     <select class="custom-select" id="inputBrands" name="brandId" required>
-                        <option selected>Chọn thương hiệu</option>
+                        <option selected value="">Chọn thương hiệu</option>
                         <% for (let brand of locals.data.brands) { %>
                         <option value="<%= brand._id %>"><%= brand.title %></option>
                         <% } %>
@@ -17,7 +17,7 @@
                 <label>Loại sản phẩm </label>
                 <div class="select-box form-group mb-2">
                     <select class="custom-select" id="inputCategories" name="categoryId" required>
-                        <option selected>Chọn loại sản phẩm</option>
+                        <option selected value="">Chọn loại sản phẩm</option>
                         <% for (let category of locals.data.categories) { %>
                         <option value="<%= category._id %>"><%= category.title %></option>
                         <% } %>

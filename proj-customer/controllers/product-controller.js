@@ -9,15 +9,45 @@ const REVIEWS_PER_PAGE = 2;
 
 //Get danh sách sản phẩm, bao gồm cả tìm kiếm, sort, order và phân trang
 const listProduct = async (req, res, next) => {
-    req.session.queryUrl = "";
+    // let queryFilterOneUrl = "";
+    // let queryFilterTwoUrl = "";
+    // const numberPurchased = +req.query.numberPurchased;
+    // const price = +req.query.price;
+    // if (numberPurchased && price) {
+    //     queryFilterOneUrl = "numberPurchased=" + numberPurchased + "&";
+    //     queryFilterTwo = "&price=" + price;
+    //     req.session.queryUrl = queryFilterOneUrl.slice(0, -1) + queryFilterTwoUrl + "&";
+    // } else if (numberPurchased && !price) {
+    //     queryFilterOneUrl = "numberPurchased=" + numberPurchased + "&";
+    //     req.session.queryUrl = queryFilterOneUrl;
+    // } else if (!numberPurchased && price) {
+    //     queryFilterTwoUrl = "&price=" + price;
+    //     req.session.queryUrl = "price" + price + "&";
+    // } else {
+    //     req.session.queryUrl = "";
+    // }
+
+    const price = +req.query.price;
+    if (price) {
+        req.session.queryUrl = "price=" + price + "&";
+    } else {
+        req.session.queryUrl = ""
+    }
 
     /*Phân trang sản phẩm*/
     // trường hợp không có '?page' thì page = 1
     const page = +req.query.page || 1;
     // đếm số items;
-    let totalItems = await Product.find().countDocuments();
+    let totalItems = await Product.find({
+        available: true
+    }).countDocuments();
 
-    const products = await Product.find()
+    const products = await Product.find({
+            available: true
+        })
+        .sort({
+            price: price
+        })
         .skip((page - 1) * ITEMS_PER_PAGE) // bỏ qua ~ item
         .limit(ITEMS_PER_PAGE);
 
@@ -42,7 +72,12 @@ const listProduct = async (req, res, next) => {
 
 // Get danh sách product theo loại thương hiệu
 const listProductByBrand = async (req, res, next) => {
-    req.session.queryUrl = "";
+    const price = +req.query.price;
+    if (price) {
+        req.session.queryUrl = "price=" + price + "&";
+    } else {
+        req.session.queryUrl = "";
+    }
 
     const brandId = req.params.brandId;
     const brand = await Brand.findById(brandId);
@@ -54,11 +89,16 @@ const listProductByBrand = async (req, res, next) => {
 
     // đếm số items;
     let totalItems = await Product.find({
-        brandId: brandId
+        brandId: brandId,
+        available: true
     }).countDocuments();
 
     const products = await Product.find({
-            brandId: brandId
+            brandId: brandId,
+            available: true
+        })
+        .sort({
+            price: price
         })
         .skip((page - 1) * ITEMS_PER_PAGE) // bỏ qua ~ item
         .limit(ITEMS_PER_PAGE);
@@ -83,7 +123,13 @@ const listProductByBrand = async (req, res, next) => {
 
 // Get danh sách product theo loại sản phẩm
 const listProductByCat = async (req, res, next) => {
-    req.session.queryUrl = "";
+
+    const price = +req.query.price;
+    if (price) {
+        req.session.queryUrl = "price=" + price + "&";
+    } else {
+        req.session.queryUrl = "";
+    }
 
     const catId = req.params.categoryId;
     const cat = await Category.findById(catId);
@@ -95,11 +141,16 @@ const listProductByCat = async (req, res, next) => {
 
     // đếm số items;
     let totalItems = await Product.find({
-        categoryId: catId
+        categoryId: catId,
+        available: true
     }).countDocuments();
 
     const products = await Product.find({
-            categoryId: catId
+            categoryId: catId,
+            available: true
+        })
+        .sort({
+            price: price
         })
         .skip((page - 1) * ITEMS_PER_PAGE) // bỏ qua ~ item
         .limit(ITEMS_PER_PAGE);
@@ -127,7 +178,7 @@ const listProductByCat = async (req, res, next) => {
 //Get thông tin sản phẩm
 const getDetail = async (req, res, next) => {
     req.session.queryUrl = "";
-    
+
     const prodId = req.params.productId;
     const product = await Product.findOne({
         _id: prodId

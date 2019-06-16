@@ -69,7 +69,9 @@
         </a>
         <h2 class="item-title"><a href="/shop/<%= product._doc._id %>">Laptop <%= product._doc.title %> </a>
         </h2>
-        <strong class="item-price"><del>$46.00</del> <%= product._doc.price %> </strong>
+        <strong class="item-price">
+          <!-- <del>$46.00</del> -->
+          <%= product._doc.price.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' }) %> </strong>
         <div class="star-rating">
           <!-- <%# for(let i=0; i< product._doc.rating.average ; i++) { %>
           <span class="icon-star2 text-warning"></span>
@@ -99,7 +101,9 @@
               </a>
               <h2 class="item-title"><a href="/shop<%= product._doc._id %>">Laptop
                   <%= product._doc.title %></a></h2>
-              <strong class="item-price"><del>$46.00</del> <%= product._doc.price %></strong>
+              <strong class="item-price">
+                <!-- <del>$46.00</del> -->
+                <%= product._doc.price.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' }) %></strong>
               <div class="star-rating">
                 <!-- <%# for(let i=0; i< product._doc.rating.average; i++) { %>
                 <span class="icon-star2 text-warning"></span>
