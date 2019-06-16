@@ -181,12 +181,14 @@ const getDetail = async (req, res, next) => {
 
     const prodId = req.params.productId;
     const product = await Product.findOne({
-        _id: prodId
-    })
-    product.view +=1;
+            _id: prodId
+        })
+        .populate({
+            path: 'relatedProduct.productId'
+        })
+    product.view += 1;
     product.save();
-    // product.view += 1;
-    // await product.save();
+    //console.log(product.relatedProduct[0].productId);
 
     /*Phân trang bình luận*/
     // trường hợp không có '?page' thì page = 1
