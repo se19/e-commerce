@@ -42,9 +42,9 @@
                           <h4><a href="/order/history/<%= order._id %>"><%= order._id %></a></h4>
                         </td>
                         <td class="product-name">
-                          <h5 class="text-black"><%= order.dateCreated %></h5>
+                          <h5 class="text-black"><%= order.dateCreated.toLocaleString() %></h5>
                         </td>
-                        <td><%= order.total %></td>
+                        <td><%= order.total.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' }) %></td>
                         <td><%= order.status %></td>
                         <td><%= order.paid %></td>
                       </tr>

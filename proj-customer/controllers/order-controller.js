@@ -1,7 +1,8 @@
 const Order = require('../models/order');
 const Cart = require('../models/cart');
+const Product = require('../models/product');
 
-const createOrder = (req, res, next) => {
+const createOrder = async (req, res, next) => {
     const nameReceiver = req.body.nameReceiver;
     const addressReceiver = req.body.addressReceiver;
     const emailReceiver = req.body.emailReceiver;
@@ -34,6 +35,37 @@ const createOrder = (req, res, next) => {
     newOrder.status = "pending";
     newOrder.paid = false;
 
+    // lưu lại danh sách sản phẩm hay mua cùng nhau
+    // cấu trúc là mảng [{productId, title, price, quantity, amount}]
+    for (let p of products) {
+        // trả về array nếu dùng find
+        let product = await Product.findOne({
+            _id: p.productId
+        });
+        // lấy danh sách mới không chứ product đang xét
+        let tempProducts = products.filter(proItem => proItem.productId.toString() !== product._id.toString())
+
+        for (let tempProduct of tempProducts) {
+            // cấu trúc relatedProduct [{productId, num}]
+            // https://stackoverflow.com/questions/7364150/find-object-by-id-in-an-array-of-javascript-objects
+            if (product.relatedProduct === undefined) {
+                product.relatedProduct = [];
+            }
+            let index = product.relatedProduct.findIndex(item => item.productId.toString() == tempProduct.productId.toString())
+            // nếu có trong relatedProduct thì tăng số lượt
+            if (index != -1) {
+                product.relatedProduct[index].num += tempProduct.quantity;
+            } else { // thêm mới
+                relatedPro = {};
+                relatedPro.productId = tempProduct.productId;
+                relatedPro.num = tempProduct.quantity;
+                product.relatedProduct.push(relatedPro);
+            }
+            product.save();
+        }
+    }
+
+    // lưu lại đơn hàng
     newOrder
         .save()
         .then(result => {

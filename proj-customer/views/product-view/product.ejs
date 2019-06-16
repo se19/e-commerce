@@ -141,11 +141,12 @@
             <h5 class="">(<%= product.view %> Lượt xem)</h3>
               <div>
                 <div class="product-rating">
+                  <% for (let i=0; i < 5; i++ ) { %>
+                  <% if (i < product.average) { %>
                   <i class="fas fa-star"></i>
-                  <i class="fas fa-star"></i>
-                  <i class="fas fa-star"></i>
-                  <i class="fas fa-star"></i>
+                  <% } else {%>
                   <i class="far fa-star"></i>
+                  <% }} %>
                 </div>
                 <a class="review-link" href="#comment">(Xem <%= product.reviews.length %> Nhận xét)</a>
               </div>

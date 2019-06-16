@@ -63,8 +63,9 @@
                     <tr>
                       <td><%= cartItem.product.title %> <strong class="mx-2">x</strong> <%= cartItem.product.quantity %>
                       </td>
-                      <td><%= cartItem.product.price %></td>
-                      <td><%= cartItem.amount %></td>
+                      <td><%= cartItem.product.price.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' }) %>
+                      </td>
+                      <td><%= cartItem.amount.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' }) %></td>
                     </tr>
                     <% } %>
                     <!-- <tr>
@@ -74,7 +75,9 @@
                     <tr>
                       <td class="text-black font-weight-bold"><strong>Tổng tiền</strong></td>
                       <td></td>
-                      <td class="text-black font-weight-bold"><strong><%= cartTotal %></strong></td>
+                      <td class="text-black font-weight-bold">
+                        <strong><%= cartTotal.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' }) %></strong>
+                      </td>
                     </tr>
                   </tbody>
                 </table>

@@ -73,9 +73,12 @@
           <!-- <del>$46.00</del> -->
           <%= product._doc.price.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' }) %> </strong>
         <div class="star-rating">
-          <!-- <%# for(let i=0; i< product._doc.rating.average ; i++) { %>
-          <span class="icon-star2 text-warning"></span>
-          <%# }  %> -->
+          <% for (let i=0; i < 5; i++ ) { %>
+          <% if (i < product._doc.average) { %>
+          <i class="fas fa-star text-warning"></i>
+          <% } else {%>
+          <i class="far fa-star"></i>
+          <% }} %>
         </div>
       </div>
       <% } %>
@@ -105,9 +108,12 @@
                 <!-- <del>$46.00</del> -->
                 <%= product._doc.price.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' }) %></strong>
               <div class="star-rating">
-                <!-- <%# for(let i=0; i< product._doc.rating.average; i++) { %>
-                <span class="icon-star2 text-warning"></span>
-                <%# } %> -->
+                <% for (let i=0; i < 5; i++ ) { %>
+                <% if (i < product._doc.average) { %>
+                <i class="fas fa-star text-warning"></i>
+                <% } else {%>
+                <i class="far fa-star"></i>
+                <% }} %>
               </div>
             </div>
           </div>

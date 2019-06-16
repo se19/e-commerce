@@ -5,7 +5,7 @@ const Rate = require('../models/rate');
 const Cart = require('../models/cart');
 
 const ITEMS_PER_PAGE = 6;
-const REVIEWS_PER_PAGE = 2;
+const REVIEWS_PER_PAGE = 3;
 
 //Get danh sách sản phẩm, bao gồm cả tìm kiếm, sort, order và phân trang
 const listProduct = async (req, res, next) => {
@@ -183,6 +183,8 @@ const getDetail = async (req, res, next) => {
     const product = await Product.findOne({
         _id: prodId
     })
+    product.view +=1;
+    product.save();
     // product.view += 1;
     // await product.save();
 
@@ -230,6 +232,7 @@ const addComment = (req, res, next) => {
     newRate.name = req.body.name;
     newRate.phoneNumber = req.body.phoneNumber;
     newRate.message = req.body.message;
+    newRate.createdDate = new Date();
 
     newRate
         .save()

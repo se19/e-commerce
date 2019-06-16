@@ -17,8 +17,9 @@
           <h4>Thông tin đơn hàng</h4>
           <ul class="list">
             <li><a href=""><span>Mã hóa đơn</span> : <%= order._id %></a></li>
-            <li><a href=""><span>Ngày đặt</span> : <%= order.dateCreated %></a></li>
-            <li><a href=""><span>Số tiền</span> : <%= order.total %></a></li>
+            <li><a href=""><span>Ngày đặt</span> : <%= order.dateCreated.toLocaleString() %></a></li>
+            <li><a href=""><span>Số tiền</span> :
+                <%= order.total.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' }) %></a></li>
             <li><a href=""><span>Trạng thái</span> : <%= order.status %></a></li>
           </ul>
         </div>
@@ -68,13 +69,13 @@
                 <h5><a href="/shop/<%= product.productId %>"><%= product.title %></a></h5>
               </td>
               <td>
-                <h5><%= product.price %></h5>
+                <h5><%= product.price.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' }) %></h5>
               </td>
               <td>
                 <h5><%= product.quantity %></h5>
               </td>
               <td>
-                <h5><%= product.amount %></h5>
+                <h5><%= product.amount.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' }) %></h5>
               </td>
             </tr>
             <% } %>
@@ -89,7 +90,7 @@
                 <h5></h5>
               </td>
               <td>
-                <h4><%= order.total %></h4>
+                <h4><%= order.total.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' }) %></h4>
               </td>
             </tr>
           </tbody>
