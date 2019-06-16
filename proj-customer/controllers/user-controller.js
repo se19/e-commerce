@@ -1,4 +1,5 @@
 const User = require('../models/user');
+const bcrypt = require('bcrypt');
 
 //Get thông tin người dùng
 const getProfile = (req, res, next) => {
@@ -40,14 +41,57 @@ const updateInfo = (req, res, next) => {
 }
 
 //Thay đổi mật khẩu
-const changePw = (req, res, next) => {
+const getChangePw = (req, res, next) => {
     res.render('user-view/change-pw', {
         pageTitle: "Đổi mật khẩu"
     });
 }
 
+const postChangePw = async (req, res, next) => {
+    const oldPw = req.body.oldPw;
+    const newPw = req.body.newPw;
+    const reNewPw = req.body.reNewPw;
+
+    if (newPw != reNewPw) {
+        console.log('Mật khẩu mới không khớp');
+        return res.redirect('/change-pw');
+    }
+
+    let user = await User.findById(req.session.passport.user._id);
+    User.findById(req.session.passport.user._id)
+        .then(user => {
+            if (!user) {
+                console.log('NOT FOUND USER');
+                //req.flash('error', 'Người dùng không tồn tại!');
+                res.redirect('/');
+            } else {
+                bcrypt.compare(oldPw, user.password, function (err, response) {
+                    if (response === true) {
+                        user.password = newPw;
+                        user.save().then(result => {
+                                //req.flash('success', 'Cập nhật thành công!');
+                                res.redirect('/user/change-pw');
+                            })
+                            .catch(err => {
+                                console.log(err);
+                                //req.flash('error', 'Lỗi!')
+                            });
+                    } else {
+                        //req.flash('error', 'Sai mật khẩu cũ!');
+                        res.redirect('/user/change-pw');
+                    }
+                });
+            }
+        })
+        .catch(err => {
+            console.log(err);
+            //req.flash('error', 'Lỗi!')
+        });
+}
+
 module.exports = {
     getProfile,
     updateInfo,
-    changePw
+    getChangePw,
+    postChangePw
 }

@@ -9,7 +9,55 @@
 </div>
 
 <div class="container">
-  Change password
+  <div class="view-account">
+    <section class="module">
+      <div class="module-inner">
+        <div class="side-bar">
+          <nav class="side-menu">
+            <ul class="nav">
+              <li><a href="/user/profile"><span class="fa fa-user"></span> Thông tin cá nhân</a></li>
+              <li class="active"><a href="#"><span class="fa fa-key"></span> Đổi mật khẩu </a></li>
+              <li><a href="/order/history"><span class="fa fa-credit-card"></span> Đơn đặt hàng</a></li>
+            </ul>
+          </nav>
+        </div>
+        <div class="content-panel">
+          <!-- Hiên thông báo cập nhật thành công -->
+          <!-- <% if (data.flash) { %>
+          <div class="alert alert-success" role="alert"><%= data.flash %> </div>
+          <% } %> -->
+          <form class="form-horizontal" action="/user/change-pw" method="POST">
+            <fieldset class="fieldset mt-5">
+              <div class="form-group">
+                <label class="col-md-4 col-sm-6 control-label">Mật khẩu hiện tại</label>
+                <div class="col-md-10 col-sm-9 col-xs-12">
+                  <input type="password" class="form-control" name="oldPw">
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-md-4 col-sm-6 control-label">Mật khẩu mới</label>
+                <div class="col-md-10 col-sm-9 col-xs-12">
+                  <input type="password" class="form-control" name="newPw">
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-md-4 col-sm-6 control-label">Nhập lại mật khẩu mới</label>
+                <div class="col-md-10 col-sm-9 col-xs-12">
+                  <input type="password" class="form-control" name="reNewPw">
+                </div>
+              </div>
+            </fieldset>
+            <hr>
+            <div class="form-group">
+              <div class="col-md-10 col-sm-9 col-xs-12 col-md-push-2 col-sm-push-3 col-xs-push-0">
+                <input class="btn btn-primary" type="submit" value="Cập nhật">
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </section>
+  </div>
 </div>
 <%- include("../common/containers/footer") -%>
 </body>

@@ -1,5 +1,10 @@
+const sgMail = require('@sendgrid/mail');
+const crypto = require('crypto');
 const passport = require('passport');
 const User = require('../models/user');
+
+// thay vì dùng tài khoản google + nodemailer thì dùng api_key, tương tự nhau
+sgMail.setApiKey('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');
 
 const checkAuth = (req, res, next) => {
     if (req.isAuthenticated()) {
@@ -35,7 +40,9 @@ const register = (req, res, next) => {
     }
 }
 
-const submitRegister = (req, res, next) => {
+const submitRegister = async (req, res, next) => {
+    const token = await crypto.randomBytes(32).toString('hex');
+
     let newUser = new User();
     newUser.username = req.body.username;
     newUser.password = req.body.password;
@@ -44,27 +51,30 @@ const submitRegister = (req, res, next) => {
     newUser.phone = req.body.phone;
     newUser.userType = 'customer';
     newUser.dateCreated = new Date();
-    newUser.available = true;
-
-    bcrypt.hash(newUser.password, 10, function (err, hash) {
-        if (err) {
-            console.log('HASH FAILED');
-            res.redirect('/login');
-        }
-        newUser.password = hash;
-    })
+    newUser.available = false;
+    newUser.resetPasswordToken = token;
+    newUser.resetPasswordExpires = Date.now() + 3600000; // milisecond
 
     newUser
         .save()
         .then(user => {
-            console.log(user);
+            //console.log(user);
             console.log('REGISTER USER');
+            const msg = {
+                to: user.email,
+                from: 'ecommerce.se19@gmail.com',
+                subject: 'Password reset',
+                html: `
+            < p > Nhấn vào đường dẫn sau < a href = "http://localhost:3000/active/${token}" > link để kích hoạt tài khoản < /a>.</p > `
+            }
+            sgMail.send(msg);
             res.redirect('/login');
         })
         .catch(err => {
             console.log(err);
         });
 }
+
 
 const forgorPw = (req, res, next) => {
     if (req.isAuthenticated()) {
@@ -77,7 +87,101 @@ const forgorPw = (req, res, next) => {
 }
 
 const submitForgorPw = (req, res, next) => {
+    // tạo token ngẫu nhiên
+    crypto.randomBytes(32, (err, buffer) => {
+        if (err) {
+            console.log(err);
+            return res.redirect('auth/forgot');
+        }
+        const token = buffer.toString('hex');
+        User.updateOne({
+                email: req.body.email
+            }, {
+                resetPasswordToken: token,
+                resetPasswordExpires: Date.now() + 3600000 // milisecond
+            })
+            .then(result => {
+                const msg = {
+                    to: req.body.email,
+                    from: 'ecommerce.se19@gmail.com',
+                    subject: 'Password reset',
+                    html: `
+            <p>Bạn yêu cầu đổi mật khẩu</p>
+            <p>Nhấn vào đường dẫn sau <a href="http://localhost:3000/forgot/reset/${token}" > link </a> để đổi mật khẩu.</p> `
+                }
+                sgMail.send(msg);
+                res.redirect('/login');
+            })
+            .catch(err => {
+                console.log(err);
+            });
+    });
+}
 
+const getNewPw = (req, res, next) => {
+    const token = req.params.token;
+    User.findOne({
+            resetPasswordToken: token,
+            resetPasswordExpires: {
+                $gt: Date.now()
+            }
+        })
+        .then(user => {
+            res.render('auth/new-password', {
+                pageTitle: 'Mật khẩu mới',
+                userId: user._id.toString(),
+                passwordToken: token
+            });
+        })
+        .catch(err => {
+            console.log(err);
+        });
+}
+
+const postNewPw = async (req, res, next) => {
+    const newPassword = req.body.password;
+    const userId = req.body.userId;
+    const passwordToken = req.body.passwordToken;
+
+    let user = await User.findOne({
+        resetPasswordToken: passwordToken,
+        resetPasswordExpires: {
+            $gt: Date.now()
+        },
+        _id: userId
+    })
+    console.log(user);
+    user.password = newPassword;
+    user.resetPasswordToken = undefined;
+    user.resetPasswordExpires = undefined;
+    user.save()
+        .then(result => {
+            res.redirect('/login');
+        })
+        .catch(err => {
+            console.log(err);
+        });
+}
+
+const activeNewUser = (req, res, next) => {
+    const token = req.params.token;
+    User.updateOne({
+            resetPasswordToken: token,
+            resetPasswordExpires: {
+                $gt: Date.now()
+            }
+        }, {
+            available: true,
+            resetPasswordToken: undefined,
+            resetPasswordExpires: undefined
+        })
+        .then(result => {
+            console.log("Active successfully");
+            res.redirect('/login');
+        })
+        .catch(err => {
+            console.log(err);
+        });
 }
 
 const logout = (req, res, next) => {
@@ -94,5 +198,8 @@ module.exports = {
     submitRegister,
     forgorPw,
     submitForgorPw,
+    getNewPw,
+    postNewPw,
+    activeNewUser,
     logout
 }

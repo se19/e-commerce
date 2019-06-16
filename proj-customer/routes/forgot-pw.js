@@ -11,4 +11,6 @@ router
     .get('/', auth_controller.forgorPw)
     .post('/', auth_controller.submitForgorPw)
 
+    .get('/reset/:token', auth_controller.getNewPw)
+    .post('/reset', auth_controller.postNewPw)
 module.exports = router;

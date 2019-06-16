@@ -50,9 +50,14 @@ const getLocalsVariables = async (req, res, next) => {
 
 
 const getGroupBrandsDetail = async (req, res, next) => {
+    // https: //stackoverflow.com/questions/25436630/mongodb-how-to-find-and-then-aggregate
     /* lấy danh sách thương hiệu + số lượng sản phẩm mỗi thương hiệu */
     // gom sản phẩm theo thương hiệu 
     let groupBrand = await Product.aggregate([{
+        $match: {
+            available: true
+        },
+    }, {
         $group: {
             _id: "$brandId",
             count: {
@@ -72,7 +77,12 @@ const getGroupBrandsDetail = async (req, res, next) => {
 const getGroupCategoriesDetail = async (req, res, next) => {
     /* lấy danh sách loại sản phẩm + số lượng sản phẩm mỗi loại */
     // gom sản phẩm theo nhóm 
+    // lỗi must be pipeline là do đặt ngoặc {} không đúng
     let groupCat = await Product.aggregate([{
+        $match: {
+            available: true
+        },
+    }, {
         $group: {
             _id: "$categoryId",
             count: {

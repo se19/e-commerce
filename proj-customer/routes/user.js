@@ -13,6 +13,7 @@ router
 
   .get('/profile', user_controller.getProfile)
   .post('/update-info', user_controller.updateInfo)
-  .post('/change-pw', user_controller.changePw)
+  .get('/change-pw', user_controller.getChangePw)
+  .post('/change-pw', user_controller.postChangePw)
 
 module.exports = router;
