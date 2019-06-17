@@ -10,5 +10,5 @@ router
 
   .get('/', auth_controller.initlogin)
   .post('/', auth_controller.submitLogin)
-
+  .get('/failure', auth_controller.loginFailure);
 module.exports = router;

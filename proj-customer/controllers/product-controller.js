@@ -27,13 +27,19 @@ const listProduct = async (req, res, next) => {
     //     req.session.queryUrl = "";
     // }
 
+    let sort = "";
     const price = +req.query.price;
     if (price) {
         req.session.queryUrl = "price=" + price + "&";
+        if (price == 1) {
+            sort = "asc";
+        } else {
+            sort = "des";
+        }
     } else {
         req.session.queryUrl = ""
     }
-
+    console.log(sort);
     /*Phân trang sản phẩm*/
     // trường hợp không có '?page' thì page = 1
     const page = +req.query.page || 1;
@@ -65,15 +71,22 @@ const listProduct = async (req, res, next) => {
         nextPage: page + 1,
         hasLastPage: page != Math.ceil(totalItems / ITEMS_PER_PAGE),
         lastPage: Math.ceil(totalItems / ITEMS_PER_PAGE),
-        queryUrl: req.session.queryUrl
+        queryUrl: req.session.queryUrl,
+        sort: sort
     });
 };
 
 
 // Get danh sách product theo loại thương hiệu
 const listProductByBrand = async (req, res, next) => {
+    let sort = "";
     const price = +req.query.price;
     if (price) {
+        if (price == 1) {
+            sort = "asc";
+        } else {
+            sort = "des";
+        }
         req.session.queryUrl = "price=" + price + "&";
     } else {
         req.session.queryUrl = "";
@@ -117,15 +130,22 @@ const listProductByBrand = async (req, res, next) => {
         nextPage: page + 1,
         hasLastPage: page != Math.ceil(totalItems / ITEMS_PER_PAGE),
         lastPage: Math.ceil(totalItems / ITEMS_PER_PAGE),
-        queryUrl: req.session.queryUrl
+        queryUrl: req.session.queryUrl,
+        sort: sort
     });
 }
 
 // Get danh sách product theo loại sản phẩm
 const listProductByCat = async (req, res, next) => {
 
+    let sort = "";
     const price = +req.query.price;
     if (price) {
+        if (price == 1) {
+            sort = "asc";
+        } else {
+            sort = "des";
+        }
         req.session.queryUrl = "price=" + price + "&";
     } else {
         req.session.queryUrl = "";
@@ -169,7 +189,8 @@ const listProductByCat = async (req, res, next) => {
         nextPage: page + 1,
         hasLastPage: page != Math.ceil(totalItems / ITEMS_PER_PAGE),
         lastPage: Math.ceil(totalItems / ITEMS_PER_PAGE),
-        queryUrl: req.session.queryUrl
+        queryUrl: req.session.queryUrl,
+        sort: sort
     });
 }
 

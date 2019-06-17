@@ -14,7 +14,7 @@ const passportConfig = () => {
                     username: username
                 })
                 .then(user => {
-                    if (user && user.available) {
+                    if (user && user.available == false) {
                         //req.flash('error', 'Tài khoản đã bị khóa.');
                         console.log('USER HAS BEEN LOOKED');
                         return done(null, false)

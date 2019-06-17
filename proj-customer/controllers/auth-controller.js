@@ -33,10 +33,16 @@ const initlogin = (req, res, next) => {
 }
 
 const submitLogin = passport.authenticate('local', {
-    failureRedirect: '/login',
+    failureRedirect: '/login/failure',
     successRedirect: '/',
     failureFlash: true
 })
+
+const loginFailure = (req, res, next) => {
+    req.flash('error', 'Tài khoản hoặc mật khẩu không chính xác');
+    res.redirect('/login');
+}
+
 
 const register = (req, res, next) => {
     if (req.isAuthenticated()) {
@@ -70,18 +76,13 @@ const submitRegister = async (req, res, next) => {
     newUser.resetPasswordToken = token;
     newUser.resetPasswordExpires = Date.now() + 3600000; // milisecond
 
-    User.findOne({
-            username: newUser.username
-        }).then(user => {
-            if (user) {
-                req.flash('error', 'Tài khoản đã tồn tại');
-                return res.redirect('/register');
-            }
-        })
-        .catch(err => {
-            console.log(err);
-        });
-
+    let user = await User.findOne({
+        username: newUser.username
+    })
+    if (user !== null) {
+        req.flash('error', 'Tài khoản đã tồn tại');
+        return res.redirect('/register');
+    }
 
     bcrypt.hash(newUser.password, 10, function (err, hash) {
         if (err) {
@@ -134,8 +135,14 @@ const submitForgorPw = async (req, res, next) => {
         email: req.body.email
     })
 
-    if (user.googleId) {
-        console.log("Tài khoản được đăng nhập bằng google");
+    if (user == null) {
+        req.flash('error', "Địa chỉ email không chính xác");
+        return res.redirect('/forgot');
+    }
+
+    if (user !== null && user.googleId !== undefined) {
+        req.flash('error', "Tài khoản được đăng nhập bằng google");
+        console.log(user.googleId);
         return res.redirect('/forgot');
     }
 
@@ -162,6 +169,7 @@ const submitForgorPw = async (req, res, next) => {
             <p>Nhấn vào đường dẫn sau <a href="http://localhost:3000/forgot/reset/${token}" > link </a> để đổi mật khẩu.</p> `
                 }
                 sgMail.send(msg);
+                req.flash('error', "Một đường dẫn đã được gửi tới email của bạn");
                 res.redirect('/login');
             })
             .catch(err => {
@@ -266,6 +274,7 @@ module.exports = {
     checkAuth,
     initlogin,
     submitLogin,
+    loginFailure,
     register,
     submitRegister,
     forgorPw,
