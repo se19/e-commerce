@@ -1,4 +1,8 @@
 <%- include("../common/containers/header")-%>
+<% if (errorMessage) { %>
+<div class="user-message user-message--error"><%= errorMessage %></div>
+<% } %>
+
 <div class="container">
   <div class="card card-login mx-auto mt-5">
     <div class="card-header">Đăng nhập</div>
@@ -15,14 +19,6 @@
           <div class="form-label-group">
             <input type="password" id="inputPassword" class="form-control" placeholder="Mật khẩu" required="required"
               name="password">
-          </div>
-        </div>
-        <div class="form-group">
-          <div class="checkbox">
-            <label>
-              <input type="checkbox" value="remember-me">
-              Nhớ mật khẩu
-            </label>
           </div>
         </div>
         <button class="btn btn-primary btn-block" type="submit">Đăng nhập</button>

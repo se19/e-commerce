@@ -106,7 +106,9 @@
         </div>
       </div>
     </div>
-
+    <% if (errorMessage) { %>
+    <div class="user-message user-message--error"><%= errorMessage %></div>
+    <% } %>
     <div class="site-section">
       <div class="container">
         <div class="row">

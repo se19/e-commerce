@@ -14,7 +14,8 @@ const passportConfig = () => {
                     username: username
                 })
                 .then(user => {
-                    if (user.available === false) {
+                    if (user && user.available) {
+                        //req.flash('error', 'Tài khoản đã bị khóa.');
                         console.log('USER HAS BEEN LOOKED');
                         return done(null, false)
                     } else if (user) {
@@ -22,11 +23,13 @@ const passportConfig = () => {
                             if (res === true) {
                                 return done(null, user)
                             } else {
+                                //req.flash('error', 'Sai tài khoản hoặc mật khẩu');
                                 console.log('PASSWORD FAILED');
                                 return done(null, false)
                             }
                         });
                     } else {
+                        //req.flash('error', 'Sai tài khoản hoặc mật khẩu');
                         console.log('NOT FOUND USER');
                         return done(null, false);
                     }
@@ -48,6 +51,7 @@ const passportConfig = () => {
                 if (userRes) {
                     return done(null, userRes)
                 } else {
+                    //req.flash('error', 'Sai tài khoản hoặc mật khẩu');
                     console.log('NOT FOUND USER');
                     return done(null, false)
                 }
@@ -78,7 +82,7 @@ passport.use(new GoogleStrategy({
                     .then(result => {
                         // in ra gì đó
                     }).catch(err => {
-                        // in ra gì đó
+                        //req.flash('error', 'Lỗi');
                     });
             }
             return cb(err, user);

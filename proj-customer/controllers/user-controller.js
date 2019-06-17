@@ -3,8 +3,15 @@ const bcrypt = require('bcrypt');
 
 //Get thông tin người dùng
 const getProfile = (req, res, next) => {
+    let message = req.flash('error');
+    if (message.length > 0) {
+        message = message[0];
+    } else {
+        message = null;
+    }
     res.render('user-view/update-info', {
-        pageTitle: "Cập nhật thông tin"
+        pageTitle: "Cập nhật thông tin",
+        errorMessage: message
     });
 }
 
@@ -33,8 +40,7 @@ const updateInfo = (req, res, next) => {
             req.session.passport.user.email = newUser.email;
             req.session.passport.user.phone = newUser.phone;
             req.session.passport.user.address = newUser.address;
-            // req.flash('update-success', 'Cập nhật thông tin thành công!');
-            // res.locals.data.flash = req.flash('update-success');
+            req.flash('error', 'Cập nhật thông tin thành công!');
             res.redirect('/user/profile');
         })
         .catch(err => console.log(err));
@@ -42,8 +48,15 @@ const updateInfo = (req, res, next) => {
 
 //Thay đổi mật khẩu
 const getChangePw = (req, res, next) => {
+    let message = req.flash('error');
+    if (message.length > 0) {
+        message = message[0];
+    } else {
+        message = null;
+    }
     res.render('user-view/change-pw', {
-        pageTitle: "Đổi mật khẩu"
+        pageTitle: "Đổi mật khẩu",
+        errorMessage: message
     });
 }
 
@@ -54,14 +67,15 @@ const postChangePw = async (req, res, next) => {
 
     if (newPw != reNewPw) {
         console.log('Mật khẩu mới không khớp');
-        return res.redirect('/change-pw');
+        req.flash('error', 'Mật khẩu mới không khớp!');
+        return res.redirect('/user/change-pw');
     }
 
     User.findById(req.session.passport.user._id)
         .then(user => {
             if (!user) {
                 console.log('NOT FOUND USER');
-                //req.flash('error', 'Người dùng không tồn tại!');
+                req.flash('error', 'Người dùng không tồn tại!');
                 res.redirect('/');
             } else {
                 bcrypt.compare(oldPw, user.password, function (err, response) {
@@ -72,16 +86,16 @@ const postChangePw = async (req, res, next) => {
                             }
                             user.password = hash;
                             user.save().then(result => {
-                                    //req.flash('success', 'Cập nhật thành công!');
+                                    req.flash('error', 'Cập nhật thành công!');
                                     res.redirect('/user/change-pw');
                                 })
                                 .catch(err => {
                                     console.log(err);
-                                    //req.flash('error', 'Lỗi!')
+                                    req.flash('error', 'Lỗi!')
                                 });
                         })
                     } else {
-                        //req.flash('error', 'Sai mật khẩu cũ!');
+                        req.flash('error', 'Sai mật khẩu cũ!');
                         res.redirect('/user/change-pw');
                     }
                 });
@@ -89,7 +103,7 @@ const postChangePw = async (req, res, next) => {
         })
         .catch(err => {
             console.log(err);
-            //req.flash('error', 'Lỗi!')
+            req.flash('error', 'Lỗi!')
         });
 }
 

@@ -178,6 +178,12 @@ const listProductByCat = async (req, res, next) => {
 //Get thông tin sản phẩm
 const getDetail = async (req, res, next) => {
     req.session.queryUrl = "";
+    let message = req.flash('error');
+    if (message.length > 0) {
+        message = message[0];
+    } else {
+        message = null;
+    }
 
     const prodId = req.params.productId;
     const product = await Product.findOne({
@@ -222,7 +228,8 @@ const getDetail = async (req, res, next) => {
         nextPage: page + 1,
         hasLastPage: page != Math.ceil(totalReviews / REVIEWS_PER_PAGE),
         lastPage: Math.ceil(totalReviews / REVIEWS_PER_PAGE),
-        queryUrl: req.session.queryUrl
+        queryUrl: req.session.queryUrl,
+        errorMessage: message
     });
 }
 
@@ -245,7 +252,7 @@ const addComment = (req, res, next) => {
                 })
                 .then(result => {
                     //console.log(result);
-                    res.redirect('/shop/' + prodId);
+                    req.flash('error', 'Thêm nhận xét!');
                     res.redirect('/shop/' + prodId);
                 })
                 .catch(err => console.log(err));
@@ -266,6 +273,8 @@ const addToCart = async (req, res, next) => {
 
 
     Cart.add(req.session.cart, item);
+    //req.flash('error', 'Thêm sản phẩm vào giỏ hàng!');
+    //res.redirect('/shop/' + prodId);
     res.json(prodId); // res linh tinh cái gì đó 
     //res.redirect('/shop/' + prodId);
     //console.log(req.session.cart);

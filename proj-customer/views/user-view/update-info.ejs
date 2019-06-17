@@ -7,7 +7,9 @@
     </div>
   </div>
 </div>
-
+<% if (errorMessage) { %>
+<div class="user-message user-message--error"><%= errorMessage %></div>
+<% } %>
 <div class="container">
   <div class="view-account">
     <section class="module">

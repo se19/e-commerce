@@ -5,7 +5,7 @@ const bcrypt = require('bcrypt');
 const User = require('../models/user');
 
 // thay vì dùng tài khoản google + nodemailer thì dùng api_key, tương tự nhau
-sgMail.setApiKey('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');
+sgMail.setApiKey('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');
 
 const checkAuth = (req, res, next) => {
     if (req.isAuthenticated()) {
@@ -19,8 +19,15 @@ const initlogin = (req, res, next) => {
     if (req.isAuthenticated()) {
         res.redirect('/');
     } else {
+        let message = req.flash('error');
+        if (message.length > 0) {
+            message = message[0];
+        } else {
+            message = null;
+        }
         res.render('auth/login', {
-            pageTitle: "Đăng nhập"
+            pageTitle: "Đăng nhập",
+            errorMessage: message
         });
     }
 }
@@ -35,8 +42,15 @@ const register = (req, res, next) => {
     if (req.isAuthenticated()) {
         res.redirect('/');
     } else {
+        let message = req.flash('error');
+        if (message.length > 0) {
+            message = message[0];
+        } else {
+            message = null;
+        }
         res.render('auth/register', {
-            pageTitle: "Đăng ký"
+            pageTitle: "Đăng ký",
+            errorMessage: message
         });
     }
 }
@@ -55,6 +69,19 @@ const submitRegister = async (req, res, next) => {
     newUser.available = false;
     newUser.resetPasswordToken = token;
     newUser.resetPasswordExpires = Date.now() + 3600000; // milisecond
+
+    User.findOne({
+            username: newUser.username
+        }).then(user => {
+            if (user) {
+                req.flash('error', 'Tài khoản đã tồn tại');
+                return res.redirect('/register');
+            }
+        })
+        .catch(err => {
+            console.log(err);
+        });
+
 
     bcrypt.hash(newUser.password, 10, function (err, hash) {
         if (err) {
@@ -75,6 +102,7 @@ const submitRegister = async (req, res, next) => {
                 }
                 sgMail.send(msg);
                 console.log("Gửi mail kích hoat!!!!");
+                req.flash('error', 'Tạo thành công, truy cập email để kích hoạt');
                 res.redirect('/login');
             })
             .catch(err => {
@@ -88,28 +116,34 @@ const forgorPw = (req, res, next) => {
     if (req.isAuthenticated()) {
         res.redirect('/');
     } else {
+        let message = req.flash('error');
+        if (message.length > 0) {
+            message = message[0];
+        } else {
+            message = null;
+        }
         res.render('auth/forgot', {
-            pageTitle: "Quên mật khẩu"
+            pageTitle: "Quên mật khẩu",
+            errorMessage: message
         });
     }
 }
 
 const submitForgorPw = async (req, res, next) => {
-
     let user = await User.findOne({
         email: req.body.email
     })
 
     if (user.googleId) {
         console.log("Tài khoản được đăng nhập bằng google");
-        return res.redirect('auth/forgot');
+        return res.redirect('/forgot');
     }
 
     // tạo token ngẫu nhiên
     crypto.randomBytes(32, (err, buffer) => {
         if (err) {
             console.log(err);
-            return res.redirect('auth/forgot');
+            return res.redirect('/forgot');
         }
         const token = buffer.toString('hex');
         User.updateOne({
