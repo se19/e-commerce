@@ -5,7 +5,7 @@ const bcrypt = require('bcrypt');
 const User = require('../models/user');
 
 // thay vì dùng tài khoản google + nodemailer thì dùng api_key, tương tự nhau
-sgMail.setApiKey('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');
+sgMail.setApiKey('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');
 
 const checkAuth = (req, res, next) => {
     if (req.isAuthenticated()) {
@@ -96,7 +96,7 @@ const submitRegister = async (req, res, next) => {
                 console.log('REGISTER USER');
                 const msg = {
                     to: user.email,
-                    from: 'mrla4321@gmail.com',
+                    from: 'tranxquocthinh@gmail.com',
                     subject: 'Password reset',
                     html: `
             <p> Nhấn vào đường dẫn sau <a href="http://localhost:3000/active/${token}"> link để kích hoạt tài khoản </a>.</p>`
@@ -162,7 +162,7 @@ const submitForgorPw = async (req, res, next) => {
             .then(result => {
                 const msg = {
                     to: req.body.email,
-                    from: 'ecommerce.se19@gmail.com',
+                    from: 'tranxquocthinh@gmail.com',
                     subject: 'Password reset',
                     html: `
             <p>Bạn yêu cầu đổi mật khẩu</p>

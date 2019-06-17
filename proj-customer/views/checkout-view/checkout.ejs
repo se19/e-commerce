@@ -61,7 +61,7 @@
                   <tbody>
                     <% for (let cartItem of cartItems) { %>
                     <tr>
-                      <td><%= cartItem.product.title %> <strong class="mx-2">x</strong> <%= cartItem.product.quantity %>
+                      <td><%= cartItem.product.title %> <strong class="mx-2">x</strong> <%= cartItem.quantity %> cái
                       </td>
                       <td><%= cartItem.product.price.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' }) %>
                       </td>
