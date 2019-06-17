@@ -8,6 +8,19 @@ const getSearch = async (req, res, next) => {
     // https://stackoverflow.com/questions/26814456/how-to-get-all-the-values-that-contains-part-of-a-string-using-mongoose-find
     // https://github.com/Automattic/mongoose/issues/598
 
+    let sort = "";
+    const price = +req.query.price;
+    if (price) {
+        req.session.queryUrl = "price=" + price + "&";
+        if (price == 1) {
+            sort = "asc";
+        } else {
+            sort = "des";
+        }
+    } else {
+        req.session.queryUrl = ""
+    }
+
     const keyword = req.query.keyword;
     req.session.queryUrl = "keyword=" + keyword + "&";
 
@@ -16,10 +29,12 @@ const getSearch = async (req, res, next) => {
     const page = +req.query.page || 1;
 
     let totalItems = await Product.find({
+        available: true,
         title: new RegExp(keyword, 'i')
     }).countDocuments();
 
     const products = await Product.find({
+            available: true,
             title: new RegExp(keyword, 'i')
         })
         .skip((page - 1) * ITEMS_PER_PAGE) // bỏ qua ~ item
@@ -30,7 +45,7 @@ const getSearch = async (req, res, next) => {
         categories: res.locals.data.groupCategoriesDetail,
         prods: products,
         pageTitle: 'Danh sách sản phẩm',
-        searchInformation: 'Danh sách sản phẩm',
+        searchInformation: 'Danh sách sản phẩm có từ khóa ' + keyword,
         currentPage: page,
         hasFirstPage: page != 1,
         hasPreviousPage: page > 1,
@@ -39,7 +54,8 @@ const getSearch = async (req, res, next) => {
         nextPage: page + 1,
         hasLastPage: page != Math.ceil(totalItems / ITEMS_PER_PAGE),
         lastPage: Math.ceil(totalItems / ITEMS_PER_PAGE),
-        queryUrl: req.session.queryUrl
+        queryUrl: req.session.queryUrl,
+        sort: sort
     });
 }
 
@@ -52,13 +68,26 @@ const getAdvanceSearch = (req, res, next) => {
 
 
 const getAdvanceSearchQuery = async (req, res, next) => {
+    let sort = "";
+    const price = +req.query.price;
+    if (price) {
+        req.session.queryUrl = "price=" + price + "&";
+        if (price == 1) {
+            sort = "asc";
+        } else {
+            sort = "des";
+        }
+    } else {
+        req.session.queryUrl = ""
+    }
+
     const brandId = req.query.brandId;
     const categoryId = req.query.categoryId;
-    const price = +req.query.price;
+    const view = +req.query.view;
     const numberPurchased = +req.query.numberPurchased;
     const average = +req.query.average;
     //console.log(brandId + ' - ' + categoryId + ' - ' + price + ' - ' + numberPurchased + ' - ' + average)
-    req.session.queryUrl = "brandId=" + brandId + "&categoryId=" + categoryId + "&price=" + price + "&numberPurchased=" + numberPurchased + "&average=" + average + "&";
+    req.session.queryUrl = "brandId=" + brandId + "&categoryId=" + categoryId + "&view=" + view + "&numberPurchased=" + numberPurchased + "&average=" + average + "&";
 
     /*Phân trang sản phẩm*/
     // trường hợp không có '?page' thì page = 1
@@ -66,16 +95,18 @@ const getAdvanceSearchQuery = async (req, res, next) => {
 
     // đếm số items;
     let totalItems = await Product.find({
+        available: true,
         brandId: brandId,
         categoryId: categoryId,
     }).countDocuments();
 
     const products = await Product.find({
+            available: true,
             brandId: brandId,
             categoryId: categoryId
         })
         .sort({
-            price: price,
+            view: view,
             numberPurchased: numberPurchased,
             average: average
         })
@@ -87,7 +118,7 @@ const getAdvanceSearchQuery = async (req, res, next) => {
         categories: res.locals.data.groupCategoriesDetail,
         prods: products,
         pageTitle: 'Danh sách sản phẩm',
-        searchInformation: 'Danh sách sản phẩm',
+        searchInformation: 'Danh sách sản phẩm tìm kiếm nâng cao',
         currentPage: page,
         hasFirstPage: page != 1,
         hasPreviousPage: page > 1,
@@ -96,7 +127,8 @@ const getAdvanceSearchQuery = async (req, res, next) => {
         nextPage: page + 1,
         hasLastPage: page != Math.ceil(totalItems / ITEMS_PER_PAGE),
         lastPage: Math.ceil(totalItems / ITEMS_PER_PAGE),
-        queryUrl: req.session.queryUrl
+        queryUrl: req.session.queryUrl,
+        sort: sort
     });
 
 }

@@ -39,6 +39,7 @@ const listProduct = async (req, res, next) => {
     } else {
         req.session.queryUrl = ""
     }
+    
     console.log(sort);
     /*Phân trang sản phẩm*/
     // trường hợp không có '?page' thì page = 1

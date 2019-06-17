@@ -67,7 +67,7 @@ passport.use(new GoogleStrategy({
         userProfileURL: "https://www.googleapis.com/oauth2/v3/userinfo"
     },
     function (accessToken, refreshToken, profile, cb) {
-        console.log(profile);
+        //console.log(profile);
 
         // do lỡ đặt trong model là require true, có gì lát sửa
         User.findOrCreate({
