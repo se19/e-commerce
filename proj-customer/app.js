@@ -77,6 +77,12 @@ app.use(function (req, res, next) {
   next(createError(404));
 });
 
+app.use(function (req, res, next) {
+  res.status(404).render('common/error', {
+    pageTitle: 'Không tìn thấy trang'
+  })
+});
+
 // error handler
 app.use(function (err, req, res, next) {
   // set locals, only providing error in development
