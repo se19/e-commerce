@@ -42,7 +42,8 @@ app.use(session({
     maxAge: 3600000
   },
   resave: true,
-  saveUninitialized: true
+  saveUninitialized: true,
+  name: 'session-customer'
 }));
 app.use(passport.initialize());
 app.use(passport.session());
