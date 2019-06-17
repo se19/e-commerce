@@ -2,6 +2,7 @@ const passport = require('passport');
 const localStrategy = require('passport-local').Strategy;
 const User = require('../models/user');
 const bcrypt = require('bcrypt');
+const GoogleStrategy = require('passport-google-oauth20').Strategy;
 
 const passportConfig = () => {
     passport.initialize();
@@ -54,5 +55,35 @@ const passportConfig = () => {
             .catch(err => console.log(err));
     })
 }
+
+passport.use(new GoogleStrategy({
+        clientID: "693368048261-8bjpidfh4437vpdf1aabrvltahco1d3a.apps.googleusercontent.com",
+        clientSecret: "jIf0w4oUsQg8UyuJwMkOVO2X",
+        callbackURL: "http://localhost:3000/auth/google/ecommerce",
+        userProfileURL: "https://www.googleapis.com/oauth2/v3/userinfo"
+    },
+    function (accessToken, refreshToken, profile, cb) {
+        console.log(profile);
+
+        // do lỡ đặt trong model là require true, có gì lát sửa
+        User.findOrCreate({
+            googleId: profile.id,
+            userType: "customer",
+            available: true
+        }, function (err, user) {
+            if (!user.name) {
+                user.name = profile.displayName;
+                user.DateCreated = new Date();
+                user.save()
+                    .then(result => {
+                        // in ra gì đó
+                    }).catch(err => {
+                        // in ra gì đó
+                    });
+            }
+            return cb(err, user);
+        });
+    }
+));
 
 module.exports = passportConfig;

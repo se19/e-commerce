@@ -1,19 +1,20 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
+const findOrCreate = require('mongoose-findorcreate');
 const Schema = mongoose.Schema;
 
 const userSchema = new Schema({
   name: {
     type: String,
-    required: true
+    required: false
   },
   username: {
     type: String,
-    required: true
+    required: false
   },
   email: {
     type: String,
-    required: true
+    required: false
   },
   password: {
     type: String,
@@ -21,7 +22,7 @@ const userSchema = new Schema({
   },
   phone: {
     type: String,
-    required: true
+    required: false
   },
   address: {
     type: String,
@@ -54,6 +55,10 @@ const userSchema = new Schema({
   resetPasswordExpires: {
     type: String,
     required: false
+  },
+  googleId: {
+    type: String,
+    required: false
   }
   // cart: {
   //   items: [{
@@ -70,14 +75,19 @@ const userSchema = new Schema({
   // }
 });
 
-userSchema.pre('save', function (next) {
-  var user = this;
-  bcrypt.hash(user.password, 10, function (err, hash) {
-    if (err) {
-      return next(err);
-    }
-    user.password = hash;
-    next();
-  })
-});
+userSchema.plugin(findOrCreate);
+
+
+// userSchema.pre('save', function (next) {
+//   var user = this;
+//   bcrypt.hash(user.password, 10, function (err, hash) {
+//     if (err) {
+//       return next(err);
+//     }
+//     user.password = hash;
+//     next();
+//   })
+// });
+
+
 module.exports = mongoose.model('User', userSchema);

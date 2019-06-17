@@ -9,5 +9,8 @@ router
   .use(base_controller.getLocalsVariables)
 
   .get('/', home_controller.initialization)
-  .get('/active/:token', auth_controller.activeNewUser);
+
+  .get('/active/:token', auth_controller.activeNewUser)
+  //.get('/auth/google', auth_controller.getSelector)
+  //.get('/auth/google/ecommerce', auth_controller.getAuthenticateByGoogle)
 module.exports = router;

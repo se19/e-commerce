@@ -1,10 +1,11 @@
 const sgMail = require('@sendgrid/mail');
 const crypto = require('crypto');
 const passport = require('passport');
+const bcrypt = require('bcrypt');
 const User = require('../models/user');
 
 // thay vì dùng tài khoản google + nodemailer thì dùng api_key, tương tự nhau
-sgMail.setApiKey('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');
+sgMail.setApiKey('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');
 
 const checkAuth = (req, res, next) => {
     if (req.isAuthenticated()) {
@@ -55,24 +56,31 @@ const submitRegister = async (req, res, next) => {
     newUser.resetPasswordToken = token;
     newUser.resetPasswordExpires = Date.now() + 3600000; // milisecond
 
-    newUser
-        .save()
-        .then(user => {
-            //console.log(user);
-            console.log('REGISTER USER');
-            const msg = {
-                to: user.email,
-                from: 'ecommerce.se19@gmail.com',
-                subject: 'Password reset',
-                html: `
-            < p > Nhấn vào đường dẫn sau < a href = "http://localhost:3000/active/${token}" > link để kích hoạt tài khoản < /a>.</p > `
-            }
-            sgMail.send(msg);
-            res.redirect('/login');
-        })
-        .catch(err => {
-            console.log(err);
-        });
+    bcrypt.hash(newUser.password, 10, function (err, hash) {
+        if (err) {
+            return;
+        }
+        newUser.password = hash;
+        newUser
+            .save()
+            .then(user => {
+                //console.log(user);
+                console.log('REGISTER USER');
+                const msg = {
+                    to: user.email,
+                    from: 'mrla4321@gmail.com',
+                    subject: 'Password reset',
+                    html: `
+            <p> Nhấn vào đường dẫn sau <a href="http://localhost:3000/active/${token}"> link để kích hoạt tài khoản </a>.</p>`
+                }
+                sgMail.send(msg);
+                console.log("Gửi mail kích hoat!!!!");
+                res.redirect('/login');
+            })
+            .catch(err => {
+                console.log(err);
+            });
+    })
 }
 
 
@@ -86,7 +94,17 @@ const forgorPw = (req, res, next) => {
     }
 }
 
-const submitForgorPw = (req, res, next) => {
+const submitForgorPw = async (req, res, next) => {
+
+    let user = await User.findOne({
+        email: req.body.email
+    })
+
+    if (user.googleId) {
+        console.log("Tài khoản được đăng nhập bằng google");
+        return res.redirect('auth/forgot');
+    }
+
     // tạo token ngẫu nhiên
     crypto.randomBytes(32, (err, buffer) => {
         if (err) {
@@ -150,17 +168,22 @@ const postNewPw = async (req, res, next) => {
         },
         _id: userId
     })
-    console.log(user);
-    user.password = newPassword;
-    user.resetPasswordToken = undefined;
-    user.resetPasswordExpires = undefined;
-    user.save()
-        .then(result => {
-            res.redirect('/login');
-        })
-        .catch(err => {
-            console.log(err);
-        });
+    //console.log(user);
+    bcrypt.hash(newPassword, 10, function (err, hash) {
+        if (err) {
+            return;
+        }
+        user.password = hash;
+        user.resetPasswordToken = undefined;
+        user.resetPasswordExpires = undefined;
+        user.save()
+            .then(result => {
+                res.redirect('/login');
+            })
+            .catch(err => {
+                console.log(err);
+            });
+    })
 }
 
 const activeNewUser = (req, res, next) => {
@@ -184,6 +207,21 @@ const activeNewUser = (req, res, next) => {
         });
 }
 
+const getSelector = () => {
+    passport.authenticate('google', {
+        scope: ["profile"]
+    });
+}
+
+const getAuthenticateByGoogle = (req, res, next) => {
+    passport.authenticate('google', {
+            failureRedirect: "/login"
+        },
+        function (req, res) {
+            // Successful authentication, redirect to home page.
+            res.redirect("/");
+        });
+}
 const logout = (req, res, next) => {
     req.logout();
     res.redirect('/login');
@@ -201,5 +239,7 @@ module.exports = {
     getNewPw,
     postNewPw,
     activeNewUser,
+    getSelector,
+    getAuthenticateByGoogle,
     logout
 }

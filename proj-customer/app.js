@@ -54,6 +54,23 @@ passportConfig();
 //use routes
 app.use('/', indexRouter);
 
+// chả biế sao để trong route bị lỗi nữa
+app.get("/auth/google",
+  passport.authenticate('google', {
+    scope: ["profile"]
+  })
+);
+
+app.get("/auth/google/ecommerce",
+  passport.authenticate('google', {
+    failureRedirect: "/login"
+  }),
+  function (req, res) {
+    // Successful authentication, redirect to secrets.
+    res.redirect("/");
+  });
+
+
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
   next(createError(404));

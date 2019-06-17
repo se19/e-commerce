@@ -57,7 +57,6 @@ const postChangePw = async (req, res, next) => {
         return res.redirect('/change-pw');
     }
 
-    let user = await User.findById(req.session.passport.user._id);
     User.findById(req.session.passport.user._id)
         .then(user => {
             if (!user) {
@@ -67,15 +66,20 @@ const postChangePw = async (req, res, next) => {
             } else {
                 bcrypt.compare(oldPw, user.password, function (err, response) {
                     if (response === true) {
-                        user.password = newPw;
-                        user.save().then(result => {
-                                //req.flash('success', 'Cập nhật thành công!');
-                                res.redirect('/user/change-pw');
-                            })
-                            .catch(err => {
-                                console.log(err);
-                                //req.flash('error', 'Lỗi!')
-                            });
+                        bcrypt.hash(newPw, 10, function (err, hash) {
+                            if (err) {
+                                return;
+                            }
+                            user.password = hash;
+                            user.save().then(result => {
+                                    //req.flash('success', 'Cập nhật thành công!');
+                                    res.redirect('/user/change-pw');
+                                })
+                                .catch(err => {
+                                    console.log(err);
+                                    //req.flash('error', 'Lỗi!')
+                                });
+                        })
                     } else {
                         //req.flash('error', 'Sai mật khẩu cũ!');
                         res.redirect('/user/change-pw');
