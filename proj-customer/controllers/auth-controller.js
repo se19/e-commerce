@@ -5,7 +5,7 @@ const bcrypt = require('bcrypt');
 const User = require('../models/user');
 
 // thay vì dùng tài khoản google + nodemailer thì dùng api_key, tương tự nhau
-sgMail.setApiKey('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');
+sgMail.setApiKey(process.env.API_KEY);
 
 const checkAuth = (req, res, next) => {
     if (req.isAuthenticated()) {
@@ -96,7 +96,7 @@ const submitRegister = async (req, res, next) => {
                 console.log('REGISTER USER');
                 const msg = {
                     to: user.email,
-                    from: 'conheobietbay110235465505@gmail.com',
+                    from: 'llkxjetli@gmail.com',
                     subject: 'Password reset',
                     html: `
             <p> Nhấn vào đường dẫn sau <a href="https://webshop-client.herokuapp.com/active/${token}"> link để kích hoạt tài khoản </a>.</p> `
@@ -162,7 +162,7 @@ const submitForgorPw = async (req, res, next) => {
             .then(result => {
                 const msg = {
                     to: req.body.email,
-                    from: 'conheobietbay110235465505@gmail.com',
+                    from: 'llkxjetli@gmail.com',
                     subject: 'Password reset',
                     html: `
             <p>Bạn yêu cầu đổi mật khẩu</p>
