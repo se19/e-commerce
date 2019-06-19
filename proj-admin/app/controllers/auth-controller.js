@@ -245,7 +245,7 @@ const update_profile = (req, res, next) => {
                     address: newUser.address,
                     imageUrl: newUser.imageUrl,
                     description: newUser.description,
-                    available: newUser.available,
+                    // available: newUser.available,
                     dateCreated: newUser.dateCreated
                 })
                 .then(result => {
