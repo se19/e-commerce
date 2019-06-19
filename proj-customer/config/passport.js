@@ -63,7 +63,7 @@ const passportConfig = () => {
 passport.use(new GoogleStrategy({
         clientID: "693368048261-8bjpidfh4437vpdf1aabrvltahco1d3a.apps.googleusercontent.com",
         clientSecret: "jIf0w4oUsQg8UyuJwMkOVO2X",
-        callbackURL: "https://webshop-client.herokuapp.com/auth/google/ecommerce",
+        callbackURL: "http://localhost:3000/auth/google/ecommerce",
         userProfileURL: "https://www.googleapis.com/oauth2/v3/userinfo"
     },
     function (accessToken, refreshToken, profile, cb) {

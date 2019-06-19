@@ -99,7 +99,7 @@ const submitRegister = async (req, res, next) => {
                     from: 'llkxjetli@gmail.com',
                     subject: 'Password reset',
                     html: `
-            <p> Nhấn vào đường dẫn sau <a href="https://webshop-client.herokuapp.com/active/${token}"> link để kích hoạt tài khoản </a>.</p> `
+            <p> Nhấn vào đường dẫn sau <a href="http://localhost:3000/active/${token}"> link để kích hoạt tài khoản </a>.</p> `
                 }
                 sgMail.send(msg);
                 console.log("Gửi mail kích hoat!!!!");
@@ -166,7 +166,7 @@ const submitForgorPw = async (req, res, next) => {
                     subject: 'Password reset',
                     html: `
             <p>Bạn yêu cầu đổi mật khẩu</p>
-            <p>Nhấn vào đường dẫn sau <a href="https://webshop-client.herokuapp.com/forgot/reset/${token}"> link </a> để đổi mật khẩu.</p>`
+            <p>Nhấn vào đường dẫn sau <a href="http://localhost:3000/forgot/reset/${token}"> link </a> để đổi mật khẩu.</p>`
                 }
                 sgMail.send(msg);
                 req.flash('error', "Một đường dẫn đã được gửi tới email của bạn");
