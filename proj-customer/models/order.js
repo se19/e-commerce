@@ -55,7 +55,7 @@ const orderSchema = new Schema({
     },
     email: {
       type: String,
-      required: true
+      // required: true
     },
     phone: {
       type: String,

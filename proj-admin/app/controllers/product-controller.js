@@ -388,7 +388,7 @@ const create_update_review = (req, res, next) => {
                     let newReview = new Rate();
                     newReview.name = reviewName;
                     newReview.phoneNumber = reviewPhoneNumber;
-                    newReview.message = reviewPhoneNumber;
+                    newReview.message = reviewMessage;
                     newReview.createdDate = new Date();
 
                     newReview.save()
