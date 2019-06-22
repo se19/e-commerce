@@ -97,7 +97,7 @@ const submitRegister = async (req, res, next) => {
                 const msg = {
                     to: user.email,
                     from: 'llkxjetli@gmail.com',
-                    subject: 'Password reset',
+                    subject: 'Kích hoạt tài khoản',
                     html: `
             <p> Nhấn vào đường dẫn sau <a href="http://localhost:3000/active/${token}"> link để kích hoạt tài khoản </a>.</p> `
                 }
